@@ -9,10 +9,11 @@ namespace CSB_Project.src.model
     {
 
         private readonly string _name;
-        private readonly double _dailyPrice;
-        private readonly ISet<IProperty> _properties;
+        private readonly double _basePrice;
+        private readonly 
+        private readonly ISet<Property> _properties;
 
-
+        
 
         public string Name
         {
@@ -30,6 +31,14 @@ namespace CSB_Project.src.model
             }
         }
 
+        public double BaseDailyPrice
+        {
+            get
+            {
+                return 
+            }
+        }
+
         public ICollection<Property> Properties
         {
             get
@@ -37,7 +46,6 @@ namespace CSB_Project.src.model
                 return _properties;
             }
         }
-
 
         /*
         public virtual void GetProperties(ref Dictionary<string, string> properties)
