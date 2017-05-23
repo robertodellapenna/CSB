@@ -12,8 +12,6 @@ namespace CSB_Project.src.model
         private readonly double _dailyPrice;
         private readonly ISet<IProperty> _properties;
 
-
-
         public string Name
         {
             get
@@ -50,7 +48,7 @@ namespace CSB_Project.src.model
         }
 
 
-        public string FindProperty(string property)
+        public string containProperty(string property)
         {
             return PropertyName == property ? PropertyValue : null;
         }

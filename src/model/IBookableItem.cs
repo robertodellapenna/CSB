@@ -8,7 +8,7 @@ namespace CSB_Project.src.model
     interface IBookableItem
     {
         string Name { get; }
-        ICollection<IProperty> Properties  { get; }
+        ICollection<Property> Properties  { get; }
         double DailyPrice { get; }
      
     }
