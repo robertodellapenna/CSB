@@ -7,8 +7,7 @@ namespace CSB_Project.src.model
 {
     class CategoryManager
     {
-        private readonly ISet<ICategory> _categories;
-
+        private readonly Dictionary<String,ICategory> _categories;
         private static CategoryManager _instance = new CategoryManager();
 
         private readonly RootCategory _root;
@@ -23,22 +22,24 @@ namespace CSB_Project.src.model
 
         private CategoryManager()
         {
-            _categories = new HashSet<ICategory>();
+            _categories = new Dictionary<string, ICategory>();
             // creo la radice
             _root = new RootCategory("ROOT");
-            _categories.Add(_root);
+            _categories.Add(_root.Name,_root);
         }
 
         public void Add(ICategory parent, string name)
         {
-            _categories.Add(new SubCategory(parent, name));
+            _categories.Add(name, new SubCategory(parent, name));
         }
 
         public void Remove(ICategory category)
         {
+            /*
             if (category is RootCategory)
                 throw new ArgumentException("Non puoi rimuovere la radice");
             _categories.Remove(category);
+            */
         }
 
         public ICategory Root
@@ -49,25 +50,13 @@ namespace CSB_Project.src.model
             }
         }
 
-        #region RootCategory Class
-        private class RootCategory : ICategory
+        #region CategoryTemplate
+        private abstract class CategoryTemplate : ICategory
         {
             private string _name;
+            private Dictionary<string, ICategory> _children;
 
-            public RootCategory(string name)
-            {
-                if (name == null || name.Trim().Length == 0)
-                    throw new ArgumentException("name is empty");
-                _name = name;
-            }
-
-            public ICategory Parent
-            {
-                get
-                {
-                    return this;
-                }
-            }
+            public abstract ICategory Parent { get; }
 
             public string Name
             {
@@ -77,25 +66,46 @@ namespace CSB_Project.src.model
                 }
             }
 
+            public virtual void AddChildren(ICategory child)
+            {
+                if (child == null)
+                    throw new ArgumentNullException("child null");
+                if (HasChild(child.Name))
+                    throw new ArgumentException("già presente");
+                _children.Add(child.Name, child);
+                
+            }
+
+            public ICollection<ICategory> Children()
+            {
+                return _children.Values;
+            }
+
+            public bool HasChild(string name)
+            {
+                return _children.ContainsKey(name);
+            }
         }
         #endregion
-        #region SubCategory Class
-        private class SubCategory : ICategory
+
+        #region RootCategory Class
+
+        private class RootCategory : CategoryTemplate
         {
-            private ICategory _parent;
-            private string _name;
-
-            public ICategory Parent => throw new NotImplementedException();
-
-            public string Name => throw new NotImplementedException();
-
-            public SubCategory(ICategory parent, string name)
+            public override ICategory Parent
             {
-                _parent = parent ?? throw new ArgumentNullException("parent null");
-                if (name == null || name.Trim().Length == 0)
-                    throw new ArgumentException("name is empty/whitespace or null");
-                _name = name;
+                get
+                {
+                    return this;
+                }
             }
+        }
+        #endregion
+
+        #region SubCategory Class
+        private class SubCategory : CategoryTemplate
+        {
+            
         }
     #endregion
 

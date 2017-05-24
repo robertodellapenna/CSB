@@ -9,5 +9,8 @@ namespace CSB_Project.src.model
     {
         ICategory Parent { get; }
         string Name { get; }
+        void AddChildren(ICategory child);
+        ICollection<ICategory> Children();
+        bool HasChild(string name);
     }
 }
