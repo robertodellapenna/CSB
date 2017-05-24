@@ -94,8 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\model\BookableItem.cs" />
-    <Compile Include="src\model\ICategory.cs" />
-    <Compile Include="src\model\CategoryManager.cs" />
+    <Compile Include="src\model\Category\CategoryFactory.cs" />
+    <Compile Include="src\model\Category\ICategory.cs" />
+    <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Category\ILeafCategory.cs" />
+    <Compile Include="src\model\Category\Category.cs" />
     <Compile Include="src\model\IBookableItem.cs" />
     <Compile Include="src\model\Property.cs" />
     <Compile Include="src\Program.cs" />
