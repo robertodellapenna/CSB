@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSP Project", "CSP Project.csproj", "{5A163669-C128-4908-8E48-C5CF8BD137B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSP Test", "CSP Test\CSP Test.csproj", "{C20FE722-CEAA-455E-A39F-53AA6974BA38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "CSP Test\test.csproj", "{C20FE722-CEAA-455E-A39F-53AA6974BA38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
