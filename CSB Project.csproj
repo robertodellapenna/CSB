@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -94,6 +93,11 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\model\BookableItem.cs" />
+    <Compile Include="src\model\ICategory.cs" />
+    <Compile Include="src\model\CategoryManager.cs" />
+    <Compile Include="src\model\IBookableItem.cs" />
+    <Compile Include="src\model\Property.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>
