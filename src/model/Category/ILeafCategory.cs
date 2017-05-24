@@ -8,7 +8,7 @@ namespace CSB_Project.src.model.Category
     /// <summary>
     /// Interfaccia marker per indicare che una categoria non può avere figli
     /// </summary>
-    interface ILeafCategory : ICategory
+    public interface ILeafCategory : ICategory
     {
 
       

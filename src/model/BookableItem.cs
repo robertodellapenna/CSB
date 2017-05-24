@@ -10,7 +10,7 @@ namespace CSB_Project.src.model
 
         private readonly string _name;
         private readonly double _basePrice;
-        private readonly 
+        private readonly double _dailyPrice;
         private readonly ISet<Property> _properties;
 
         
@@ -35,7 +35,7 @@ namespace CSB_Project.src.model
         {
             get
             {
-                return 
+                return _basePrice;
             }
         }
 

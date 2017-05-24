@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Category
 {
-    interface IGroupCategory : ICategory
+    public interface IGroupCategory : ICategory
     {
         /// <summary>
         /// Collezione dei figli della categoria

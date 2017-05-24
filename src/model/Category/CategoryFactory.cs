@@ -8,7 +8,7 @@ namespace CSB_Project.src.model.Category
     /// <summary>
     /// Factory per creare le categorie
     /// </summary>
-    static partial class CategoryFactory
+    public static partial class CategoryFactory
     {
         /// <summary>
         /// Crea una categoria contenitore

@@ -6,7 +6,7 @@ using System.Text;
 namespace CSB_Project.src.model.Category
 {
 
-    interface ICategory
+    public interface ICategory
     {
         /// <summary>
         /// Nome della categoria
@@ -17,6 +17,6 @@ namespace CSB_Project.src.model.Category
         /// </summary>
         IGroupCategory Parent { get; set; }
 
-        bool HasParent { get; }
+        bool HasParent();
     }
 }

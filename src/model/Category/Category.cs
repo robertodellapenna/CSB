@@ -24,9 +24,12 @@ namespace CSB_Project.src.model.Category
                 get => _parent;
                 set
                 {
+                    if (Parent == value)
+                        return;
                     if (Parent != null)
                         Parent.RemoveChild((ICategory)this);
                     _parent = value;
+                    _parent.Children.Add(this);
                 }
             }
 
@@ -38,7 +41,7 @@ namespace CSB_Project.src.model.Category
                 Parent = parent;
             }
 
-            public bool HasParent { get => Parent != null; }
+            public bool HasParent() => Parent != null; 
         }
         #endregion
 
@@ -58,9 +61,9 @@ namespace CSB_Project.src.model.Category
                 _children = new HashSet<ICategory>();
             }
 
-            public ICollection<ICategory> Children => throw new NotImplementedException();
+            public ICollection<ICategory> Children => _children;
 
-            public bool HasChild() => Children.Count == 0;
+            public bool HasChild() => Children.Count > 0;
 
             public bool HasChild(string name)
             {
@@ -87,7 +90,7 @@ namespace CSB_Project.src.model.Category
             {
                 if (child == null)
                     throw new ArgumentNullException("child null");
-                if (child.HasParent)
+                if (child.HasParent())
                     throw new Exception("child ha già un padre");
                 if (!_children.Contains(child))
                     throw new Exception("la collezione contiene già la categoria " + child.Name);
