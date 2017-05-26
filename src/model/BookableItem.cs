@@ -9,17 +9,14 @@ namespace CSB_Project.src.model
     {
 
         private readonly string _name;
-        private readonly double _basePrice;
-        private readonly 
-        private readonly ISet<Property> _properties;
+        private Dictionary<ICategory, Tuple<string, double>> _dictionary;
+        private readonly double _baseDailyPrice;
 
-        
-
-        public string Name
+        public double BaseDailyPrice
         {
             get
             {
-                return _name;
+                throw new NotImplementedException();
             }
         }
 
@@ -27,42 +24,32 @@ namespace CSB_Project.src.model
         {
             get
             {
-                return _dailyPrice;
+                throw new NotImplementedException();
             }
         }
 
-        public double BaseDailyPrice
+        public string Name
         {
             get
             {
-                return 
+                throw new NotImplementedException();
             }
         }
 
-        public ICollection<Property> Properties
+
+        public ICollection<ICategory> GetCategories()
         {
-            get
-            {
-                return _properties;
-            }
+            throw new NotImplementedException();
         }
 
-        /*
-        public virtual void GetProperties(ref Dictionary<string, string> properties)
+        public Tuple<string, double> GetValueCategory(ICategory category)
         {
-            if (properties == null)
-                throw new ArgumentNullException("Elemento Prenotabile - Properties Map null");
-            if (properties.ContainsKey(PropertyName))
-                throw new InvalidOperationException("Property alredy exists");
-            properties.Add(PropertyName, PropertyValue);
+            throw new NotImplementedException();
         }
 
-
-        public string FindProperty(string property)
+        public ICollection<Tuple<string, double>> GetValues()
         {
-            return PropertyName == property ? PropertyValue : null;
+            throw new NotImplementedException();
         }
-        */
-
     }
 }

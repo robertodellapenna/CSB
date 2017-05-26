@@ -5,7 +5,7 @@
         private string _name;
         private string _value;
         private double _price;
-
+    
         public Property(string name, string value, double price)
         {
             _name = name;

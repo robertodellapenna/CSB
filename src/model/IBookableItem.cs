@@ -8,7 +8,9 @@ namespace CSB_Project.src.model
     interface IBookableItem
     {
         string Name { get; }
-        ICollection<Property> Properties  { get; }
+        Tuple<string, double> GetValueCategory(ICategory category);
+        ICollection<Tuple<string, double>> GetValues();
+        ICollection<ICategory> GetCategories();
         double BaseDailyPrice { get; }
         double DailyPrice { get; }
     }
