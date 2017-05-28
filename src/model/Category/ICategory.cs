@@ -17,6 +17,6 @@ namespace CSB_Project.src.model.Category
         /// </summary>
         IGroupCategory Parent { get; set; }
 
-        bool HasParent();
+        bool HasParent { get; }
     }
 }

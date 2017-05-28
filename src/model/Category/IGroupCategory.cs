@@ -10,23 +10,23 @@ namespace CSB_Project.src.model.Category
         /// <summary>
         /// Collezione dei figli della categoria
         /// </summary>
-        ICollection<ICategory> Children { get; }
+        ICategory[] Children { get; }
         /// <summary>
         /// Verifica se la categoria ha figli
         /// </summary>
         /// <returns>true se ha dei figli altrimenti false</returns>
-        bool HasChild();
+        bool HasChild { get; }
         /// <summary>
         /// Verifica se tra i figli è presente una particolare categoria
         /// </summary>
         /// <param name="name">Nome della categoria</param>
         /// <returns>true se la categoria è presente tra i figli altrimenti false</returns>
-        bool HasChild(string name);
+        bool ContainsChild(string name);
         /// <summary>
         /// Verifica se la cateogria è la radice della gerarchia
         /// </summary>
         /// <returns>true se il parent è nullo altrimenti false</returns>
-        bool IsRoot();
+        bool IsRoot { get; }
         /// <summary>
         /// Rimuove il figlio dai Children
         /// </summary>

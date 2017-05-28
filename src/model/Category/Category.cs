@@ -24,12 +24,15 @@ namespace CSB_Project.src.model.Category
                 get => _parent;
                 set
                 {
+                    // Il parent che voglio impostare è uguale a quello attuale
                     if (Parent == value)
                         return;
+                    // Devo impostare un nuovo parent
                     if (Parent != null)
+                        // Rimuovo l'associazione che avevo precedentemente
                         Parent.RemoveChild((ICategory)this);
                     _parent = value;
-                    _parent.Children.Add(this);
+                    _parent.AddChild(this);
                 }
             }
 
@@ -41,39 +44,45 @@ namespace CSB_Project.src.model.Category
                 Parent = parent;
             }
 
-            public bool HasParent() => Parent != null; 
+            public bool HasParent => Parent != null; 
         }
         #endregion
 
         #region GroupCateogry class
         private class GroupCategory : CategoryTemplate, IGroupCategory
         {
-
-            private HashSet<ICategory> _children;
             /// <summary>
-            /// Categoria padre, se è una radice restituisce se stessi
+            /// Categorie figlie
             /// </summary>
-            public override IGroupCategory Parent { get => base.Parent; set => base.Parent = value; }
-
+            private HashSet<ICategory> _children;
+            
             public GroupCategory(string name) : this(name, null) { }
 
             public GroupCategory(string name, IGroupCategory parent) : base(name, parent){
                 _children = new HashSet<ICategory>();
             }
 
-            public ICollection<ICategory> Children => _children;
-
-            public bool HasChild() => Children.Count > 0;
-
-            public bool HasChild(string name)
+            public ICategory[] Children
             {
-                foreach (ICategory c in Children)
+                get
+                {
+                    ICategory[] array = new ICategory[_children.Count];
+                    _children.CopyTo(array);
+                    return array;
+                }
+            }
+
+            public bool HasChild => _children.Count > 0;
+
+            public bool ContainsChild(string name)
+            {
+                foreach (ICategory c in _children)
                     if (c.Name == name)
                         return true;
                 return false;
             } 
 
-            public bool IsRoot() => Parent == null;
+            public bool IsRoot => Parent == null;
 
             public void RemoveChild(ICategory child)
             {
@@ -83,26 +92,42 @@ namespace CSB_Project.src.model.Category
                     throw new Exception("la collezione non contiene la categoria " + child.Name);
                 _children.Remove(child);
                 child.Parent = null;
-                
             }
 
             public void AddChild(ICategory child)
             {
                 if (child == null)
                     throw new ArgumentNullException("child null");
-                if (child.HasParent())
+                if (child.HasParent && child.Parent != this)
                     throw new Exception("child ha già un padre");
-                if (!_children.Contains(child))
-                    throw new Exception("la collezione contiene già la categoria " + child.Name);
-                _children.Add(child);
-                child.Parent = this;
+                if (checkCycle(child, this))
+                    throw new Exception("Stai creando un ciclo");
+                if(!_children.Contains(child))
+                    _children.Add(child);
+                if(child.Parent == null)
+                    child.Parent = this;
+            }
+
+            private bool checkCycle(ICategory newChild, IGroupCategory newParent)
+            {
+                if (newChild == newParent)
+                    return true;
+                if (newParent.Parent == null)
+                    return false;
+                if (newParent.Parent.Name == newChild.Name)
+                    return true;
+                return checkCycle(newChild, newParent.Parent);
             }
 
             public override bool Equals(object obj)
             {
-                if (obj == null || ! (obj is IGroupCategory) )
+                if (obj == null || !(obj is IGroupCategory))
                     return false;
-                return Name == ((IGroupCategory)obj).Name;
+                IGroupCategory other = obj as IGroupCategory;
+
+                if (Name != other.Name || _children.Count != other.Children.Length)
+                    return false;
+                return Children.Equals(other.Children);
             }
 
             public override int GetHashCode()
@@ -119,6 +144,13 @@ namespace CSB_Project.src.model.Category
             public LeafCategory(string name) : this(name, null) { }
 
             public LeafCategory(String name, IGroupCategory parent) : base(name, parent) {
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj == null || ! (obj is ILeafCategory) )
+                    return false;
+                return Name == (obj as ILeafCategory).Name;
             }
         }
         #endregion
