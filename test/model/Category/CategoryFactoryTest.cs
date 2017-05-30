@@ -108,22 +108,36 @@ namespace test.model.Category
         {
             string rootName = "ROOT";
             string childName = "CHILD";
-            string leafName = "LEAF";
 
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
-            IGroupCategory child2 = CategoryFactory.CreateGroup(leafName, null);
             // Aggiunto figlio nullo
+            
             Assert.ThrowsException<ArgumentNullException>(() => root.AddChild(null));
-            // child è padre di root, e root vuole diventare figlio di child
+            
+            // child è figlio di root, e root vuole diventare figlio di child
             Assert.ThrowsException<Exception>(() => child.AddChild(root));
             // padre di me stesso
             Assert.ThrowsException<Exception>(() => root.AddChild(root));
             // padre di me stesso
             Assert.ThrowsException<Exception>(() => root.Parent = root);
+        }
+
+        [TestMethod]
+        public void TestParentAddChildWithErrorTree()
+        {
+            string rootName = "ROOT";
+            string childName = "CHILD";
+            string leafName = "LEAF";
+
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
+            IGroupCategory child2 = CategoryFactory.CreateGroup(leafName, null);
+            
             child2.Parent = child;
             Assert.ThrowsException<Exception>(() => child2.AddChild(root));
             Assert.ThrowsException<Exception>(() => root.Parent = child2);
+
         }
     }
 }
