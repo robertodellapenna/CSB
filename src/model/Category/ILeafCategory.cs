@@ -10,7 +10,5 @@ namespace CSB_Project.src.model.Category
     /// </summary>
     public interface ILeafCategory : ICategory
     {
-
-      
     }
 }

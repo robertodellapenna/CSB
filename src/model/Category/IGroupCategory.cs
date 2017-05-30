@@ -34,5 +34,6 @@ namespace CSB_Project.src.model.Category
         void RemoveChild(ICategory child);
 
         void AddChild(ICategory child);
+        
     }
 }

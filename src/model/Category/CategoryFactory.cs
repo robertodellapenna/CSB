@@ -31,5 +31,10 @@ namespace CSB_Project.src.model.Category
         {
             return new LeafCategory(name, parent);
         }
+
+        public static IGroupCategory CreateFromTree()
+        {
+            throw new NotImplementedException("Da implementare");
+        }
     }
 }

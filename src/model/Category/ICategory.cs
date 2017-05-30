@@ -18,5 +18,6 @@ namespace CSB_Project.src.model.Category
         IGroupCategory Parent { get; set; }
 
         bool HasParent { get; }
+        void Accept(ICategoryVisitor cat);
     }
 }
