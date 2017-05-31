@@ -30,18 +30,18 @@ namespace test.model.Category
         public void TestCreateLeaf()
         {
             string name = "LEAF";
-            ILeafCategory c = CategoryFactory.CreateLeaf(name, null);
+            ICategory c = CategoryFactory.CreateCategory(name, null);
             Assert.IsNotNull(c);
             Assert.AreEqual(name, c.Name);
-            Assert.IsTrue(c is ILeafCategory);
+            Assert.IsTrue(c is ICategory);
         }
 
         [TestMethod]
         public void TestCreateLeafWithError()
         {
-            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateLeaf("", null));
-            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateLeaf("   ", null));
-            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateLeaf(null, null));
+            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateCategory("", null));
+            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateCategory("   ", null));
+            Assert.ThrowsException<ArgumentException>(() => CategoryFactory.CreateCategory(null, null));
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace test.model.Category
             Assert.IsTrue(root.Children.Length == 1);
             Assert.IsTrue(root.Children[0] == child);
             Assert.IsTrue(child.Parent == root);
-            ILeafCategory leaf = CategoryFactory.CreateLeaf(leafName, null);
+            ICategory leaf = CategoryFactory.CreateCategory(leafName, null);
             leaf.Parent = child;
             Assert.IsTrue(child.Children.Length == 1);
             Assert.IsTrue(child.Children[0] == leaf);

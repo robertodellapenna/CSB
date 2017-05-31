@@ -24,14 +24,14 @@ namespace CSB_Project.src.model.Category
         /// <param name="name">Nome della categoria</param>
         /// <param name="parent">Padre della categoria, non può essere nullo</param>
         /// <returns>Restituisce un oggetto categoria che non può avere figli</returns>
-        public static ICategory CreateLeaf(String name, IGroupCategory parent) => new Category(name, parent);
+        public static ICategory CreateCategory(String name, IGroupCategory parent) => new Category(name, parent);
 
         /// <summary>
         /// Crea una classe contenitore con parent null, ha lo stesso comportamento
         /// di CreateGroup(name , null).
         /// </summary>
         /// <returns></returns>
-        public static IGroupCategory CreateRoot(String name) => new GroupCategory(name, null);
+        public static IGroupCategory CreateRoot(String name) => new GroupCategory(name);
 
         public static IGroupCategory CreateFromTree()
         {

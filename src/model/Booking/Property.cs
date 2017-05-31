@@ -1,4 +1,4 @@
-﻿namespace CSB_Project.src.model
+﻿namespace CSB_Project.src.model.Booking
 {
     public struct Property
     {
