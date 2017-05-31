@@ -6,7 +6,7 @@ using System.Text;
 namespace CSB_Project.src.model.Category
 {
     /// <summary>
-    /// Factory per creare le categorie
+    /// Factory per istanziare le classi Category
     /// </summary>
     public static partial class CategoryFactory
     {
@@ -16,10 +16,7 @@ namespace CSB_Project.src.model.Category
         /// <param name="name">Nome della categoria</param>
         /// <param name="parent">Cateogria padre o null se è una radice</param>
         /// <returns>Restituisce un oggetto categoria che può avere figli</returns>
-        public static IGroupCategory CreateGroup(String name, IGroupCategory parent)
-        {
-            return new GroupCategory(name, parent);
-        }
+        public static IGroupCategory CreateGroup(String name, IGroupCategory parent) => new GroupCategory(name, parent);
 
         /// <summary>
         /// Crea una cateogria che non può avere figli
@@ -27,10 +24,14 @@ namespace CSB_Project.src.model.Category
         /// <param name="name">Nome della categoria</param>
         /// <param name="parent">Padre della categoria, non può essere nullo</param>
         /// <returns>Restituisce un oggetto categoria che non può avere figli</returns>
-        public static ILeafCategory CreateLeaf(String name, IGroupCategory parent)
-        {
-            return new LeafCategory(name, parent);
-        }
+        public static ICategory CreateLeaf(String name, IGroupCategory parent) => new Category(name, parent);
+
+        /// <summary>
+        /// Crea una classe contenitore con parent null, ha lo stesso comportamento
+        /// di CreateGroup(name , null).
+        /// </summary>
+        /// <returns></returns>
+        public static IGroupCategory CreateRoot(String name) => new GroupCategory(name, null);
 
         public static IGroupCategory CreateFromTree()
         {
