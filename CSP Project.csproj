@@ -44,6 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="CSB Project.csproj" />
+    <Content Include="CSB Project.sln" />
+    <Content Include="CSB.csproj" />
+    <Content Include="CSB.sln" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".git\config" />

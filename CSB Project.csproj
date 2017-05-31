@@ -95,10 +95,8 @@
   <ItemGroup>
     <Compile Include="src\model\Booking\BookableItem.cs" />
     <Compile Include="src\model\Category\CategoryFactory.cs" />
-    <Compile Include="src\model\Category\CategoryTreeGenerator.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
-    <Compile Include="src\model\Category\ILeafCategory.cs" />
     <Compile Include="src\model\Category\Category.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />
     <Compile Include="src\model\Booking\Property.cs" />

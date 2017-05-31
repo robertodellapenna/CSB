@@ -46,6 +46,7 @@ namespace CSB_Project.src.model.Category
                 }
             }
             public bool HasParent => Parent != null;
+            public String Path => (Parent?.Path ?? "" ) + "\\" + Name; 
             #endregion
 
             #region Costruttori
@@ -57,7 +58,17 @@ namespace CSB_Project.src.model.Category
                 Parent = parent;
             }
             #endregion
-                      
+
+            #region Metodi
+            public override bool Equals(object obj)
+            {
+                if (obj == null || !(obj is ICategory))
+                    return false;
+                ICategory other = obj as ICategory;
+                return Path == other.Path;
+            }
+            #endregion
+
         }
         #endregion
 
@@ -161,9 +172,13 @@ namespace CSB_Project.src.model.Category
                     return false;
                 IGroupCategory other = obj as IGroupCategory;
 
-                if (Name != other.Name || _children.Count != other.Children.Length)
+                if (Path != other.Path || _children.Count != other.Children.Length)
                     return false;
-                return Children.Equals(other.Children);
+                for(int i=0; i<_children.Count; i++)
+                    if (!Children[i].Equals(other.Children[i]))
+                        return false;
+                // Tutti i figli sono uguali
+                return true;
             }
 
             public override int GetHashCode()

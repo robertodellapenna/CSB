@@ -75,10 +75,83 @@ namespace test.model.Category
         }
 
         [TestMethod]
-        public void TestEquals()
+        public void TestEqualsCategory()
         {
-            throw new NotImplementedException("Da fare");
+            string nameEq = "leaf";
+            string nameNeq = "leaf2";
+
+            ICategory c1 = CategoryFactory.CreateCategory(nameEq, null);
+
+            Assert.AreEqual(c1,c1);
+            
+            ICategory c2 = CategoryFactory.CreateCategory(nameEq, null);
+            Assert.AreEqual(c1, c2);
+            Assert.AreEqual(c2, c1);
+
+            ICategory c3 = CategoryFactory.CreateCategory(nameNeq, null);
+            IGroupCategory root = CategoryFactory.CreateRoot("ROOT");
+            ICategory c4 = CategoryFactory.CreateCategory(nameEq, root);
+            // Nome diverso
+            Assert.AreNotEqual(c1, c3);
+            Assert.AreNotEqual(c3, c1);
+            // padre diverso
+            Assert.AreNotEqual(c1, c4);
+            Assert.AreNotEqual(c4, c1);
+            Assert.AreNotEqual(c1, root);
+            Assert.AreNotEqual(root, c1);
+            Assert.AreNotEqual(c3, c4);
         }
+        
+        [TestMethod]
+        public void TestEqualsCategoryGroup()
+        {
+            string nameLeaf = "leaf";
+
+            string nameGEq = "group";
+            string nameGNEq = "group1";
+
+
+            ICategory l1 = CategoryFactory.CreateCategory(nameLeaf, null);
+            ICategory l2 = CategoryFactory.CreateCategory(nameLeaf, null);
+            IGroupCategory g1 = CategoryFactory.CreateRoot(nameGEq);
+            IGroupCategory gEqual = CategoryFactory.CreateRoot(nameGEq);
+            IGroupCategory gNEqual = CategoryFactory.CreateRoot(nameGNEq);
+            
+            Assert.AreEqual(g1,g1);
+            Assert.AreEqual(g1, gEqual);
+            Assert.AreNotEqual(g1, gNEqual);
+
+            //Aggiungo un figlio solo a g1
+            g1.AddChild(l1);
+            Assert.AreNotEqual(g1, gEqual);
+            //Aggiungo un figlio anche a gEqual
+            gEqual.AddChild(l2);
+            Assert.AreEqual(g1, gEqual);
+            //Cambio parent di g1 
+            g1.Parent = gNEqual;
+            Assert.AreNotEqual(g1, gEqual);
+            //Cambio parent di gEqual per farlo diventare uguale a g1
+            gEqual.Parent = gNEqual;
+            Assert.AreEqual(g1, gEqual);
+        }
+
+        [TestMethod]
+        public void TestPath()
+        {
+            string name = "leaf";
+            string root = "root";
+            string pathLeafName = "\\" + name;
+            string pathRootName = "\\" + root;
+            string completePath = "\\" + root + "\\" + name;
+            ICategory l1 = CategoryFactory.CreateCategory(name, null);
+            IGroupCategory rootC = CategoryFactory.CreateRoot(root);
+            Assert.IsTrue(l1.Path.CompareTo(pathLeafName) == 0);
+            Assert.IsTrue(rootC.Path.CompareTo(pathRootName) == 0);
+            l1.Parent = rootC;
+            Assert.IsTrue(l1.Path.CompareTo(completePath) == 0);
+
+        }
+
 
         [TestMethod]
         public void TestParentAddChild()
