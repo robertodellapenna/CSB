@@ -45,8 +45,7 @@ namespace CSB_Project.src.model.Category
             }
 
             public bool HasParent => Parent != null;
-
-            public abstract void Accept(ICategoryVisitor cat);
+            
         }
         #endregion
 
@@ -136,13 +135,7 @@ namespace CSB_Project.src.model.Category
             {
                 return Name.GetHashCode();
             }
-
-            public override void Accept(ICategoryVisitor visitor)
-            {
-                visitor.Visit(this);
-                foreach (ICategory cat in _children)
-                    cat.Accept(visitor);
-            }
+            
         }
         #endregion
 
@@ -153,12 +146,7 @@ namespace CSB_Project.src.model.Category
 
             public LeafCategory(String name, IGroupCategory parent) : base(name, parent) {
             }
-
-            public override void Accept(ICategoryVisitor cat)
-            {
-                cat.Visit(this);
-            }
-
+            
             public override bool Equals(object obj)
             {
                 if (obj == null || ! (obj is ILeafCategory) )

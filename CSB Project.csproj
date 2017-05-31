@@ -97,7 +97,6 @@
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\CategoryTreeGenerator.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
-    <Compile Include="src\model\Category\ICategoryVisitor.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
     <Compile Include="src\model\Category\ILeafCategory.cs" />
     <Compile Include="src\model\Category\Category.cs" />
