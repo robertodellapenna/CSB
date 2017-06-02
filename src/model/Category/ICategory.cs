@@ -20,5 +20,10 @@ namespace CSB_Project.src.model.Category
         bool HasParent { get; }
 
         string Path { get; }
+
+        /// <summary>
+        /// La gerarchia è cambiata
+        /// </summary>
+        event EventHandler Changed;
     }
 }

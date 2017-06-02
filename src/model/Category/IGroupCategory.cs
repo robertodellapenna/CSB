@@ -7,6 +7,9 @@ namespace CSB_Project.src.model.Category
 {
     public interface IGroupCategory : ICategory
     {
+        void RegistrationAt(ICategory child);
+        void DeregistrationFrom(ICategory child);
+
         /// <summary>
         /// Collezione dei figli della categoria
         /// </summary>

@@ -102,11 +102,35 @@ namespace test.model.Category
             Assert.AreNotEqual(c3, c4);
         }
         
+        /* DA ELIMINARE */
+        /*
+        [TestMethod]
+        public void TestChildren()
+        {
+            string rootName = "ROOT";
+            string childName = "CHILD";
+            string leafName = "LEAF";
+
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            Assert.AreEqual(0, root.Children.Length);
+
+            IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
+            Assert.AreEqual(1, root.Children.Length);
+
+            IGroupCategory leaf = CategoryFactory.CreateGroup(leafName, child);
+            Assert.AreEqual(1, root.Children.Length);
+            Assert.AreEqual(1, child.Children.Length);
+
+            child.RemoveChild(leaf);
+            Assert.AreEqual(1, root.Children.Length);
+            Assert.AreEqual(0, child.Children.Length);
+        }
+        */
+
         [TestMethod]
         public void TestEqualsCategoryGroup()
         {
             string nameLeaf = "leaf";
-
             string nameGEq = "group";
             string nameGNEq = "group1";
 
@@ -116,22 +140,27 @@ namespace test.model.Category
             IGroupCategory g1 = CategoryFactory.CreateRoot(nameGEq);
             IGroupCategory gEqual = CategoryFactory.CreateRoot(nameGEq);
             IGroupCategory gNEqual = CategoryFactory.CreateRoot(nameGNEq);
-            
+            // l1 | l2 | g1 | gEqual | gNEqual
             Assert.AreEqual(g1,g1);
             Assert.AreEqual(g1, gEqual);
             Assert.AreNotEqual(g1, gNEqual);
 
-            //Aggiungo un figlio solo a g1
+            // l2 | g1 -> l1 | gEqual | gNEqual
+            //g1 ha un figlio mentre gEqual no
             g1.AddChild(l1);
             Assert.AreNotEqual(g1, gEqual);
-            //Aggiungo un figlio anche a gEqual
+            // g1 -> l1 | gEqual -> l2| gNEqual
+            //(Confrontando i nomi e i path g1 e gEqual sono due gerarchie identifiche)
             gEqual.AddChild(l2);
             Assert.AreEqual(g1, gEqual);
-            //Cambio parent di g1 
+            // gNEqual -> g1 -> l1 | gEqual -> l2
+            // g1 ha un padre mentre l2 no, non sono due gerarchi identifiche
             g1.Parent = gNEqual;
             Assert.AreNotEqual(g1, gEqual);
-            //Cambio parent di gEqual per farlo diventare uguale a g1
-            gEqual.Parent = gNEqual;
+            // gNEqual -> g1 -> l1 | gRoot -> gEqual -> l2  
+            //(Confrontando i nomi e i path sono due gerarchie identifiche)
+            IGroupCategory gRoot = CategoryFactory.CreateRoot(nameGNEq);
+            gEqual.Parent = gRoot;
             Assert.AreEqual(g1, gEqual);
         }
 
@@ -154,46 +183,65 @@ namespace test.model.Category
 
 
         [TestMethod]
-        public void TestParentAddChild()
+        public void TestParentAddRemoveChild()
         {
             string rootName = "ROOT";
             string childName = "CHILD";
             string leafName = "LEAF";
 
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            // root -> child
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
-            Assert.IsTrue(root.Children.Length == 1);
-            Assert.IsTrue(root.Children[0] == child);
-            Assert.IsTrue(child.Parent == root);
+            Assert.AreEqual(1, root.Children.Length);
+            Assert.AreSame(child, root.Children[0]);
+            Assert.AreSame(root, child.Parent);
+            
             ICategory leaf = CategoryFactory.CreateCategory(leafName, null);
+            // root -> child -> leaf
             leaf.Parent = child;
-            Assert.IsTrue(child.Children.Length == 1);
-            Assert.IsTrue(child.Children[0] == leaf);
-            Assert.IsTrue(leaf.Parent == child);
-            child.AddChild(leaf);
-            Assert.IsTrue(child.Children.Length == 1);
-            Assert.IsTrue(child.Children[0] == leaf);
-            Assert.IsTrue(leaf.Parent == child);
+            Assert.AreEqual(1, child.Children.Length);
+            Assert.AreEqual(1, root.Children.Length);
+            Assert.AreSame(leaf, child.Children[0]);
+            Assert.AreSame(child, leaf.Parent);
+            
+            // root -> child    |  leaf
+            leaf.Parent = null;
+            Assert.AreEqual(0, child.Children.Length);
+            Assert.AreEqual(1, root.Children.Length);
+            // root     | child     | leaf
+            root.RemoveChild(child);
+            Assert.AreEqual(0, child.Children.Length);
+            Assert.AreEqual(0, root.Children.Length);
         }
 
         [TestMethod]
-        public void TestParentAddChildWithError()
+        public void TestParentAddRemoveChildWithError()
         {
             string rootName = "ROOT";
             string childName = "CHILD";
 
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
-            // Aggiunto figlio nullo
             
+            // Aggiunto figlio nullo
             Assert.ThrowsException<ArgumentNullException>(() => root.AddChild(null));
             
             // child è figlio di root, e root vuole diventare figlio di child
             Assert.ThrowsException<Exception>(() => child.AddChild(root));
+            
             // padre di me stesso
             Assert.ThrowsException<Exception>(() => root.AddChild(root));
+            
             // padre di me stesso
             Assert.ThrowsException<Exception>(() => root.Parent = root);
+
+            
+            // root-> ( child, child ) !! Errore figlio uguale
+            Assert.ThrowsException<Exception> ( () => root.AddChild(child) );
+            Assert.AreEqual(0, child.Children.Length);
+            Assert.AreEqual(1, root.Children.Length);
+            Assert.AreSame(child, root.Children[0]);
+            Assert.AreSame(root, child.Parent);
         }
 
         [TestMethod]
@@ -210,6 +258,60 @@ namespace test.model.Category
             child2.Parent = child;
             Assert.ThrowsException<Exception>(() => child2.AddChild(root));
             Assert.ThrowsException<Exception>(() => root.Parent = child2);
+
+        }
+
+        [TestMethod]
+        public void TestEvents()
+        {
+            string rootName = "ROOT";
+            string childName = "CHILD";
+            string leafName = "LEAF";
+            string newLeafName = "NEW LEAF";
+
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            IGroupCategory child = CategoryFactory.CreateGroup(childName, null);
+            IGroupCategory leaf = CategoryFactory.CreateGroup(leafName, null);
+
+            int rootCounter = 0, childCounter = 0, leafCounter = 0;
+
+            root.Changed += (obj, e) => rootCounter++;
+            child.Changed += (obj, e) => childCounter++;
+            leaf.Changed += (obj, e) => leafCounter++;
+
+            Assert.AreEqual(0, rootCounter);
+            Assert.AreEqual(0, childCounter);
+            Assert.AreEqual(0, leafCounter);
+
+            root.AddChild(child);
+
+            Assert.AreEqual(1, rootCounter);
+            Assert.AreEqual(1, childCounter);
+            Assert.AreEqual(0, leafCounter);
+
+            child.AddChild(leaf);
+
+            Assert.AreEqual(2, rootCounter);
+            Assert.AreEqual(2, childCounter);
+            Assert.AreEqual(1, leafCounter);
+
+            child.RemoveChild(leaf);
+            Assert.AreEqual(3, rootCounter);
+            Assert.AreEqual(3, childCounter);
+            Assert.AreEqual(2, leafCounter);
+
+
+            ICategory newLeaf = CategoryFactory.CreateCategory(newLeafName, null);
+
+            int newLeafCounter = 0;
+            newLeaf.Changed += (obj, e) => newLeafCounter++;
+
+            newLeaf.Parent = leaf;
+
+            Assert.AreEqual(3, rootCounter);
+            Assert.AreEqual(3, childCounter);
+            Assert.AreEqual(3, leafCounter);
+            Assert.AreEqual(1, newLeaf);
 
         }
     }
