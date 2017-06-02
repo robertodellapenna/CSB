@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CSB_Project.src.model.Category
 {
@@ -14,6 +15,7 @@ namespace CSB_Project.src.model.Category
         /// Classe per le categorie senza figli
         /// </summary>
         #region CategoryTemplate class
+        [DebuggerDisplay("N : {Path} - P : {Parent?.Path} - E : {Changed.GetInvocationList()}")]
         private class Category : ICategory
         {
             #region Campi
@@ -48,14 +50,17 @@ namespace CSB_Project.src.model.Category
                     {
                         // Rimuovo l'associazione che avevo precedentemente
                         oldParent.RemoveChild(this);
+                        oldParent.FireOnChanged();
+                        oldParent.DeregistrationFrom(this);
                     }
                     _parent = value;
                     // Provo ad aggiungermi alla collezione del nuovo padre
-                    if (value != null)
+                    if (value != null && !value.ContainsChild(Name))
                     {
                         try
                         {
                             value.AddChild(this);
+                            value.RegistrationAt(this);
                         }
                         catch (Exception e)
                         {
@@ -144,11 +149,13 @@ namespace CSB_Project.src.model.Category
                 get => base.Parent;
                 set
                 {
+                    /*
                     if (Parent != null && value != Parent)
                         Parent.DeregistrationFrom(this);
+                    */
                     base.Parent = value;
-                    if (Parent != null && value != Parent)
-                        Parent.RegistrationAt(this);
+                    /*if (Parent != null && value != Parent)
+                        Parent.RegistrationAt(this);*/
                 }
             }
             #endregion
@@ -198,9 +205,9 @@ namespace CSB_Project.src.model.Category
                     _children.Add(child);
                     throw new Exception("non sono riuscito a rimuovere il padre di child", e);
                 }
-                DeregistrationFrom(child);
+                //DeregistrationFrom(child);
                 //Notifico il cambiamento
-                OnChange(this, EventArgs.Empty);
+                //OnChange(this, EventArgs.Empty);
             }
 
             public void AddChild(ICategory child)
@@ -212,22 +219,22 @@ namespace CSB_Project.src.model.Category
                     throw new Exception("la collezione contine già questo figlio");
                 if (checkCycle(child, this))
                     throw new Exception("Stai creando un ciclo");
-                
                 #endregion
+                
                 // Lo aggiungo alla collezione interna
-                _children.Add(child);
                 try
                 {
                     child.Parent = this;
+                    _children.Add(child);
                 }
                 catch (Exception e)
                 {
                     _children.Remove(child);
                     throw new Exception("non sono riuscito ad associarmi come padre", e);
                 }
-                RegistrationAt(child);
-                OnChange(this, EventArgs.Empty);
-                
+                //RegistrationAt(child);
+
+                //OnChange(this, EventArgs.Empty);
             }
 
             /// <summary>
@@ -287,12 +294,10 @@ namespace CSB_Project.src.model.Category
             {
                 return Path.GetHashCode();
             }
-            #endregion
 
-            #region Handler
-            protected override void OnChange(Object sender, EventArgs e)
+            public void FireOnChanged()
             {
-                base.OnChange(sender, e);
+                OnChange(this, EventArgs.Empty);
             }
             #endregion
         }

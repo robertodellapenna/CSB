@@ -311,7 +311,7 @@ namespace test.model.Category
             Assert.AreEqual(3, rootCounter);
             Assert.AreEqual(3, childCounter);
             Assert.AreEqual(3, leafCounter);
-            Assert.AreEqual(1, newLeaf);
+            Assert.AreEqual(1, newLeafCounter);
 
         }
     }

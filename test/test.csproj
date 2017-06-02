@@ -55,12 +55,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CSP Project.csproj">
-      <Project>{5a163669-c128-4908-8e48-c5cf8bd137b8}</Project>
-      <Name>CSP Project</Name>
+    <ProjectReference Include="..\CSB Project.csproj">
+      <Project>{64cb65c6-d869-4621-91f5-2c42417d821c}</Project>
+      <Name>CSB Project</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
