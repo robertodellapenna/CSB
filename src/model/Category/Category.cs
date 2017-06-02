@@ -212,23 +212,7 @@ namespace CSB_Project.src.model.Category
                     throw new Exception("la collezione contine già questo figlio");
                 if (checkCycle(child, this))
                     throw new Exception("Stai creando un ciclo");
-                /*
-                if (child.Parent == this)
-                    // sono già suo padre
-                    return;
-                /*
-                /*
-                 * DA ELIMINARE
-                if (child.HasParent && child.Parent != this)
-                    throw new Exception("child ha già un padre");
-                */
-
-
-                /*
-                 * DA ELIMINARE
-                if (_children.Contains(child))
-                    return;
-                    */
+                
                 #endregion
                 // Lo aggiungo alla collezione interna
                 _children.Add(child);
@@ -243,14 +227,7 @@ namespace CSB_Project.src.model.Category
                 }
                 RegistrationAt(child);
                 OnChange(this, EventArgs.Empty);
-                /*
-                if (child.Parent == null)
-                {
-                    child.Parent = this;
-                    RegistrationAt(child);
-                    OnChange(this, EventArgs.Empty);
-                }
-                */
+                
             }
 
             /// <summary>
