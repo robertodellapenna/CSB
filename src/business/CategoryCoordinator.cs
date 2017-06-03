@@ -14,7 +14,6 @@ namespace CSP_Project.src.business
 
         #region Campi
         private IGroupCategory _root;
-        private readonly ICoordinator _next;
         #endregion
 
         #region Proprietà
