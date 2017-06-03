@@ -170,6 +170,7 @@
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Users\User.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>
