@@ -6,11 +6,10 @@ using System.Text;
 
 namespace CSP_Project.src.business
 {
-    class SimpleCoordinator : ICoordinator
+    class SimpleCoordinator : AbstractCoordinator
     {
 
         #region Eventi
-        public event EventHandler Changed;
         #endregion
 
         #region Campi
@@ -20,21 +19,10 @@ namespace CSP_Project.src.business
         #endregion
 
         #region Costruttori
-        public SimpleCoordinator()
-        {
-            init();
-        }
+        public SimpleCoordinator() : base() { }
         #endregion
 
         #region Metodi
-        private void init()
-        {
-        }
-
-        public void Reload()
-        {
-            init();
-        }
         #endregion
 
         #region Handler

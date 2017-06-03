@@ -1,49 +1,40 @@
-﻿using System;
+﻿using CSB_Project.src.model.Category;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace CSP_Project.src.business
 {
-    class CategoryCoordinator : ICoordinatorDecorator
+    public class CategoryCoordinator : AbstractCoordinatorDecorator
     {
 
         #region Eventi
-        public event EventHandler Changed;
         #endregion
 
         #region Campi
+        private IGroupCategory _root;
+        private readonly ICoordinator _next;
         #endregion
 
         #region Proprietà
-        public ICoordinator Coordinator => throw new NotImplementedException();
+        public IGroupCategory RootCategory => _root;
         #endregion
 
         #region Costruttori
-        public CategoryCoordinator()
+        public CategoryCoordinator(ICoordinator next) : base(next)
         {
-            init();
         }
         #endregion
 
         #region Metodi
-        private void init()
+        protected override void init()
         {
-        }
-
-        public void Reload()
-        {
-            init();
-        }
-
-        public bool ContainsCoordinator(Type type)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ICoordinator getCoordinatorOf(Type type)
-        {
-            throw new NotImplementedException();
+            /* Cerco un file di configurazione delle categorie nel fileSystem,
+             * se lo trovo carico le categorie contenute, altrimenti inizializzo
+             * una nuova categoria 
+             */
+            _root = CategoryFactory.CreateRoot("ROOT");
         }
         #endregion
 

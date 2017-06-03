@@ -5,10 +5,8 @@ using System.Text;
 
 namespace CSP_Project.src.business
 {
-    interface ICoordinatorDecorator : ICoordinator
+    public interface ICoordinatorDecorator : ICoordinator
     {
         ICoordinator Coordinator { get; }
-        bool ContainsCoordinator(Type type);
-        ICoordinator getCoordinatorOf(Type type);
     }
 }

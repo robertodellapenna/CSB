@@ -126,7 +126,7 @@ namespace CSB_Project.src.model.Category
             /// <summary>
             /// Sottocategorie
             /// </summary>
-            private HashSet<ICategory> _children = new HashSet<ICategory>();
+            private readonly HashSet<ICategory> _children = new HashSet<ICategory>();
             #endregion
 
             #region Proprietà

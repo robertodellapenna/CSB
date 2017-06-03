@@ -5,9 +5,11 @@ using System.Text;
 
 namespace CSP_Project.src.business
 {
-    interface ICoordinator
+    public interface ICoordinator
     {
         event EventHandler Changed;
         void Reload();
+        bool ContainsCoordinator(Type type);
+        ICoordinator GetCoordinatorOf(Type type);
     }
 }
