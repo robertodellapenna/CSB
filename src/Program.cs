@@ -1,4 +1,12 @@
-//Commento
-//Commento 2
-//Commento 3
-//Commento 4
+using System;
+
+namespace CSB_Project
+{
+    public class Program
+    {
+        public static void Main(String[] args)
+        {
+            Console.WriteLine("Hello");
+        }
+    }
+}

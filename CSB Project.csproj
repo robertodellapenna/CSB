@@ -94,17 +94,21 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\model\BookableItem.cs" />
-    <Compile Include="src\model\ICategory.cs" />
-    <Compile Include="src\model\CategoryManager.cs" />
-    <Compile Include="src\model\IBookableItem.cs" />
-    <Compile Include="src\model\Property.cs" />
+    <Compile Include="src\model\Booking\BookableItem.cs" />
+    <Compile Include="src\model\Category\CategoryFactory.cs" />
+    <Compile Include="src\model\Category\ICategory.cs" />
+    <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Category\Category.cs" />
+    <Compile Include="src\model\Booking\IBookableItem.cs" />
+    <Compile Include="src\model\Booking\Property.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
+    <Folder Include="src\model\Bundle\" />
+    <Folder Include="src\model\Service\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
