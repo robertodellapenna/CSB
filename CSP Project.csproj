@@ -158,6 +158,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\business\CategoryCoordinator.cs" />
+    <Compile Include="src\business\ICoordinator.cs" />
+    <Compile Include="src\business\ICoordinatorDecorator.cs" />
+    <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\model\Booking\BookableItem.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />
     <Compile Include="src\model\Booking\Property.cs" />
