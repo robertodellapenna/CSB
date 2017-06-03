@@ -29,10 +29,6 @@ namespace CSB_Project.src.model.Utils
         public DateRange(DateTime start, DateTime end)
         {
             #region Precondizioni
-            if (start == null)
-                throw new ArgumentNullException("start date null");
-            if (end == null)
-                throw new ArgumentNullException("end date null");
             if (end < start)
                 throw new ArgumentException("end < start");
             #endregion
@@ -64,7 +60,9 @@ namespace CSB_Project.src.model.Utils
         /// <param name="date"></param>
         /// <returns></returns>
         public bool Contains(DateTime date) => StartDate <= date.Date && date.Date <= EndDate;
-        public bool Contains(DateRange range) => StartDate <= range.StartDate && range.EndDate <= EndDate; 
+        public bool Contains(DateRange range) => StartDate <= range.StartDate && range.EndDate <= EndDate;
+        public bool OverlapWith(DateRange range) => Contains(range) || ( StartDate <= range.EndDate && EndDate >= range.EndDate )
+                                                     || ( StartDate <= range.StartDate && EndDate >= range.StartDate );
         #endregion
     }
 }
