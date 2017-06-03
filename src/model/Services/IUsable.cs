@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSP_Project.src.model.Users
+namespace CSB_Project.src.model.Services
 {
-    class User
+    interface IUsable
     {
+        double Price { get; }
+
     }
 }
