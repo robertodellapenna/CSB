@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CSP_Project.src.model.Users;
 
-namespace CSP_Project.src.model.Users
+namespace CSB_Project.src.model.Users
 {
     public class Staff : User
     {

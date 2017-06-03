@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CSP_Project.src.model.Users;
+using CSB_Project.src.model.Users;
 
-namespace test.model
+namespace test.model.Users
 {
     [TestClass]
     class StaffAndClientTest
