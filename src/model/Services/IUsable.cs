@@ -3,11 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSB_Project.src.model.Services
+namespace CSP_Project.src.model.Users
 {
-    interface IUsable
+    public abstract class User
     {
-        double Price { get; }
+        #region Campi
+        private readonly string _firstName;
+        private readonly string _lastName;
+        private string _username;
+        private string _password;
+        #endregion
+
+        #region Costruttori
+        /// <summary>
+        /// costruttore classe use
+        /// </summary>r
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public User(string firstName, string lastName, string username, string password)
+        {
+            if (firstName == null || firstName.Trim().Length == 0)
+                throw new ArgumentException("firstName null or empty");
+            _firstName = firstName;
+            if (lastName == null || lastName.Trim().Length == 0)
+                throw new ArgumentException("lastName null or empty");
+            _lastName = lastName;
+            if (username == null || username.Trim().Length == 0)
+                throw new ArgumentException("username null or empty");
+            _username = username;
+            if (password == null || password.Trim().Length == 0)
+                throw new ArgumentException("password null or empty");
+            _password = password;
+        }
+        #endregion
+        #region Proprieta
+        public string FirstName { get => _firstName; }
+        public string LastName { get => _lastName; }
+        public string Username { get => _username; set => _username = value; }
+        public string Password { get => _password; set => _password = value; }
+        #endregion
 
     }
 }
