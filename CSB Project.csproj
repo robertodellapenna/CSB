@@ -199,10 +199,16 @@
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Prenotation\ItemPrenotation.cs" />
+    <Compile Include="src\model\Prenotation\Prenotation.cs" />
     <Compile Include="src\model\Services\BasicService.cs" />
     <Compile Include="src\model\Services\IUsable.cs" />
+    <Compile Include="src\model\TrackingDevice\Card.cs" />
+    <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
+    <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
+    <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />
     <Compile Include="src\model\Users\Client.cs" />
-    <Compile Include="src\model\Users\Levels.cs" />
+    <Compile Include="src\model\Utils\Levels.cs" />
     <Compile Include="src\model\Users\Staff.cs" />
     <Compile Include="src\model\Users\User.cs" />
     <Compile Include="src\model\Utils\DateRange.cs" />
