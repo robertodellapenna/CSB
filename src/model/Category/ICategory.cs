@@ -22,6 +22,13 @@ namespace CSB_Project.src.model.Category
         string Path { get; }
 
         /// <summary>
+        /// Verifica se la categoria è contenuta in superParent
+        /// </summary>
+        /// <param name="superParent">cateogria che deve contenere l'oggetto su cui si invoca il metodo</param>
+        /// <returns>True se superParent contiene l'oggetto</returns>
+        bool IsInside(IGroupCategory superParent);
+
+        /// <summary>
         /// La gerarchia è cambiata
         /// </summary>
         event EventHandler Changed;

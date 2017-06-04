@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -82,7 +83,7 @@ namespace CSB_Project.src.model.Category
             #region Costruttori
             public Category(String name, IGroupCategory parent)
             {
-                if (name == null || name.Trim().Length == 0)
+                if (String.IsNullOrWhiteSpace(name))
                     throw new ArgumentException("name null, only blank or empty");
                 _name = name;
                 Parent = parent;
@@ -101,6 +102,15 @@ namespace CSB_Project.src.model.Category
             public override int GetHashCode()
             {
                 return Path.GetHashCode();
+            }
+
+            public bool IsInside(IGroupCategory superParent)
+            {
+                if (this == superParent)
+                    return false;
+                if (Parent != null && Parent == superParent)
+                    return true;
+                return Parent?.IsInside(superParent) ?? false;
             }
             #endregion
 
@@ -175,13 +185,36 @@ namespace CSB_Project.src.model.Category
             /// </summary>
             /// <param name="name">Nome della categoria da cercare</param>
             /// <returns>True se ha trovato la categoria altrimenti false</returns>
-            public bool ContainsChild(string name)
+            public bool ContainsChild(string name, bool deep)
             {
+                #region Precondizioni
+                if (String.IsNullOrWhiteSpace(name))
+                    throw new ArgumentException("name null o vuoto");
+                #endregion
                 foreach (ICategory c in _children)
                     if (c.Name == name)
                         return true;
+                if (!deep)
+                    // Non devo cercare nei figli dei miei figli
+                    return false;
+                foreach(IGroupCategory group in _children.OfType<IGroupCategory>())
+                    if (group.ContainsChild(name, true))
+                        return true;
+                // Non ho trovato una categoria comptabile nei figli dei miei figli
                 return false;
             }
+
+            public bool ContainsChild(ICategory child, bool deep)
+            {
+                #region Precondizioni
+                if (child == null)
+                    throw new ArgumentNullException("child null");
+                #endregion
+                if (deep)
+                    return child.IsInside(this);
+                return _children.Contains(child);
+            }
+
             /// <summary>
             /// Rimuove la categoria indicata, non verifica la presenza di figli in child
             /// </summary>

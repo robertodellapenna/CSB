@@ -24,7 +24,8 @@ namespace CSB_Project.src.model.Category
         /// </summary>
         /// <param name="name">Nome della categoria</param>
         /// <returns>true se la categoria è presente tra i figli altrimenti false</returns>
-        bool ContainsChild(string name);
+        bool ContainsChild(string name, bool deep = false);
+        bool ContainsChild(ICategory child, bool deep = false);
         /// <summary>
         /// Verifica se la cateogria è la radice della gerarchia
         /// </summary>

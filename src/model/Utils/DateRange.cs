@@ -23,6 +23,7 @@ namespace CSB_Project.src.model.Utils
         #region Proprietà
         public DateTime StartDate => _start;
         public DateTime EndDate => _end;
+        public int Days => (StartDate - EndDate).Days;
         #endregion
 
         #region Costruttori
