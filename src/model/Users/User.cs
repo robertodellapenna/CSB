@@ -44,6 +44,12 @@ namespace CSB_Project.src.model.Users
         public string Username { get => _username; set => _username = value; }
         public string Password { get => _password; set => _password = value; }
         #endregion
+        #region Metodi
+        public virtual string ToString()
+        {
+            return (_firstName + " " + _lastName + " " + _username + " " + _password);
+        }
+        #endregion
 
     }
 }
