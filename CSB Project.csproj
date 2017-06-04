@@ -186,8 +186,10 @@
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\model\Booking\BathHouse_BaseItem.cs" />
+    <Compile Include="src\model\Booking\BathHouse_PluginItem.cs" />
     <Compile Include="src\model\Booking\IBaseItem.cs" />
     <Compile Include="src\model\Booking\ICategoryItem.cs" />
+    <Compile Include="src\model\Booking\IPluginItem.cs" />
     <Compile Include="src\model\Category\Category.cs" />
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
