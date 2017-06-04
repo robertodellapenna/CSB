@@ -7,14 +7,22 @@ namespace test.model.Category
     [TestClass]
     public class CategoryFactoryTest
     {
-        
+        private string rootName, childName, leafName, newLeafName;
+
+        public CategoryFactoryTest()
+        {
+            rootName = "ROOT";
+            childName = "CHILD";
+            leafName = "LEAF";
+            newLeafName = "NEW_LEAF";
+        }
+
         [TestMethod]
         public void TestCreateGroup()
         {
-            string name = "ROOT";
-            IGroupCategory c = CategoryFactory.CreateGroup(name, null);
+            IGroupCategory c = CategoryFactory.CreateGroup(rootName, null);
             Assert.IsNotNull(c);
-            Assert.AreEqual(name, c.Name);
+            Assert.AreEqual(rootName, c.Name);
             Assert.IsTrue(c is IGroupCategory);
         }
 
@@ -29,10 +37,9 @@ namespace test.model.Category
         [TestMethod]
         public void TestCreateLeaf()
         {
-            string name = "LEAF";
-            ICategory c = CategoryFactory.CreateCategory(name, null);
+            ICategory c = CategoryFactory.CreateCategory(leafName, null);
             Assert.IsNotNull(c);
-            Assert.AreEqual(name, c.Name);
+            Assert.AreEqual(leafName, c.Name);
             Assert.IsTrue(c is ICategory);
         }
 
@@ -47,14 +54,11 @@ namespace test.model.Category
         [TestMethod]
         public void TestIsRoot()
         {
-            string name = "ROOT";
-            string name2 = "CHILD";
-
-            IGroupCategory c = CategoryFactory.CreateGroup(name, null);
+            IGroupCategory c = CategoryFactory.CreateGroup(rootName, null);
             Assert.IsNotNull(c);
             Assert.IsTrue(c.IsRoot);
 
-            IGroupCategory c2 = CategoryFactory.CreateGroup(name2, c);
+            IGroupCategory c2 = CategoryFactory.CreateGroup(childName, c);
             Assert.IsNotNull(c2);
             Assert.IsFalse(c2.IsRoot);
         }
@@ -62,13 +66,11 @@ namespace test.model.Category
         [TestMethod]
         public void TestHasChild()
         {
-            string name = "ROOT";
-            string name2 = "CHILD";
-            IGroupCategory c = CategoryFactory.CreateGroup(name, null);
+            IGroupCategory c = CategoryFactory.CreateGroup(rootName, null);
             Assert.IsNotNull(c);
             Assert.IsFalse(c.HasChild);
 
-            IGroupCategory c2 = CategoryFactory.CreateGroup(name2, c);
+            IGroupCategory c2 = CategoryFactory.CreateGroup(childName, c);
             Assert.IsNotNull(c2);
             Assert.IsTrue(c.HasChild);
             Assert.IsFalse(c2.HasChild);
@@ -101,42 +103,15 @@ namespace test.model.Category
             Assert.AreNotEqual(root, c1);
             Assert.AreNotEqual(c3, c4);
         }
-        
-        /* DA ELIMINARE */
-        /*
-        [TestMethod]
-        public void TestChildren()
-        {
-            string rootName = "ROOT";
-            string childName = "CHILD";
-            string leafName = "LEAF";
-
-            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
-            Assert.AreEqual(0, root.Children.Length);
-
-            IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
-            Assert.AreEqual(1, root.Children.Length);
-
-            IGroupCategory leaf = CategoryFactory.CreateGroup(leafName, child);
-            Assert.AreEqual(1, root.Children.Length);
-            Assert.AreEqual(1, child.Children.Length);
-
-            child.RemoveChild(leaf);
-            Assert.AreEqual(1, root.Children.Length);
-            Assert.AreEqual(0, child.Children.Length);
-        }
-        */
 
         [TestMethod]
         public void TestEqualsCategoryGroup()
         {
-            string nameLeaf = "leaf";
             string nameGEq = "group";
             string nameGNEq = "group1";
 
-
-            ICategory l1 = CategoryFactory.CreateCategory(nameLeaf, null);
-            ICategory l2 = CategoryFactory.CreateCategory(nameLeaf, null);
+            ICategory l1 = CategoryFactory.CreateCategory(leafName, null);
+            ICategory l2 = CategoryFactory.CreateCategory(leafName, null);
             IGroupCategory g1 = CategoryFactory.CreateRoot(nameGEq);
             IGroupCategory gEqual = CategoryFactory.CreateRoot(nameGEq);
             IGroupCategory gNEqual = CategoryFactory.CreateRoot(nameGNEq);
@@ -167,13 +142,11 @@ namespace test.model.Category
         [TestMethod]
         public void TestPath()
         {
-            string name = "leaf";
-            string root = "root";
-            string pathLeafName = "\\" + name;
-            string pathRootName = "\\" + root;
-            string completePath = "\\" + root + "\\" + name;
-            ICategory l1 = CategoryFactory.CreateCategory(name, null);
-            IGroupCategory rootC = CategoryFactory.CreateRoot(root);
+            string pathLeafName = "\\" + leafName;
+            string pathRootName = "\\" + rootName;
+            string completePath = "\\" + rootName + "\\" + leafName;
+            ICategory l1 = CategoryFactory.CreateCategory(leafName, null);
+            IGroupCategory rootC = CategoryFactory.CreateRoot(rootName);
             Assert.IsTrue(l1.Path.CompareTo(pathLeafName) == 0);
             Assert.IsTrue(rootC.Path.CompareTo(pathRootName) == 0);
             l1.Parent = rootC;
@@ -185,10 +158,6 @@ namespace test.model.Category
         [TestMethod]
         public void TestParentAddRemoveChild()
         {
-            string rootName = "ROOT";
-            string childName = "CHILD";
-            string leafName = "LEAF";
-
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             // root -> child
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
@@ -217,9 +186,6 @@ namespace test.model.Category
         [TestMethod]
         public void TestParentAddRemoveChildWithError()
         {
-            string rootName = "ROOT";
-            string childName = "CHILD";
-
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
             
@@ -247,10 +213,6 @@ namespace test.model.Category
         [TestMethod]
         public void TestParentAddChildWithErrorTree()
         {
-            string rootName = "ROOT";
-            string childName = "CHILD";
-            string leafName = "LEAF";
-
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
             IGroupCategory child2 = CategoryFactory.CreateGroup(leafName, null);
@@ -264,11 +226,6 @@ namespace test.model.Category
         [TestMethod]
         public void TestEvents()
         {
-            string rootName = "ROOT";
-            string childName = "CHILD";
-            string leafName = "LEAF";
-            string newLeafName = "NEW LEAF";
-
             IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
             IGroupCategory child = CategoryFactory.CreateGroup(childName, null);
             IGroupCategory leaf = CategoryFactory.CreateGroup(leafName, null);
@@ -313,6 +270,62 @@ namespace test.model.Category
             Assert.AreEqual(3, leafCounter);
             Assert.AreEqual(1, newLeafCounter);
 
+        }
+
+        [TestMethod]
+        public void TestIsInside()
+        {
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
+            ICategory leaf = CategoryFactory.CreateCategory(leafName, child);
+            ICategory newLeaf = CategoryFactory.CreateCategory(newLeafName, root);
+
+            Assert.IsTrue(leaf.IsInside(child));
+            Assert.IsTrue(leaf.IsInside(root));
+            Assert.IsTrue(child.IsInside(root));
+            Assert.IsTrue(newLeaf.IsInside(root));
+            Assert.IsFalse(newLeaf.IsInside(child));
+            Assert.IsFalse(root.IsInside(root));
+            Assert.IsFalse(child.IsInside(null));
+        }
+
+        [TestMethod]
+        public void TestContains()
+        {
+            // root -> ( child -> leaf, newLeaf )
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            IGroupCategory child = CategoryFactory.CreateGroup(childName, root);
+            ICategory leaf = CategoryFactory.CreateCategory(leafName, child);
+            ICategory newLeaf = CategoryFactory.CreateCategory(newLeafName, root);
+
+            /* Contains by name */
+            Assert.IsTrue(root.ContainsChild(newLeaf));
+            Assert.IsTrue(root.ContainsChild(childName));
+            Assert.IsFalse(root.ContainsChild(leafName));
+            Assert.IsTrue(root.ContainsChild(leafName, deep: true));
+            Assert.IsTrue(child.ContainsChild(leafName, deep: true));
+            Assert.IsTrue(child.ContainsChild(leafName, deep: false));
+            Assert.IsFalse(child.ContainsChild(newLeafName, deep: true));
+            Assert.IsFalse(child.ContainsChild(newLeafName, deep: false));
+            /* Contains by obj */
+            Assert.IsTrue(root.ContainsChild(child));
+            Assert.IsTrue(root.ContainsChild(newLeaf));
+            Assert.IsTrue(root.ContainsChild(leaf, deep: true));
+            Assert.IsFalse(root.ContainsChild(leaf));
+            Assert.IsTrue(child.ContainsChild(leaf));
+            Assert.IsFalse(child.ContainsChild(newLeaf));
+            Assert.IsFalse(child.ContainsChild(newLeaf, deep: true));
+            Assert.IsFalse(root.ContainsChild(root));
+        }
+
+        [TestMethod]
+        public void TestContainsWithError()
+        {
+            IGroupCategory root = CategoryFactory.CreateGroup(rootName, null);
+            Assert.ThrowsException<ArgumentException>(() => root.ContainsChild(""));
+            Assert.ThrowsException<ArgumentException>(() => root.ContainsChild("  "));
+            Assert.ThrowsException<ArgumentException>(() => root.ContainsChild((string) null));
+            Assert.ThrowsException<ArgumentNullException>(() => root.ContainsChild((ICategory)null));
         }
     }
 }
