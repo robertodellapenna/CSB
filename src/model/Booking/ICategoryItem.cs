@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CSP_Project.src.model.Booking
 {
-    interface ICategoryBaseItem : IBaseItem
+    interface ICategoryItem 
     {
         /// <summary>
         /// Dizionario che tiene conto, per ogni categoria,  del valore, inteso come descrizione e prezzo, ad essa
@@ -38,11 +38,5 @@ namespace CSP_Project.src.model.Booking
         /// <param name="category">Nome della categoria</param>
         /// <returns>Il valore ed il prezzo percentuale associato alla categoria</returns>
         Tuple<string, double> getValueOfCategory(ICategory category);
-        /// <summary>
-        /// Prezzo dell'item complessivo calcolato su quello base tenendo conto dei prezzi di ogni categoria 
-        /// alla quale l'Item associa un valore
-        /// </summary>
-        /// <returns>Prezzo complessivo</returns>
-        double getDailyPrice();
     }
 }

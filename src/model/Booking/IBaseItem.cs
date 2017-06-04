@@ -13,8 +13,9 @@ namespace CSB_Project.src.model.Booking
         /// </summary>
         string Name { get; }
         /// <summary>
-        /// Prezzo base dell'Item
+        /// Prezzo giornaliero dell'item
         /// </summary>
-        double BaseDailyPrice { get; }
+        /// <returns>prezzo</returns>
+        double getDailyPrice();
     }
 }

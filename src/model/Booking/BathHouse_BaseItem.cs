@@ -7,7 +7,7 @@ using CSP_Project.src.model.Booking;
 
 namespace CSB_Project.src.model.Booking
 {
-    class BathHouse_BaseItem : ICategoryBaseItem
+    class BathHouse_BaseItem : ICategoryItem, IBaseItem
     {
 
         #region Eventi
@@ -123,9 +123,9 @@ namespace CSB_Project.src.model.Booking
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is ICategoryBaseItem))
+            if (obj == null || !(obj is ICategoryItem))
                 return false;
-            ICategoryBaseItem other = obj as ICategoryBaseItem;
+            BathHouse_BaseItem other = obj as BathHouse_BaseItem;
 
             if (Name != other.Name || BaseDailyPrice != other.BaseDailyPrice)
                 return false;
