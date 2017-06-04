@@ -13,22 +13,18 @@ namespace CSB_Project.src.model.Booking
         #endregion
 
         #region Campi
-        /// <summary>
-        /// mantiene il riferimento ai IBaseItem compatibili in un campo privato, non specificato nell'interfaccia
-        /// </summary>
-        private readonly List<IBaseItem> _compatibleItems;
-
         #endregion
 
         #region Proprietà
-
-        internal List<IBaseItem> CompatibleItems => _compatibleItems;
-
+        private readonly Compatibilities _compatibilities;
         #endregion
 
         #region Costruttori
 
-        public BathHouse_PluginItem(string name, double baseDailyPrice) : base(name, baseDailyPrice){}
+        public BathHouse_PluginItem(string name, double baseDailyPrice) : base(name, baseDailyPrice)
+        {
+            _compatibilities = Compatibilities.Instance;
+        }
 
         #endregion
 
@@ -41,10 +37,12 @@ namespace CSB_Project.src.model.Booking
             //un plugin item non può essere associato ad un plugin item
             if (baseItem is IPluginItem)
                 throw new ArgumentException("baseItem is a PluginItem");
-            return _compatibleItems.Contains(baseItem);
+            return _compatibilities.CheckCompatibility(baseItem, this);
         }
 
-        public IEnumerable<IBaseItem> getCompatibleItems() => CompatibleItems;
+        public IEnumerable<IBaseItem> getCompatibleItems() => _compatibilities.GetAllCompatibleBaseItems(this);
+
+
         #endregion
 
         #region Handler

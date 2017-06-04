@@ -24,10 +24,7 @@ namespace CSB_Project.src.model.Booking
 
         public string Name => _name; 
 
-        public double BaseDailyPrice => _baseDailyPrice;
-
-        public Dictionary<ICategory, Tuple<string, double>> CategoryDictionary => _categoryDictionary; 
-
+        public double BaseDailyPrice => _baseDailyPrice; 
 
         #endregion
 
@@ -45,25 +42,27 @@ namespace CSB_Project.src.model.Booking
 
         #region Metodi
 
-        private ICollection<ICategory> GetCategories() => CategoryDictionary.Keys;
+        private ICollection<ICategory> GetCategories() => _categoryDictionary.Keys;
 
-        private ICollection<Tuple<string, double>> GetValues() => CategoryDictionary.Values;
+        private ICollection<Tuple<string, double>> GetValues() => _categoryDictionary.Values;
 
-        public bool HasCategory(ICategory category)
+        public bool ContainsCategory(ICategory category)
         {
             if (category == null)
                 throw new ArgumentException("catetory null");
-            //foreach(ICategory c in GetCategories){
-            //    if (c.IsSubCategoryOf(category)) return true;
-            //}
-            return HasStrictCategory(category);
+            if (!(category is IGroupCategory)) return ContainsStrictCategory(category);
+            else foreach (ICategory c in GetCategories())
+            {
+                if ( c.Equals(category) || c.IsInside(category as IGroupCategory)) return true;
+            }
+            return false;
         }
 
-        public bool HasStrictCategory(ICategory category)
+        public bool ContainsStrictCategory(ICategory category)
         {
             if(category==null)
                 throw new ArgumentException("catetory null");
-            return CategoryDictionary.ContainsKey(category);
+            return _categoryDictionary.ContainsKey(category);
         }
 
         public void AddCategory(ICategory category, string valueDescription, double pricePercentual)
@@ -74,39 +73,39 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("value description null, only blank or empty");
             if (pricePercentual <= 0)
                 throw new ArgumentException("negative or zero price percentual");
-            if (HasStrictCategory(category)) ModifyCategory(category, valueDescription, pricePercentual);
-            else CategoryDictionary.Add(category, new Tuple<string, double>(valueDescription, pricePercentual));
+            if (ContainsStrictCategory(category)) ModifyCategory(category, valueDescription, pricePercentual);
+            else _categoryDictionary.Add(category, new Tuple<string, double>(valueDescription, pricePercentual));
         }
 
         public void ModifyCategory(ICategory category, string valueDescription, double pricePercentual)
         {
             if (category == null)
                 throw new ArgumentException("catetory null");
-            if(!HasStrictCategory(category))
+            if(!ContainsStrictCategory(category))
                 throw new ArgumentException("category not present in the dictionary");
             if (valueDescription == null || valueDescription.Trim().Length == 0)
                 throw new ArgumentException("value description null, only blank or empty");
             if (pricePercentual <= 0)
                 throw new ArgumentException("negative or zero price percentual");
-            CategoryDictionary[category] = new Tuple<string, double>(valueDescription, pricePercentual);
+            _categoryDictionary[category] = new Tuple<string, double>(valueDescription, pricePercentual);
         }
 
         public void RemoveCategory(ICategory category)
         {
             if (category == null)
                 throw new ArgumentException("catetory null");
-            if (!HasStrictCategory(category))
+            if (!ContainsStrictCategory(category))
                 throw new ArgumentException("category not present in the dictionary");
-            CategoryDictionary.Remove(category);
+            _categoryDictionary.Remove(category);
         }
 
         public Tuple<string, double> getValueOfCategory(ICategory category)
         {
             if(category==null)
                 throw new ArgumentException("category null");
-            if (!CategoryDictionary.ContainsKey(category))
+            if (!_categoryDictionary.ContainsKey(category))
                 throw new ArgumentException("category not present in the dictionary");
-            return CategoryDictionary[category];
+            return _categoryDictionary[category];
         }
         /// <summary>
         /// Calcola il prezzo giornaliero moltiplicando il daily price per l'apporto  
@@ -130,7 +129,7 @@ namespace CSB_Project.src.model.Booking
             if (Name != other.Name || BaseDailyPrice != other.BaseDailyPrice)
                 return false;
 
-            return (CategoryDictionary.Count == other.CategoryDictionary.Count && !CategoryDictionary.Except(other.CategoryDictionary).Any());
+            return (_categoryDictionary.Count == other._categoryDictionary.Count && !_categoryDictionary.Except(other._categoryDictionary).Any());
         }
 
         #endregion

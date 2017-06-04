@@ -10,18 +10,13 @@ namespace CSP_Project.src.model.Booking
     interface ICategoryItem 
     {
         /// <summary>
-        /// Dizionario che tiene conto, per ogni categoria,  del valore, inteso come descrizione e prezzo, ad essa
-        /// associato
-        /// </summary>
-        Dictionary<ICategory, Tuple<string, double>> CategoryDictionary { get; }
-        /// <summary>
         /// Controlla se all'Item è associata una categoria o una sua sotto-categoria
         /// </summary>
-        bool HasCategory(ICategory category);
+        bool ContainsCategory(ICategory category);
         /// <summary>
         /// Controlla se all'Item è associata una precisa categoria
         /// </summary>
-        bool HasStrictCategory(ICategory category);
+        bool ContainsStrictCategory(ICategory category);
         /// <summary>
         /// Inserisce nel dizionario una chiave(categoria) associandola ad un valore(descrizione + prezzo)
         /// </summary>
