@@ -192,12 +192,13 @@
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Services\BasicService.cs" />
     <Compile Include="src\model\Services\IUsable.cs" />
     <Compile Include="src\model\Users\Client.cs" />
     <Compile Include="src\model\Users\Levels.cs" />
     <Compile Include="src\model\Users\Staff.cs" />
     <Compile Include="src\model\Users\User.cs" />
-    <Compile Include="src\model\Utils\RangeData.cs" />
+    <Compile Include="src\model\Utils\DateRange.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>
