@@ -40,6 +40,11 @@ namespace CSB_Project.src.model.Booking
             return _compatibilities.CheckCompatibility(baseItem, this);
         }
 
+        public int GetMaxQuantity(IBaseItem baseItem)
+        {
+            return _compatibilities.GetMaxQuantity(baseItem, this);
+        }
+
         public IEnumerable<IBaseItem> getCompatibleItems() => _compatibilities.GetAllCompatibleBaseItems(this);
 
 

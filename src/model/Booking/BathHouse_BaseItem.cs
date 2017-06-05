@@ -99,13 +99,22 @@ namespace CSB_Project.src.model.Booking
             _categoryDictionary.Remove(category);
         }
 
-        public Tuple<string, double> getValueOfCategory(ICategory category)
+        public string GetDescriptionOf(ICategory category)
         {
-            if(category==null)
+            if (category == null)
                 throw new ArgumentException("category null");
             if (!_categoryDictionary.ContainsKey(category))
                 throw new ArgumentException("category not present in the dictionary");
-            return _categoryDictionary[category];
+            return _categoryDictionary[category].Item1;
+        }
+
+        public double GetPricePercentualOf(ICategory category)
+        {
+            if (category == null)
+                throw new ArgumentException("category null");
+            if (!_categoryDictionary.ContainsKey(category))
+                throw new ArgumentException("category not present in the dictionary");
+            return _categoryDictionary[category].Item2;
         }
         /// <summary>
         /// Calcola il prezzo giornaliero moltiplicando il daily price per l'apporto  
@@ -131,7 +140,6 @@ namespace CSB_Project.src.model.Booking
 
             return (_categoryDictionary.Count == other._categoryDictionary.Count && !_categoryDictionary.Except(other._categoryDictionary).Any());
         }
-
         #endregion
 
         #region Handler
