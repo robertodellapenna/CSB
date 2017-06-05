@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSP_Project.src.model.Booking
+namespace CSB_Project.src.model.Booking
 {
-    interface ICategoryItem 
+    public interface ICategoryItem 
     {
         /// <summary>
         /// Controlla se all'Item è associata una categoria o una sua sotto-categoria

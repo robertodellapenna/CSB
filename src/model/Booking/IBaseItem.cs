@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    interface IBaseItem
+    public interface IBaseItem
     {
         /// <summary>
         /// Nome dell'Item

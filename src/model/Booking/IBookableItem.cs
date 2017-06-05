@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    interface IBookableItem
+    public interface IBookableItem
     {
         IBaseItem BaseItem { get; }
         IEnumerable<IPluginItem> GetPluginItems();

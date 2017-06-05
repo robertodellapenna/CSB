@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    interface IPluginItem
+    public interface IPluginItem
     {
         /// <summary>
         /// Check sulla compatibilità del plugin Item con il Base Item

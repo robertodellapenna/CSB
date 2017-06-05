@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    interface IAreaItem
+    public interface IAreaItem
     {
 
     }

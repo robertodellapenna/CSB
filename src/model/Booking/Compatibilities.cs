@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    class Compatibilities
+    public class Compatibilities
     {
         #region Eventi
         #endregion

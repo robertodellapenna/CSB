@@ -1,4 +1,4 @@
-﻿using CSP_Project.src.model.Booking;
+﻿using CSB_Project.src.model.Booking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using CSB_Project.src.model.Category;
 
 namespace CSB_Project.src.model.Booking
 {
-    class BathHouse_PluginItem : BathHouse_BaseItem, IPluginItem
+    public class BathHouse_PluginItem : BathHouse_BaseItem, IPluginItem
     {
         #region Eventi
         #endregion

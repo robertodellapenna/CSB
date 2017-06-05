@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    class IPositionedSectorAreaItem : ISectorAreaItem
+    public interface IPositionedSectorAreaItem : ISectorAreaItem
     {
 
     }

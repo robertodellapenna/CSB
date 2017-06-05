@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CSB_Project.src.model.Category;
-using CSP_Project.src.model.Booking;
+using CSB_Project.src.model.Booking;
 
 namespace CSB_Project.src.model.Booking
 {
-    class BathHouse_BaseItem : ICategoryItem, IBaseItem
+    public class BathHouse_BaseItem : ICategoryItem, IBaseItem
     {
 
         #region Eventi
@@ -37,6 +37,7 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("negative base price");
             _name = name;
             _baseDailyPrice = baseDailyPrice;
+            _categoryDictionary = new Dictionary<ICategory, Tuple<string, double>>();
         }
         #endregion
 
