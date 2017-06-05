@@ -11,7 +11,5 @@ namespace CSB_Project.src.model.Booking
         IBaseItem BaseItem { get; }
         IEnumerable<IPluginItem> GetPluginItems();
         void AddPluginItem(IPluginItem pluginItem, DateRange dataRange);
-        int getQuantityOf(IPluginItem pluginItem);
-        DateRange getDateRangeOf(IPluginItem pluginItem);
     }
 }
