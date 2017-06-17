@@ -9,7 +9,7 @@ namespace CSB_Project.src.model.Services
     public interface IUsable
     {
         string Name { get; }
-        string Desciption { get; }
+        string Description { get; }
         bool IsActiveIn(DateTime when);
         bool IsActiveIn(DateRange when);
         double Price { get; }

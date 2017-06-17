@@ -21,7 +21,8 @@ namespace test.model.Services
             august1010 = new DateTime(2010, 8, 10);
             august1510 = new DateTime(2010, 8, 15);
             price = 5.10;
-            s1 = new BasicService(sName, sDescription, price, new DateRange(august1010, august1510));
+            DatePriceDescriptor desc = new DatePriceDescriptor(sName, sDescription, august1010, august1510, price);
+            s1 = new BasicService(desc);
         }
 
         [TestMethod]
@@ -36,9 +37,10 @@ namespace test.model.Services
         [TestMethod]
         public void TestCtor()
         {
-            s1 = new BasicService(sName, sDescription);
+            DatePriceDescriptor desc = new DatePriceDescriptor(sName, sDescription, DateTime.MaxValue, price);
+            s1 = new BasicService(desc);
             Assert.AreEqual(sName, s1.Name);
-            Assert.AreEqual(sDescription, s1.Desciption);
+            Assert.AreEqual(sDescription, s1.Description);
             Assert.AreEqual(0, s1.Price);
 
 
@@ -47,22 +49,8 @@ namespace test.model.Services
         [TestMethod]
         public void TestCtorError()
         {
-            // Nome e descrizione non validi
             Assert.ThrowsException<ArgumentException>(
-                () => new BasicService("   ", sDescription));
-            Assert.ThrowsException<ArgumentException>(
-                () => new BasicService(sName, "   "));
-            Assert.ThrowsException<ArgumentException>(
-                () => new BasicService(null, null));
-            // Data inizio > Data fine
-            Assert.ThrowsException<ArgumentException>(
-                () => new BasicService(sName, sDescription, august1510, august1010));
-            // Prezzo < 0
-            Assert.ThrowsException<ArgumentException>(
-                () => new BasicService(sName, sDescription, -10));
-            // Data inizio > Data fine
-            Assert.ThrowsException<ArgumentException>(
-                () => new BasicService(sName, sDescription, august1010));
+                () => new BasicService(null));
         }
     }
 }
