@@ -28,7 +28,9 @@ namespace CSB_Project.src.model.Services
 
         public override IEnumerable<IUsage> filter(IEnumerable<IUsage> usage)
         {
-            IEnumerable<IUsage> validMatch = usage.Where((i) => i.Type == Usable).Take(_ticket);
+            IEnumerable<IUsage> validMatch = (from i in usage
+                                             where i.Type == Usable
+                                             select i).Take(_ticket);
             return usage.Except(validMatch);
         }
     }

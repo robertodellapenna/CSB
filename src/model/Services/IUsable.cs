@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CSB_Project.src.model.Services
 {
+    /// <summary>
+    /// Rappresenta un servizio della struttura
+    /// </summary>
     public interface IUsable
     {
         string Name { get; }

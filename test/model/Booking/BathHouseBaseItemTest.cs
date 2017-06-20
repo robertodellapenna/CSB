@@ -10,12 +10,12 @@ using CSB_Project.src.model.Category;
 namespace test.model.Booking
 {
     [TestClass]
-    class BathHouse_BaseItemTest
+    class BathHouseBaseItemTest
     {
         [TestMethod]
         public void CostructorTest()
         {
-            BathHouse_BaseItem item = new BathHouse_BaseItem("Ombrellone", 10.0);
+            BathHouseBaseItem item = new BathHouseBaseItem("Ombrellone", 10.0);
             Assert.AreEqual(item.Name, "Ombrellone");
             Assert.AreEqual(item.BaseDailyPrice, 10.0);
             Assert.AreEqual(item.getDailyPrice(), item.BaseDailyPrice);
