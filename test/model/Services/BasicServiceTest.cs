@@ -41,7 +41,7 @@ namespace test.model.Services
             s1 = new BasicService(desc);
             Assert.AreEqual(sName, s1.Name);
             Assert.AreEqual(sDescription, s1.Description);
-            Assert.AreEqual(0, s1.Price);
+            Assert.AreEqual(price, s1.Price);
 
 
         }
