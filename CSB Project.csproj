@@ -168,6 +168,7 @@
     <None Include=".vs\slnx.sqlite" />
     <None Include=".vs\VSWorkspaceState.json" />
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -185,8 +186,8 @@
     <Compile Include="src\business\ICoordinator.cs" />
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
-    <Compile Include="src\model\Booking\BathHouse_BaseItem.cs" />
-    <Compile Include="src\model\Booking\BathHouse_PluginItem.cs" />
+    <Compile Include="src\model\Booking\BathHouseBaseItem.cs" />
+    <Compile Include="src\model\Booking\BathHousePluginItem.cs" />
     <Compile Include="src\model\Booking\Compatibilities.cs" />
     <Compile Include="src\model\Booking\IAreaItem.cs" />
     <Compile Include="src\model\Booking\IBaseItem.cs" />
@@ -199,15 +200,23 @@
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />
     <Compile Include="src\model\Category\IGroupCategory.cs" />
+    <Compile Include="src\model\Prenotation\IPrenotation.cs" />
     <Compile Include="src\model\Prenotation\ItemPrenotation.cs" />
     <Compile Include="src\model\Prenotation\Prenotation.cs" />
+    <Compile Include="src\model\Services\AbstractPacket.cs" />
     <Compile Include="src\model\Services\BasicService.cs" />
+    <Compile Include="src\model\Services\DateRangePacket.cs" />
+    <Compile Include="src\model\Services\IBundle.cs" />
+    <Compile Include="src\model\Services\IPacket.cs" />
     <Compile Include="src\model\Services\IUsable.cs" />
+    <Compile Include="src\model\Services\IUsage.cs" />
+    <Compile Include="src\model\Services\TicketPacket.cs" />
     <Compile Include="src\model\TrackingDevice\Card.cs" />
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
     <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />
     <Compile Include="src\model\Users\Client.cs" />
+    <Compile Include="src\model\Utils\Descriptor.cs" />
     <Compile Include="src\model\Utils\Levels.cs" />
     <Compile Include="src\model\Users\Staff.cs" />
     <Compile Include="src\model\Users\User.cs" />

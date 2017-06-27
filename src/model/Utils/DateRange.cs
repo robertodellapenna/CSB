@@ -23,7 +23,7 @@ namespace CSB_Project.src.model.Utils
         #region Proprietà
         public DateTime StartDate => _start;
         public DateTime EndDate => _end;
-        public int Days => (StartDate - EndDate).Days;
+        public int Days => (EndDate - StartDate).Days;
         #endregion
 
         #region Costruttori
@@ -62,6 +62,11 @@ namespace CSB_Project.src.model.Utils
         /// <returns></returns>
         public bool Contains(DateTime date) => StartDate <= date.Date && date.Date <= EndDate;
         public bool Contains(DateRange range) => StartDate <= range.StartDate && range.EndDate <= EndDate;
+        /// <summary>
+        /// Verifica se range si sovrappone con questo DateRange
+        /// </summary>
+        /// <param name="range">altra data con cui verificare la sovrapposizione</param>
+        /// <returns>True se c'è almeno un giorno in comune altrimenti false</returns>
         public bool OverlapWith(DateRange range) => Contains(range) || ( StartDate <= range.EndDate && EndDate >= range.EndDate )
                                                      || ( StartDate <= range.StartDate && EndDate >= range.StartDate );
         #endregion

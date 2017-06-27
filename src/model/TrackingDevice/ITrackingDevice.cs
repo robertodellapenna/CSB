@@ -5,8 +5,8 @@ using System.Text;
 
 namespace CSB_Project.src.model.TrackingDevice
 {
-    interface ITrackingDevice
+    public interface ITrackingDevice
     {
-
+        string ID { get; }
     }
 }

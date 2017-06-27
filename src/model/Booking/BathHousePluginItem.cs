@@ -7,7 +7,7 @@ using CSB_Project.src.model.Category;
 
 namespace CSB_Project.src.model.Booking
 {
-    public class BathHouse_PluginItem : BathHouse_BaseItem, IPluginItem
+    public class BathHousePluginItem : BathHouseBaseItem, IPluginItem
     {
         #region Eventi
         #endregion
@@ -21,7 +21,7 @@ namespace CSB_Project.src.model.Booking
 
         #region Costruttori
 
-        public BathHouse_PluginItem(string name, double baseDailyPrice) : base(name, baseDailyPrice)
+        public BathHousePluginItem(string name, double baseDailyPrice) : base(name, baseDailyPrice)
         {
             _compatibilities = Compatibilities.Instance;
         }

@@ -7,7 +7,7 @@ using CSB_Project.src.model.Booking;
 
 namespace CSB_Project.src.model.Booking
 {
-    public class BathHouse_BaseItem : ICategoryItem, IBaseItem
+    public class BathHouseBaseItem : ICategoryItem, IBaseItem
     {
 
         #region Eventi
@@ -29,7 +29,7 @@ namespace CSB_Project.src.model.Booking
         #endregion
 
         #region Costruttori
-        public BathHouse_BaseItem(string name, double baseDailyPrice)
+        public BathHouseBaseItem(string name, double baseDailyPrice)
         {
             if(name==null || name.Trim().Length==0)
                 throw new ArgumentException("name null, only blank or empty");
@@ -134,7 +134,7 @@ namespace CSB_Project.src.model.Booking
         {
             if (obj == null || !(obj is ICategoryItem))
                 return false;
-            BathHouse_BaseItem other = obj as BathHouse_BaseItem;
+            BathHouseBaseItem other = obj as BathHouseBaseItem;
 
             if (Name != other.Name || BaseDailyPrice != other.BaseDailyPrice)
                 return false;

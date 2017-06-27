@@ -21,6 +21,12 @@ namespace test.model.Utils
         }
 
         [TestMethod]
+        public void TestDays()
+        {
+            Assert.AreEqual((october_1_2010 - august_1_2010).TotalDays, new DateRange(august_1_2010, october_1_2010).Days);
+        }
+
+        [TestMethod]
         public void TestCtor()
         {
             DateRange d1, d2, d3;

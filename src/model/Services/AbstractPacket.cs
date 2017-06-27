@@ -6,14 +6,12 @@ using CSB_Project.src.model.Utils;
 
 namespace CSB_Project.src.model.Services
 {
-    /// <summary>
-    /// Rappresenta un servizio immutabile che non è possibile modificare 
-    /// (disattivare) successivamente.
-    /// </summary>
-    public class BasicService : IUsable
+    public abstract class AbstractPacket : IPacket
     {
+
         #region Campi
         private readonly DatePriceDescriptor _descriptor;
+        private readonly IUsable _usable;
         #endregion
 
         #region Proprietà
@@ -21,37 +19,28 @@ namespace CSB_Project.src.model.Services
         public string Description => _descriptor.Description;
         public double Price => _descriptor.Price;
         /// <summary>
-        /// Periodo in cui il servizio risulta disponibile.
+        /// Periodo in cui il pacchetto risulta disponibile.
         /// </summary>
         public DateRange Availability => _descriptor.Range;
+        public IUsable Usable => _usable;
         #endregion
 
         #region Costruttori
-        public BasicService(DatePriceDescriptor descriptor)
+        public AbstractPacket(DatePriceDescriptor descriptor, IUsable usable)
         {
             #region Precondizioni
-            if (descriptor == null)
-                throw new ArgumentException("descriptor null");
+            if (descriptor == null || usable == null)
+                throw new ArgumentException("descriptor o usable null");
             #endregion
             _descriptor = descriptor;
+            _usable = usable;
         }
         #endregion
-
+        
         #region Metodi
         public bool IsActiveIn(DateTime when) => Availability.Contains(when);
         public bool IsActiveIn(DateRange when) => Availability.Contains(when);
-        public double PriceFor(int days) {
-            #region Precondizioni
-            if (days < 0)
-                throw new ArgumentException("days < 0");
-            #endregion
-            return Price * days;
-        }
-
-        public double PriceFor(DateTime start, DateTime end)
-            => PriceFor( (end.Date - start.Date).Days );
-
-        public double PriceFor(DateRange range) => PriceFor(range.Days); 
+        public abstract IEnumerable<IUsage> filter(IEnumerable<IUsage> usage);
         #endregion
     }
 }
