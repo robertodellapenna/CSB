@@ -1,16 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Category;
 
 namespace test.model.Booking
 {
     [TestClass]
-    class BathHouse_BaseItemTest
+    public class BathHouse_BaseItemTest
     {
         [TestMethod]
         public void CostructorTest()
@@ -24,12 +19,16 @@ namespace test.model.Booking
         [TestMethod]
         public void CategoriesTest()
         {
-            //IGroupCategory root = CategoryFactory.CreateRoot("telo");
-            //ICategory category = CategoryFactory.CreateGroup("colore", root);
-            //item.AddCategory(category, "giallo", 1.0);
-            //Assert.IsTrue(item.ContainsCategory(root));
-            //Assert.IsFalse(item.ContainsStrictCategory(root));
-            //Assert.IsTrue(item.ContainsStrictCategory(category));
+            BathHouse_BaseItem item = new BathHouse_BaseItem("Ombrellone", 10.0);
+            IGroupCategory telo = CategoryFactory.CreateRoot("telo");
+            ICategory teloColore = CategoryFactory.CreateGroup("colore", telo);
+            item.AddCategory(teloColore, "giallo", 1.0);
+            Assert.IsTrue(item.ContainsCategory(telo));
+            Assert.IsFalse(item.ContainsStrictCategory(telo));
+            Assert.IsTrue(item.ContainsStrictCategory(teloColore));
+            ICategory teloMateriale = CategoryFactory.CreateGroup("materiale", telo);
+            item.AddCategory(teloMateriale, "paglia", 1.5);
+            item.RemoveCategory(teloColore);
         }
     }
 }
