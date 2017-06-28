@@ -12,7 +12,7 @@ namespace CSB_Project.src.model.Booking
 
         #region Campi
         private static Compatibilities _instance;
-        private readonly Dictionary<IBaseItem, IEnumerable<Tuple<IPluginItem, int>>> _dictionary;
+        private readonly Dictionary<IItem, AssociableItems> _dictionary;
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace CSB_Project.src.model.Booking
             }
             
         }
-
+        public IEnumerable<IItem> CompatibleItems => _dictionary.Keys;
         #endregion
 
         #region Costruttori
@@ -43,35 +43,51 @@ namespace CSB_Project.src.model.Booking
 
         #region Metodi
 
-        public bool CheckCompatibility(IBaseItem compatibleItem, IPluginItem associableItem)
+        public bool CheckCompatibility(IItem compatibleItem, IItem associableItem)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
-
             if (!_dictionary.ContainsKey(compatibleItem)) return false;
-            return _dictionary[compatibleItem].Where(tuple => tuple.Item1.Equals(associableItem)).Any();
+            #endregion
+            //return _dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Any();
+            return (from t in _dictionary[compatibleItem].Tuples
+                    where t.Item1.Equals(associableItem)
+                    select t).Any();
         }
 
-        public IEnumerable<IPluginItem> GetAllAssociablePluginItems(IBaseItem compatibleItem)
+        public IEnumerable<IItem> GetAllAssociablePluginItems(IItem compatibleItem)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (!_dictionary.ContainsKey(compatibleItem))
                 throw new ArgumentException("compatibleItem not present in the dictionary");
-            return _dictionary[compatibleItem].Select(tuple => tuple.Item1);
+            #endregion
+            //return _dictionary[compatibleItem].Tuples.Select(tuple => tuple.Item1);
+            return (from t in _dictionary[compatibleItem].Tuples
+                    select t.Item1);
         }
 
-        public IEnumerable<IBaseItem> GetAllCompatibleBaseItems(IPluginItem associableItem)
+        public IEnumerable<IItem> GetAllCompatibleBaseItems(IItem associableItem)
         {
+            #region Precondizioni
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
-            return _dictionary.Where(compatibility => compatibility.Value.Where(tuple => tuple.Item1.Equals(associableItem)).Any()).Select(compatibility => compatibility.Key);
+            #endregion
+            //return _dictionary.Where(compatibility => compatibility.Value.Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Any()).Select(compatibility => compatibility.Key);
+            return (from c in _dictionary
+                    where (from t in c.Value.Tuples
+                           where t.Item1.Equals(associableItem)
+                           select t).Any()
+                    select c.Key);
         }
 
-        public int GetMaxQuantity(IBaseItem compatibleItem, IPluginItem associableItem)
+        public int GetMaxQuantity(IItem compatibleItem, IItem associableItem)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (associableItem == null)
@@ -80,30 +96,36 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("compatible item not present in the dictionary");
             if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
                 throw new ArgumentException("compatibility between compatible and associable items not present");
-            return _dictionary[compatibleItem].Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray()[0];
+            #endregion 
+            //return _dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray()[0];
+            return (from t in _dictionary[compatibleItem].Tuples
+                    where t.Item1.Equals(associableItem)
+                    select t.Item2).ToArray()[0];
         }
 
-        public void AddCompatibility(IBaseItem compatibleItem, IPluginItem associableItem, int maxQuantity)
+        public void AddCompatibility(IItem compatibleItem, IItem associableItem, int maxQuantity)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
-            if (compatibleItem is IPluginItem)
-                throw new ArgumentException("compatibleItem cannot be a pluginItem");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
             if (maxQuantity <= 0)
                 throw new ArgumentException("maxQuantity <= 0");
-            if (!_dictionary.ContainsKey(compatibleItem)) _dictionary.Add(compatibleItem, new List<Tuple<IPluginItem, int>>());
+            #endregion
+            if (!_dictionary.ContainsKey(compatibleItem))
+                _dictionary.Add(compatibleItem, new AssociableItems(new List<Tuple<IItem, int>>()));
             if (CheckCompatibility(compatibleItem, associableItem))
             {
                 //Non possono esserci due associable item uguali associati ad uno stesso compatible item
                 ChangeMaxQuantity(compatibleItem, associableItem, maxQuantity);
             }
-            else ((List<Tuple<IPluginItem, int>>)_dictionary[compatibleItem]).Add(new Tuple<IPluginItem, int>(associableItem, maxQuantity));
+            else ((List<Tuple<IItem, int>>)_dictionary[compatibleItem].Tuples).Add(new Tuple<IItem, int>(associableItem, maxQuantity));
         }
 
-        public void ChangeMaxQuantity(IBaseItem compatibleItem, IPluginItem associableItem, int maxQuantity)
+        public void ChangeMaxQuantity(IItem compatibleItem, IItem associableItem, int maxQuantity)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (associableItem == null)
@@ -114,11 +136,16 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("compatible item not present in the dictionary");
             if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
                 throw new ArgumentException("compatibility between compatible and associable items not present");
-            _dictionary[compatibleItem].Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray<int>()[0] = maxQuantity;
+            #endregion
+            //_dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray<int>()[0] = maxQuantity;
+            (from t in _dictionary[compatibleItem].Tuples
+             where t.Item1.Equals(associableItem)
+             select t.Item2).ToArray()[0] = maxQuantity;
         }
 
-        public void RemoveCompatibility(IBaseItem compatibleItem, IPluginItem associableItem)
+        public void RemoveCompatibility(IItem compatibleItem, IItem associableItem)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (associableItem == null)
@@ -127,29 +154,37 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("compatible item not present in the dictionary");
             if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
                 throw new ArgumentException("compatibility between compatible and associable items not present");
-            ((List<Tuple<IPluginItem, int>>)_dictionary[compatibleItem].Where(tuple => tuple.Item1.Equals(associableItem))).RemoveAt(0);
+            #endregion
+            //((List<Tuple<IPluginItem, int>>)_dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem))).RemoveAt(0);
+            ((List<Tuple<IItem, int>>)(from t in _dictionary[compatibleItem].Tuples
+                                             where t.Item1.Equals(associableItem)
+                                             select t)).RemoveAt(0);
         }
 
-        public void RemoveCompatibleItem(IBaseItem compatibleItem)
+        public void RemoveCompatibleItem(IItem compatibleItem)
         {
+            #region Precondizioni
             if (compatibleItem == null)
                 throw new ArgumentException("compatibleItem null");
             if (!_dictionary.ContainsKey(compatibleItem))
                 throw new ArgumentException("compatible item not present in the dictionary");
+            #endregion 
             _dictionary.Remove(compatibleItem);
         }
 
-        public void RemoveAssociableItem(IPluginItem associableItem)
+        public void RemoveAssociableItem(IItem associableItem)
         {
+            #region Precondizioni
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
-            foreach (IBaseItem compatibleItem in GetAllCompatibleBaseItems(associableItem))
+            #endregion
+            foreach (IItem compatibleItem in GetAllCompatibleBaseItems(associableItem))
                 RemoveCompatibility(compatibleItem, associableItem);
         }
 
         public void Clean()
         {
-            foreach (IBaseItem compatibleItem in _dictionary.Keys) _dictionary.Remove(compatibleItem);
+            foreach (IItem compatibleItem in _dictionary.Keys) _dictionary.Remove(compatibleItem);
         }
         #endregion
 

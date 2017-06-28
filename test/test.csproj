@@ -48,7 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Booking\BathHouseBaseItemTest.cs" />
+    <Compile Include="model\Booking\CategoryBaseItemTest.cs" />
     <Compile Include="model\Category\CategoryFactoryTest.cs" />
     <Compile Include="model\Prenotations\PrenotationAndItemTest.cs" />
     <Compile Include="model\Services\BasicServiceTest.cs" />

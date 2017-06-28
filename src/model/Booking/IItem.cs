@@ -6,9 +6,14 @@ using System.Text;
 
 namespace CSB_Project.src.model.Booking
 {
-    public interface IBookableItem
+    public interface IItem
     {
-        IItem BaseItem { get; }
-        StructureArea Area { get; }
+
+        string Name { get; }
+
+        string Description { get; }
+
+        double BaseDailyPrice { get; }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.model.Booking;
 
 namespace CSB_Project.src.model.Prenotation
 {
