@@ -12,7 +12,7 @@ namespace CSB_Project.src.model.Booking
         #region BasicItem e Parser
         private class BasicItem : AbstractItem
         {
-            public BasicItem(PriceDescriptor priceDescriptor) : base(priceDescriptor) { }
+            public BasicItem(string id, PriceDescriptor priceDescriptor) : base(id, priceDescriptor) { }
         }
 
         private static class BasicParser
@@ -30,33 +30,31 @@ namespace CSB_Project.src.model.Booking
                 #endregion
 
                 // Devono esserci 3 elementi, nome, descrizione e prezzzo.
-                if (itemToParse.ChildNodes.Count != 4)
+                if (itemToParse.ChildNodes.Count != 5)
                     throw new ItemDescriptorException("Errore nell'elemento da parsare.\nMancano dei campi");
-
-                XmlNodeList xnl = itemToParse.SelectNodes("Name");
-                if ( xnl.Count != 1 ) 
-                        throw new ItemDescriptorException("Molteplicità 'Name' non valida");
-                string name = xnl.Item(0).InnerText;
-
-                xnl = itemToParse.SelectNodes("Description");
-                if (xnl.Count != 1)
-                    throw new ItemDescriptorException("Molteplicità 'Description' non valida");
-                string description = xnl.Item(0).InnerText;
-
-                xnl = itemToParse.SelectNodes("Price");
-                if (xnl.Count != 1)
-                    throw new ItemDescriptorException("Molteplicità 'Price' non valida");
-                double price;
+                string name = null, description = null, id = null;
+                int price;
                 try
                 {
-                    price = Convert.ToDouble(xnl.Item(0).InnerText);
-                }
-                catch (Exception e)
+                    name = ParserUtils.RetrieveValues<String>(itemToParse, "Name")[0];
+                    description = ParserUtils.RetrieveValues<String>(itemToParse, "Description")[0];
+                    price = ParserUtils.RetrieveValues<int>(itemToParse, "Price")[0];
+                    id = ParserUtils.RetrieveValues<String>(itemToParse, "Identifier")[0];
+                }catch(ParsingException e)
                 {
-                    throw new ItemDescriptorException("Il prezzo non è nel formato giusto");
+                    throw new ItemDescriptorException(e.Message);
                 }
 
-                return new BasicItem(new PriceDescriptor(name, description, price));
+                return new BasicItem(id, new PriceDescriptor(name, description, price));
+            }
+        }
+        #endregion
+
+        #region CategorizableItem e Parser
+        private class CategorizableItem : AbstractItem
+        {
+            public CategorizableItem(string id, PriceDescriptor descriptor) : base(id, descriptor)
+            {
             }
         }
         #endregion
@@ -65,18 +63,11 @@ namespace CSB_Project.src.model.Booking
         private class CategoryItem : AbstractItem
         {
 
-            #region Eventi
-            #endregion
-
             #region Campi
-            private readonly PriceDescriptor _descriptor;
             private readonly Dictionary<ICategory, PriceDescriptor> _categoryDictionary;
             #endregion
 
             #region Proprietà
-            public string Name => _descriptor.Name;
-            public string Description => _descriptor.Description;
-            public double BaseDailyPrice => _descriptor.Price;
             public double DailyPrice
             {
                 get
@@ -90,7 +81,7 @@ namespace CSB_Project.src.model.Booking
             #endregion
 
             #region Costruttori
-            public CategoryItem(PriceDescriptor descriptor) : base(descriptor)
+            public CategoryItem(PriceDescriptor descriptor) : base("id", descriptor)
             {
             }
 
@@ -212,7 +203,7 @@ namespace CSB_Project.src.model.Booking
                 #endregion
                 CategoryItem other = obj as CategoryItem;
 
-                if (Name != other.Name)
+                if (Identifier != other.Identifier)
                     return false;
 
                 return (_categoryDictionary.Count == other._categoryDictionary.Count && !_categoryDictionary.Except(other._categoryDictionary).Any());

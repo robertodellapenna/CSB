@@ -27,6 +27,7 @@ namespace CSB_Project
             br.AppendLine("<Items>");
             br.AppendLine("  <Item>");
             br.AppendLine("    <Class>CSB_Project.src.model.Booking.ItemFactory+BasicParser</Class>");
+            br.AppendLine("    <Identifier>MyItem100</Identifier>");
             br.AppendLine("    <Name>MyItem</Name>");
             br.AppendLine("    <Description>MyItemDesc</Description>");
             br.AppendLine("    <Price>100</Price>");
@@ -43,7 +44,7 @@ namespace CSB_Project
             {
                 //IItem n = ItemFactory.GetItem(i.Name);
                 IItem i = ItemFactory.CreateItem(xnl.Item(0));
-                Console.WriteLine("name " + i.Name);
+                Console.WriteLine("name " + i.Identifier);
             }
             catch (Exception e)
             {
