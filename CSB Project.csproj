@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
@@ -192,6 +193,7 @@
     <Compile Include="src\model\Booking\ItemFactory.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />
     <Compile Include="src\model\Booking\IItem.cs" />
+    <Compile Include="src\model\Booking\ItemParser.cs" />
     <Compile Include="src\model\Booking\SectorBookableItem.cs" />
     <Compile Include="src\model\Booking\Sector.cs" />
     <Compile Include="src\model\Booking\Structure.cs" />
@@ -221,6 +223,8 @@
     <Compile Include="src\model\Users\Staff.cs" />
     <Compile Include="src\model\Users\User.cs" />
     <Compile Include="src\model\Utils\DateRange.cs" />
+    <Compile Include="src\persistence\IItemPopulator.cs" />
+    <Compile Include="src\persistence\ItemPopulatorFactory.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>

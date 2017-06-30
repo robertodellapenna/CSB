@@ -1,12 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CSB_Project.src.model.Booking;
-using CSB_Project.src.model.Category;
-using CSB_Project.src.model.Utils;
 
 namespace test.model.Booking
 {

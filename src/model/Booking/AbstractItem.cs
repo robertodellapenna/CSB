@@ -42,7 +42,9 @@ namespace CSB_Project.src.model.Booking
             #endregion
             AbstractItem other = obj as AbstractItem;
 
-            return Name == other.Name;
+            return Name == other.Name && 
+                Description ==  other.Description &&
+                BaseDailyPrice == other.BaseDailyPrice;
         }
         #endregion
 

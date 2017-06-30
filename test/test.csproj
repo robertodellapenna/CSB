@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="model\Booking\CategoryBaseItemTest.cs" />
+    <Compile Include="model\Booking\ItemFactoryTest.cs" />
     <Compile Include="model\Category\CategoryFactoryTest.cs" />
     <Compile Include="model\Prenotations\PrenotationAndItemTest.cs" />
     <Compile Include="model\Services\BasicServiceTest.cs" />
