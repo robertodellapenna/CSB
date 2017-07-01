@@ -214,6 +214,7 @@
     <Compile Include="src\model\Services\IUsage.cs" />
     <Compile Include="src\model\Services\TicketPacket.cs" />
     <Compile Include="src\model\TrackingDevice\Card.cs" />
+    <Compile Include="src\model\TrackingDevice\CardsAssociations.cs" />
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
     <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />

@@ -31,6 +31,33 @@ namespace CSB_Project.src.model.Utils
         #endregion
     }
 
+    public class AssociationDescriptor
+    {
+        #region Campi
+        private DateRange _dateRange;
+        private string _name;
+        #endregion
+
+        #region Proprietà
+        public DateRange DateRange => _dateRange;
+        public string Name => _name;
+        #endregion
+
+        #region Costruttori
+        public AssociationDescriptor(DateRange dateRange, string name)
+        {
+            #region Precondizioni
+            if (dateRange==null)
+                throw new ArgumentNullException("dateRange null");
+            if (name==null || name.Trim().Length==0)
+                throw new ArgumentException("name null, empty or blank");
+            #endregion
+            _dateRange = dateRange;
+            _name = name ;
+        }
+        #endregion
+    }
+
     public class BasicDescriptor
     {
         #region Campi

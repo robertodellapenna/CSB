@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.model.TrackingDevice;
 
 namespace CSB_Project.src.model.Prenotation
 {
@@ -15,18 +16,18 @@ namespace CSB_Project.src.model.Prenotation
         #region Campi
         private readonly int _id;
         private readonly Client _client;
+        private readonly CardsAssociations _cardsAssociations;
         private readonly DateRange _rangeData;
         private readonly List<ItemPrenotation> _items;
         #endregion
         #region Proprieta
     
         public Client Client => _client;
-
         public DateRange RangeData => _rangeData;
-
         public int Id => _id;
+        public  List<ItemPrenotation> Items  => _items;
+        public CardsAssociations CardsAssociations => _cardsAssociations;
 
-        public  List<ItemPrenotation> Items { get => _items; }
         #endregion
         #region Costruttori
         public Prenotation(int id, Client client, DateRange rangeData, List<ItemPrenotation> items)
