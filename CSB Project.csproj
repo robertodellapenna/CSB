@@ -194,9 +194,9 @@
     <Compile Include="src\model\Booking\IItem.cs" />
     <Compile Include="src\model\Booking\ItemParser.cs" />
     <Compile Include="src\model\Booking\SectorBookableItem.cs" />
-    <Compile Include="src\model\Booking\Sector.cs" />
-    <Compile Include="src\model\Booking\Structure.cs" />
-    <Compile Include="src\model\Booking\StructureArea.cs" />
+    <Compile Include="src\model\Structure\Sector.cs" />
+    <Compile Include="src\model\Structure\Structure.cs" />
+    <Compile Include="src\model\Structure\StructureArea.cs" />
     <Compile Include="src\model\Category\Category.cs" />
     <Compile Include="src\model\Category\CategoryFactory.cs" />
     <Compile Include="src\model\Category\ICategory.cs" />

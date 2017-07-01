@@ -1,4 +1,5 @@
-﻿using CSB_Project.src.model.Utils;
+﻿using CSB_Project.src.model.Structure;
+using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

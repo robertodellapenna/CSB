@@ -5,6 +5,32 @@ using System.Text;
 
 namespace CSB_Project.src.model.Utils
 {
+    public class Position
+    {
+        #region Campi
+        private int _row, _col;
+        #endregion
+
+        #region Proprietà
+        public int Row => _row;
+        public int Column => _col;
+        #endregion
+
+        #region Costruttori
+        public Position(int row, int col)
+        {
+            #region Precondizioni
+            if (row<0)
+                throw new ArgumentException("invalid row");
+            if (col<0)
+                throw new ArgumentException("invalid column");
+            #endregion
+            _row = row;
+            _col = col;
+        }
+        #endregion
+    }
+
     public class BasicDescriptor
     {
         #region Campi
