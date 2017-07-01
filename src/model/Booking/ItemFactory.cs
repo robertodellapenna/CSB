@@ -12,25 +12,25 @@ namespace CSB_Project.src.model.Booking
         /// Collezione di item. Non è possibile avere due item con nome
         /// identico.
         /// </summary>
-        private static readonly Dictionary<string, IItem> _items =
-           new Dictionary<string, IItem>();
+        private static readonly ISet<IItem> _items =
+           new HashSet<IItem>();
 
        
-        public static IItem GetItem(string name)
+        public static IItem GetItem(string identifier)
         {
             #region Precondizioni
-            if (String.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("name null or blank");
+            if (String.IsNullOrWhiteSpace(identifier))
+                throw new ArgumentException("identifier null or blank");
             #endregion
-            
-            return _items[name];
+
+            return _items.Where(i => i.Identifier == identifier).SingleOrDefault();
         }
         
 
         /// <summary>
         /// Items disponibili all'interno del sistema
         /// </summary>
-        public static IEnumerable<IItem> GetItems => _items.Values;
+        public static IEnumerable<IItem> GetItems => _items;
 
         /// <summary>
         /// Permette di inserire un nuovo item nel sistema. Riceve in ingresso
@@ -76,10 +76,22 @@ namespace CSB_Project.src.model.Booking
             }
 
             // Controllo se l'item è già presente
-            if (_items.ContainsKey(item.Name))
+            if (_items.Contains(item))
                 throw new InvalidOperationException("Item Name già presente");
-            _items.Add(item.Name, item);
+            _items.Add(item);
             return item;
+        }
+
+        public static IEnumerable<IItem> FindByFriendlyName( string friendlyName )
+        {
+            #region Precondizioni
+            if (String.IsNullOrWhiteSpace(friendlyName))
+                throw new ArgumentException("friendlyName null or blank");
+            #endregion
+
+            return (from item in _items
+                    where item.FriendlyName.Contains(friendlyName)
+                    select item);
         }
     }
 

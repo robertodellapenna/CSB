@@ -9,9 +9,11 @@ namespace CSB_Project.src.model.Booking
     public interface IItem
     {
         /// <summary>
-        /// Nome dell'oggetto
+        /// Identificatore dell'oggetto
         /// </summary>
-        string Name { get; }
+        string Identifier { get; }
+
+        string FriendlyName { get; }
 
         /// <summary>
         /// Descrizione generale dell'oggetto
@@ -19,8 +21,13 @@ namespace CSB_Project.src.model.Booking
         string Description { get; }
 
         /// <summary>
-        /// Prezzo giornaliero dell'oggetto
+        /// Prezzo base giornaliero dell'oggetto
         /// </summary>
         double BaseDailyPrice { get; }
+
+        /// <summary>
+        /// Prezzo comprensivo di caratteristiche aggiuntive
+        /// </summary>
+        double DailyPrice { get; }
     }
 }

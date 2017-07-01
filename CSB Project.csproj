@@ -169,7 +169,6 @@
     <None Include=".vs\slnx.sqlite" />
     <None Include=".vs\VSWorkspaceState.json" />
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -223,6 +222,7 @@
     <Compile Include="src\model\Users\Staff.cs" />
     <Compile Include="src\model\Users\User.cs" />
     <Compile Include="src\model\Utils\DateRange.cs" />
+    <Compile Include="src\model\Utils\ParserUtils.cs" />
     <Compile Include="src\persistence\IItemPopulator.cs" />
     <Compile Include="src\persistence\ItemPopulatorFactory.cs" />
     <Compile Include="src\Program.cs" />

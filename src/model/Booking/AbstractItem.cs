@@ -8,47 +8,47 @@ namespace CSB_Project.src.model.Booking
 {
     public abstract class AbstractItem : IItem
     {
-        #region Eventi
-        #endregion
-
         #region Campi
         private readonly PriceDescriptor _descriptor;
+        private readonly string _identifier;
         #endregion
 
         #region Proprietà
-        public string Name => _descriptor.Name;
+        public string Identifier => _identifier;
         public string Description => _descriptor.Description;
         public double BaseDailyPrice => _descriptor.Price;
+        public string FriendlyName => _descriptor.Name;
+        public double DailyPrice => BaseDailyPrice;
         #endregion
 
         #region Costruttori
-        public AbstractItem(PriceDescriptor descriptor)
+        public AbstractItem(string id, PriceDescriptor descriptor)
         {
             #region Precondizioni
             if (descriptor == null)
                 throw new ArgumentException("descriptor null");
+            if (String.IsNullOrWhiteSpace(id))
+                throw new ArgumentException("id null or blank");
             #endregion
             _descriptor = descriptor;
+            _identifier = id;
         }
         #endregion
 
         #region Metodi
+        public override int GetHashCode()
+        {
+            return _identifier.GetHashCode();
+        }
 
         public override bool Equals(object obj)
         {
-            #region Precondizioni
             if (obj == null || !(obj is AbstractItem))
                 return false;
-            #endregion
             AbstractItem other = obj as AbstractItem;
 
-            return Name == other.Name && 
-                Description ==  other.Description &&
-                BaseDailyPrice == other.BaseDailyPrice;
+            return Identifier == other.Identifier;
         }
-        #endregion
-
-        #region Handler
         #endregion
     }
 }
