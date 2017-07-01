@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CSB_Project.src.model.Booking
+namespace CSB_Project.src.model.Item
 {
     public class AssociableItems : Dictionary<IItem,int>
     {

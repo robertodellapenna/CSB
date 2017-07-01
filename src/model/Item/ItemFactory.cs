@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
-namespace CSB_Project.src.model.Booking
+namespace CSB_Project.src.model.Item
 {
     public static partial class ItemFactory
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
-namespace CSB_Project.src.model.Booking
+namespace CSB_Project.src.model.Item
 {
     public partial class ItemFactory
     {
