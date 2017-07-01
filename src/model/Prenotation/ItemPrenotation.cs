@@ -13,19 +13,39 @@ namespace CSB_Project.src.model.Prenotation
         #endregion
         #region Campi
         private readonly DateRange _rangeData;
+        private readonly IBookableItem _bookableItem;
+        private readonly Plugins _plugins;
         #endregion
         #region Proprieta
-        public DateRange RangeData { get => _rangeData; }
+        public DateRange RangeData => _rangeData; 
+        public IBookableItem BookableItem => _bookableItem;
+        public Plugins Plugins => _plugins;
         #endregion
-        /// <summary>
-        /// Elemento che ingloba una prenotazione di BookableItem con pulgIn
-        /// </summary>
-        /// <param name="rangeData"></param>
         #region Costruttori
-        public ItemPrenotation(DateRange rangeData)
+        public ItemPrenotation(DateRange rangeData, IBookableItem bookableItem)
         {
-            _rangeData = rangeData ?? throw new ArgumentException("range Data is not defined");
+            #region Precondizioni
+            if (rangeData == null)
+                throw new ArgumentNullException("range data null");
+            if (bookableItem == null)
+                throw new ArgumentNullException("bookable item null");
+            #endregion
+
+            _rangeData = rangeData;
+            _bookableItem = bookableItem;
+            _plugins = new Plugins();
         }
+
+        public ItemPrenotation(DateRange rangeData, IBookableItem bookableItem, Plugins plugins) : this(rangeData, bookableItem)
+        {
+            #region Precondizioni
+            if (plugins == null)
+                throw new ArgumentNullException("plugins null");
+            #endregion
+
+            _plugins = plugins;
+        }
+
         #endregion
         #region Metodi
         #endregion

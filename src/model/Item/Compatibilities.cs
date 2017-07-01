@@ -30,7 +30,6 @@ namespace CSB_Project.src.model.Item
             }
             
         }
-        public IEnumerable<IItem> CompatibleItems => _dictionary.Keys;
         #endregion
 
         #region Costruttori
@@ -43,6 +42,16 @@ namespace CSB_Project.src.model.Item
         #endregion
 
         #region Metodi
+
+        public bool isBaseItem(IItem item)
+        {
+            #region Precondizioni
+            if (item == null)
+                throw new ArgumentNullException("item null");
+            #endregion
+
+            return _dictionary.ContainsKey(item);
+        }
 
         public bool CheckCompatibility(IItem compatibleItem, IItem associableItem)
         {
