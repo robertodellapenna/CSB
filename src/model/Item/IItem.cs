@@ -1,4 +1,5 @@
-﻿using CSB_Project.src.model.Utils;
+﻿using CSB_Project.src.model.Category;
+using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,5 +30,18 @@ namespace CSB_Project.src.model.Item
         /// Prezzo comprensivo di caratteristiche aggiuntive
         /// </summary>
         double DailyPrice { get; }
+    }
+
+    public interface ICategorizableItem : IItem
+    {
+        IEnumerable<ICategory> Categories { get; }
+        IEnumerable<PriceDescriptor> Values { get; }
+        IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties { get; }
+
+        bool ContainsSubCateogryOf(IGroupCategory category);
+        bool ContainsCategory(ICategory category);
+        string GetNameOf(ICategory category);
+        string GetDescriptionOf(ICategory category);
+        double GetPriceOf(ICategory category);
     }
 }

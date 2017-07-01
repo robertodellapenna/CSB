@@ -3,10 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CSB_Project.src.business
 {
-    public class CategoryCoordinator : AbstractCoordinatorDecorator
+    public interface ICategoryCoordinator : ICoordinator
+    {
+        ICategory getCategoryByPath(string path);
+    }
+
+    public class CategoryCoordinator : AbstractCoordinatorDecorator, ICategoryCoordinator
     {
 
         #region Eventi
@@ -21,9 +27,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Costruttori
-        public CategoryCoordinator(ICoordinator next) : base(next)
-        {
-        }
+        public CategoryCoordinator(ICoordinator next) : base(next) { }
         #endregion
 
         #region Metodi
@@ -34,6 +38,44 @@ namespace CSB_Project.src.business
              * una nuova categoria 
              */
             _root = CategoryFactory.CreateRoot("ROOT");
+
+            /* Categorie HardCoded */
+            IGroupCategory materiali = CategoryFactory.CreateGroup("materiali", _root);
+            CategoryFactory.CreateCategory("testa", materiali);
+            CategoryFactory.CreateCategory("staffa", materiali);
+        }
+
+        public ICategory getCategoryByPath(string path)
+        {
+            #region Precondizioni
+            if (String.IsNullOrWhiteSpace(path))
+                throw new ArgumentException("path null or blank");
+            if (!Regex.IsMatch( path, @"^(\\[^\\]+){1,}$", RegexOptions.Singleline))
+                throw new ArgumentException("path non è un percorso valido");
+            #endregion
+            string[] categories = path.Split('\\');
+
+            if (categories[1] != _root.Name )
+                return null;
+
+            if (categories.Length == 2)
+                return _root;
+
+            IGroupCategory currentCat = _root;
+            for (int i = 2; i < categories.Length-1; i++)
+            {
+                currentCat = (from cat in currentCat.Children
+                              where cat.Name == categories[i]
+                              && cat is IGroupCategory
+                              select cat as IGroupCategory).FirstOrDefault();
+                if (currentCat == null)
+                    return null;
+            }
+
+
+            return (from cat in currentCat.Children
+                    where cat.Name == categories[categories.Length-1]
+                    select cat).FirstOrDefault();
         }
         #endregion
 

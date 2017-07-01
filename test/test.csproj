@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="business\CategoryCoordinatorTest.cs" />
     <Compile Include="model\Booking\CategoryBaseItemTest.cs" />
     <Compile Include="model\Booking\ItemFactoryTest.cs" />
     <Compile Include="model\Category\CategoryFactoryTest.cs" />

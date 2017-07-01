@@ -1,4 +1,5 @@
-﻿using CSB_Project.src.model.Category;
+﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Category;
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
@@ -33,14 +34,16 @@ namespace CSB_Project.src.model.Item
                 if (itemToParse.ChildNodes.Count != 5)
                     throw new ItemDescriptorException("Errore nell'elemento da parsare.\nMancano dei campi");
                 string name = null, description = null, id = null;
-                int price;
+                double price;
+
                 try
                 {
                     name = ParserUtils.RetrieveValues<String>(itemToParse, "Name")[0];
                     description = ParserUtils.RetrieveValues<String>(itemToParse, "Description")[0];
-                    price = ParserUtils.RetrieveValues<int>(itemToParse, "Price")[0];
+                    price = ParserUtils.RetrieveValues<double>(itemToParse, "Price")[0];
                     id = ParserUtils.RetrieveValues<String>(itemToParse, "Identifier")[0];
-                }catch(ParsingException e)
+                }
+                catch (ParsingException e)
                 {
                     throw new ItemDescriptorException(e.Message);
                 }
@@ -51,59 +54,77 @@ namespace CSB_Project.src.model.Item
         #endregion
 
         #region CategorizableItem e Parser
-        private class CategorizableItem : AbstractItem
+        private class CategorizableItem : AbstractItem, ICategorizableItem
         {
-            public CategorizableItem(string id, PriceDescriptor descriptor) : base(id, descriptor)
-            {
-            }
-        }
-        #endregion
-
-        // DA RIVEDERE
-        private class CategoryItem : AbstractItem
-        {
-
             #region Campi
-            private readonly Dictionary<ICategory, PriceDescriptor> _categoryDictionary;
+            /// <summary>
+            /// Proprietà dell'item. Ad ogni categoria è associato un valore
+            /// ed un prezzo da aggiungere all'elemento base.
+            /// </summary>
+            private readonly IDictionary<ICategory, PriceDescriptor> _properties;
             #endregion
 
             #region Proprietà
-            public double DailyPrice
+            /// <summary>
+            /// Prezzo comprensivo di tutte le proprietà aggiuntive dell'oggetto
+            /// </summary>
+            public override double DailyPrice => BaseDailyPrice +
+                            _properties.Values.Sum(priceDesc => priceDesc.Price);
+            public IEnumerable<ICategory> Categories => _properties.Keys;
+            public IEnumerable<PriceDescriptor> Values => _properties.Values;
+            public IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties
             {
-                get
-                {
-                    double dailyPrice = BaseDailyPrice;
-                    foreach (PriceDescriptor desc in GetValues())
-                        dailyPrice += desc.Price;
-                    return dailyPrice;
+                get {
+                    KeyValuePair<ICategory, PriceDescriptor>[] copy = new KeyValuePair<ICategory, PriceDescriptor>[_properties.Count];
+                    _properties.CopyTo(copy, 0);
+                    return copy;
                 }
             }
             #endregion
 
             #region Costruttori
-            public CategoryItem(PriceDescriptor descriptor) : base("id", descriptor)
+            public CategorizableItem(string id, PriceDescriptor baseDescriptor, Dictionary<ICategory, PriceDescriptor> properties)
+                : base(id, baseDescriptor)
             {
-            }
-
-            public CategoryItem(PriceDescriptor descriptor, Dictionary<ICategory, PriceDescriptor> dictionary) : this(descriptor)
-            {
-
                 #region Precondizioni
-                if (dictionary == null)
-                    throw new ArgumentException("dictionary null");
+                if (properties == null)
+                    throw new ArgumentException("properties null");
                 #endregion
-                _categoryDictionary = dictionary;
-
+                _properties = properties;
             }
+
+            public CategorizableItem(string id, PriceDescriptor baseDescriptor) :
+                this(id, baseDescriptor, new Dictionary<ICategory, PriceDescriptor>())
+            { }
             #endregion
 
             #region Metodi
-
-            private ICollection<ICategory> GetCategories() => _categoryDictionary.Keys;
-
-            private ICollection<PriceDescriptor> GetValues() => _categoryDictionary.Values;
-
             public bool ContainsCategory(ICategory category)
+            {
+                #region Precondizioni
+                if (category == null)
+                    throw new ArgumentException("catetory null");
+                #endregion
+
+                return Categories.Contains(category);
+            }
+
+            public bool ContainsSubCateogryOf(IGroupCategory category)
+            {
+                #region Precondizioni
+                if (category == null)
+                    throw new ArgumentException("catetory null");
+                #endregion
+
+                return (from cat in Categories
+                        where cat.IsInside(category)
+                        select cat).Any();
+            }
+
+
+
+            /*
+            public bool ContainsCategory(ICategory category, bool parentSearch = false)
             {
                 #region Precondizioni
                 if (category == null)
@@ -123,9 +144,11 @@ namespace CSB_Project.src.model.Item
                 if (category == null)
                     throw new ArgumentException("catetory null");
                 #endregion
-                return _categoryDictionary.ContainsKey(category);
+                return _properties.ContainsKey(category);
             }
+            */
 
+            /*
             public void AddCategory(ICategory category, PriceDescriptor descriptor)
             {
                 #region Precondizioni
@@ -135,7 +158,7 @@ namespace CSB_Project.src.model.Item
                     throw new ArgumentException("descriptor null");
                 #endregion
                 if (ContainsStrictCategory(category)) ModifyCategory(category, descriptor);
-                else _categoryDictionary.Add(category, descriptor);
+                else _properties.Add(category, descriptor);
             }
 
             public void ModifyCategory(ICategory category, PriceDescriptor descriptor)
@@ -148,7 +171,7 @@ namespace CSB_Project.src.model.Item
                 if (descriptor == null)
                     throw new ArgumentException("descriptor null, only blank or empty");
                 #endregion
-                _categoryDictionary[category] = descriptor;
+                _properties[category] = descriptor;
             }
 
             public void RemoveCategory(ICategory category)
@@ -159,18 +182,19 @@ namespace CSB_Project.src.model.Item
                 if (!ContainsStrictCategory(category))
                     throw new ArgumentException("category not present in the dictionary");
                 #endregion
-                _categoryDictionary.Remove(category);
+                _properties.Remove(category);
             }
+            */
 
             public string GetNameOf(ICategory category)
             {
                 #region Precondizioni
                 if (category == null)
                     throw new ArgumentException("category null");
-                if (!_categoryDictionary.ContainsKey(category))
+                if (!_properties.ContainsKey(category))
                     throw new ArgumentException("category not present in the dictionary");
                 #endregion
-                return _categoryDictionary[category].Name;
+                return _properties[category].Name;
             }
 
             public string GetDescriptionOf(ICategory category)
@@ -178,10 +202,10 @@ namespace CSB_Project.src.model.Item
                 #region Precondizioni
                 if (category == null)
                     throw new ArgumentException("category null");
-                if (!_categoryDictionary.ContainsKey(category))
+                if (!_properties.ContainsKey(category))
                     throw new ArgumentException("category not present in the dictionary");
                 #endregion
-                return _categoryDictionary[category].Description;
+                return _properties[category].Description;
             }
 
             public double GetPriceOf(ICategory category)
@@ -189,30 +213,69 @@ namespace CSB_Project.src.model.Item
                 #region Precondizioni
                 if (category == null)
                     throw new ArgumentException("category null");
-                if (!_categoryDictionary.ContainsKey(category))
+                if (!_properties.ContainsKey(category))
                     throw new ArgumentException("category not present in the dictionary");
                 #endregion
-                return _categoryDictionary[category].Price;
+                return _properties[category].Price;
             }
+            #endregion
+        }
 
-            public override bool Equals(object obj)
+        private static class CategorizableParser
+        {
+            public static CategorizableItem Parse(XmlNode itemToParse)
             {
                 #region Precondizioni
-                if (obj == null || !(obj is CategoryItem))
-                    return false;
+                if (itemToParse == null)
+                    throw new ArgumentNullException("itemToParse null");
+                ICoordinator coor = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(CategoryCoordinator));
+                if (coor == null)
+                    throw new ApplicationException("Non è disponibile un category coordinator");
                 #endregion
-                CategoryItem other = obj as CategoryItem;
 
-                if (Identifier != other.Identifier)
-                    return false;
+                string id, name, description, categoryName;
+                double price;
+                Dictionary<ICategory, PriceDescriptor> properties = new Dictionary<ICategory, PriceDescriptor>();
 
-                return (_categoryDictionary.Count == other._categoryDictionary.Count && !_categoryDictionary.Except(other._categoryDictionary).Any());
+                try
+                {
+                    name = ParserUtils.RetrieveValues<String>(itemToParse, "Name")[0];
+                    description = ParserUtils.RetrieveValues<String>(itemToParse, "Description")[0];
+                    price = ParserUtils.RetrieveValues<double>(itemToParse, "Price")[0];
+                    id = ParserUtils.RetrieveValues<String>(itemToParse, "Identifier")[0];
+                }
+                catch (ParsingException e)
+                {
+                    throw new ItemDescriptorException(e.Message);
+                }
+
+                PriceDescriptor priceDescriptor = new PriceDescriptor(name, description, price);
+
+                XmlNodeList categoryNode = itemToParse.SelectNodes("Category");
+                ICategory category;
+                for (int i = 0; i < categoryNode.Count; i++)
+                {
+                    try
+                    {
+                        name = ParserUtils.RetrieveValues<String>(categoryNode[i], "Name")[0];
+                        description = ParserUtils.RetrieveValues<String>(categoryNode[i], "Description")[0];
+                        price = ParserUtils.RetrieveValues<double>(categoryNode[i], "Price")[0];
+                        categoryName = ParserUtils.RetrieveValues<String>(categoryNode[i], "Path")[0];
+                    }
+                    catch (ParsingException e)
+                    {
+                        throw new ItemDescriptorException(e.Message);
+                    }
+                    category = (coor as ICategoryCoordinator).getCategoryByPath(categoryName);
+                    if (category == null)
+                        throw new ApplicationException("Non è stata trovata la categoria " + categoryName);
+                    
+                    properties.Add(category, new PriceDescriptor(name, description, price));
+                }                
+                return new CategorizableItem(id, priceDescriptor, properties);
             }
-            #endregion
-
-            #region Handler
-            #endregion
-
         }
+        #endregion
+
     }
 }

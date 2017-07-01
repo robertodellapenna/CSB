@@ -6,6 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using CSB_Project.src.model.Item;
+using System.Text.RegularExpressions;
+using static CSB_Project.src.model.Item.ItemFactory;
+using CSB_Project.src.model.Category;
+using System.Collections.Generic;
 
 namespace CSB_Project
 {
@@ -13,25 +17,38 @@ namespace CSB_Project
     {
         public static void Main(String[] args)
         {
-            /*
-            Console.WriteLine("Hello");
-            Console.WriteLine("type -> " + typeof(ItemFactory.BasicParser) );
-            foreach(MethodInfo mi in Type.GetType("CSB_Project.src.model.Booking.ItemFactory+BasicParser").GetMethods())
-            {
-                Console.WriteLine("inversione -> " + mi.Name + " static " + mi.IsStatic);
-            }
-            */
 
-            //Console.WriteLine("Counted " + ItemFactory.GetItems.Count());
-            //Console.WriteLine("Test singleton " + (ItemFactory.GetItem(i.Name) == i));
+            /* Test regex */
+            //Console.WriteLine(Regex.IsMatch("\\root", @"^(\\[^\\]+){1,}$"));
+            //Console.WriteLine(Regex.IsMatch("\\root\\hello", "^(\\[^\\]+){1,}$", RegexOptions.ECMAScript));
+
             StringBuilder br = new StringBuilder();
             br.AppendLine("<Items>");
             br.AppendLine("  <Item>");
-            br.AppendLine("    <Class>CSB_Project.src.model.Booking.ItemFactory+BasicParser</Class>");
+            br.AppendLine("    <Class>CSB_Project.src.model.Item.ItemFactory+BasicParser</Class>");
             br.AppendLine("    <Identifier>MyItem100</Identifier>");
             br.AppendLine("    <Name>MyItem</Name>");
             br.AppendLine("    <Description>MyItemDesc</Description>");
             br.AppendLine("    <Price>100</Price>");
+            br.AppendLine("  </Item>");
+            br.AppendLine("  <Item>");
+            br.AppendLine("    <Class>CSB_Project.src.model.Item.ItemFactory+CategorizableParser</Class>");
+            br.AppendLine("    <Identifier>MyItemCustomizable</Identifier>");
+            br.AppendLine("    <Name>Omberllone</Name>");
+            br.AppendLine("    <Description>MyItemDesc</Description>");
+            br.AppendLine("    <Price>200</Price>");
+            br.AppendLine("    <Category>");
+            br.AppendLine("      <Path>\\ROOT\\materiali\\testa</Path>");
+            br.AppendLine("      <Name>velluto brasiliano</Name>");
+            br.AppendLine("      <Description>velluto super costoso</Description>");
+            br.AppendLine("      <Price>20000</Price>");
+            br.AppendLine("    </Category>");
+            br.AppendLine("    <Category>");
+            br.AppendLine("      <Path>\\ROOT\\materiali\\staffa</Path>");
+            br.AppendLine("      <Name>legno marcio</Name>");
+            br.AppendLine("      <Description>legno scadente</Description>");
+            br.AppendLine("      <Price>2</Price>");
+            br.AppendLine("    </Category>");
             br.AppendLine("  </Item>");
             br.AppendLine("</Items>");
             XmlDocument xml = new XmlDocument();
@@ -40,16 +57,26 @@ namespace CSB_Project
             Console.WriteLine("Root -> " + root.Name + ":" + root.Value);
             XmlNodeList xnl = root.SelectNodes("/Items/Item");
             Console.WriteLine("Item Count -> " + xnl.Count);
-            //CSB_Project.src.model.Booking.ItemFactory+BasicParser\nF1\nF2\nF3
             try
             {
-                //IItem n = ItemFactory.GetItem(i.Name);
-                IItem i = ItemFactory.CreateItem(xnl.Item(0));
-                Console.WriteLine("name " + i.Identifier);
+                for (int i = 0; i < xnl.Count; i++)
+                {
+                    IItem it = ItemFactory.CreateItem(xnl.Item(i));
+                    Console.WriteLine("Name " + it.Identifier);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine("Errore \n " + e);
+            }
+
+            foreach(ICategorizableItem ci in ItemFactory.GetItems.OfType<ICategorizableItem>())
+            {
+                Console.WriteLine("name :" + ci.Identifier + ", num prop :" + ci.Categories.Count());
+                foreach(KeyValuePair<ICategory, PriceDescriptor> cat in ci.Properties)
+                {
+                    Console.WriteLine("\tCat : " + cat.Key.Name + ", Value : " + cat.Value.Name);
+                }
             }
 
             Console.WriteLine("Fine");

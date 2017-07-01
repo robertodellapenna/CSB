@@ -42,11 +42,12 @@ namespace CSB_Project.src.business
                 throw new ArgumentNullException("tipo di coordinatore cercato è nullo");
             #endregion
 
-            return GetType() == type;
+            return GetType() == type 
+                || GetType().GetInterfaces().Contains(type);
         }
 
 
-        public virtual ICoordinator GetCoordinatorOf(Type type)
+        public virtual ICoordinator GetCoordinatorOf( Type type )
         {
             /* 
              * O sono del tipo giusto e mi restituisco oppure non ci possono
@@ -73,7 +74,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Proprietà
-        public ICoordinator Coordinator => _next;
+        public ICoordinator NextCoordinator => _next;
         #endregion
 
         #region Costruttori
@@ -99,14 +100,14 @@ namespace CSB_Project.src.business
             #endregion
 
             /* Verifico se io sono di quel tipo, altrimenti delego */
-            return GetType() == type || Coordinator.ContainsCoordinator(type);
+            return GetType() == type || NextCoordinator.ContainsCoordinator(type);
         }
 
         public override ICoordinator GetCoordinatorOf(Type type)
         {
             if (GetType() == type)
                 return this;
-            return Coordinator.GetCoordinatorOf(type);
+            return NextCoordinator.GetCoordinatorOf(type);
         }
         #endregion
 

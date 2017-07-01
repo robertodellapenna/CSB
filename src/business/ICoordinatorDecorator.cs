@@ -7,6 +7,6 @@ namespace CSB_Project.src.business
 {
     public interface ICoordinatorDecorator : ICoordinator
     {
-        ICoordinator Coordinator { get; }
+        ICoordinator NextCoordinator { get; }
     }
 }

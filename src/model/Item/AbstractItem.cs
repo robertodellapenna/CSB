@@ -18,7 +18,7 @@ namespace CSB_Project.src.model.Item
         public string Description => _descriptor.Description;
         public double BaseDailyPrice => _descriptor.Price;
         public string FriendlyName => _descriptor.Name;
-        public double DailyPrice => BaseDailyPrice;
+        public virtual double DailyPrice => BaseDailyPrice;
         #endregion
 
         #region Costruttori

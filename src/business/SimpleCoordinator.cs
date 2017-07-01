@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSB_Project.src.business
 {
-    class SimpleCoordinator : AbstractCoordinator
+    public class SimpleCoordinator : AbstractCoordinator
     {
 
         #region Eventi

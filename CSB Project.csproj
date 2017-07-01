@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="src\business\AbstractCoordinator.cs" />
     <Compile Include="src\business\CategoryCoordinator.cs" />
+    <Compile Include="src\business\CoordinatorManager.cs" />
     <Compile Include="src\business\ICoordinator.cs" />
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
