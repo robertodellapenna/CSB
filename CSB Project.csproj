@@ -188,7 +188,6 @@
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
-    <Compile Include="src\model\Item\AssociableItems.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />

@@ -237,6 +237,9 @@ namespace CSB_Project.src.model.Item
                 double price;
                 Dictionary<ICategory, PriceDescriptor> properties = new Dictionary<ICategory, PriceDescriptor>();
 
+                //Devono esserci almeno 4 elementi, id, name, description, price.
+                //Possono esserci da 0 a N categorie. 
+
                 try
                 {
                     name = ParserUtils.RetrieveValues<String>(itemToParse, "Name")[0];
@@ -269,7 +272,10 @@ namespace CSB_Project.src.model.Item
                     category = (coor as ICategoryCoordinator).getCategoryByPath(categoryName);
                     if (category == null)
                         throw new ApplicationException("Non è stata trovata la categoria " + categoryName);
-                    
+
+                    if (properties.ContainsKey(category))
+                        throw new ItemDescriptorException("Una categoria è presente più di una volta");
+                       
                     properties.Add(category, new PriceDescriptor(name, description, price));
                 }                
                 return new CategorizableItem(id, priceDescriptor, properties);

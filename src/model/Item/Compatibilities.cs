@@ -5,44 +5,43 @@ using System.Text;
 
 namespace CSB_Project.src.model.Item
 {
+    /// <summary>
+    /// Gestice le comptabilità tra un 'baseItem' e tutti gli item
+    /// associabili. L'associazione non è bidirezionale, se un baseItem è 
+    /// comptabile con un item, l'item associato può essere non comptabile
+    /// con baseItem
+    /// </summary>
     public class Compatibilities
     {
-        #region Eventi
-        #endregion
-
         #region Campi
-        private static Compatibilities _instance;
-        private readonly Dictionary<IItem, AssociableItems> _dictionary;
-
+        /// <summary>
+        /// Istanza singleton
+        /// </summary>
+        private static Compatibilities _instance = new Compatibilities();
+        /// <summary>
+        /// La chiave rappresenta l'item a cui associare vari componenti.
+        /// Il valore del dizionario rappresenta tutti i componenti associabili 
+        /// alla chiave e in che quantità 
+        /// </summary>
+        private readonly Dictionary<IItem, Dictionary<IItem, int>> _compatibiltyMap;
         #endregion
 
         #region Proprietà
-
-        public static Compatibilities Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Compatibilities();
-                }
-                return _instance;
-            }
-            
-        }
+        public static Compatibilities Instance => _instance;
         #endregion
 
         #region Costruttori
 
         private Compatibilities()
         {
-            _dictionary = new Dictionary<IItem, AssociableItems>();
+            _compatibiltyMap = new Dictionary<IItem, Dictionary<IItem, int>>();
         }
-
         #endregion
 
         #region Metodi
 
+        /* METODO NON NECESSARIO. OGNI ITEM PUO' ESSERE
+         * SIA BASEITEM CHE PLUGIN
         public bool isBaseItem(IItem item)
         {
             #region Precondizioni
@@ -50,47 +49,57 @@ namespace CSB_Project.src.model.Item
                 throw new ArgumentNullException("item null");
             #endregion
 
-            return _dictionary.ContainsKey(item);
+            return _compatibiltyMap.ContainsKey(item);
         }
+        */
 
-        public bool CheckCompatibility(IItem compatibleItem, IItem associableItem)
+        /// <summary>
+        /// Permette di verificare se un item 'itemToCheck'
+        /// è compatibile con un baseItem
+        /// </summary>
+        /// <param name="baseItem">Item sulla quale effettuare il controllo</param>
+        /// <param name="itemToCheck">Item che deve essere controllato</param>
+        /// <returns> True se 'baseItem' può contenere un 'itemToCheck', altrimenti false</returns>        
+        public bool CheckCompatibility(IItem itemToCheck, IItem baseItem)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
-            if (associableItem == null)
+            if (itemToCheck == null)
+                throw new ArgumentException("baseItem null");
+            if (baseItem == null)
                 throw new ArgumentException("associableItem null");
-            if (!_dictionary.ContainsKey(compatibleItem)) return false;
             #endregion
+            if (!_compatibiltyMap.ContainsKey(baseItem))
+                return false;
 
-            //return _dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Any();
-            //return (from t in _dictionary[compatibleItem].Tuples
-            //        where t.Item1.Equals(associableItem)
-            //        select t).Any();
-
-            return _dictionary[compatibleItem].ContainsKey(associableItem);
+            return _compatibiltyMap[baseItem].ContainsKey(itemToCheck);
         }
 
-        public IEnumerable<IItem> GetAllAssociablePluginItems(IItem compatibleItem)
+        /// <summary>
+        /// Dato un item restituisce tutti gli item che si possono associare
+        /// </summary>
+        /// <param name="baseItem">item dalla quale prelevare gli item associabili</param>
+        /// <returns>Collezione di IItem associabili a 'baseItem'</returns>
+        public IEnumerable<IItem> GetAllAssociableItems(IItem baseItem)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
-            if (!_dictionary.ContainsKey(compatibleItem))
-                throw new ArgumentException("compatibleItem not present in the dictionary");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
+            if (!_compatibiltyMap.ContainsKey(baseItem))
+                throw new ArgumentException("baseItem not present in the dictionary");
             #endregion
 
-            //return _dictionary[compatibleItem].Tuples.Select(tuple => tuple.Item1);
-            //return (from t in _dictionary[compatibleItem].Tuples
-            //        select t.Item1);
-
-            return _dictionary[compatibleItem].Keys;
+            return _compatibiltyMap[baseItem].Keys;
         }
 
-        public IEnumerable<IItem> GetAllCompatibleBaseItems(IItem associableItem)
+        /// <summary>
+        /// Dato un item restituisce tutti gli item a cui è possibile associarlo
+        /// </summary>
+        /// <param name="itemToAssociate">item da associare</param>
+        /// <returns>Collezione di IItem a cui è possibile associarlo</returns>
+        public IEnumerable<IItem> GetBaseItemsComptabileWith(IItem itemToAssociate)
         {
             #region Precondizioni
-            if (associableItem == null)
+            if (itemToAssociate == null)
                 throw new ArgumentException("associableItem null");
             #endregion
 
@@ -99,105 +108,101 @@ namespace CSB_Project.src.model.Item
             // where t.Item1.Equals(associableItem)
             // select t).Any()
 
-            return (from c in _dictionary
-                    where c.Value.ContainsKey(associableItem)
+            return (from c in _compatibiltyMap
+                    where c.Value.ContainsKey(itemToAssociate)
                     select c.Key);
         }
 
-        public int GetMaxQuantity(IItem compatibleItem, IItem associableItem)
+        /// <summary>
+        /// Dato un item base è un altro item restituisce il
+        /// numero di volte che è possibile associare tale item a 'baseItem'
+        /// </summary>
+        /// <param name="baseItem"></param>
+        /// <param name="associableItem"></param>
+        /// <returns></returns>
+        public int GetMaxQuantity(IItem baseItem, IItem associableItem)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
-            if (!_dictionary.ContainsKey(compatibleItem))
+            if (!_compatibiltyMap.ContainsKey(baseItem))
                 throw new ArgumentException("compatible item not present in the dictionary");
-            if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
-                throw new ArgumentException("compatibility between compatible and associable items not present");
-            #endregion 
-
-            //return _dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray()[0];
-            //return (from t in _dictionary[compatibleItem].Tuples
-            //        where t.Item1.Equals(associableItem)
-            //        select t.Item2).ToArray()[0];
-
-            return _dictionary[compatibleItem][associableItem];
+            #endregion
+            return _compatibiltyMap[baseItem].ContainsKey(associableItem) 
+                ? _compatibiltyMap[baseItem][associableItem] : 0;
         }
 
-        public void AddCompatibility(IItem compatibleItem, IItem associableItem, int maxQuantity)
+        /// <summary>
+        /// Aggiunge una comptabilità tra 'baseItem' e 'associableItem'
+        /// </summary>
+        /// <param name="baseItem"></param>
+        /// <param name="associableItem"></param>
+        /// <param name="maxQuantity"></param>
+        public void AddCompatibility(IItem baseItem, IItem associableItem, int maxQuantity = int.MaxValue)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
             if (maxQuantity <= 0)
                 throw new ArgumentException("maxQuantity <= 0");
             #endregion
-            if (!_dictionary.ContainsKey(compatibleItem))
-                _dictionary.Add(compatibleItem, new AssociableItems());
-            if (CheckCompatibility(compatibleItem, associableItem))
-            {
+            if (!_compatibiltyMap.ContainsKey(baseItem))
+                _compatibiltyMap.Add(baseItem, new Dictionary<IItem, int>());
+
+            if (CheckCompatibility(baseItem, associableItem))
                 //Non possono esserci due associable item uguali associati ad uno stesso compatible item
-                ChangeMaxQuantity(compatibleItem, associableItem, maxQuantity);
-            }
-            else _dictionary[compatibleItem].Add(associableItem, maxQuantity);
+                ChangeMaxQuantity(baseItem, associableItem, maxQuantity);
+            else
+                // Comptabilità non presente
+                _compatibiltyMap[baseItem].Add(associableItem, maxQuantity);
         }
 
-        public void ChangeMaxQuantity(IItem compatibleItem, IItem associableItem, int maxQuantity)
+        public void ChangeMaxQuantity(IItem baseItem, IItem associableItem, int maxQuantity)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
             if (maxQuantity <= 0)
                 throw new ArgumentException("maxQuantity <= 0");
-            if(!_dictionary.ContainsKey(compatibleItem))
+            if(!_compatibiltyMap.ContainsKey(baseItem))
                 throw new ArgumentException("compatible item not present in the dictionary");
-            if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
+            if (!CheckCompatibility(baseItem, associableItem))
                 throw new ArgumentException("compatibility between compatible and associable items not present");
             #endregion
-
-            //_dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem)).Select(tuple => tuple.Item2).ToArray<int>()[0] = maxQuantity;
-            //(from t in _dictionary[compatibleItem].Tuples
-            // where t.Item1.Equals(associableItem)
-            // select t.Item2).ToArray()[0] = maxQuantity;
-
-            _dictionary[compatibleItem][associableItem] = maxQuantity;
+            
+            _compatibiltyMap[baseItem][associableItem] = maxQuantity;
         }
 
-        public void RemoveCompatibility(IItem compatibleItem, IItem associableItem)
+        public void RemoveCompatibility(IItem baseItem, IItem associableItem)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
-            if (!_dictionary.ContainsKey(compatibleItem))
+            if (!_compatibiltyMap.ContainsKey(baseItem))
                 throw new ArgumentException("compatible item not present in the dictionary");
-            if (!GetAllAssociablePluginItems(compatibleItem).Contains(associableItem))
+            if (!CheckCompatibility(baseItem, associableItem))
                 throw new ArgumentException("compatibility between compatible and associable items not present");
             #endregion
-
-            //((List<Tuple<IPluginItem, int>>)_dictionary[compatibleItem].Tuples.Where(tuple => tuple.Item1.Equals(associableItem))).RemoveAt(0);
-            //((List<Tuple<IItem, int>>)(from t in _dictionary[compatibleItem].Tuples
-            //                                 where t.Item1.Equals(associableItem)
-            //                                 select t)).RemoveAt(0);
-
-            _dictionary[compatibleItem].Remove(associableItem);
+            _compatibiltyMap[baseItem].Remove(associableItem);
         }
 
-        public void RemoveCompatibleItem(IItem compatibleItem)
+        public void RemoveBaseItem(IItem baseItem)
         {
             #region Precondizioni
-            if (compatibleItem == null)
-                throw new ArgumentException("compatibleItem null");
-            if (!_dictionary.ContainsKey(compatibleItem))
-                throw new ArgumentException("compatible item not present in the dictionary");
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
+            if (!_compatibiltyMap.ContainsKey(baseItem))
+                throw new ArgumentException("baseItem item not present in the dictionary");
             #endregion 
-            _dictionary.Remove(compatibleItem);
+            _compatibiltyMap.Remove(baseItem);
         }
 
         public void RemoveAssociableItem(IItem associableItem)
@@ -206,18 +211,14 @@ namespace CSB_Project.src.model.Item
             if (associableItem == null)
                 throw new ArgumentException("associableItem null");
             #endregion
-            foreach (IItem compatibleItem in GetAllCompatibleBaseItems(associableItem))
-                RemoveCompatibility(compatibleItem, associableItem);
+            foreach (IItem baseItem in GetBaseItemsComptabileWith(associableItem))
+                RemoveCompatibility(baseItem, associableItem);
         }
 
         public void Clean()
         {
-            foreach (IItem compatibleItem in _dictionary.Keys) _dictionary.Remove(compatibleItem);
+            _compatibiltyMap.Clear();
         }
         #endregion
-
-        #region Handler
-        #endregion
-
     }
 }
