@@ -225,14 +225,20 @@
     <Compile Include="src\model\Users\User.cs" />
     <Compile Include="src\model\Utils\DateRange.cs" />
     <Compile Include="src\model\Utils\ParserUtils.cs" />
-    <Compile Include="src\persistence\IItemPopulator.cs" />
-    <Compile Include="src\persistence\ItemPopulatorFactory.cs" />
+    <Compile Include="src\presentation\CategoryManagerPresenter.cs" />
+    <Compile Include="src\presentation\CategoryManagerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
+      <DependentUpon>CategoryManagerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\objects\info\" />
     <Folder Include=".git\objects\pack\" />
     <Folder Include=".git\refs\tags\" />
+    <Folder Include="src\persistence\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -240,6 +246,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
+      <DependentUpon>CategoryManagerView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

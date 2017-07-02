@@ -100,12 +100,14 @@ namespace CSB_Project.src.business
             #endregion
 
             /* Verifico se io sono di quel tipo, altrimenti delego */
-            return GetType() == type || NextCoordinator.ContainsCoordinator(type);
+            return GetType() == type 
+                || GetType().GetInterfaces().Contains(type)
+                || NextCoordinator.ContainsCoordinator(type);
         }
 
         public override ICoordinator GetCoordinatorOf(Type type)
         {
-            if (GetType() == type)
+            if (GetType() == type || GetType().GetInterfaces().Contains(type))
                 return this;
             return NextCoordinator.GetCoordinatorOf(type);
         }

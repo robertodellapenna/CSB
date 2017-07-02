@@ -9,6 +9,7 @@ namespace CSB_Project.src.business
 {
     public interface ICategoryCoordinator : ICoordinator
     {
+        IGroupCategory RootCategory { get; }
         ICategory getCategoryByPath(string path);
     }
 

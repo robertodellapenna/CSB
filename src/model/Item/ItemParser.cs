@@ -228,7 +228,7 @@ namespace CSB_Project.src.model.Item
                 #region Precondizioni
                 if (itemToParse == null)
                     throw new ArgumentNullException("itemToParse null");
-                ICoordinator coor = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(CategoryCoordinator));
+                ICoordinator coor = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(ICategoryCoordinator));
                 if (coor == null)
                     throw new ApplicationException("Non è disponibile un category coordinator");
                 #endregion
