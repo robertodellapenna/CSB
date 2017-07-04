@@ -5,6 +5,7 @@ using System.Text;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Utils;
 using CSB_Project.src.model.TrackingDevice;
+using CSB_Project.src.model.Services;
 
 namespace CSB_Project.src.model.Prenotation
 {
@@ -19,14 +20,17 @@ namespace CSB_Project.src.model.Prenotation
         private readonly TrackingDeviceAssociations _tdAssociations;
         private readonly DateRange _rangeData;
         private readonly List<ItemPrenotation> _items;
+        private readonly List<IPacket> _packets;
+        private readonly List<IBundle> _bundles;
         #endregion
         #region Proprieta
-    
+
         public Client Client => _client;
         public DateRange RangeData => _rangeData;
         public int Id => _id;
         public  List<ItemPrenotation> Items  => _items;
-        public TrackingDeviceAssociations CardsAssociations => _tdAssociations;
+        public TrackingDeviceAssociations TrackingDeviceAssociations => _tdAssociations;
+
 
         #endregion
         #region Costruttori
@@ -39,6 +43,7 @@ namespace CSB_Project.src.model.Prenotation
             _items = items ?? throw new ArgumentException("items is not defined");
             if (!IsAValidPrenotation())
                 throw new ArgumentException("Data Range of Items do not satisfy data range of prenotation");
+            _tdAssociations = new TrackingDeviceAssociations();
         }
 
         #endregion

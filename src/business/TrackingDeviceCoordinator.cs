@@ -12,7 +12,7 @@ namespace CSB_Project.src.business
         
     }
 
-    public class TrackingDeviceCoordinator : AbstractCoordinatorDecorator, ITrackingDeviceCoordinator,
+    public class TrackingDeviceCoordinator : AbstractCoordinatorDecorator, ITrackingDeviceCoordinator
     {
         #region Eventi
         #endregion
