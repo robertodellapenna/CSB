@@ -11,12 +11,14 @@ namespace CSB_Project.src.business
     {
         IGroupCategory RootCategory { get; }
         ICategory getCategoryByPath(string path);
+        event EventHandler CategoryChanged;
     }
 
     public class CategoryCoordinator : AbstractCoordinatorDecorator, ICategoryCoordinator
     {
 
         #region Eventi
+        public event EventHandler CategoryChanged;
         #endregion
 
         #region Campi
@@ -39,6 +41,7 @@ namespace CSB_Project.src.business
              * una nuova categoria 
              */
             _root = CategoryFactory.CreateRoot("ROOT");
+            _root.Changed += OnCategoryChanged;
 
             /* Categorie HardCoded */
             IGroupCategory materiali = CategoryFactory.CreateGroup("materiali", _root);
@@ -81,6 +84,10 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Handler
+        private void OnCategoryChanged( Object sender, EventArgs args)
+        {
+            CategoryChanged?.Invoke(sender, args);
+        }
         #endregion
     }
 }

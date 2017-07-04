@@ -12,6 +12,7 @@ using CSB_Project.src.model.Category;
 using System.Collections.Generic;
 using CSB_Project.src.presentation;
 using System.Windows.Forms;
+using CSB_Project.src.presentation.Utils;
 
 namespace CSB_Project
 {
@@ -23,6 +24,14 @@ namespace CSB_Project
             /* Test regex */
             //Console.WriteLine(Regex.IsMatch("\\root", @"^(\\[^\\]+){1,}$"));
             //Console.WriteLine(Regex.IsMatch("\\root\\hello", "^(\\[^\\]+){1,}$", RegexOptions.ECMAScript));
+
+            //using (StringDialog sd = new StringDialog("Rispondi a me"))
+            //{
+            //    if(sd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        Console.WriteLine(sd.Response);
+            //    }
+            //}
 
             CategoryManagerView cat = new CategoryManagerView();
             new CategoryManagerPresenter(cat);

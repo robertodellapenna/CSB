@@ -67,8 +67,6 @@ namespace CSB_Project.src.business
 
     public abstract class AbstractCoordinatorDecorator : AbstractCoordinator, ICoordinatorDecorator
     {
-        
-
         #region Campi
         private readonly ICoordinator _next;
         #endregion
