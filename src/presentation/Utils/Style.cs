@@ -10,15 +10,20 @@ namespace CSB_Project.src.presentation.Utils
     public class Style
     {
         private Font _font;
+        public Font Font => _font;
 
         public Style()
         {
             _font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);
         }
+    }
 
-        public static void SetStyle(Style style, Form form)
+    public static class FormStyleExtension{
+        public static void ApplyStyle(this Form form, Style style)
         {
-            form.Font = style._font;
+            if (style == null)
+                return;
+            form.Font = style.Font;
         }
     }
 }

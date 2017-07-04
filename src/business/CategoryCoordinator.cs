@@ -36,6 +36,7 @@ namespace CSB_Project.src.business
         #region Metodi
         protected override void init()
         {
+            base.init();
             /* Cerco un file di configurazione delle categorie nel fileSystem,
              * se lo trovo carico le categorie contenute, altrimenti inizializzo
              * una nuova categoria 

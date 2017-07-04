@@ -18,13 +18,13 @@ namespace CSB_Project.src.presentation
         {
             view.AddButton.Click += AddHandler;
             _categoryTree = view.TreeView;
-            ICoordinator coordinator = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(ICategoryCoordinator));
+
+            ICategoryCoordinator coordinator = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
             if ( coordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle categorie non è disponibile");
-
-            ICategoryCoordinator castedCoordinator = coordinator as ICategoryCoordinator;
-            _root = castedCoordinator.RootCategory;
-            castedCoordinator.CategoryChanged += CategoryChangedHandler;
+            
+            _root = coordinator.RootCategory;
+            coordinator.CategoryChanged += CategoryChangedHandler;
             // Popolo la tree view all'avvio
             CategoryChangedHandler(this, EventArgs.Empty);
         }

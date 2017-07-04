@@ -41,6 +41,7 @@ namespace CSB_Project.src.business
         #region Metodi
         protected override void init()
         {
+            base.init();
             /* Cerco un file di configurazione dei tracking devices nel fileSystem,
              * se lo trovo carico i tracking devices contenuti 
              */

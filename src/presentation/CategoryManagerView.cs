@@ -18,10 +18,7 @@ namespace CSB_Project.src.presentation
         public CategoryManagerView(Style style = null)
         {
             InitializeComponent();
-            if (style == null)
-                style = new Style();
-            Style.SetStyle(style, this);
-            //this.MinimumSize = new Size(300, 300);
+            this.ApplyStyle(style);
         }
     }
 }

@@ -46,7 +46,6 @@ namespace CSB_Project.src.business
                 || GetType().GetInterfaces().Contains(type);
         }
 
-
         public virtual ICoordinator GetCoordinatorOf( Type type )
         {
             /* 

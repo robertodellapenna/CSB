@@ -26,9 +26,7 @@ namespace CSB_Project.src.presentation.Utils
             _question.Text = question;
             _emptyResponse = emptyResponse;
             ActiveControl = _answer;
-            if (style == null)
-                style = new Style();
-            Style.SetStyle(style, this);
+            this.ApplyStyle(style);
         }
 
         public void OkButtonHandler( Object obj, EventArgs e)
