@@ -16,7 +16,7 @@ namespace CSB_Project.src.model.Prenotation
         #region Campi
         private readonly int _id;
         private readonly Client _client;
-        private readonly CardsAssociations _cardsAssociations;
+        private readonly TrackingDeviceAssociations _tdAssociations;
         private readonly DateRange _rangeData;
         private readonly List<ItemPrenotation> _items;
         #endregion
@@ -26,7 +26,7 @@ namespace CSB_Project.src.model.Prenotation
         public DateRange RangeData => _rangeData;
         public int Id => _id;
         public  List<ItemPrenotation> Items  => _items;
-        public CardsAssociations CardsAssociations => _cardsAssociations;
+        public TrackingDeviceAssociations CardsAssociations => _tdAssociations;
 
         #endregion
         #region Costruttori

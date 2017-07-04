@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.TrackingDevice
 {
-    public abstract class Card
+    public abstract class Card : ITrackingDevice
     {
         #region Eventi
         #endregion

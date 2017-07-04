@@ -7,6 +7,6 @@ namespace CSB_Project.src.model.TrackingDevice
 {
     public interface ITrackingDevice
     {
-        string ID { get; }
+        int Id { get; }
     }
 }

@@ -186,7 +186,9 @@
     <Compile Include="src\business\CoordinatorManager.cs" />
     <Compile Include="src\business\ICoordinator.cs" />
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
+    <Compile Include="src\business\ItemCoordinator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
+    <Compile Include="src\business\TrackingDeviceCoordinator.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -214,7 +216,7 @@
     <Compile Include="src\model\Services\IUsage.cs" />
     <Compile Include="src\model\Services\TicketPacket.cs" />
     <Compile Include="src\model\TrackingDevice\Card.cs" />
-    <Compile Include="src\model\TrackingDevice\CardsAssociations.cs" />
+    <Compile Include="src\model\TrackingDevice\TrackingDeviceAssociations.cs" />
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
     <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />

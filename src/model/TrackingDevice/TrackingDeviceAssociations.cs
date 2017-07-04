@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.TrackingDevice
 {
-    public class CardsAssociations : Dictionary<ITrackingDevice, AssociationDescriptor>
+    public class TrackingDeviceAssociations : Dictionary<ITrackingDevice, AssociationDescriptor>
     {
         #region Eventi
         #endregion
