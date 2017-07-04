@@ -196,7 +196,6 @@
     <Compile Include="src\model\Item\IItem.cs" />
     <Compile Include="src\model\Item\ItemParser.cs" />
     <Compile Include="src\model\Booking\SectorBookableItem.cs" />
-    <Compile Include="src\model\Booking\Plugins.cs" />
     <Compile Include="src\model\Structure\Sector.cs" />
     <Compile Include="src\model\Structure\Structure.cs" />
     <Compile Include="src\model\Structure\StructureArea.cs" />
@@ -216,7 +215,6 @@
     <Compile Include="src\model\Services\IUsage.cs" />
     <Compile Include="src\model\Services\TicketPacket.cs" />
     <Compile Include="src\model\TrackingDevice\Card.cs" />
-    <Compile Include="src\model\TrackingDevice\TrackingDeviceAssociations.cs" />
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
     <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />

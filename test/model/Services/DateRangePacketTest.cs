@@ -16,8 +16,8 @@ namespace test.model.Services
         {
             IUsable s1 = new UsableMock("s1");
             IUsable s2 = new UsableMock("s2");
-            ITrackingDevice t1 = new TrackingMock("a");
-            ITrackingDevice t2 = new TrackingMock("b");
+            ITrackingDevice t1 = new TrackingMock(1);
+            ITrackingDevice t2 = new TrackingMock(2);
             IList<IUsage> usage = new List<IUsage>();
             IList<IUsage> okUsage = new List<IUsage>();
             IUsage u;

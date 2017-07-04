@@ -19,7 +19,7 @@ namespace CSB_Project.src.model.Structure
         #region Proprietà
         public string Name => _descriptor.Name;
         public string Description => _descriptor.Description;
-        public IEnumerable<Sector> Sectors => _sectors;
+        public IEnumerable<Sector> Sectors => _sectors.ToArray();
         #endregion
 
         #region Costruttori
@@ -46,6 +46,14 @@ namespace CSB_Project.src.model.Structure
         #endregion
 
         #region Metodi
+        public void addSector(Sector sector)
+        {
+            #region Precondizioni
+            if (sector == null)
+                throw new ArgumentNullException("sector null");
+            #endregion
+            (_sectors as List<Sector>).Add(sector);
+        }
         #endregion
 
         #region Handler

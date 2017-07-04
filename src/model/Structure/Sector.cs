@@ -12,7 +12,7 @@ namespace CSB_Project.src.model.Structure
         #endregion
 
         #region Campi
-        private readonly BasicDescriptor _descriptor;
+        private readonly PriceDescriptor _descriptor;
         private readonly int _numRows;
         private readonly int _numColumns;
         #endregion
@@ -20,12 +20,13 @@ namespace CSB_Project.src.model.Structure
         #region Proprietà
         public string Name => _descriptor.Name;
         public string Description => _descriptor.Description;
+        public double ItemPriceIncrease => _descriptor.Price;
         public int Rows => _numRows;
         public int Columns => _numColumns;
         #endregion
 
         #region Costruttori
-        public Sector(BasicDescriptor descriptor,int numRows, int numColumns)
+        public Sector(PriceDescriptor descriptor,int numRows, int numColumns)
         {
             #region Precondizioni
             if (numRows < 0)

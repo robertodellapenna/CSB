@@ -12,5 +12,6 @@ namespace CSB_Project.src.model.Booking
     {
         IItem BaseItem { get; }
         StructureArea Area { get; }
+        double DailyPrice { get; }
     }
 }

@@ -70,8 +70,7 @@ namespace CSB_Project.src.model.Item
             /// </summary>
             public override double DailyPrice => BaseDailyPrice +
                             _properties.Values.Sum(priceDesc => priceDesc.Price);
-            public IEnumerable<ICategory> Categories => _properties.Keys;
-            public IEnumerable<PriceDescriptor> Values => _properties.Values;
+            public IEnumerable<ICategory> Categories => _properties.Keys.ToArray();
             public IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties
             {
                 get {
@@ -120,71 +119,6 @@ namespace CSB_Project.src.model.Item
                         where cat.IsInside(category)
                         select cat).Any();
             }
-
-
-
-            /*
-            public bool ContainsCategory(ICategory category, bool parentSearch = false)
-            {
-                #region Precondizioni
-                if (category == null)
-                    throw new ArgumentException("catetory null");
-                #endregion
-                if (!(category is IGroupCategory)) return ContainsStrictCategory(category);
-                else foreach (ICategory c in GetCategories())
-                    {
-                        if (c.Equals(category) || c.IsInside(category as IGroupCategory)) return true;
-                    }
-                return false;
-            }
-
-            public bool ContainsStrictCategory(ICategory category)
-            {
-                #region Precondizioni
-                if (category == null)
-                    throw new ArgumentException("catetory null");
-                #endregion
-                return _properties.ContainsKey(category);
-            }
-            */
-
-            /*
-            public void AddCategory(ICategory category, PriceDescriptor descriptor)
-            {
-                #region Precondizioni
-                if (category == null)
-                    throw new ArgumentException("catetory null");
-                if (descriptor == null)
-                    throw new ArgumentException("descriptor null");
-                #endregion
-                if (ContainsStrictCategory(category)) ModifyCategory(category, descriptor);
-                else _properties.Add(category, descriptor);
-            }
-
-            public void ModifyCategory(ICategory category, PriceDescriptor descriptor)
-            {
-                #region Precondizioni
-                if (category == null)
-                    throw new ArgumentException("catetory null");
-                if (!ContainsStrictCategory(category))
-                    throw new ArgumentException("category not present in the dictionary");
-                if (descriptor == null)
-                    throw new ArgumentException("descriptor null, only blank or empty");
-                #endregion
-                _properties[category] = descriptor;
-            }
-
-            public void RemoveCategory(ICategory category)
-            {
-                #region Precondizioni
-                if (category == null)
-                    throw new ArgumentException("catetory null");
-                if (!ContainsStrictCategory(category))
-                    throw new ArgumentException("category not present in the dictionary");
-                #endregion
-                _properties.Remove(category);
-            }
-            */
 
             public string GetNameOf(ICategory category)
             {

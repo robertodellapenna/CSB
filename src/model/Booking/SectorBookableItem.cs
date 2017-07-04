@@ -25,6 +25,7 @@ namespace CSB_Project.src.model.Booking
         public StructureArea Area => _area;
         public Position Position => _position;
         public Sector Sector => _sector;
+        public double DailyPrice => _baseItem.DailyPrice + _sector.ItemPriceIncrease;
         #endregion
 
         #region Costruttori
@@ -37,6 +38,10 @@ namespace CSB_Project.src.model.Booking
                 throw new ArgumentException("area null");
             if (sector == null)
                 throw new ArgumentException("sector null");
+            if (!area.Sectors.Contains(sector))
+                throw new Exception("area doesn't contain this sector");
+            if(position.Row > sector.Rows || position.Column > sector.Columns)
+                throw new Exception("position not valid in this sector");
             #endregion
             _baseItem = baseItem;
             _area = area;

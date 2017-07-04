@@ -28,6 +28,7 @@ namespace CSB_Project.src.model.Item
 
         #region Proprietà
         public static Compatibilities Instance => _instance;
+        public IItem[] BaseItems => _compatibiltyMap.Keys.ToArray();
         #endregion
 
         #region Costruttori
@@ -39,19 +40,6 @@ namespace CSB_Project.src.model.Item
         #endregion
 
         #region Metodi
-
-        /* METODO NON NECESSARIO. OGNI ITEM PUO' ESSERE
-         * SIA BASEITEM CHE PLUGIN
-        public bool isBaseItem(IItem item)
-        {
-            #region Precondizioni
-            if (item == null)
-                throw new ArgumentNullException("item null");
-            #endregion
-
-            return _compatibiltyMap.ContainsKey(item);
-        }
-        */
 
         /// <summary>
         /// Permette di verificare se un item 'itemToCheck'

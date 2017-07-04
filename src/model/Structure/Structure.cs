@@ -19,7 +19,7 @@ namespace CSB_Project.src.model.Structure
         #region Proprietà
         public string Name => _descriptor.Name;
         public string Description => _descriptor.Description;
-        public IEnumerable<StructureArea> Areas => _areas;
+        public IEnumerable<StructureArea> Areas => _areas.ToArray();
         #endregion
 
         #region Costruttori
@@ -46,6 +46,14 @@ namespace CSB_Project.src.model.Structure
         #endregion
 
         #region Metodi
+        public void addArea(StructureArea area)
+        {
+            #region Precondizioni
+            if (area == null)
+                throw new ArgumentNullException("area null");
+            #endregion
+            (_areas as List<StructureArea>).Add(area);
+        }
         #endregion
 
         #region Handler

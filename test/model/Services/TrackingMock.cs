@@ -9,12 +9,12 @@ namespace test.model.Services
 {
     class TrackingMock : ITrackingDevice
     {
-        private string _id;
+        private int _id;
 
-        public TrackingMock(string id)
+        public TrackingMock(int id)
         {
             _id = id;
         }
-        public string ID => _id;
+        public int Id => _id;
     }
 }

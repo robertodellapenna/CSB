@@ -35,7 +35,6 @@ namespace CSB_Project.src.model.Item
     public interface ICategorizableItem : IItem
     {
         IEnumerable<ICategory> Categories { get; }
-        IEnumerable<PriceDescriptor> Values { get; }
         IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties { get; }
 
         bool ContainsSubCateogryOf(IGroupCategory category);
