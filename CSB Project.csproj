@@ -240,6 +240,7 @@
     <Compile Include="src\presentation\Utils\StringDialog.Designer.cs">
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\Utils\Style.cs" />
     <Compile Include="src\Program.cs" />
   </ItemGroup>
   <ItemGroup>

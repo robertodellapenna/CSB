@@ -16,7 +16,7 @@ namespace CSB_Project.src.presentation.Utils
         public string Response => _answer.Text;
 
 
-        public StringDialog(string question = "", bool emptyResponse = false)
+        public StringDialog(string question = "", bool emptyResponse = false, Style style = null)
         {
             #region Precondizioni
             if (question == null)
@@ -26,9 +26,12 @@ namespace CSB_Project.src.presentation.Utils
             _question.Text = question;
             _emptyResponse = emptyResponse;
             ActiveControl = _answer;
+            if (style == null)
+                style = new Style();
+            Style.SetStyle(style, this);
         }
 
-        public void okButtonHandler( Object obj, EventArgs e)
+        public void OkButtonHandler( Object obj, EventArgs e)
         {
             _errorProvider.Clear();
             if(!_emptyResponse && String.IsNullOrWhiteSpace(Response))
@@ -40,7 +43,7 @@ namespace CSB_Project.src.presentation.Utils
             Close();
         }
 
-        public void cancelButtonHandler(Object obj, EventArgs e)
+        public void CancelButtonHandler(Object obj, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();

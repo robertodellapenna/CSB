@@ -40,41 +40,45 @@
             // _okButton
             // 
             this._okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(221)))));
-            this._okButton.Location = new System.Drawing.Point(12, 91);
+            this._okButton.Location = new System.Drawing.Point(12, 105);
+            this._okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._okButton.Name = "_okButton";
-            this._okButton.Size = new System.Drawing.Size(75, 23);
+            this._okButton.Size = new System.Drawing.Size(76, 26);
             this._okButton.TabIndex = 0;
             this._okButton.Text = "OK";
             this._okButton.UseVisualStyleBackColor = false;
-            this._okButton.Click += new System.EventHandler(this.okButtonHandler);
+            this._okButton.Click += new System.EventHandler(this.OkButtonHandler);
             // 
             // _cancelButton
             // 
             this._cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(223)))), ((int)(((byte)(223)))));
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(187, 91);
+            this._cancelButton.Location = new System.Drawing.Point(187, 105);
+            this._cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(75, 23);
+            this._cancelButton.Size = new System.Drawing.Size(76, 26);
             this._cancelButton.TabIndex = 1;
             this._cancelButton.Text = "Annulla";
             this._cancelButton.UseVisualStyleBackColor = false;
-            this._cancelButton.Click += new System.EventHandler(this.cancelButtonHandler);
+            this._cancelButton.Click += new System.EventHandler(this.CancelButtonHandler);
             // 
             // _question
             // 
             this._question.AutoSize = true;
-            this._question.Location = new System.Drawing.Point(12, 9);
+            this._question.Location = new System.Drawing.Point(12, 11);
+            this._question.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this._question.Name = "_question";
-            this._question.Size = new System.Drawing.Size(48, 13);
+            this._question.Size = new System.Drawing.Size(54, 17);
             this._question.TabIndex = 2;
             this._question.Text = "Rispondi";
             // 
             // _answer
             // 
-            this._answer.Location = new System.Drawing.Point(12, 44);
+            this._answer.Location = new System.Drawing.Point(12, 51);
+            this._answer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._answer.MaxLength = 100;
             this._answer.Name = "_answer";
-            this._answer.Size = new System.Drawing.Size(229, 20);
+            this._answer.Size = new System.Drawing.Size(228, 24);
             this._answer.TabIndex = 3;
             // 
             // _errorProvider
@@ -85,15 +89,17 @@
             // StringDialog
             // 
             this.AcceptButton = this._okButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(274, 132);
+            this.ClientSize = new System.Drawing.Size(284, 161);
             this.Controls.Add(this._answer);
             this.Controls.Add(this._question);
             this.Controls.Add(this._cancelButton);
             this.Controls.Add(this._okButton);
+            this.Font = new System.Drawing.Font("Calibri Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StringDialog";

@@ -16,7 +16,7 @@ namespace CSB_Project.src.presentation
 
         public CategoryManagerPresenter( CategoryManagerView view)
         {
-            view.AddButton.Click += addHandler;
+            view.AddButton.Click += AddHandler;
             _categoryTree = view.TreeView;
             ICoordinator coordinator = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(ICategoryCoordinator));
             if ( coordinator == null)
@@ -52,13 +52,13 @@ namespace CSB_Project.src.presentation
         /// Gestisce l'azione dell'add button permettendo l'inserimento di una
         /// nuova categoria
         /// </summary>
-        private void addHandler(Object sender, EventArgs eventArgs)
+        private void AddHandler(Object sender, EventArgs eventArgs)
         {
             //MessageBox.Show(""+_categoryTree.SelectedNode);
             ICategory selectedNode = _categoryTree.SelectedNode.Tag as ICategory;
             if (selectedNode == null)
             {
-                MessageBox.Show("Devi selezionare il nome per aggiungere una categoria");
+                MessageBox.Show("Devi selezionare una categoria radice");
                 return;
             }
             // Genero una finestra di dialogo per inserire il nome della categoria
@@ -80,6 +80,11 @@ namespace CSB_Project.src.presentation
             }
             // Creo la categoria
             CategoryFactory.CreateCategory(catName, selectedNode as IGroupCategory);
+        }
+
+        private void ModifyHandler(Object sender, EventArgs eventArgs)
+        {
+            /* PROBABILMENTE NON VA FATTO */
         }
 
         /// <summary>
