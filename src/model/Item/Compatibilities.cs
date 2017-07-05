@@ -28,7 +28,21 @@ namespace CSB_Project.src.model.Item
 
         #region Proprietà
         public static Compatibilities Instance => _instance;
-        public IItem[] BaseItems => _compatibiltyMap.Keys.ToArray();
+        public IEnumerable<IItem> BaseItems => _compatibiltyMap.Keys.ToArray();
+        public IEnumerable<IItem> AllItems
+        {
+            get
+            {
+                IEnumerable<IItem> items = new List<IItem>();
+                //ISet<IItem> items = new HashSet<IItem>();
+                IEnumerable<IItem> keys = _compatibiltyMap.Keys.ToArray();
+                items = items.Concat(keys);
+                foreach (IItem i in keys)
+                    items = items.Concat(_compatibiltyMap[i].Keys.ToArray());
+                return items.Distinct();
+            }
+        }
+
         #endregion
 
         #region Costruttori
