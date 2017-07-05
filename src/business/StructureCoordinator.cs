@@ -11,13 +11,11 @@ namespace CSB_Project.src.business
     {
         IEnumerable<Structure> Structures { get; }
         void AddStructure(Structure structure);
-        event EventHandler StructureChanged;
     }
 
     public class StructureCoordinator : AbstractCoordinatorDecorator, IStructureCoordinator
     {
         #region Eventi
-        public event EventHandler StructureChanged;
         #endregion
 
         #region Campi

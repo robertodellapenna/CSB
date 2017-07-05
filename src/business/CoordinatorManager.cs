@@ -15,7 +15,6 @@ namespace CSB_Project.src.business
         {
             _coordinator = new SimpleCoordinator();
             _coordinator = new CategoryCoordinator(_coordinator);
-            _coordinator = new StructureCoordinator(_coordinator);
         }
 
         public ICoordinator Coordinator => _coordinator;
