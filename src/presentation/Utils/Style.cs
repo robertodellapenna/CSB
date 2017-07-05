@@ -17,13 +17,4 @@ namespace CSB_Project.src.presentation.Utils
             _font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);
         }
     }
-
-    public static class FormStyleExtension{
-        public static void ApplyStyle(this Form form, Style style)
-        {
-            if (style == null)
-                return;
-            form.Font = style.Font;
-        }
-    }
 }

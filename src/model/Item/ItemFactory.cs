@@ -30,7 +30,7 @@ namespace CSB_Project.src.model.Item
         /// <summary>
         /// Items disponibili all'interno del sistema
         /// </summary>
-        public static IEnumerable<IItem> GetItems => _items;
+        public static IEnumerable<IItem> Items => _items;
 
         /// <summary>
         /// Permette di inserire un nuovo item nel sistema. Riceve in ingresso
