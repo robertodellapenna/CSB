@@ -86,19 +86,19 @@ namespace CSB_Project
             //    }
             //}
 
-            //CategoryManagerView cat = new CategoryManagerView();
-            //new CategoryManagerPresenter(cat);
-            //Application.Run(cat);
+            CategoryManagerView cat = new CategoryManagerView();
+            new CategoryManagerPresenter(cat);
+            Application.Run(cat);
 
-            Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(1), 2);
-            Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(0), 1);
-            Compatibilities.Instance.AddCompatibility(Items.ElementAt(1), Items.ElementAt(0), 2);
+            //Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(1), 2);
+            //Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(0), 1);
+            //Compatibilities.Instance.AddCompatibility(Items.ElementAt(1), Items.ElementAt(0), 2);
 
-            Console.WriteLine("Hello " + ("ciao".Contains("")));
-            TestForm ts = new TestForm();
-            Application.Run(ts);
+            //Console.WriteLine("Hello " + ("ciao".Contains("")));
+            //TestForm ts = new TestForm();
+            //Application.Run(ts);
 
-            
+
         }
     }
 }

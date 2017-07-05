@@ -55,7 +55,7 @@ namespace CSB_Project.src.presentation
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
             //MessageBox.Show(""+_categoryTree.SelectedNode);
-            ICategory selectedNode = _categoryTree.SelectedNode.Tag as ICategory;
+            ICategory selectedNode = _categoryTree.SelectedNode?.Tag as ICategory ?? null;
             if (selectedNode == null)
             {
                 MessageBox.Show("Devi selezionare una categoria radice");
