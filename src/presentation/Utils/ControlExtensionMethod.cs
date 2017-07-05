@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSB_Project.src.model.Category;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,21 @@ namespace CSB_Project.src.presentation.Utils
                 lvi.Tag = obj;
                 lv.Items.Add(lvi);
             }
+        }
+
+        /// <summary>
+        /// Popola ricorsavamente una treeNodeCollection partendo da una categoria radice
+        /// </summary>
+        /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
+        /// <param name="category">Categoria radice con cui popolare i nodi</param>
+        public static void Populate(this TreeNodeCollection tnc, ICategory category)
+        {
+            TreeNode tn = new TreeNode(category.Name);
+            tn.Tag = category;
+            if (category is IGroupCategory)
+                foreach (ICategory c in (category as IGroupCategory).Children)
+                    tn.Nodes.Populate(c);
+            tnc.Add(tn);
         }
 
     }

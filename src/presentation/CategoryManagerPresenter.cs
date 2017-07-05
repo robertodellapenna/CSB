@@ -30,21 +30,6 @@ namespace CSB_Project.src.presentation
         }
 
         #region Metodi
-        /// <summary>
-        /// Popola ricorsavamente la tree view partendo da una categoria radice
-        /// </summary>
-        /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
-        /// <param name="category">Categoria radice con cui popolare i nodi</param>
-        private void PopulateTreeView( TreeNodeCollection nodes, ICategory category)
-        {
-            TreeNode tn = new TreeNode(category.Name);
-            tn.Tag = category;
-            if(category is IGroupCategory)
-                foreach (ICategory c in (category as IGroupCategory).Children)
-                    PopulateTreeView(tn.Nodes, c);
-            nodes.Add(tn);
-        }
-
         #endregion 
 
         #region Handler
@@ -94,7 +79,7 @@ namespace CSB_Project.src.presentation
         public void CategoryChangedHandler(Object obj, EventArgs e)
         {
             _categoryTree.Nodes.Clear();
-            PopulateTreeView(_categoryTree.Nodes, _root);
+            _categoryTree.Nodes.Populate(_root);
             _categoryTree.ExpandAll();
         }
         #endregion
