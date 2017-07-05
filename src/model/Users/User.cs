@@ -8,6 +8,7 @@ namespace CSB_Project.src.model.Users
     public abstract class User
     {
         #region Campi
+        private int id;
         private readonly string _firstName;
         private readonly string _lastName;
         private string _username;
