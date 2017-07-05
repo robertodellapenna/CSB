@@ -1,6 +1,8 @@
-﻿namespace CSB_Project.src.presentation
+﻿using System;
+
+namespace CSB_Project.src.presentation
 {
-    partial class CategoryManagerView
+    partial class StructureManagerView
     {
         /// <summary>
         /// Required designer variable.
@@ -107,9 +109,9 @@
             this.Controls.Add(this._actionPanel);
             this.Controls.Add(this._treePanel);
             this.MinimumSize = new System.Drawing.Size(300, 300);
-            this.Name = "CategoryManagerView";
-            this.Text = "CategoryManagerView";
-            this.Load += new System.EventHandler(this.CategoryManagerView_Load);
+            this.Name = "StructureManagerView";
+            this.Text = "StructureManagerView";
+            this.Load += new System.EventHandler(this.StructureManagerView_Load);
             this._treePanel.ResumeLayout(false);
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -33,9 +33,13 @@ namespace CSB_Project
             //    }
             //}
 
-            CategoryManagerView cat = new CategoryManagerView();
-            new CategoryManagerPresenter(cat);
-            Application.Run(cat);
+            //CategoryManagerView cat = new CategoryManagerView();
+            //new CategoryManagerPresenter(cat);
+            //Application.Run(cat);
+
+            StructureManagerView str = new StructureManagerView();
+            new StructureManagerPresenter(str);
+            Application.Run(str);
 
             #region TestParsingItem
             //StringBuilder br = new StringBuilder();

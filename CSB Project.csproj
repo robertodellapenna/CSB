@@ -234,6 +234,13 @@
     <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\StructureManagerPresenter.cs" />
+    <Compile Include="src\presentation\StructureManagerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\StructureManagerView.Designer.cs">
+      <DependentUpon>StructureManagerView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\Utils\StringDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,6 +266,9 @@
   <ItemGroup>
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\StructureManagerView.resx">
+      <DependentUpon>StructureManagerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>

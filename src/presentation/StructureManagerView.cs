@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace CSB_Project.src.presentation
 {
-    public partial class CategoryManagerView : Form
+    public partial class StructureManagerView : Form
     {
         public Button AddButton => _addButton;
         public TreeView TreeView => _treeView;
 
-        public CategoryManagerView(Style style = null)
+        public StructureManagerView(Style style = null)
         {
             InitializeComponent();
             this.ApplyStyle(style);
         }
 
-        private void CategoryManagerView_Load(object sender, EventArgs e)
+        private void StructureManagerView_Load(object sender, EventArgs e)
         {
 
         }
