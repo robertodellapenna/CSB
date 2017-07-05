@@ -46,7 +46,6 @@ namespace CSB_Project.src.business
                 || GetType().GetInterfaces().Contains(type);
         }
 
-
         public virtual ICoordinator GetCoordinatorOf( Type type )
         {
             /* 
@@ -67,8 +66,6 @@ namespace CSB_Project.src.business
 
     public abstract class AbstractCoordinatorDecorator : AbstractCoordinator, ICoordinatorDecorator
     {
-        
-
         #region Campi
         private readonly ICoordinator _next;
         #endregion

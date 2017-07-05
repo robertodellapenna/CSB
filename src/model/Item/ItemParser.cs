@@ -162,7 +162,7 @@ namespace CSB_Project.src.model.Item
                 #region Precondizioni
                 if (itemToParse == null)
                     throw new ArgumentNullException("itemToParse null");
-                ICoordinator coor = CoordinatorManager.Instance.Coordinator.GetCoordinatorOf(typeof(ICategoryCoordinator));
+                ICategoryCoordinator coor = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
                 if (coor == null)
                     throw new ApplicationException("Non è disponibile un category coordinator");
                 #endregion
@@ -203,7 +203,7 @@ namespace CSB_Project.src.model.Item
                     {
                         throw new ItemDescriptorException(e.Message);
                     }
-                    category = (coor as ICategoryCoordinator).getCategoryByPath(categoryName);
+                    category = coor.getCategoryByPath(categoryName);
                     if (category == null)
                         throw new ApplicationException("Non è stata trovata la categoria " + categoryName);
 

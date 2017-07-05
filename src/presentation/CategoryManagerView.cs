@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSB_Project.src.presentation.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,9 +15,10 @@ namespace CSB_Project.src.presentation
         public Button AddButton => _addButton;
         public TreeView TreeView => _treeView;
 
-        public CategoryManagerView()
+        public CategoryManagerView(Style style = null)
         {
             InitializeComponent();
+            this.ApplyStyle(style);
         }
     }
 }

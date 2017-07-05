@@ -7,16 +7,29 @@ namespace CSB_Project.src.business
 {
     public class CoordinatorManager
     {
-        private ICoordinator coordinator;
+        private ICoordinator _coordinator;
         private static CoordinatorManager _instance = new CoordinatorManager();
         public static CoordinatorManager Instance => _instance;
        
         public CoordinatorManager()
         {
-            coordinator = new SimpleCoordinator();
-            coordinator = new CategoryCoordinator(coordinator);
+            _coordinator = new SimpleCoordinator();
+            _coordinator = new CategoryCoordinator(_coordinator);
         }
 
-        public ICoordinator Coordinator => coordinator;
+        public ICoordinator Coordinator => _coordinator;
+
+        /// <summary>
+        /// Restituisce un coordinatore del tipo indicato o che
+        /// implementa l'interfaccia indicata o in alternativa null
+        /// </summary>
+        /// <typeparam name="T">Tipo del coordinatore o interfaccia che 
+        /// deve implementare</typeparam>
+        /// <returns>Coordinatore castato o null</returns>
+        public T CoordinatorOfType<T>() where T : ICoordinator
+        {
+            ICoordinator result = _coordinator.GetCoordinatorOf(typeof(T));
+            return result != null ? (T) result : default(T);
+        }
     }
 }
