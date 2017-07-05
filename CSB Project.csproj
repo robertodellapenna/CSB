@@ -188,6 +188,7 @@
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\ItemCoordinator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
+    <Compile Include="src\business\StructureCoordinator.cs" />
     <Compile Include="src\business\TrackingDeviceCoordinator.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
