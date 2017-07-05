@@ -21,7 +21,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Campi
-        private readonly List<Structure> _structures = new List<Structure>();
+        private readonly IEnumerable<Structure> _structures;
         #endregion
 
         #region Proprietà
@@ -31,6 +31,7 @@ namespace CSB_Project.src.business
         #region Costruttori
         public StructureCoordinator(ICoordinator next) : base(next)
         {
+            _structures = new List<Structure>();
         }
         
         #endregion
@@ -60,7 +61,7 @@ namespace CSB_Project.src.business
             structure.addArea(area1);
             structure.addArea(area2);
 
-            _structures.Add(structure);
+            (_structures as List<Structure>).Add(structure);
         }
         public void AddStructure(Structure structure)
         {
@@ -74,11 +75,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Handler
-        private void OnStructureChanged(Object sender, EventArgs args)
-        {
-            StructureChanged?.Invoke(sender, args);
-        }
         #endregion
 
     }
-    }
+}

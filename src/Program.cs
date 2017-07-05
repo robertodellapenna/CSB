@@ -90,19 +90,17 @@ namespace CSB_Project
             //new CategoryManagerPresenter(cat);
             //Application.Run(cat);
 
-            StructureManagerView str = new StructureManagerView();
-            new StructureManagerPresenter(str);
-            Application.Run(str);
+            //StructureManagerView str = new StructureManagerView();
+            //new StructureManagerPresenter(str);
+            //Application.Run(str);
 
             //Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(1), 2);
             //Compatibilities.Instance.AddCompatibility(Items.ElementAt(0), Items.ElementAt(0), 1);
             //Compatibilities.Instance.AddCompatibility(Items.ElementAt(1), Items.ElementAt(0), 2);
 
             //Console.WriteLine("Hello " + ("ciao".Contains("")));
-            //TestForm ts = new TestForm();
-            //Application.Run(ts);
-
-
+            TestForm ts = new TestForm();
+            Application.Run(ts);
         }
     }
 }

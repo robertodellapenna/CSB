@@ -104,5 +104,29 @@ namespace test.model.Utils
             dNotOverlap = new DateRange(october_1_2010.AddDays(positiveDuration), october_1_2010.AddDays(positiveDuration));
             Assert.IsFalse(d1.OverlapWith(dNotOverlap));
         }
+
+        [TestMethod]
+        public void TestIsComplete()
+        {
+            DateRange dToComplete, d1, d2, d3, dOutStart, dOutEnd, d4;
+            dToComplete = new DateRange(august_1_2010, october_1_2010);
+            d1 = new DateRange(august_1_2010, new DateTime(2010, 9, 1));
+            d2 = new DateRange(new DateTime(2010, 9, 1), october_1_2010);
+            d3 = new DateRange(new DateTime(2010, 9, 3), october_1_2010);
+            dOutStart = new DateRange(august_1_2010.AddDays(-1), october_1_2010);
+            dOutEnd = new DateRange(august_1_2010, october_1_2010.AddDays(1));
+            d4 = new DateRange(new DateTime(2010, 9, 2), october_1_2010);
+
+
+            Assert.IsTrue(dToComplete.IsComplete(new DateRange[] { d1, d2 }));
+            Assert.IsFalse(dToComplete.IsComplete(new DateRange[] { d1 }));
+            Assert.IsFalse(dToComplete.IsComplete(new DateRange[] { d2 }));
+            Assert.IsFalse(dToComplete.IsComplete(new DateRange[] { d1, d3 }));
+            Assert.IsFalse(dToComplete.IsComplete(new DateRange[] { dOutStart }));
+            Assert.IsFalse(dToComplete.IsComplete(new DateRange[] { dOutEnd }));
+            Assert.IsTrue(dToComplete.IsComplete(new DateRange[] { d1, d4 }));
+        }
+
+
     }
 }
