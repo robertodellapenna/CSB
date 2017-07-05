@@ -54,6 +54,7 @@ namespace CSB_Project.src.model.Structure
             #endregion
             (_areas as List<StructureArea>).Add(area);
         }
+        
         #endregion
 
         #region Handler

@@ -11,7 +11,7 @@ namespace CSB_Project.src.model.Booking
     public interface IBookableItem
     {
         IItem BaseItem { get; }
-        StructureArea Area { get; }
+        Sector Sector { get; }
         double DailyPrice { get; }
     }
 }
