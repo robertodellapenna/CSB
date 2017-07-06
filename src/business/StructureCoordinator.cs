@@ -70,7 +70,7 @@ namespace CSB_Project.src.business
                 throw new ArgumentNullException("structure null");
             #endregion
             if (!_structures.Contains(structure))
-                (_structures as List<Structure>).Add(structure);
+                _structures.Add(structure);
         }
         #endregion
 
