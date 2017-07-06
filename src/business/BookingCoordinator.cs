@@ -15,11 +15,14 @@ namespace CSB_Project.src.business
         IEnumerable<IBookableItem> Filter(Structure structure);
         IEnumerable<IBookableItem> Filter(StructureArea area);
         IEnumerable<IBookableItem> Filter(Sector sector);
+        void AddBookableItem(IBookableItem item);
+        event EventHandler BookingChanged;
     }
 
     public class BookingCoordinator : AbstractCoordinatorDecorator, IBookingCoordinator
     {
         #region Eventi
+        public event EventHandler BookingChanged;
         #endregion
 
         #region Campi
@@ -108,6 +111,10 @@ namespace CSB_Project.src.business
 
 
         #region Handler
+        private void OnBookingChanged(Object sender, EventArgs args)
+        {
+            BookingChanged?.Invoke(sender, args);
+        }
         #endregion
     }
 }

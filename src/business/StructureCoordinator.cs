@@ -11,6 +11,9 @@ namespace CSB_Project.src.business
     {
         IEnumerable<Structure> Structures { get; }
         void AddStructure(Structure structure);
+        Structure GetStructure(String strName);
+        StructureArea GetAreaIn(String strName, String areaName);
+        Sector GetSectorIn(String strName, String areaName, String sectorName);
         event EventHandler StructureChanged;
     }
 
@@ -71,8 +74,7 @@ namespace CSB_Project.src.business
             if (_structures.Where(str => str.Name.Equals(structure.Name)).Any())
                 throw new Exception("structure with this name already exists");
             #endregion
-            if (!_structures.Contains(structure))
-                _structures.Add(structure);
+            _structures.Add(structure);
         }
         public Structure GetStructure(String strName)
         {

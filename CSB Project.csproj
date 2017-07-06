@@ -188,6 +188,7 @@
     <Compile Include="src\business\ICoordinator.cs" />
     <Compile Include="src\business\ICoordinatorDecorator.cs" />
     <Compile Include="src\business\ItemCoordinator.cs" />
+    <Compile Include="src\business\PrenotationCoordinator.cs" />
     <Compile Include="src\business\ServiceCoordinator.cs" />
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\business\StructureCoordinator.cs" />
