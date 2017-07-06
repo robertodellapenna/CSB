@@ -1,6 +1,6 @@
 ﻿namespace CSB_Project.src.presentation
 {
-    partial class CategoryManagerView
+    partial class ServiceManagerView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this._treePanel = new System.Windows.Forms.Panel();
-            this._treeView = new System.Windows.Forms.TreeView();
+            this._listPanel = new System.Windows.Forms.Panel();
+            this._listView = new System.Windows.Forms.ListView();
             this._actionPanel = new System.Windows.Forms.Panel();
             this._modifyButton = new System.Windows.Forms.Button();
             this._deleteButton = new System.Windows.Forms.Button();
             this._addButton = new System.Windows.Forms.Button();
-            this._treePanel.SuspendLayout();
+            this._listPanel.SuspendLayout();
             this._actionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // _treePanel
+            // _listPanel
             // 
-            this._treePanel.AutoScroll = true;
-            this._treePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this._treePanel.Controls.Add(this._treeView);
-            this._treePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this._treePanel.Location = new System.Drawing.Point(0, 0);
-            this._treePanel.Margin = new System.Windows.Forms.Padding(0);
-            this._treePanel.Name = "_treePanel";
-            this._treePanel.Size = new System.Drawing.Size(284, 362);
-            this._treePanel.TabIndex = 0;
+            this._listPanel.AutoScroll = true;
+            this._listPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this._listPanel.Controls.Add(this._listView);
+            this._listPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this._listPanel.Location = new System.Drawing.Point(0, 0);
+            this._listPanel.Margin = new System.Windows.Forms.Padding(0);
+            this._listPanel.Name = "_listPanel";
+            this._listPanel.Size = new System.Drawing.Size(284, 362);
+            this._listPanel.TabIndex = 0;
             // 
-            // _treeView
+            // _listView
             // 
-            this._treeView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
-            this._treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._treeView.Location = new System.Drawing.Point(0, 0);
-            this._treeView.Name = "_treeView";
-            this._treeView.Size = new System.Drawing.Size(284, 362);
-            this._treeView.TabIndex = 0;
+            this._listView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._listView.Location = new System.Drawing.Point(0, 0);
+            this._listView.Name = "_listView";
+            this._listView.Size = new System.Drawing.Size(284, 362);
+            this._listView.TabIndex = 0;
+            this._listView.UseCompatibleStateImageBehavior = false;
+            this._listView.Columns.Add("Name");
+            this._listView.Columns.Add("Description");
+            this._listView.Columns.Add("Price");
+            this._listView.Columns.Add("Availability");
             // 
             // _actionPanel
             // 
@@ -99,28 +104,28 @@
             this._addButton.Text = "ADD";
             this._addButton.UseVisualStyleBackColor = true;
             // 
-            // CategoryManagerView
+            // ServiceManagerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this._actionPanel);
-            this.Controls.Add(this._treePanel);
+            this.Controls.Add(this._listPanel);
             this.MinimumSize = new System.Drawing.Size(300, 300);
-            this.Name = "CategoryManagerView";
-            this.Text = "CategoryManagerView";
-            this.Load += new System.EventHandler(this.CategoryManagerView_Load);
-            this._treePanel.ResumeLayout(false);
+            this.Name = "ServiceManagerView";
+            this.Text = "ServiceManagerView";
+            this.Load += new System.EventHandler(this.ServiceManagerView_Load);
+            this._listPanel.ResumeLayout(false);
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-
+    
         #endregion
 
-        private System.Windows.Forms.Panel _treePanel;
+        private System.Windows.Forms.Panel _listPanel;
         private System.Windows.Forms.Panel _actionPanel;
-        private System.Windows.Forms.TreeView _treeView;
+        private System.Windows.Forms.ListView _listView;
         private System.Windows.Forms.Button _addButton;
         private System.Windows.Forms.Button _modifyButton;
         private System.Windows.Forms.Button _deleteButton;
