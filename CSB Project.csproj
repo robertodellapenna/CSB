@@ -193,6 +193,7 @@
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\business\StructureCoordinator.cs" />
     <Compile Include="src\business\TrackingDeviceCoordinator.cs" />
+    <Compile Include="src\business\UserCoordinator.cs" />
     <Compile Include="src\GioForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +206,7 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\mainProva.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -303,7 +305,6 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
-    <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
     </Compile>

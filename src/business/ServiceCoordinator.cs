@@ -22,16 +22,16 @@ namespace CSB_Project.src.business
         IEnumerable<IUsage> Filter(ITrackingDevice card);
         event EventHandler ServiceChanged;
     }
-    public class ServiceCoordinator : AbstractCoordinator, IServiceCoordinator
+    public class ServiceCoordinator : AbstractCoordinatorDecorator, IServiceCoordinator
     {
         #region Eventi
         public event EventHandler ServiceChanged;
         #endregion
         #region Campi
-        private readonly List<IBundle> _bundles;
-        private readonly List<IPacket> _packets;
-        private readonly List<IUsable> _services;
-        private readonly List<IUsage> _usages;
+        private readonly List<IBundle> _bundles = new List<IBundle>();
+        private readonly List<IPacket> _packets = new List<IPacket>();
+        private readonly List<IUsable> _services = new List<IUsable>();
+        private readonly List<IUsage> _usages = new List<IUsage>();
         #endregion
         #region Proprieta
         public IEnumerable<IBundle> Bundles => _bundles.ToArray();
@@ -41,8 +41,31 @@ namespace CSB_Project.src.business
 
         #endregion
         #region Costruttori
+        public ServiceCoordinator(ICoordinator next) : base(next)
+        {
+        }
         #endregion
         #region Metodi
+        protected override void init()
+        {
+            DateRange date1 = new DateRange(10);
+            DateRange date2 = new DateRange(12);
+            IUsable service1 = new BasicService(new DatePriceDescriptor("servizio1", "servizio1", date1, 5.0));
+            IUsable service2 = new BasicService(new DatePriceDescriptor("servizio2", "servizio2", date2, 6.0));
+            IUsable service3 = new BasicService(new DatePriceDescriptor("servizio3", "servizio3", date2, 4.0));
+            _services.Add(service1);
+            _services.Add(service2);
+            _services.Add(service3);
+            IPacket packet1 = new TicketPacket((new DatePriceDescriptor("packet1", "packet1", date1, 12.0)), service2, 5);
+            IPacket packet2 = new TicketPacket((new DatePriceDescriptor("packet2", "packet2", date1, 15.0)), service3, 10);
+            _packets.Add(packet1);
+            _packets.Add(packet2);
+            ISet<IPacket> bundleSet = new HashSet<IPacket>();
+            bundleSet.Add(packet1);
+            bundleSet.Add(packet2);
+            IBundle bundle1 = new Bundle(bundleSet, new DatePriceDescriptor("bundle1", "bundle1", date1, 23.0));
+            _bundles.Add(bundle1);
+        }
         public void AddBundle(IBundle bundle)
         {
             #region Precondizioni
@@ -83,13 +106,6 @@ namespace CSB_Project.src.business
                 _usages.Add(usage);
         }
 
-        #endregion
-        #region Handler
-        private void OnServiceChanged(Object sender, EventArgs args)
-        {
-            ServiceChanged?.Invoke(sender, args);
-        }
-
         public IEnumerable<IUsage> Filter(ITrackingDevice card)
         {
 
@@ -104,6 +120,13 @@ namespace CSB_Project.src.business
         public IEnumerable<IBundle> FilterBundle(DateRange data)
         {
             return _bundles.Where(bundle => bundle.Availability.Contains(data));
+        }
+
+        #endregion
+        #region Handler
+        private void OnServiceChanged(Object sender, EventArgs args)
+        {
+            ServiceChanged?.Invoke(sender, args);
         }
         #endregion
     }
