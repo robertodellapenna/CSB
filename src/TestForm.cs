@@ -15,7 +15,6 @@ namespace CSB_Project.src
         public TestForm()
         {
             InitializeComponent();
-            new ItemPickerPresenter(this.itemPickerControl1);
         }
     }
 }

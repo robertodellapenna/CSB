@@ -14,17 +14,13 @@ namespace CSB_Project.src.presentation
         private TreeView _categoryTree;
         private IGroupCategory _root;
 
-        public CategoryManagerPresenter( CategoryManagerView view)
+        public CategoryManagerPresenter( CategoryManagerView view, IGroupCategory root)
         {
             view.AddButton.Click += AddHandler;
             _categoryTree = view.TreeView;
 
-            ICategoryCoordinator coordinator = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
-            if ( coordinator == null)
-                throw new InvalidOperationException("Il coordinatore delle categorie non è disponibile");
-            
-            _root = coordinator.RootCategory;
-            coordinator.CategoryChanged += CategoryChangedHandler;
+            _root = root;
+            root.Changed += CategoryChangedHandler;
             // Popolo la tree view all'avvio
             CategoryChangedHandler(this, EventArgs.Empty);
         }

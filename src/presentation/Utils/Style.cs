@@ -12,6 +12,16 @@ namespace CSB_Project.src.presentation.Utils
         private Font _font;
         public Font Font => _font;
 
+        public static Style DefaultStyle
+        {
+            get
+            {
+                Style s = new Style();
+                s._font = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular);
+                return s;
+            }
+        }
+
         public Style()
         {
             _font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);

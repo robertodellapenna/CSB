@@ -17,7 +17,7 @@ namespace CSB_Project.src.presentation.Utils
         public static void ApplyStyle(this Control c, Style style)
         {
             if (style == null)
-                return;
+                style = Style.DefaultStyle;
             c.Font = style.Font;
         }
 

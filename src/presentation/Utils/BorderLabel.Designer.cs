@@ -48,6 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._innerLabel.BackColor = System.Drawing.Color.White;
+            this._innerLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this._innerLabel.Location = new System.Drawing.Point(10, 10);
             this._innerLabel.Margin = new System.Windows.Forms.Padding(10);
             this._innerLabel.Name = "_innerLabel";
@@ -58,8 +59,7 @@
             // 
             // BorderLabel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this._innerLabel);
             this.Controls.Add(this._borderLabel);
             this.Name = "BorderLabel";
