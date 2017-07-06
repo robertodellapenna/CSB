@@ -10,11 +10,12 @@ namespace CSB_Project.src.business
         private ICoordinator _coordinator;
         private static CoordinatorManager _instance = new CoordinatorManager();
         public static CoordinatorManager Instance => _instance;
-       
+
         public CoordinatorManager()
         {
             _coordinator = new SimpleCoordinator();
             _coordinator = new CategoryCoordinator(_coordinator);
+            _coordinator = new StructureCoordinator(_coordinator);
         }
 
         public ICoordinator Coordinator => _coordinator;
@@ -29,7 +30,7 @@ namespace CSB_Project.src.business
         public T CoordinatorOfType<T>() where T : ICoordinator
         {
             ICoordinator result = _coordinator.GetCoordinatorOf(typeof(T));
-            return result != null ? (T) result : default(T);
+            return result != null ? (T)result : default(T);
         }
     }
 }

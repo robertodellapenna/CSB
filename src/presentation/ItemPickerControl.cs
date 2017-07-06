@@ -19,6 +19,11 @@ namespace CSB_Project.src.presentation
         public Button ResetButton => _resetButton;
         public Label Output => _generatedItem;
         
+        public ItemPickerControl() : this(null)
+        {
+            
+        }
+
         public ItemPickerControl(Style style = null)
         {
             InitializeComponent();
