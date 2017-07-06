@@ -8,7 +8,7 @@ namespace CSB_Project.src.business
 {
     public interface IItemCoordinator : ICoordinator
     {
-        IEnumerable<IItem> baseItem { get; }
+        IEnumerable<IItem> baseItems { get; }
         IEnumerable<IItem> GetAssociableItemOf(IItem baseItem);
     }
 
@@ -21,7 +21,7 @@ namespace CSB_Project.src.business
             _compatibilites = Compatibilities.Instance;
         }
 
-        public IEnumerable<IItem> baseItem => _compatibilites.BaseItems;
+        public IEnumerable<IItem> baseItems => _compatibilites.BaseItems;
 
         public IEnumerable<IItem> GetAssociableItemOf(IItem baseItem) 
             => _compatibilites.GetBaseItemsComptabileWith(baseItem);

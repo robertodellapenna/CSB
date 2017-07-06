@@ -38,12 +38,12 @@ namespace CSB_Project
             //new CategoryManagerPresenter(cat);
             //Application.Run(cat);
 
-            //StructureManagerView str = new StructureManagerView();
-            //new StructureManagerPresenter(str);
-            //Application.Run(str);
+            StructureManagerView str = new StructureManagerView();
+            new StructureManagerPresenter(str);
+            Application.Run(str);
 
-            TestForm tf = new TestForm();
-            Application.Run(tf);
+            //TestForm tf = new TestForm();
+            //Application.Run(tf);
 
             #region TestParsingItem
             //StringBuilder br = new StringBuilder();

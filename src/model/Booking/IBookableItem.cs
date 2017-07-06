@@ -12,6 +12,7 @@ namespace CSB_Project.src.model.Booking
     {
         IItem BaseItem { get; }
         Sector Sector { get; }
+        Position Position { get; }
         double DailyPrice { get; }
     }
 }
