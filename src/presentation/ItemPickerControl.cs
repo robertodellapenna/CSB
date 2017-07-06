@@ -24,5 +24,10 @@ namespace CSB_Project.src.presentation
             InitializeComponent();
             this.ApplyStyle(style);
         }
+
+        private void ItemPickerControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
