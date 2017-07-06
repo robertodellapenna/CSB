@@ -109,6 +109,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "CategoryManagerView";
             this.Text = "CategoryManagerView";
+            this.Load += new System.EventHandler(this.CategoryManagerView_Load);
             this._treePanel.ResumeLayout(false);
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -16,8 +16,8 @@ namespace CSB_Project.src.model.Users
         public int LevelOfAuthorization { get => _levelOfAuthorization; set => _levelOfAuthorization = value; }
         #endregion
         #region Costruttori
-        public Staff(string firstName, string lastName, string username, string password, int levelOfAuthorization)
-        : base(firstName, lastName, username, password)
+        public Staff(int id, string firstName, string lastName, string username, string password, int levelOfAuthorization)
+        : base(id, firstName, lastName, username, password)
         {
             if (levelOfAuthorization < 0)
                 throw new ArgumentException("level of authorization inconsistent");
@@ -25,6 +25,10 @@ namespace CSB_Project.src.model.Users
         }
         #endregion
         #region Metodi
+        public override string ToString()
+        {
+            return base.ToString() + this.LevelOfAuthorization;
+        }
         #endregion
         #region Handler
         #endregion

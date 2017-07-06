@@ -47,6 +47,9 @@ namespace CSB_Project.src.presentation.Utils
             Close();
         }
 
+        private void StringDialog_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }
