@@ -23,6 +23,8 @@ namespace CSB_Project.src.model.TrackingDevice
         /// <param name="id">id</param>
         public Card(int id)
         {
+            if (id < 0)
+                throw new ArgumentException("id not valid");
             _id = id;
         }
         #endregion

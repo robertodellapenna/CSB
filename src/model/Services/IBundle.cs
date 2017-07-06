@@ -11,11 +11,10 @@ namespace CSB_Project.src.model.Services
         /// <summary>
         /// Pacchetti che formano il bundle
         /// </summary>
-        ISet<IPacket> packets { get; }
+        ISet<IPacket> Packets { get; }
 
         double Price { get; }
         DateRange Availability { get; }
-        IUsable Usable { get; }
         bool IsActiveIn(DateTime when);
         bool IsActiveIn(DateRange when);
         string Name { get; }

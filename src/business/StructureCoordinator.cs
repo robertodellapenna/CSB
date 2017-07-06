@@ -72,7 +72,7 @@ namespace CSB_Project.src.business
                 throw new Exception("structure with this name already exists");
             #endregion
             if (!_structures.Contains(structure))
-                (_structures as List<Structure>).Add(structure);
+                _structures.Add(structure);
         }
         public Structure GetStructure(String strName)
         {
