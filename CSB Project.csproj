@@ -234,6 +234,18 @@
     <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.Designer.cs">
+      <DependentUpon>CategorizableItemCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\ItemCreatorPresenter\CategoryPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\presentation\ItemCreatorPresenter\CategoryPicker.Designer.cs">
+      <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\ItemCreatorPresenter\ItemCreator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -260,6 +272,12 @@
     </Compile>
     <Compile Include="src\presentation\StructureManagerView.Designer.cs">
       <DependentUpon>StructureManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\Utils\BorderLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\BorderLabel.Designer.cs">
+      <DependentUpon>BorderLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
     <Compile Include="src\presentation\Utils\StringDialog.cs">
@@ -297,11 +315,20 @@
     <EmbeddedResource Include="src\presentation\ItemCreatorPresenter\BasicItemCreator.resx">
       <DependentUpon>BasicItemCreator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.resx">
+      <DependentUpon>CategorizableItemCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\ItemCreatorPresenter\CategoryPicker.resx">
+      <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\StructureManagerView.resx">
       <DependentUpon>StructureManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\BorderLabel.resx">
+      <DependentUpon>BorderLabel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>
