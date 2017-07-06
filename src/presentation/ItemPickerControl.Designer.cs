@@ -115,6 +115,7 @@
             this.Controls.Add(this._searchBox);
             this.Name = "ItemPickerControl";
             this.Size = new System.Drawing.Size(363, 319);
+            this.Load += new System.EventHandler(this.ItemPickerControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

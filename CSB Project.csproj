@@ -192,6 +192,18 @@
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\business\StructureCoordinator.cs" />
     <Compile Include="src\business\TrackingDeviceCoordinator.cs" />
+    <Compile Include="src\GioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\GioForm.Designer.cs">
+      <DependentUpon>GioForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\LorenzoForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\LorenzoForm.Designer.cs">
+      <DependentUpon>LorenzoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -290,6 +302,12 @@
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\RobertoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\RobertoForm.Designer.cs">
+      <DependentUpon>RobertoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
