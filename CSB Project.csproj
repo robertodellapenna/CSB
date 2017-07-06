@@ -204,6 +204,7 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\mainProva.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -302,7 +303,6 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
-    <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
     </Compile>
