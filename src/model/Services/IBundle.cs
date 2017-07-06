@@ -15,7 +15,6 @@ namespace CSB_Project.src.model.Services
 
         double Price { get; }
         DateRange Availability { get; }
-        IUsable Usable { get; }
         bool IsActiveIn(DateTime when);
         bool IsActiveIn(DateRange when);
         string Name { get; }
