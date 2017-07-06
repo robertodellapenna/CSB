@@ -106,13 +106,6 @@ namespace CSB_Project.src.business
                 _usages.Add(usage);
         }
 
-        #endregion
-        #region Handler
-        private void OnServiceChanged(Object sender, EventArgs args)
-        {
-            ServiceChanged?.Invoke(sender, args);
-        }
-
         public IEnumerable<IUsage> Filter(ITrackingDevice card)
         {
 
@@ -127,6 +120,13 @@ namespace CSB_Project.src.business
         public IEnumerable<IBundle> FilterBundle(DateRange data)
         {
             return _bundles.Where(bundle => bundle.Availability.Contains(data));
+        }
+
+        #endregion
+        #region Handler
+        private void OnServiceChanged(Object sender, EventArgs args)
+        {
+            ServiceChanged?.Invoke(sender, args);
         }
         #endregion
     }

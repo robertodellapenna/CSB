@@ -192,6 +192,7 @@
     <Compile Include="src\business\SimpleCoordinator.cs" />
     <Compile Include="src\business\StructureCoordinator.cs" />
     <Compile Include="src\business\TrackingDeviceCoordinator.cs" />
+    <Compile Include="src\business\UserCoordinator.cs" />
     <Compile Include="src\GioForm.cs">
       <SubType>Form</SubType>
     </Compile>
