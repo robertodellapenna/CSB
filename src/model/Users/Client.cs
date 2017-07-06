@@ -30,8 +30,8 @@ namespace CSB_Project.src.model.Users
         /// <param name="password">password</param>
         /// <param name="fiscalCode">fiscl Code</param>
         /// <param name="birthDate">Birthday date</param>
-        public Client(string firstName, string lastName, string username, string password, string fiscalCode, string birthDate) 
-        : base (firstName, lastName, username, password)
+        public Client(int id, string firstName, string lastName, string username, string password, string fiscalCode, string birthDate) 
+        : base (id, firstName, lastName, username, password)
         {
             DateTime date;
             try

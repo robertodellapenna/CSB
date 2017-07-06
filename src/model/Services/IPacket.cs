@@ -22,7 +22,7 @@ namespace CSB_Project.src.model.Services
         IUsable Usable { get; }
 
         /// <summary>
-        /// Dato un insieme si IUsage restituisce un IEnumerable degli
+        /// Dato un insieme di IUsage restituisce un IEnumerable degli
         /// usage che non soddisfano le regole del pacchetto.
         /// </summary>
         /// <param name="usage">Collezione di elementi IUsage</param>

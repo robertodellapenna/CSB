@@ -29,20 +29,38 @@
         private void InitializeComponent()
         {
             this.itemPickerControl1 = new CSB_Project.src.presentation.ItemPickerControl();
+            this.categorizableItemCreator1 = new CSB_Project.src.presentation.ItemCreatorPresenter.CategorizableItemCreator();
+            this.categoryPicker1 = new CSB_Project.src.presentation.ItemCreatorPresenter.CategoryPicker();
             this.SuspendLayout();
             // 
             // itemPickerControl1
             // 
-            this.itemPickerControl1.Location = new System.Drawing.Point(97, 92);
+            this.itemPickerControl1.Location = new System.Drawing.Point(580, 12);
             this.itemPickerControl1.Name = "itemPickerControl1";
-            this.itemPickerControl1.Size = new System.Drawing.Size(363, 319);
+            this.itemPickerControl1.Size = new System.Drawing.Size(367, 319);
             this.itemPickerControl1.TabIndex = 0;
+            // 
+            // categorizableItemCreator1
+            // 
+            this.categorizableItemCreator1.Location = new System.Drawing.Point(13, 13);
+            this.categorizableItemCreator1.Name = "categorizableItemCreator1";
+            this.categorizableItemCreator1.Size = new System.Drawing.Size(393, 211);
+            this.categorizableItemCreator1.TabIndex = 1;
+            // 
+            // categoryPicker1
+            // 
+            this.categoryPicker1.Location = new System.Drawing.Point(47, 344);
+            this.categoryPicker1.Name = "categoryPicker1";
+            this.categoryPicker1.Size = new System.Drawing.Size(282, 100);
+            this.categoryPicker1.TabIndex = 2;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 505);
+            this.ClientSize = new System.Drawing.Size(959, 505);
+            this.Controls.Add(this.categoryPicker1);
+            this.Controls.Add(this.categorizableItemCreator1);
             this.Controls.Add(this.itemPickerControl1);
             this.Name = "TestForm";
             this.Text = "TestForm";
@@ -53,5 +71,7 @@
         #endregion
 
         private presentation.ItemPickerControl itemPickerControl1;
+        private presentation.ItemCreatorPresenter.CategorizableItemCreator categorizableItemCreator1;
+        private presentation.ItemCreatorPresenter.CategoryPicker categoryPicker1;
     }
 }

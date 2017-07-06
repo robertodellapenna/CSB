@@ -69,6 +69,31 @@ namespace CSB_Project.src.model.Utils
         /// <returns>True se c'è almeno un giorno in comune altrimenti false</returns>
         public bool OverlapWith(DateRange range) => Contains(range) || ( StartDate <= range.EndDate && EndDate >= range.EndDate )
                                                      || ( StartDate <= range.StartDate && EndDate >= range.StartDate );
+
+        public bool IsComplete(IEnumerable<DateRange> dateCollection)
+        {
+            #region Precondizioni
+            if (dateCollection == null)
+                throw new ArgumentNullException("dateCollection null");
+            #endregion
+    
+            IEnumerable<DateRange> ordered = dateCollection.OrderBy(dr => dr.StartDate);
+            if (ordered.Count() == 0 || ordered.ElementAt(0).StartDate != StartDate)
+                return false;
+
+            DateRange result = ordered.ElementAt(0);
+
+            foreach(DateRange dr in ordered)
+            {
+                if (dr.StartDate > result.EndDate.AddDays(1))
+                    return false;
+                result = new DateRange(result.StartDate,
+                    dr.EndDate > result.EndDate ? dr.EndDate : result.EndDate);
+            }
+            
+            return StartDate == result.StartDate 
+                && EndDate == result.EndDate;
+        }
         #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace CSB_Project.src.model.Users
     public abstract class User
     {
         #region Campi
-        private int id;
+        private readonly int _id;
         private readonly string _firstName;
         private readonly string _lastName;
         private string _username;
@@ -23,8 +23,11 @@ namespace CSB_Project.src.model.Users
         /// <param name="lastName"></param>
         /// <param name="username"></param>
         /// <param name="password"></param>
-        public User(string firstName, string lastName, string username, string password)
+        public User(int id, string firstName, string lastName, string username, string password)
         {
+            if(_id < 0)
+                throw new ArgumentException("id invalid");
+            _id = id;
             if (firstName == null || firstName.Trim().Length == 0)
                 throw new ArgumentException("firstName null or empty");
             _firstName = firstName;
@@ -40,13 +43,14 @@ namespace CSB_Project.src.model.Users
         }
         #endregion
         #region Proprieta
+        public int Id { get => _id; }
         public string FirstName { get => _firstName; }
         public string LastName { get => _lastName; }
         public string Username { get => _username; set => _username = value; }
         public string Password { get => _password; set => _password = value; }
         #endregion
         #region Metodi
-        public virtual string ToString()
+        public override string ToString()
         {
             return (_firstName + " " + _lastName + " " + _username + " " + _password);
         }

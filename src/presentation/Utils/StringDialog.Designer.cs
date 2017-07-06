@@ -41,7 +41,7 @@
             // 
             this._okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(221)))));
             this._okButton.Location = new System.Drawing.Point(12, 105);
-            this._okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._okButton.Margin = new System.Windows.Forms.Padding(4);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(76, 26);
             this._okButton.TabIndex = 0;
@@ -54,7 +54,7 @@
             this._cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(223)))), ((int)(((byte)(223)))));
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._cancelButton.Location = new System.Drawing.Point(187, 105);
-            this._cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(76, 26);
             this._cancelButton.TabIndex = 1;
@@ -75,7 +75,7 @@
             // _answer
             // 
             this._answer.Location = new System.Drawing.Point(12, 51);
-            this._answer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this._answer.Margin = new System.Windows.Forms.Padding(4);
             this._answer.MaxLength = 100;
             this._answer.Name = "_answer";
             this._answer.Size = new System.Drawing.Size(228, 24);
@@ -99,12 +99,13 @@
             this.Controls.Add(this._okButton);
             this.Font = new System.Drawing.Font("Calibri Light", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StringDialog";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.StringDialog_Load);
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

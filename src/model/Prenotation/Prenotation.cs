@@ -86,7 +86,10 @@ namespace CSB_Project.src.model.Prenotation
                 if (!isValid(bundle))
                     throw new Exception("bundle not valid");
             #endregion
-
+            _id = id;
+            _client = client;
+            _rangeData = rangeData;
+            _items = items;
             _tdAssociations = new Dictionary<ITrackingDevice, AssociationDescriptor>();
             AddTrackingDevice(baseTrackingDevice, new AssociationDescriptor(rangeData, "Base"));
             _packets = packets;

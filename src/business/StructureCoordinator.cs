@@ -32,7 +32,7 @@ namespace CSB_Project.src.business
         public StructureCoordinator(ICoordinator next) : base(next)
         {
         }
-        
+
         #endregion
 
         #region Metodi
@@ -44,14 +44,14 @@ namespace CSB_Project.src.business
              */
 
             /* Structures HardCoded */
-            Sector sector1 = new Sector(new model.Utils.PriceDescriptor("Settore base", "Descrizione settore base", 0.0), 5, 10);
-            Sector sector2 = new Sector(new model.Utils.PriceDescriptor("Settore vip", "Descrizione settore vip", 2.0), 2, 5);
+            Sector sector1 = new Sector(new PriceDescriptor("Settore base", "Descrizione settore base", 0.0), 5, 10);
+            Sector sector2 = new Sector(new PriceDescriptor("Settore vip", "Descrizione settore vip", 2.0), 2, 5);
             StructureArea area1 = new StructureArea(new BasicDescriptor("Spiaggia", "Descrizione spiaggia"));
             area1.addSector(sector1);
             area1.addSector(sector2);
 
-            sector1= new Sector(new model.Utils.PriceDescriptor("Settore base", "Descrizione settore base", 1.0), 2, 8);
-            sector2= new Sector(new model.Utils.PriceDescriptor("Settore idromassaggio", "Descrizione settore idromassaggio", 4.0), 1, 8);
+            sector1 = new Sector(new PriceDescriptor("Settore base", "Descrizione settore base", 1.0), 2, 8);
+            sector2 = new Sector(new PriceDescriptor("Settore idromassaggio", "Descrizione settore idromassaggio", 4.0), 1, 8);
             StructureArea area2 = new StructureArea(new BasicDescriptor("Piscina", "Descrizione piscina"));
             area2.addSector(sector1);
             area2.addSector(sector2);
@@ -62,13 +62,14 @@ namespace CSB_Project.src.business
 
             _structures.Add(structure);
         }
+
         public void AddStructure(Structure structure)
         {
             #region Precondizioni
             if (structure == null)
                 throw new ArgumentNullException("structure null");
             #endregion
-            if(!_structures.Contains(structure))
+            if (!_structures.Contains(structure))
                 (_structures as List<Structure>).Add(structure);
         }
         #endregion
@@ -81,4 +82,4 @@ namespace CSB_Project.src.business
         #endregion
 
     }
-    }
+}

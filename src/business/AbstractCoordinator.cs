@@ -75,7 +75,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Costruttori
-        public AbstractCoordinatorDecorator(ICoordinator next)
+        public AbstractCoordinatorDecorator(ICoordinator next) : base()
         {
             #region Precondizioni
             if (next == null)
@@ -83,7 +83,6 @@ namespace CSB_Project.src.business
             #endregion
             _next = next;
             _next.Changed += NextCoordinatorChangedHandler;
-            init();
         }
         #endregion
 
