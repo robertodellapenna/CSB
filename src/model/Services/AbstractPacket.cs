@@ -31,6 +31,8 @@ namespace CSB_Project.src.model.Services
             #region Precondizioni
             if (descriptor == null || usable == null)
                 throw new ArgumentException("descriptor o usable null");
+            if (!usable.Availability.Contains(descriptor.Range))
+                throw new ArgumentException("descriptor out of service's range");
             #endregion
             _descriptor = descriptor;
             _usable = usable;

@@ -146,9 +146,8 @@ namespace CSB_Project.src.model.Prenotation
 
         private bool isInstantiable(IEnumerable<ItemPrenotation> items)
         {
-            //return RangeData.isComponibleBy((from i in items
-            //                                 select i.RangeData));
-            return false;
+            return RangeData.IsComplete((from i in items
+                              select i.RangeData));
         }
 
         private bool isValid(IPacket packet)

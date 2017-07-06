@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.model.Category;
+using CSB_Project.src.model.Structure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,33 @@ namespace CSB_Project.src.presentation.Utils
                 foreach (ICategory c in (category as IGroupCategory).Children)
                     tn.Nodes.Populate(c);
             tnc.Add(tn);
+        }
+
+        /// <summary>
+        /// Popola la tree view partendo dalle strutture esistenti
+        /// </summary>
+        /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
+        /// <param name="structures">Strutture con cui popolare i nodi</param>
+        public static void Populate(this TreeNodeCollection nodes, IEnumerable<Structure> structures)
+        {
+            foreach (Structure structure in structures)
+            {
+                TreeNode tnStructure = new TreeNode(structure.Name);
+                tnStructure.Tag = structure;
+                foreach (StructureArea area in structure.Areas)
+                {
+                    TreeNode tnArea = new TreeNode(area.Name);
+                    tnArea.Tag = area;
+                    foreach (Sector sector in area.Sectors)
+                    {
+                        TreeNode tnSector = new TreeNode(sector.Name);
+                        tnSector.Tag = sector;
+                        tnArea.Nodes.Add(tnSector);
+                    }
+                    tnStructure.Nodes.Add(tnArea);
+                }
+                nodes.Add(tnStructure);
+            }
         }
 
     }

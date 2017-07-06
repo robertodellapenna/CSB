@@ -1,10 +1,12 @@
 ﻿using CSB_Project.src.business;
 using CSB_Project.src.model.Structure;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 
 namespace CSB_Project.src.presentation
 {
@@ -28,33 +30,6 @@ namespace CSB_Project.src.presentation
         }
 
         #region Metodi
-        /// <summary>
-        /// Popola ricorsavamente la tree view partendo dalle strutture esistenti
-        /// </summary>
-        /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
-        /// <param name="category">Categoria radice con cui popolare i nodi</param>
-        private void PopulateTreeView(TreeNodeCollection nodes, IEnumerable<Structure> structures)
-        {
-            foreach(Structure structure in structures)
-            {
-                TreeNode tnStructure = new TreeNode(structure.Name);
-                tnStructure.Tag = structure;
-                foreach(StructureArea area in structure.Areas)
-                {
-                    TreeNode tnArea = new TreeNode(area.Name);
-                    tnArea.Tag = area;
-                    foreach(Sector sector in area.Sectors)
-                    {
-                        TreeNode tnSector = new TreeNode(sector.Name);
-                        tnSector.Tag = sector;
-                        tnArea.Nodes.Add(tnSector);
-                    }
-                    tnStructure.Nodes.Add(tnArea);
-                }
-                nodes.Add(tnStructure);
-            }
-        }
-
         #endregion 
 
         #region Handler
@@ -104,7 +79,7 @@ namespace CSB_Project.src.presentation
         public void StructureChangedHandler(Object obj, EventArgs e)
         {
             _structureTree.Nodes.Clear();
-            PopulateTreeView(_structureTree.Nodes, _structures);
+            _structureTree.Nodes.Populate(_structures);
             _structureTree.ExpandAll();
         }
         #endregion

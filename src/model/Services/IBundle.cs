@@ -11,7 +11,7 @@ namespace CSB_Project.src.model.Services
         /// <summary>
         /// Pacchetti che formano il bundle
         /// </summary>
-        ISet<IPacket> packets { get; }
+        ISet<IPacket> Packets { get; }
 
         double Price { get; }
         DateRange Availability { get; }
