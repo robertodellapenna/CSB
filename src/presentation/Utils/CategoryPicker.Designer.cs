@@ -33,10 +33,12 @@
             // 
             // _flowPanel
             // 
+            this._flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._flowPanel.AutoScroll = true;
             this._flowPanel.AutoSize = true;
-            this._flowPanel.BackColor = System.Drawing.SystemColors.Control;
-            this._flowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._flowPanel.BackColor = System.Drawing.Color.White;
             this._flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this._flowPanel.Location = new System.Drawing.Point(0, 0);
             this._flowPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -49,12 +51,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this._flowPanel);
             this.Margin = new System.Windows.Forms.Padding(0);
-            this.MaximumSize = new System.Drawing.Size(2000, 180);
-            this.MinimumSize = new System.Drawing.Size(100, 120);
             this.Name = "CategoryPicker";
             this.Size = new System.Drawing.Size(100, 120);
             this.ResumeLayout(false);

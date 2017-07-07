@@ -14,34 +14,69 @@ namespace CSB_Project.src.presentation.Utils
     public partial class CategoryPicker : UserControl
     {
         private const int DEFAULT_WIDTH = 220, DEFAULT_HEIGHT = 150; 
-        private const int ITEM_HEIGHT = 40;
+        private const int DEFAULT_ITEM_HEIGHT = 40, DEFAULT_ITEM_TO_SHOW = 2;
+        private int _itemToShow, _itemHeight, _width;
+        private Style _style;
+
         private BorderLabel _selected;
         public ICategory SelectedCategory => _selected?.Tag as ICategory;
+
         private ICategory _rootCategory;
         private ICategory _currentCategory;
+
         public ICategory RootCategory
         {
             get => _rootCategory;
-            set => _rootCategory = value;
+            set {
+                _rootCategory = value;
+                Refresh();
+            }
+        }
+
+        public Style Style
+        {
+            set => this.ApplyStyle(value);
+        }
+
+        public int ItemToShow
+        {
+            get => _itemToShow;
+            set
+            {
+                #region Precondizioni
+                if (value <= 0)
+                    throw new ArgumentException("item to show <= 0");
+                #endregion
+                _itemToShow = value;
+                Size = new Size(_width, ItemToShow * _itemHeight);
+            }
         }
 
         #region Costruttori
-        public CategoryPicker(ICategory root, Size size, Style style = null)
+        public CategoryPicker
+            (ICategory root, int width = DEFAULT_WIDTH, int itemToShow = DEFAULT_ITEM_TO_SHOW,
+            int itemHeight = DEFAULT_ITEM_HEIGHT, Style style = null)
         {
+            #region Precondizioni
+            if (width < 0 || itemToShow < 1 || itemHeight < 0)
+                throw new ArgumentException("width, itemToShow o itemHeight illegali");
+            #endregion
             InitializeComponent();
-            RootCategory = root;
             root.Changed += CategoryChangedHandler;
-            Size = size;
+            _itemHeight = itemHeight;
+            ItemToShow = itemToShow;
+            _width = width;
+            _style = style;
             this.ApplyStyle(style);
             _flowPanel.HorizontalScroll.Visible = false;
             _flowPanel.HorizontalScroll.Enabled = false;
-            _flowPanel.Size = Size;
-            
-            Refresh();
+            _flowPanel.AutoSize = false;
+            Size = new Size(width, itemHeight * ItemToShow);
+            RootCategory = root;
         }
 
         public CategoryPicker(ICategory root) : 
-            this(root, new Size(DEFAULT_WIDTH, DEFAULT_HEIGHT)) { }
+            this(root, DEFAULT_WIDTH, DEFAULT_ITEM_TO_SHOW) { }
 
         public CategoryPicker()
             : this(CategoryFactory.CreateRoot("ROOT")) { }
@@ -74,8 +109,9 @@ namespace CSB_Project.src.presentation.Utils
             bl.Margin = new Padding(0);
             bl.BorderSize = 2;
             bl.AutoSize = false;
-            bl.Size = new Size(_flowPanel.Width - SystemInformation.VerticalScrollBarWidth, ITEM_HEIGHT);
-            bl.Location = new Point(0, ITEM_HEIGHT * itemNumber);
+            bl.Size = new Size(_flowPanel.Width - SystemInformation.VerticalScrollBarWidth, _itemHeight);
+            bl.Location = new Point(0, DEFAULT_ITEM_HEIGHT * itemNumber);
+            bl.Style = _style;
             if (itemNumber == 0 && !String.IsNullOrEmpty(c?.Name ?? null))
                 bl.Icon = Image.FromFile("../../icon/goUp.png");
             bl.Tag = c;

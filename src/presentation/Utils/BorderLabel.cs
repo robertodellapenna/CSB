@@ -32,7 +32,7 @@ namespace CSB_Project.src.presentation.Utils
                 {
                     _innerLabel.TextAlign = ContentAlignment.MiddleRight;
                     _innerLabel.ImageAlign = ContentAlignment.MiddleLeft;
-                    _innerLabel.Padding = new Padding(30, 0, 30, 0);
+                    _innerLabel.Padding = new Padding(Convert.ToInt32(Size.Width*0.1), 0, Convert.ToInt32(Size.Width*0.1), 0);
                     _innerLabel.Image = new Bitmap(value, new Size(32, 32));
                 }
             }

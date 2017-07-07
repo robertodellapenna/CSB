@@ -12,10 +12,10 @@ namespace CSB_Project.src.presentation.ItemCreatorPresenter
 {
     public partial class BasicItemCreator : UserControl
     {
-        public TextBox Price => _priceTextBox;
-        public TextBox FriendlyName => _nameTextBox;
-        public TextBox Identifier => _identifierTextBox;
-        public TextBox Description => _descriptioonTextBox;
+        public NumericUpDown PriceBox => _priceBox;
+        public TextBox FriendlyNameBox => _nameTextBox;
+        public TextBox IdentifierBox => _identifierTextBox;
+        public TextBox DescriptionBox => _descriptioonTextBox;
 
         public BasicItemCreator() : this(null) { }
 

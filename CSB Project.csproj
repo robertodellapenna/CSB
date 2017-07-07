@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="icon\add.png" />
     <Content Include="icon\goUp.png" />
+    <Content Include="icon\remove.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".git\config" />
@@ -207,13 +209,6 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\presentation\Utils\ServiceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="src\presentation\Utils\ServiceDialog.Designer.cs">
-      <DependentUpon>ServiceDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="src\Program.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -285,12 +280,19 @@
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemPickerPresenter.cs" />
+    <Compile Include="src\presentation\SectorCreatorPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="src\presentation\ServiceManagerView.Designer.cs">
       <DependentUpon>ServiceManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\SectorCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\presentation\SectorCreator.Designer.cs">
+      <DependentUpon>SectorCreator.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\StructureManagerPresenter.cs" />
     <Compile Include="src\presentation\StructureManagerView.cs">
@@ -319,6 +321,7 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -346,6 +349,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="src\GioForm.resx">
+      <DependentUpon>GioForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </EmbeddedResource>
@@ -358,6 +364,9 @@
     <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\SectorCreator.resx">
+      <DependentUpon>SectorCreator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ServiceManagerView.resx">
       <DependentUpon>ServiceManagerView.cs</DependentUpon>
     </EmbeddedResource>
@@ -369,9 +378,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\presentation\Utils\ServiceDialog.resx">
-      <DependentUpon>ServiceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>
