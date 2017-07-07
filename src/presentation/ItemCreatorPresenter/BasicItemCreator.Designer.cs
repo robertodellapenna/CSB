@@ -35,7 +35,8 @@
             this._descriptioonTextBox = new System.Windows.Forms.TextBox();
             this._descriptionLabel = new System.Windows.Forms.Label();
             this._priceLabel = new System.Windows.Forms.Label();
-            this._priceTextBox = new System.Windows.Forms.TextBox();
+            this._priceBox = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this._priceBox)).BeginInit();
             this.SuspendLayout();
             // 
             // _identifierLabel
@@ -53,6 +54,7 @@
             this._identifierTextBox.Name = "_identifierTextBox";
             this._identifierTextBox.Size = new System.Drawing.Size(186, 20);
             this._identifierTextBox.TabIndex = 1;
+            this._identifierTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // _nameTextBox
             // 
@@ -60,6 +62,7 @@
             this._nameTextBox.Name = "_nameTextBox";
             this._nameTextBox.Size = new System.Drawing.Size(186, 20);
             this._nameTextBox.TabIndex = 3;
+            this._nameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label2
             // 
@@ -77,6 +80,7 @@
             this._descriptioonTextBox.Name = "_descriptioonTextBox";
             this._descriptioonTextBox.Size = new System.Drawing.Size(186, 45);
             this._descriptioonTextBox.TabIndex = 5;
+            this._descriptioonTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // _descriptionLabel
             // 
@@ -96,18 +100,20 @@
             this._priceLabel.TabIndex = 7;
             this._priceLabel.Text = "Price";
             // 
-            // _priceTextBox
+            // _priceBox
             // 
-            this._priceTextBox.Location = new System.Drawing.Point(109, 124);
-            this._priceTextBox.Name = "_priceTextBox";
-            this._priceTextBox.Size = new System.Drawing.Size(186, 20);
-            this._priceTextBox.TabIndex = 8;
+            this._priceBox.DecimalPlaces = 2;
+            this._priceBox.Location = new System.Drawing.Point(109, 124);
+            this._priceBox.Name = "_priceBox";
+            this._priceBox.Size = new System.Drawing.Size(186, 20);
+            this._priceBox.TabIndex = 8;
+            this._priceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BasicItemCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this._priceTextBox);
+            this.Controls.Add(this._priceBox);
             this.Controls.Add(this._priceLabel);
             this.Controls.Add(this._descriptioonTextBox);
             this.Controls.Add(this._descriptionLabel);
@@ -117,6 +123,7 @@
             this.Controls.Add(this._identifierLabel);
             this.Name = "BasicItemCreator";
             this.Size = new System.Drawing.Size(314, 158);
+            ((System.ComponentModel.ISupportInitialize)(this._priceBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +138,6 @@
         private System.Windows.Forms.TextBox _descriptioonTextBox;
         private System.Windows.Forms.Label _descriptionLabel;
         private System.Windows.Forms.Label _priceLabel;
-        private System.Windows.Forms.TextBox _priceTextBox;
+        private System.Windows.Forms.NumericUpDown _priceBox;
     }
 }

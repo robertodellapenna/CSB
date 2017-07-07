@@ -61,7 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="icon\add.png" />
     <Content Include="icon\goUp.png" />
+    <Content Include="icon\remove.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".git\config" />
@@ -207,7 +209,6 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\mainProva.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
@@ -313,6 +314,7 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,6 +342,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="src\GioForm.resx">
+      <DependentUpon>GioForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </EmbeddedResource>

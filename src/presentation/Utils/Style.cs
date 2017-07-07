@@ -10,7 +10,11 @@ namespace CSB_Project.src.presentation.Utils
     public class Style
     {
         private Font _font;
-        public Font Font => _font;
+        public Font Font
+        {
+            get => _font;
+            set => _font = value;
+        }
 
         public static Style DefaultStyle
         {
