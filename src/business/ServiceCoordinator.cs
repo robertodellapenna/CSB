@@ -75,6 +75,11 @@ namespace CSB_Project.src.business
             #region Precondizioni
             if (bundle == null)
                 throw new ArgumentNullException("bundle null");
+            foreach (IBundle b in _bundles)
+            {
+                if (b.Name.Equals(bundle.Name))
+                    throw new ArgumentException("bundle with same name is already present");
+            }
             #endregion
             if (!_bundles.Contains(bundle))
                 _bundles.Add(bundle);
@@ -100,6 +105,11 @@ namespace CSB_Project.src.business
             #region Precondizioni
             if (service == null)
                 throw new ArgumentNullException("service null");
+            foreach (IUsable s in _services)
+            {
+                if (s.Name.Equals(service.Name))
+                    throw new ArgumentException("service with same name is already present");
+            }
             #endregion
             if (!_services.Contains(service))
                 _services.Add(service);

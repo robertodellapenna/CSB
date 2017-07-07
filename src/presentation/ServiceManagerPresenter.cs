@@ -5,19 +5,24 @@ using System.Text;
 using System.Windows.Forms;
 using CSB_Project.src.model.Services;
 using CSB_Project.src.business;
+using CSB_Project.src.presentation.Utils;
+using CSB_Project.src.model.Utils;
+using System.Globalization;
 
 namespace CSB_Project.src.presentation
 {
     class ServiceManagerPresenter
     {
+        private static string pattern = "dd/MM/yy";
         private ListView _serviceList;
         private IEnumerable<IUsable> _services;
+        IServiceCoordinator coordinator;
 
         public ServiceManagerPresenter(ServiceManagerView view)
         {
             view.AddButton.Click += AddHandler;
             _serviceList = view.ListView;
-            IServiceCoordinator coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
+            coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)
                 throw new InvalidOperationException("Il coordinatore dei servizi non è disponibile");
 
@@ -38,31 +43,34 @@ namespace CSB_Project.src.presentation
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
             //MessageBox.Show(""+_categoryTree.SelectedNode);
-            //ICategory selectedNode = _categoryTree.SelectedNode.Tag as ICategory;
-            //if (selectedNode == null)
-            //{
-            //    MessageBox.Show("Devi selezionare una categoria radice");
-            //    return;
-            //}
-            // Genero una finestra di dialogo per inserire il nome della categoria
-            //string catName = "";
-            //using (StringDialog sd = new StringDialog("Inserisci il nome della categoria"))
-            //{
-            //    if (sd.ShowDialog() == DialogResult.OK)
-            //        catName = sd.Response;
-            //    else
-            //        return;
-            //}
-            // Se il nodo selezionato non è un contenitore lo elimino e lo faccio diventare 
-            // un contenitore
-            //if (!(selectedNode is IGroupCategory))
-            //{
-            //    IGroupCategory parent = selectedNode.Parent;
-            //    parent.RemoveChild(selectedNode);
-            //    selectedNode = CategoryFactory.CreateGroup(selectedNode.Name, parent);
-            //}
-            // Creo la categoria
-            //CategoryFactory.CreateCategory(catName, selectedNode as IGroupCategory);
+            //Genero una finestra di dialogo per inserire il parametri della servizio
+            string serviceName = "";
+            string serviceDescription = "";
+            string servicePrice = "";
+            string serviceStart = "";
+            string serviceEnd = "";
+            using (ServiceDialog sd = new ServiceDialog("Inserire parametri servizio"))
+            {
+                if (sd.ShowDialog() == DialogResult.OK)
+                {
+                    serviceName = sd.NameText;
+                    serviceDescription = sd.Description;
+                    servicePrice = sd.Price;
+                    serviceStart = sd.Start;
+                    serviceEnd = sd.End;
+                }
+
+
+                else
+                    return;
+            }
+            DateTime start = DateTime.ParseExact(serviceStart, pattern, CultureInfo.InvariantCulture);
+            DateTime end = DateTime.ParseExact(serviceEnd, pattern, CultureInfo.InvariantCulture);
+            DateRange range = new DateRange(start, end);
+            double price = Double.Parse(servicePrice);
+            coordinator.AddService(new BasicService(new DatePriceDescriptor(serviceName, serviceDescription, range, price)));
+            _services = coordinator.Services;
+            ServiceChangedHandler(this, EventArgs.Empty);
         }
 
         private void ModifyHandler(Object sender, EventArgs eventArgs)
@@ -79,12 +87,13 @@ namespace CSB_Project.src.presentation
             _serviceList.Items.Clear();
             foreach (IUsable service in _services)
             {
-                string[] array = new string[4];
+                string[] array = new string[5];
                 ListViewItem items;
                 array[0] = service.Name;
                 array[1] = service.Description;
                 array[2] = service.Price + "";
-                array[3] = service.Availability.StartDate.ToString();
+                array[3] = service.Availability.DateStart();
+                array[4] = service.Availability.DateEnd();
                 items = new ListViewItem(array);
                 _serviceList.Items.Add(items);
             }

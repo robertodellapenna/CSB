@@ -47,7 +47,7 @@
             this._listPanel.Location = new System.Drawing.Point(0, 0);
             this._listPanel.Margin = new System.Windows.Forms.Padding(0);
             this._listPanel.Name = "_listPanel";
-            this._listPanel.Size = new System.Drawing.Size(284, 362);
+            this._listPanel.Size = new System.Drawing.Size(383, 362);
             this._listPanel.TabIndex = 0;
             // 
             // _listView
@@ -58,16 +58,20 @@
             this._listView.GridLines = true;
             this._listView.Location = new System.Drawing.Point(0, 0);
             this._listView.Name = "_listView";
-            this._listView.Size = new System.Drawing.Size(284, 362);
+            this._listView.Size = new System.Drawing.Size(383, 362);
             this._listView.TabIndex = 0;
-            this._listView.Columns.Add("Name", 50);
-            this._listView.Columns.Add("Description", 100);
-            this._listView.Columns.Add("Price", 50);
-            this._listView.Columns.Add("Availability", 100);
-            this._listView.GridLines = true;
-            this._listView.FullRowSelect = true;
             this._listView.UseCompatibleStateImageBehavior = false;
             this._listView.View = System.Windows.Forms.View.Details;
+            this._listView.Columns.Add("Name");
+            this._listView.Columns.Add("Description");
+            this._listView.Columns.Add("Price");
+            this._listView.Columns.Add("Start");
+            this._listView.Columns.Add("End");
+            this._listView.AutoResizeColumn(0, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            this._listView.AutoResizeColumn(1, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            this._listView.AutoResizeColumn(2, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            this._listView.AutoResizeColumn(3, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            this._listView.AutoResizeColumn(4, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
             this._listView.SelectedIndexChanged += new System.EventHandler(this._listView_SelectedIndexChanged);
             // 
             // _actionPanel
@@ -80,7 +84,7 @@
             this._actionPanel.Location = new System.Drawing.Point(0, 196);
             this._actionPanel.Margin = new System.Windows.Forms.Padding(0);
             this._actionPanel.Name = "_actionPanel";
-            this._actionPanel.Size = new System.Drawing.Size(284, 65);
+            this._actionPanel.Size = new System.Drawing.Size(383, 65);
             this._actionPanel.TabIndex = 1;
             // 
             // _modifyButton
@@ -114,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(383, 261);
             this.Controls.Add(this._actionPanel);
             this.Controls.Add(this._listPanel);
             this.MinimumSize = new System.Drawing.Size(300, 300);

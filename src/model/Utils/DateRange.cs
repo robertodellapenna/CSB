@@ -94,6 +94,18 @@ namespace CSB_Project.src.model.Utils
             return StartDate == result.StartDate 
                 && EndDate == result.EndDate;
         }
+
+        public string DateStart()
+        {
+            return this.StartDate.Day + "/" + this.StartDate.Month + "/" + this.StartDate.Year;
+        }
+
+        public string DateEnd()
+        {
+            return this.EndDate.Day + "/" + this.EndDate.Month + "/" + this.EndDate.Year;
+        }
+
+
         #endregion
     }
 }
