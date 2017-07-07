@@ -1,6 +1,9 @@
 ﻿using CSB_Project.src.model.Booking;
+using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Prenotation;
+using CSB_Project.src.model.Services;
 using CSB_Project.src.model.Structure;
+using CSB_Project.src.model.TrackingDevice;
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,7 @@ namespace CSB_Project.src.business
         IEnumerable<Prenotation> Prenotations { get; }
         void AddPrenotation(Prenotation prenotation);
         void AddItemPrenotation(int idPrenotation, ItemPrenotation itemPrenotation);
+        void AddPacket(int idPrenotation, IPacket packet);
         IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData);
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
         bool CanAdd(ItemPrenotation itemPrenotation);
@@ -61,7 +65,37 @@ namespace CSB_Project.src.business
              */
 
             /* Prenotations HardCoded */
+            StructureCoordinator sectorCoord = CoordinatorManager.Instance.CoordinatorOfType<StructureCoordinator>();
+            Sector mySector = sectorCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore base");
+
+            BookingCoordinator bookCoord = CoordinatorManager.Instance.CoordinatorOfType<BookingCoordinator>();
+            IBookableItem myBookableItem = bookCoord.GetBookableItem(mySector, new Position(1, 3));
+
+            DateRange myRange1 = new DateRange(30);
+
+            ItemPrenotation myItemPrenotation1 = new ItemPrenotation(myRange1, myBookableItem);
+
+            ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
+            IItem sdraio = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Sdraio1")).ElementAt(0);
+            myItemPrenotation1.addPlugin(sdraio, myRange1);
+            myItemPrenotation1.addPlugin(sdraio, myRange1);
+            IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
+            myItemPrenotation1.addPlugin(lettino, myRange1);
+
+            TrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
+            ITrackingDevice myCard = tdCoord.Next;
+
+            ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
+            //ricavo packet e bundle
+
+
+
+            //Prenotation myPrenotation=new Prenotation(1, )
+
             
+
+            DateRange myRange2 = new DateRange(myRange1.EndDate, 30);
+
         }
 
         public void AddPrenotation(Prenotation prenotation)
@@ -87,6 +121,18 @@ namespace CSB_Project.src.business
                 throw new Exception("item prenotation not valid");
             #endregion
             GetPrenotation(idPrenotation).AddItem(itemPrenotation);
+        }
+        public void AddPacket(int idPrenotation, IPacket packet)
+        {
+            #region Precondizioni
+            if (idPrenotation < 0)
+                throw new ArgumentException("id not valid");
+            if (packet == null)
+                throw new ArgumentNullException("packet null");
+            if (GetPrenotation(idPrenotation) == null)
+                throw new Exception("prenotation not found");
+            #endregion
+            GetPrenotation(idPrenotation).addPacket(packet);
         }
         public IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData)
         {
