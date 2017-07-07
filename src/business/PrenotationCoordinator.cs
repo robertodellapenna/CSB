@@ -4,6 +4,7 @@ using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Services;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.TrackingDevice;
+using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
@@ -82,19 +83,23 @@ namespace CSB_Project.src.business
             IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
             myItemPrenotation1.addPlugin(lettino, myRange1);
 
+            List<ItemPrenotation> myItems = new List<ItemPrenotation>();
+            myItems.Add(myItemPrenotation1);
+
             TrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
             ITrackingDevice myCard = tdCoord.Next;
 
+            IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
+            Client client = new Client(1, "Roberto", "Della Penna", "rob", "pwd", "RDP1295", "12/04/1995");
+
+            Prenotation myPrenotation = new Prenotation(1, client, myRange1, myItems, myCard);
+
             ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
-            //ricavo packet e bundle
+            IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
 
+            myPrenotation.addPacket(doccia);
 
-
-            //Prenotation myPrenotation=new Prenotation(1, )
-
-            
-
-            DateRange myRange2 = new DateRange(myRange1.EndDate, 30);
+            _prenotations.Add(myPrenotation);
 
         }
 
