@@ -1,5 +1,5 @@
-﻿using CSB_Project.src.presentation.Utils;
-using System;
+﻿using System;
+using CSB_Project.src.presentation.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,21 +10,25 @@ using System.Windows.Forms;
 
 namespace CSB_Project.src.presentation
 {
-    public partial class StructureManagerView : Form
+    public partial class ServiceManagerView : Form
     {
         public Button AddButton => _addButton;
-        public TreeView TreeView => _treeView;
+        public ListView ListView => _listView;
 
-        public StructureManagerView(Style style = null)
+        public ServiceManagerView(Style style = null)
         {
             InitializeComponent();
             this.ApplyStyle(style);
         }
 
-        private void StructureManagerView_Load(object sender, EventArgs e)
+        private void ServiceManagerView_Load(object sender, EventArgs e)
         {
 
         }
 
+        private void _listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
