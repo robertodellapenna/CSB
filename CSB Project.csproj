@@ -279,6 +279,7 @@
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemPickerPresenter.cs" />
+    <Compile Include="src\presentation\ServiceManagerPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerView.cs">
       <SubType>Form</SubType>
     </Compile>

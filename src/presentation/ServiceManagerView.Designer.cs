@@ -54,15 +54,21 @@
             // 
             this._listView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
             this._listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._listView.FullRowSelect = true;
+            this._listView.GridLines = true;
             this._listView.Location = new System.Drawing.Point(0, 0);
             this._listView.Name = "_listView";
             this._listView.Size = new System.Drawing.Size(284, 362);
             this._listView.TabIndex = 0;
+            this._listView.Columns.Add("Name", 50);
+            this._listView.Columns.Add("Description", 100);
+            this._listView.Columns.Add("Price", 50);
+            this._listView.Columns.Add("Availability", 100);
+            this._listView.GridLines = true;
+            this._listView.FullRowSelect = true;
             this._listView.UseCompatibleStateImageBehavior = false;
-            this._listView.Columns.Add("Name");
-            this._listView.Columns.Add("Description");
-            this._listView.Columns.Add("Price");
-            this._listView.Columns.Add("Availability");
+            this._listView.View = System.Windows.Forms.View.Details;
+            this._listView.SelectedIndexChanged += new System.EventHandler(this._listView_SelectedIndexChanged);
             // 
             // _actionPanel
             // 

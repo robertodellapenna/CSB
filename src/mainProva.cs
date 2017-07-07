@@ -11,7 +11,9 @@ namespace CSB_Project.src.presentation
     {
         public static void Main(string[] args)
         {
-            StructureManagerView view = new StructureManagerView();
+            
+            ServiceManagerView view = new ServiceManagerView();
+            ServiceManagerPresenter structurePresenter = new ServiceManagerPresenter(view);
             Application.Run(view);
         }
     }

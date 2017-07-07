@@ -1,4 +1,5 @@
 ﻿using System;
+using CSB_Project.src.presentation.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,12 +12,21 @@ namespace CSB_Project.src.presentation
 {
     public partial class ServiceManagerView : Form
     {
-        public ServiceManagerView()
+        public Button AddButton => _addButton;
+        public ListView ListView => _listView;
+
+        public ServiceManagerView(Style style = null)
         {
             InitializeComponent();
+            this.ApplyStyle(style);
         }
 
         private void ServiceManagerView_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void _listView_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
