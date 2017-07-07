@@ -15,6 +15,7 @@ namespace CSB_Project.src.business
         IEnumerable<IBookableItem> Filter(Structure structure);
         IEnumerable<IBookableItem> Filter(StructureArea area);
         IEnumerable<IBookableItem> Filter(Sector sector);
+        IBookableItem GetBookableItem(Sector sector, Position position);
         void AddBookableItem(IBookableItem item);
         event EventHandler BookingChanged;
     }
@@ -103,9 +104,26 @@ namespace CSB_Project.src.business
         {
             #region Precondizioni
             if (sector == null)
-                throw new ArgumentNullException("area null");
+                throw new ArgumentNullException("sector null");
             #endregion
             return _bookableItems.Where(item => item.Sector == sector).ToArray();
+        }
+        public IBookableItem GetBookableItem(Sector sector, Position position)
+        {
+            #region Precondizioni
+            if (sector == null)
+                throw new ArgumentNullException("sector null");
+            if (position == null)
+                throw new ArgumentNullException("position null");
+            if (position.Row > sector.Rows ||
+                position.Column > sector.Columns)
+                throw new ArgumentException("position not valid in this sector");
+            #endregion
+            return (from item in Filter(sector)
+                   where (item.Position.Row == position.Row &&
+                   item.Position.Column == position.Column)
+                   select item).ElementAt(0);
+                  
         }
         #endregion
 
