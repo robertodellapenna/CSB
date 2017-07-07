@@ -13,7 +13,7 @@ namespace CSB_Project.src.presentation
 {
     class ServiceManagerPresenter
     {
-        private static string pattern = "dd/MM/yy";
+        private static string pattern = "dd/MM/yyyy";
         private ListView _serviceList;
         private IEnumerable<IUsable> _services;
         IServiceCoordinator coordinator;
@@ -71,9 +71,9 @@ namespace CSB_Project.src.presentation
             coordinator.AddService(new BasicService(new DatePriceDescriptor(serviceName, serviceDescription, range, price)));
             _services = coordinator.Services;
             ServiceChangedHandler(this, EventArgs.Empty);
-        }
+            }
 
-        private void ModifyHandler(Object sender, EventArgs eventArgs)
+            private void ModifyHandler(Object sender, EventArgs eventArgs)
         {
             /* PROBABILMENTE NON VA FATTO */
         }

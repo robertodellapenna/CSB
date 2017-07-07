@@ -314,6 +314,12 @@
       <DependentUpon>CategoryPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
+    <Compile Include="src\presentation\Utils\ServiceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\ServiceDialog.Designer.cs">
+      <DependentUpon>ServiceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\Utils\StringDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -378,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\ServiceDialog.resx">
+      <DependentUpon>ServiceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>

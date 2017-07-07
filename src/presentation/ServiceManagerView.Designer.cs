@@ -67,11 +67,8 @@
             this._listView.Columns.Add("Price");
             this._listView.Columns.Add("Start");
             this._listView.Columns.Add("End");
-            this._listView.AutoResizeColumn(0, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
-            this._listView.AutoResizeColumn(1, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
-            this._listView.AutoResizeColumn(2, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
-            this._listView.AutoResizeColumn(3, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
-            this._listView.AutoResizeColumn(4, System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            this._listView.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.ColumnContent);
+            this._listView.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
             this._listView.SelectedIndexChanged += new System.EventHandler(this._listView_SelectedIndexChanged);
             // 
             // _actionPanel
