@@ -19,7 +19,11 @@ namespace CSB_Project.src.business
         void AddService (IUsable service);
         IEnumerable<IUsage> Usages { get; }
         void AddUsage (IUsage usage);
-        IEnumerable<IUsage> Filter(ITrackingDevice card);
+        IEnumerable<IUsage> FilterCard(ITrackingDevice card);
+        IEnumerable<IPacket> FilterPacketName(string name);
+        IEnumerable<IBundle> FilterBundleName(string name);
+        IEnumerable<IBundle> FilterBundleDate(DateRange data);
+        IEnumerable<IPacket> FilterPacketDate(DateRange data);
         event EventHandler ServiceChanged;
     }
     public class ServiceCoordinator : AbstractCoordinatorDecorator, IServiceCoordinator
@@ -82,6 +86,11 @@ namespace CSB_Project.src.business
             if (packet == null)
                 throw new ArgumentNullException("paccket null");
             #endregion
+            foreach(IPacket p in _packets)
+            {
+                if (p.Name.Equals(packet.Name))
+                    throw new ArgumentException("packet with same name is already present");
+            }
             if (!_packets.Contains(packet))
                 _packets.Add(packet);
         }
@@ -106,20 +115,30 @@ namespace CSB_Project.src.business
                 _usages.Add(usage);
         }
 
-        public IEnumerable<IUsage> Filter(ITrackingDevice card)
+        public IEnumerable<IUsage> FilterCard(ITrackingDevice card)
         {
 
             return _usages.Where(usage => usage.Who.Id == card.Id);
         }
 
-        public IEnumerable<IPacket> Filter(DateRange data)
+        public IEnumerable<IPacket> FilterPacketDate(DateRange data)
         {
             return _packets.Where(packet => packet.Availability.Contains(data));
         }
 
-        public IEnumerable<IBundle> FilterBundle(DateRange data)
+        public IEnumerable<IBundle> FilterBundleDate(DateRange data)
         {
             return _bundles.Where(bundle => bundle.Availability.Contains(data));
+        }
+
+        public IEnumerable<IPacket> FilterPacketName(string name)
+        {
+            return _packets.Where(packet => packet.Name.Equals(name));
+        }
+
+        public IEnumerable<IBundle> FilterBundleName(string name)
+        {
+            return _bundles.Where(bundle => bundle.Name.Equals(name));
         }
 
         #endregion
