@@ -306,6 +306,7 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
+    <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
     </Compile>
