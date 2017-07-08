@@ -39,14 +39,14 @@ namespace CSB_Project.src.business
         protected override void init()
         {
             base.init();
-            Client client1 = new Client(1, "lorenzo", "antonini", "lollo", "ciao95", "CC3", "25/07/95");
-            Client client2 = new Client(2, "roberto", "antonini", "roby", "ciao96", "CC4", "25/07/95");
-            Client client3 = new Client(3, "giovanni", "antonini", "gio", "ciao97", "CC5", "25/07/95");
+            Client client1 = new Client(1, "lorenzo", "antonini", "CC3", "25/07/95");
+            Client client2 = new Client(2, "roberto", "antonini", "CC4", "25/07/95");
+            Client client3 = new Client(3, "giovanni", "antonini", "CC5", "25/07/95");
             _clients.Add(client1);
             _clients.Add(client2);
             _clients.Add(client3);
-            Staff staff1 = new Staff(1, "giovanni", "antonini", "gio", "ciao97", 1);
-            Staff staff2 = new Staff(2, "lorenzo", "antonini", "lollo", "ciao95", 2);
+            Staff staff1 = new Staff(1, "giovanni", "antonini", 1);
+            Staff staff2 = new Staff(2, "lorenzo", "antonini", 2);
             _staff.Add(staff1);
             _staff.Add(staff2);
         }
@@ -84,7 +84,7 @@ namespace CSB_Project.src.business
 
         public IEnumerable<User> FilterLevel (int level)
         {
-            return _staff.Where(staff => staff.LevelOfAuthorization == level);
+            return _staff.Where(staff => staff.AuthorizationLevel == level);
         }
 
         #endregion

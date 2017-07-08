@@ -105,6 +105,20 @@ namespace CSB_Project.src.model.Utils
             return this.EndDate.Day + "/" + this.EndDate.Month + "/" + this.EndDate.Year;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            if (! (obj is DateRange))
+                return false;
+            DateRange other = obj as DateRange;
+            return other.StartDate == StartDate && other.EndDate == EndDate;
+        }
+
+        public override int GetHashCode()
+        {
+            return EndDate.GetHashCode() * StartDate.GetHashCode();
+        }
 
         #endregion
     }

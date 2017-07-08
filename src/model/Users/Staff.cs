@@ -5,29 +5,29 @@ using System.Text;
 
 namespace CSB_Project.src.model.Users
 {
-    public class Staff : User
+    public class Staff : User, IStaff
     {
         #region Eventi
         #endregion
         #region Campi
-        private int _levelOfAuthorization;
+        private int _authorizationLevel;
         #endregion
         #region Proprieta
-        public int LevelOfAuthorization { get => _levelOfAuthorization; set => _levelOfAuthorization = value; }
+        public int AuthorizationLevel { get => _authorizationLevel; set => _authorizationLevel = value; }
         #endregion
         #region Costruttori
-        public Staff(int id, string firstName, string lastName, string username, string password, int levelOfAuthorization)
-        : base(id, firstName, lastName, username, password)
+        public Staff(int id, string firstName, string lastName, int levelOfAuthorization)
+        : base(id, firstName, lastName)
         {
             if (levelOfAuthorization < 0)
                 throw new ArgumentException("level of authorization inconsistent");
-            _levelOfAuthorization = levelOfAuthorization;
+            _authorizationLevel = levelOfAuthorization;
         }
         #endregion
         #region Metodi
         public override string ToString()
         {
-            return base.ToString() + this.LevelOfAuthorization;
+            return base.ToString() + AuthorizationLevel;
         }
         #endregion
         #region Handler

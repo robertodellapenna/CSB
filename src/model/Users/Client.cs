@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CSB_Project.src.model.Users
 {
-    public class Client : User
+    public class Client : User, IClient
     {
         #region Eventi
         #endregion
@@ -26,12 +26,10 @@ namespace CSB_Project.src.model.Users
         /// </summary>
         /// <param name="firstName">firstName</param>
         /// <param name="lastName">lastName</param>
-        /// <param name="username">username</param>
-        /// <param name="password">password</param>
-        /// <param name="fiscalCode">fiscl Code</param>
+        /// <param name="fiscalCode">fiscal Code</param>
         /// <param name="birthDate">Birthday date</param>
-        public Client(int id, string firstName, string lastName, string username, string password, string fiscalCode, string birthDate) 
-        : base (id, firstName, lastName, username, password)
+        public Client(int id, string firstName, string lastName, string fiscalCode, string birthDate) 
+        : base (id, firstName, lastName)
         {
             DateTime date;
             try

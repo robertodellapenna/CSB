@@ -1,6 +1,5 @@
 ﻿using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Item;
-using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Services;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.TrackingDevice;
@@ -9,40 +8,40 @@ using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using CSB_Project.src.model.Prenotation;
 
 namespace CSB_Project.src.business
 {
-    public interface IPrenotatiionCoordinator : ICoordinator
+    public interface IPrenotationCoordinator : ICoordinator
     {
-        IEnumerable<Prenotation> Prenotations { get; }
-        void AddPrenotation(Prenotation prenotation);
-        void AddItemPrenotation(int idPrenotation, ItemPrenotation itemPrenotation);
+        IEnumerable<CustomizableServizablePrenotation> Prenotations { get; }
+        void AddPrenotation(CustomizableServizablePrenotation prenotation);
+        void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation);
         void AddPacket(int idPrenotation, IPacket packet);
         IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData);
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
-        bool CanAdd(ItemPrenotation itemPrenotation);
-        bool CanAdd(Prenotation prenotation);
+        bool CanAdd(ICustomizableItemPrenotation ICustomizableItemPrenotation);
+        bool CanAdd(CustomizableServizablePrenotation prenotation);
         event EventHandler PrenotationChanged;
     }
 
-    class PrenotationCoordinator : AbstractCoordinatorDecorator, IPrenotatiionCoordinator
+    class PrenotationCoordinator : AbstractCoordinatorDecorator, IPrenotationCoordinator
     {
         #region Eventi
         public event EventHandler PrenotationChanged;
         #endregion
 
         #region Campi
-        private readonly List<Prenotation> _prenotations = new List<Prenotation>();
+        private readonly List<CustomizableServizablePrenotation> _prenotations = new List<CustomizableServizablePrenotation>();
         #endregion
 
         #region Proprietà
-        public IEnumerable<Prenotation> Prenotations
+        public IEnumerable<CustomizableServizablePrenotation> Prenotations
         {
 
             get
             {
-                Prenotation[] copy = new Prenotation[_prenotations.Count];
+                CustomizableServizablePrenotation[] copy = new CustomizableServizablePrenotation[_prenotations.Count];
                 _prenotations.CopyTo(copy);
                 return copy;
             }
@@ -74,36 +73,36 @@ namespace CSB_Project.src.business
 
             DateRange myRange1 = new DateRange(30);
 
-            ItemPrenotation myItemPrenotation1 = new ItemPrenotation(myRange1, myBookableItem);
+            ICustomizableItemPrenotation myIItemPrenotation1 = new CustomizableItemPrenotation(myRange1, myBookableItem);
 
             ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
             IItem sdraio = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Sdraio1")).ElementAt(0);
-            myItemPrenotation1.addPlugin(sdraio, myRange1);
-            myItemPrenotation1.addPlugin(sdraio, myRange1);
+            myIItemPrenotation1.AddPlugin(sdraio, myRange1);
+            myIItemPrenotation1.AddPlugin(sdraio, myRange1);
             IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
-            myItemPrenotation1.addPlugin(lettino, myRange1);
+            myIItemPrenotation1.AddPlugin(lettino, myRange1);
 
-            List<ItemPrenotation> myItems = new List<ItemPrenotation>();
-            myItems.Add(myItemPrenotation1);
+            List<ICustomizableItemPrenotation> myItems = new List<ICustomizableItemPrenotation>();
+            myItems.Add(myIItemPrenotation1);
 
             TrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
             ITrackingDevice myCard = tdCoord.Next;
 
             IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
-            Client client = new Client(1, "Roberto", "Della Penna", "rob", "pwd", "RDP1295", "12/04/1995");
+            Client client = new Client(1, "Roberto", "Della Penna", "RDP1295", "12/04/1995");
 
-            Prenotation myPrenotation = new Prenotation(1, client, myRange1, myItems, myCard);
+            CustomizableServizablePrenotation myPrenotation = new CustomizableServizablePrenotation(1, client, myRange1, myItems, myCard, new AssociationDescriptor(myRange1, "CardBase"));
 
             ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
             IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
 
-            myPrenotation.addPacket(doccia);
+            myPrenotation.AddPacket(doccia);
 
             _prenotations.Add(myPrenotation);
 
         }
 
-        public void AddPrenotation(Prenotation prenotation)
+        public void AddPrenotation(CustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni
             if (prenotation == null)
@@ -113,19 +112,19 @@ namespace CSB_Project.src.business
             #endregion
             _prenotations.Add(prenotation);
         }
-        public void AddItemPrenotation(int idPrenotation, ItemPrenotation itemPrenotation)
+        public void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation)
         {
             #region Precondizioni
             if (idPrenotation < 0)
                 throw new ArgumentException("id not valid");
-            if (itemPrenotation == null)
+            if (ICustomizableItemPrenotation == null)
                 throw new ArgumentNullException("item prenotation null");
             if (GetPrenotation(idPrenotation)==null)
                 throw new Exception("prenotation not found");
-            if(!CanAdd(itemPrenotation))
+            if(!CanAdd(ICustomizableItemPrenotation))
                 throw new Exception("item prenotation not valid");
             #endregion
-            GetPrenotation(idPrenotation).AddItem(itemPrenotation);
+            GetPrenotation(idPrenotation).AddItem(ICustomizableItemPrenotation);
         }
         public void AddPacket(int idPrenotation, IPacket packet)
         {
@@ -137,7 +136,7 @@ namespace CSB_Project.src.business
             if (GetPrenotation(idPrenotation) == null)
                 throw new Exception("prenotation not found");
             #endregion
-            GetPrenotation(idPrenotation).addPacket(packet);
+            GetPrenotation(idPrenotation).AddPacket(packet);
         }
         public IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData)
         {
@@ -166,28 +165,28 @@ namespace CSB_Project.src.business
             return !BusyPositions(sector, rangeData).Where(pos => pos.Row == position.Row &&
                                                                  pos.Column == position.Column).Any();
         }
-        public bool CanAdd(ItemPrenotation itemPrenotation)
+        public bool CanAdd(ICustomizableItemPrenotation ICustomizableItemPrenotation)
         {
             #region Precondizioni
-            if (itemPrenotation == null)
+            if (ICustomizableItemPrenotation == null)
                 throw new ArgumentNullException("item prenotation null");
             #endregion
             return _prenotations.Where(
-                prenotation => prenotation.Items.Where(
-                    item => item.BookableItem.Sector == itemPrenotation.BookableItem.Sector &&
-                            item.BookableItem.Position.Row == itemPrenotation.BookableItem.Position.Row &&
-                            item.BookableItem.Position.Column == itemPrenotation.BookableItem.Position.Column &&
-                            item.RangeData.OverlapWith(itemPrenotation.RangeData)
+                prenotation => prenotation.BookedItems.Where(
+                    item => item.BaseItem.Sector == ICustomizableItemPrenotation.BaseItem.Sector &&
+                            item.BaseItem.Position.Row == ICustomizableItemPrenotation.BaseItem.Position.Row &&
+                            item.BaseItem.Position.Column == ICustomizableItemPrenotation.BaseItem.Position.Column &&
+                            item.RangeData.OverlapWith(ICustomizableItemPrenotation.RangeData)
                 ).Any()
             ).Any();
         }
-        public bool CanAdd(Prenotation prenotation)
+        public bool CanAdd(CustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni
             if (prenotation == null)
                 throw new ArgumentNullException("prenotation null");
             #endregion
-            foreach (ItemPrenotation item in prenotation.Items)
+            foreach (ICustomizableItemPrenotation item in prenotation.BookedItems)
                 if (!CanAdd(item)) return false;
             return true;
         }
@@ -198,13 +197,13 @@ namespace CSB_Project.src.business
                 throw new ArgumentNullException("rangeData null");
             #endregion
             List<IBookableItem> result = new List<IBookableItem>();
-            foreach (Prenotation p in _prenotations)
-                foreach (ItemPrenotation item in p.Items)
+            foreach (CustomizableServizablePrenotation p in _prenotations)
+                foreach (ICustomizableItemPrenotation item in p.BookedItems)
                     if (item.RangeData.OverlapWith(rangeData))
-                        result.Add(item.BookableItem);
+                        result.Add(item.BaseItem);
             return result;
         }
-        private Prenotation GetPrenotation(int idPrenotation)
+        private CustomizableServizablePrenotation GetPrenotation(int idPrenotation)
         {
             #region Precondizioni
             if (idPrenotation < 0)

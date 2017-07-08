@@ -15,20 +15,20 @@ namespace test.model.Users
         public void StuffTest()
         {
             string nome = "Lorenzo";
-            Staff staffOk = new Staff(1, "Lorenzo", "Antonini", "pippo95", "pluto", 1);
+            Staff staffOk = new Staff(1, "Lorenzo", "Antonini", 1);
             Assert.AreEqual(staffOk.FirstName, nome);
-            Assert.ThrowsException<ArgumentException>(() => new Staff(1, "", "Antonini", "pippo95", "pluto", 1));
+            Assert.ThrowsException<ArgumentException>(() => new Staff(1, "", "Antonini", 1));
         }
 
         [TestMethod]
         public void ClientTest()
         {
             string nome = "Lorenzo";
-            Client clien1 = new Client(1, "Lorenzo", "Antonini", "pippo95", "pluto", "aaa", "25/07/95");
-            Assert.ThrowsException<ArgumentException>(() => new Client(1, "", "Antonini", "pippo95", "pluto", "aaa", "23"));
+            Client clien1 = new Client(1, "Lorenzo", "Antonini", "pippo95", "25/07/95");
+            Assert.ThrowsException<ArgumentException>(() => new Client(1, "", "Antonini", "pippo95", "23"));
             Assert.AreEqual(clien1.FirstName, nome);
             Assert.IsNotNull(clien1);
-            Assert.ThrowsException<ArgumentException>(() => new Client(1, "Lorenzo", "Antonini", "pippo95", "pluto", "aaa", "23/13/12"));
+            Assert.ThrowsException<ArgumentException>(() => new Client(1, "Lorenzo", "Antonini", "pippo95", "23/13/12"));
         }
     }
 }

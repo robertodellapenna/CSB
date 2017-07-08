@@ -28,7 +28,7 @@ namespace CSB_Project.src.model.Services
         public override IEnumerable<IUsage> filter(IEnumerable<IUsage> usage)
         {
             IEnumerable<IUsage> validMatch = from i in usage
-                         where i.Type == Usable && Availability.Contains(i.When)
+                         where i.Type == Usable && Range.Contains(i.When)
                          select i;
             return usage.Except(validMatch);
         }

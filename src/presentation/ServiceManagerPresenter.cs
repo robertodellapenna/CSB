@@ -59,8 +59,6 @@ namespace CSB_Project.src.presentation
                     serviceStart = sd.Start;
                     serviceEnd = sd.End;
                 }
-
-
                 else
                     return;
             }
@@ -71,9 +69,9 @@ namespace CSB_Project.src.presentation
             coordinator.AddService(new BasicService(new DatePriceDescriptor(serviceName, serviceDescription, range, price)));
             _services = coordinator.Services;
             ServiceChangedHandler(this, EventArgs.Empty);
-            }
+        }
 
-            private void ModifyHandler(Object sender, EventArgs eventArgs)
+        private void ModifyHandler(Object sender, EventArgs eventArgs)
         {
             /* PROBABILMENTE NON VA FATTO */
         }
@@ -97,6 +95,8 @@ namespace CSB_Project.src.presentation
                 items = new ListViewItem(array);
                 _serviceList.Items.Add(items);
             }
+            _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            _serviceList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize);
             #endregion
         }
     }

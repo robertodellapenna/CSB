@@ -10,7 +10,7 @@ namespace CSB_Project.src.business
     {
         ITrackingDevice Next { get; }
         void ReleaseTrackingDevice(ITrackingDevice td);
-        void LockTrackingDevice(IPrenotation prenotation);
+        void LockTrackingDevice(IServizablePrenotation prenotation);
         void RemoveTrackingDevice(ITrackingDevice td);
     }
 
@@ -22,7 +22,7 @@ namespace CSB_Project.src.business
         #region Campi
         private ISet<ITrackingDevice> _notAvailables;
         private Queue<ITrackingDevice> _availables;
-        private Dictionary<ITrackingDevice, IPrenotation> _booked;
+        private Dictionary<ITrackingDevice, IServizablePrenotation> _booked;
         #endregion
 
         #region Proprietà
@@ -34,7 +34,7 @@ namespace CSB_Project.src.business
         {
             _availables = new Queue<ITrackingDevice>();
             _notAvailables = new HashSet<ITrackingDevice>();
-            _booked = new Dictionary<ITrackingDevice, IPrenotation>();
+            _booked = new Dictionary<ITrackingDevice, IServizablePrenotation>();
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace CSB_Project.src.business
             _availables.Enqueue(td);
         }
 
-        public void LockTrackingDevice(IPrenotation prenotation)
+        public void LockTrackingDevice(IServizablePrenotation prenotation)
         {
             #region Precondizioni
             if (prenotation == null)
