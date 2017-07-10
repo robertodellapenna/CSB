@@ -70,7 +70,9 @@ namespace CSB_Project.src.model.Item
             {
                 item = obj as IItem;
             }
+#pragma warning disable CS0168 // Variable is declared but never used
             catch (InvalidCastException e)
+#pragma warning restore CS0168 // Variable is declared but never used
             {
                 throw new ItemDescriptorException("Non sono riuscito ad effettuare il casting");
             }
@@ -95,6 +97,7 @@ namespace CSB_Project.src.model.Item
         }
     }
 
+    [Serializable]
     public class ItemDescriptorException : ApplicationException
     {
         public ItemDescriptorException(string message) : base(message) { }

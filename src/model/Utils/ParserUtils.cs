@@ -29,7 +29,9 @@ namespace CSB_Project.src.model.Utils
                         result[i] = (T)Convert.ChangeType(xnl.Item(i).InnerText, typeof(T));
                     }
                 }
+#pragma warning disable CS0168 // Variable is declared but never used
                 catch (InvalidCastException e)
+#pragma warning restore CS0168 // Variable is declared but never used
                 {
                     throw new ParsingException("Impossibile convertire l'elemento");
                 }
@@ -38,7 +40,8 @@ namespace CSB_Project.src.model.Utils
         }
     }
 
-    public class ParsingException : ApplicationException {
+    [Serializable]
+    public class ParsingException : ApplicationException{
         public ParsingException(string msg) : base (msg) { }
     }
 }

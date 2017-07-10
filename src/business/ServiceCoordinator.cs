@@ -50,7 +50,7 @@ namespace CSB_Project.src.business
         }
         #endregion
         #region Metodi
-        protected override void init()
+        protected override void Init()
         {
             DateRange date1 = new DateRange(10);
             DateRange date2 = new DateRange(12);

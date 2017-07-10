@@ -28,6 +28,6 @@ namespace CSB_Project.src.model.Services
         /// <param name="usage">Collezione di elementi IUsage</param>
         /// <returns>Collezione di elementi che non soddisfano le condizioni
         /// del pacchetto</returns>
-        IEnumerable<IUsage> filter(IEnumerable<IUsage> usage);
+        IEnumerable<IUsage> Filter(IEnumerable<IUsage> usage);
     }
 }

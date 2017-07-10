@@ -57,9 +57,9 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Metodi
-        protected override void init()
+        protected override void Init()
         {
-            base.init();
+            base.Init();
             /* Cerco un file di configurazione delle prenotation nel fileSystem,
              * se lo trovo carico le prenotation contenute
              */
@@ -89,7 +89,7 @@ namespace CSB_Project.src.business
             ITrackingDevice myCard = tdCoord.Next;
 
             IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
-            Client client = new Client(1, "Roberto", "Della Penna", "RDP1295", "12/04/1995");
+            Customer client = new Customer("Roberto", "Della Penna", "RDP1295", "12/04/1995");
 
             CustomizableServizablePrenotation myPrenotation = new CustomizableServizablePrenotation(1, client, myRange1, myItems, myCard, new AssociationDescriptor(myRange1, "CardBase"));
 

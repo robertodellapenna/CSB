@@ -6,10 +6,44 @@ using System.Text;
 
 namespace CSB_Project.src.model.Users
 {
-    public class Client : User, IClient
+    public class User : IUser
     {
-        #region Eventi
+        #region Campi
+        private readonly string _firstName;
+        private readonly string _lastName;
         #endregion
+
+        #region Costruttori
+        /// <summary>
+        /// costruttore classe user
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        public User(string firstName, string lastName)
+        {
+            if (String.IsNullOrWhiteSpace(firstName))
+                throw new ArgumentException("firstName null or empty");
+            _firstName = firstName;
+            if (String.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("lastName null or empty");
+            _lastName = lastName;
+        }
+        #endregion
+        #region Proprieta
+        public string FirstName { get => _firstName; }
+        public string LastName { get => _lastName; }
+        #endregion
+        #region Metodi
+        public override string ToString()
+        {
+            return (_firstName + " " + _lastName);
+        }
+        #endregion
+
+    }
+
+    public class Customer : User, ICustomer
+    {
         #region Campi
         private readonly string _fiscalCode;
         private readonly DateTime _birthDate;
@@ -28,8 +62,8 @@ namespace CSB_Project.src.model.Users
         /// <param name="lastName">lastName</param>
         /// <param name="fiscalCode">fiscal Code</param>
         /// <param name="birthDate">Birthday date</param>
-        public Client(int id, string firstName, string lastName, string fiscalCode, string birthDate) 
-        : base (id, firstName, lastName)
+        public Customer(string firstName, string lastName, string fiscalCode, string birthDate)
+        : base(firstName, lastName)
         {
             DateTime date;
             try
@@ -49,8 +83,6 @@ namespace CSB_Project.src.model.Users
         {
             return (base.ToString() + " " + _fiscalCode + " " + _birthDate.ToString());
         }
-        #endregion
-        #region Handler
         #endregion
     }
 }
