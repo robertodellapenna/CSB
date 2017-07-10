@@ -62,6 +62,7 @@ namespace CSB_Project.src.business
             _services.Add(service3);
             IPacket packet1 = new TicketPacket((new DatePriceDescriptor("packet1", "packet1", date1, 12.0)), service2, 5);
             IPacket packet2 = new TicketPacket((new DatePriceDescriptor("packet2", "packet2", date1, 15.0)), service3, 10);
+            IPacket packet3 = new DateRangePacket((new DatePriceDescriptor("packet2", "packet2", date1, 15.0)), service3, new DateRange(5));
             _packets.Add(packet1);
             _packets.Add(packet2);
             ISet<IPacket> bundleSet = new HashSet<IPacket>();

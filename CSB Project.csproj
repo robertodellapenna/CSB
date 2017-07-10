@@ -282,6 +282,14 @@
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemPickerPresenter.cs" />
+    <Compile Include="src\presentation\PacketManagerPresenter.cs" />
+    <Compile Include="src\presentation\PacketManagerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\PacketManagerView.Designer.cs">
+      <DependentUpon>PacketManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\PersistenceManagerPresenter.cs" />
     <Compile Include="src\presentation\SectorCreatorPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerView.cs">
@@ -316,6 +324,7 @@
       <DependentUpon>CategoryPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
+    <Compile Include="src\presentation\Utils\ResizeListView.cs" />
     <Compile Include="src\presentation\Utils\ServiceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -371,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
+      <DependentUpon>PacketManagerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\SectorCreator.resx">
       <DependentUpon>SectorCreator.cs</DependentUpon>
