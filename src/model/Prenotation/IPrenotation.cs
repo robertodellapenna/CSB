@@ -13,7 +13,7 @@ namespace CSB_Project.src.model.Prenotation
     public interface IPrenotation
     {
         DateRange PrenotationDate { get; }
-        IClient Client { get; }
+        ICustomer Client { get; }
         double Price { get; }
         ReadOnlyCollection<IItemPrenotation> BookedItems { get; }
         void AddItem(IItemPrenotation item);

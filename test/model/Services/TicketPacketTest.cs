@@ -32,7 +32,7 @@ namespace test.model.Services
 
             DatePriceDescriptor dpd = new DatePriceDescriptor("p1","p1test",s1.Availability);
             TicketPacket tp = new TicketPacket(dpd, s1, 1);
-            IEnumerable<IUsage> result = tp.filter(usage);
+            IEnumerable<IUsage> result = tp.Filter(usage);
             IEnumerable<IUsage> expected = usage.Except(okUsage);
             Assert.AreEqual(expected.Count(), result.Count());
             for(int i=0; i < result.Count(); i++)

@@ -59,7 +59,7 @@
     <Compile Include="model\Services\DateRangePacketTest.cs" />
     <Compile Include="model\Services\UsableMock.cs" />
     <Compile Include="model\Services\UsageMock.cs" />
-    <Compile Include="model\Users\StaffAndClientTest.cs" />
+    <Compile Include="model\Users\UserTest.cs" />
     <Compile Include="model\Utils\RangeDateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

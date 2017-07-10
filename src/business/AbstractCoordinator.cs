@@ -20,19 +20,19 @@ namespace CSB_Project.src.business
         #region Costruttori
         public AbstractCoordinator()
         {
-            init();
+            Init();
         }
         #endregion
 
         #region Metodi
-        protected virtual void init()
+        protected virtual void Init()
         {
             OnChanged(this, EventArgs.Empty);
         }
 
         public virtual void Reload()
         {
-            init();
+            Init();
         }
 
         public virtual bool ContainsCoordinator(Type type)

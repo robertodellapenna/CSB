@@ -7,25 +7,27 @@ namespace CSB_Project.src.model.Users
 {
     public interface IUser
     {
-        int Id { get; }
         string FirstName { get; }
         string LastName { get; }
-    }
-
-    public interface IStaff : IUser
-    {
-        int AuthorizationLevel { get; } 
     }
 
     public interface ILoginUser : IUser
     {
         string Username { get; }
-        string Password { get; }
+        string PasswordHash { get; }
+        AuthorizationLevel AuthorizationLevel { get; set; }
     }
 
-    public interface IClient : IUser
+    public interface ICustomer : IUser
     {
         string FiscalCode { get; }
         DateTime BirthDate { get; }
+    }
+
+    public enum AuthorizationLevel
+    {
+        CUSTOMER,
+        BASIC_STAFF,
+        ADVANCED_STAFF
     }
 }

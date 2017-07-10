@@ -20,7 +20,7 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Cliente a cui è associata la prenotazione
         /// </summary>
-        private readonly IClient _client;
+        private readonly ICustomer _client;
         /// <summary>
         /// Tracking device associati alla prenotazione
         /// </summary>
@@ -47,7 +47,7 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Cliente a cui è associata la prenotazione
         /// </summary>
-        public IClient Client => _client;
+        public ICustomer Client => _client;
         public DateRange PrenotationDate => _prenotationDate;
         /// <summary>
         /// Id della prenotazione
@@ -97,7 +97,7 @@ namespace CSB_Project.src.model.Prenotation
         #endregion
 
         #region Costruttori
-        public CustomizableServizablePrenotation(int id, IClient client, DateRange prenotationDate,
+        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange prenotationDate,
             IEnumerable<IItemPrenotation> items, ITrackingDevice baseTrackingDevice, 
             AssociationDescriptor tdDesc, IEnumerable<IPacket> packets = null,
             IEnumerable<IBundle> bundles = null)
@@ -143,7 +143,7 @@ namespace CSB_Project.src.model.Prenotation
             AddTrackingDevice(baseTrackingDevice, tdDesc);
         }
 
-        public CustomizableServizablePrenotation(int id, IClient client, DateRange rangeData, IEnumerable<IItemPrenotation> items, 
+        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items, 
             ITrackingDevice baseTrackingDevice, AssociationDescriptor tdDesc, IEnumerable<IBundle> bundles) 
             : this(id, client, rangeData, items, baseTrackingDevice, tdDesc, null, bundles) { }
         #endregion

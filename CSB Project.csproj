@@ -241,14 +241,14 @@
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
     <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />
-    <Compile Include="src\model\Users\Client.cs" />
     <Compile Include="src\model\Users\IUser.cs" />
     <Compile Include="src\model\Utils\Descriptor.cs" />
-    <Compile Include="src\model\Utils\Levels.cs" />
-    <Compile Include="src\model\Users\Staff.cs" />
-    <Compile Include="src\model\Users\User.cs" />
+    <Compile Include="src\model\Users\LoginUser.cs" />
+    <Compile Include="src\model\Users\Users.cs" />
     <Compile Include="src\model\Utils\DateRange.cs" />
+    <Compile Include="src\model\Utils\HashUtils.cs" />
     <Compile Include="src\model\Utils\ParserUtils.cs" />
+    <Compile Include="src\model\Utils\Preconditions.cs" />
     <Compile Include="src\presentation\CategoryManagerPresenter.cs" />
     <Compile Include="src\presentation\CategoryManagerView.cs">
       <SubType>Form</SubType>
