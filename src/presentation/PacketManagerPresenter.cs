@@ -8,7 +8,7 @@ using CSB_Project.src.model.Services;
 
 namespace CSB_Project.src.presentation
 {
-    class PacketManagerPresenter
+    public class PacketManagerPresenter
     {
         private ListView _packetList;
         private IEnumerable<IPacket> _packets;
