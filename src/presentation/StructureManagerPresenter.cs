@@ -16,29 +16,26 @@ namespace CSB_Project.src.presentation
         private TreeView _structureTree;
         private IEnumerable<Structure> _structures;
         private IEnumerable<IBookableItem> _bookedItems;
-        private IBookingCoordinator bCoordinator;
-        private IPrenotationCoordinator pCoordinator;
+        private IBookingCoordinator _bCoordinator;
+        private IPrenotationCoordinator _pCoordinator;
 
         public StructureManagerPresenter(StructureManagerView view)
         {
             view.AddButton.Click += AddHandler;
             _structureTree = view.TreeView;
+
             IStructureCoordinator sCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
             if (sCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle strutture non è disponibile");
 
+            _bCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IBookingCoordinator>();
+            if (_bCoordinator == null)
+                throw new InvalidOperationException("Il coordinatore booking non è disponibile");
 
-            ICoordinator coordinator = new SimpleCoordinator();
-            coordinator = new BookingCoordinator(coordinator);
-            bCoordinator = (IBookingCoordinator)coordinator.GetCoordinatorOf(typeof(IBookingCoordinator));
-            if (bCoordinator == null)
-                throw new InvalidOperationException("Il coordinatore deli Bookable Items non è disponibile");
-
-            coordinator = new PrenotationCoordinator(coordinator);
-            pCoordinator = (IPrenotationCoordinator)coordinator.GetCoordinatorOf(typeof(IPrenotationCoordinator));
-            if (bCoordinator == null)
-                throw new InvalidOperationException("Il coordinatore delle prenotations non è disponibile");
-
+            _pCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+            if (_pCoordinator == null)
+                throw new InvalidOperationException("Il coordinatore prenotation non è disponibile");
+           
             _structures = sCoordinator.Structures;
             sCoordinator.StructureChanged += StructureChangedHandler;
 
@@ -71,7 +68,7 @@ namespace CSB_Project.src.presentation
         public void StructureChangedHandler(Object obj, EventArgs e)
         {
             _structureTree.Nodes.Clear();
-            _structureTree.Nodes.Populate(_structures, bCoordinator, pCoordinator);
+            _structureTree.Nodes.Populate(_structures, _bCoordinator, _pCoordinator);
             _structureTree.ExpandAll();
         }
         #endregion
