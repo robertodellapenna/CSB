@@ -9,15 +9,32 @@ namespace CSB_Project.src.business
     {
         private ICoordinator _coordinator;
         private static CoordinatorManager _instance = new CoordinatorManager();
-        public static CoordinatorManager Instance => _instance;
+        public static CoordinatorManager Instance
+        {
+            get
+            {
+                if (!_init)
+                    _instance.Init();
+                return _instance;
+            }
+        }
+
+        private static bool _init;
 
         public CoordinatorManager()
         {
             _coordinator = new SimpleCoordinator();
+            _init = false;    
+        }
+
+        private void Init()
+        {
+            _init = true;
             _coordinator = new CategoryCoordinator(_coordinator);
             _coordinator = new StructureCoordinator(_coordinator);
             _coordinator = new ServiceCoordinator(_coordinator);
-            //_coordinator = new BookingCoordinator(_coordinator);
+            _coordinator = new BookingCoordinator(_coordinator);
+            _coordinator = new PrenotationCoordinator(_coordinator);
         }
 
         public ICoordinator Coordinator => _coordinator;
