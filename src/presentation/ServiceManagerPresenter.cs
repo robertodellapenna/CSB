@@ -13,7 +13,6 @@ namespace CSB_Project.src.presentation
 {
     class ServiceManagerPresenter
     {
-        private static string pattern = "dd/MM/yyyy";
         private ListView _serviceList;
         private IEnumerable<IUsable> _services;
         IServiceCoordinator coordinator;
@@ -47,8 +46,7 @@ namespace CSB_Project.src.presentation
             string serviceName = "";
             string serviceDescription = "";
             string servicePrice = "";
-            string serviceStart = "";
-            string serviceEnd = "";
+            DateRange range;
             using (ServiceDialog sd = new ServiceDialog("Inserire parametri servizio"))
             {
                 if (sd.ShowDialog() == DialogResult.OK)
@@ -56,15 +54,11 @@ namespace CSB_Project.src.presentation
                     serviceName = sd.NameText;
                     serviceDescription = sd.Description;
                     servicePrice = sd.Price;
-                    serviceStart = sd.Start;
-                    serviceEnd = sd.End;
+                    range = new DateRange(sd.Start, sd.End);
                 }
                 else
                     return;
             }
-            DateTime start = DateTime.ParseExact(serviceStart, pattern, CultureInfo.InvariantCulture);
-            DateTime end = DateTime.ParseExact(serviceEnd, pattern, CultureInfo.InvariantCulture);
-            DateRange range = new DateRange(start, end);
             double price = Double.Parse(servicePrice);
             coordinator.AddService(new BasicService(new DatePriceDescriptor(serviceName, serviceDescription, range, price)));
             _services = coordinator.Services;
@@ -95,7 +89,7 @@ namespace CSB_Project.src.presentation
                 _serviceList.Items.Add(items);
             }
             _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            _serviceList.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.HeaderSize);
+            _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             #endregion
         }
     }

@@ -32,7 +32,7 @@
             this._okButton = new System.Windows.Forms.Button();
             this._cancelButton = new System.Windows.Forms.Button();
             this._question = new System.Windows.Forms.Label();
-            this._start = new System.Windows.Forms.TextBox();
+            this._start = new System.Windows.Forms.DateTimePicker();
             this._price = new System.Windows.Forms.TextBox();
             this._description = new System.Windows.Forms.TextBox();
             this._name = new System.Windows.Forms.TextBox();
@@ -42,7 +42,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this._end = new System.Windows.Forms.TextBox();
+            this._end = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,11 +85,11 @@
             // 
             this._start.Location = new System.Drawing.Point(246, 181);
             this._start.Margin = new System.Windows.Forms.Padding(4);
-            this._start.MaxLength = 100;
             this._start.Name = "_start";
             this._start.Size = new System.Drawing.Size(165, 24);
             this._start.TabIndex = 3;
             this._start.TextChanged += new System.EventHandler(this.start_TextChanged);
+            this._start.ValueChanged += new System.EventHandler(this._start_ValueChanged);
             // 
             // _price
             // 
@@ -169,7 +169,6 @@
             // 
             this._end.Location = new System.Drawing.Point(246, 223);
             this._end.Margin = new System.Windows.Forms.Padding(4);
-            this._end.MaxLength = 100;
             this._end.Name = "_end";
             this._end.Size = new System.Drawing.Size(165, 24);
             this._end.TabIndex = 12;
@@ -215,7 +214,7 @@
         private System.Windows.Forms.Button _okButton;
         private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Label _question;
-        private System.Windows.Forms.TextBox _start;
+        private System.Windows.Forms.DateTimePicker _start;
         private System.Windows.Forms.TextBox _price;
         private System.Windows.Forms.TextBox _description;
         private System.Windows.Forms.TextBox _name;
@@ -225,6 +224,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox _end;
+        private System.Windows.Forms.DateTimePicker _end;
     }
 }
