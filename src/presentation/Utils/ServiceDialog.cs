@@ -11,12 +11,17 @@ namespace CSB_Project.src.presentation.Utils
 {
     public partial class ServiceDialog : Form
     {
+        private string name;
+        private string price;
+        private string description;
+        private DateTime start;
+        private DateTime end;
         private bool _emptyResponse;
-        public string NameText => _name.Text;
-        public string Description => _description.Text;
-        public string Price => _price.Text;
-        public DateTime Start => _start.Value.Date;
-        public DateTime End => _end.Value.Date;
+        public string NameText => name;
+        public string Description => description;
+        public string Price => price;
+        public DateTime Start => start;
+        public DateTime End => end;
 
 
 
@@ -70,6 +75,11 @@ namespace CSB_Project.src.presentation.Utils
                 _errorProvider.SetError(_end, "Il periodo non può essere vuota");
                 return;
             }*/
+            name = _name.Text;
+            description = _description.Text;
+            price = _price.Text;
+            start = _start.Value;
+            end = _end.Value;
             DialogResult = DialogResult.OK;
             Close();
         }
