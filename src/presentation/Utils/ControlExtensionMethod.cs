@@ -23,7 +23,14 @@ namespace CSB_Project.src.presentation.Utils
         {
             if (style == null)
                 style = Style.DefaultStyle;
-            c.Font = style.Font;
+            if(style.Font != null)
+                c.Font = style.Font;
+        }
+
+        public static void ApplyStyle(this TextBox tb, Style style)
+        {
+            ApplyStyle(tb as Control, style);
+            tb.TextAlign = style.TextAlign;
         }
 
         public static void Populate<T>(this ListView lv, IEnumerable<T> items, Func<T, String> extractor)
@@ -117,5 +124,26 @@ namespace CSB_Project.src.presentation.Utils
             }
         }
 
+        public static void SetHint(this TextBox tb, string msg, Color color)
+        {
+            SetColorMsg(tb, msg, color);
+        }
+
+        public static void RemoveHint(this TextBox tb, Color color)
+        {
+            SetColorMsg(tb, String.Empty, color);
+        }
+
+        private static void SetColorMsg(TextBox tb, string msg, Color color)
+        {
+            #region Precondizioni
+            if (tb == null)
+                throw new ArgumentNullException("tb null");
+            if (msg == null)
+                throw new ArgumentNullException("msg null");
+            #endregion
+            tb.Text = msg;
+            tb.ForeColor = color;
+        }
     }
 }
