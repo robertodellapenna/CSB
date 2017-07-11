@@ -289,6 +289,13 @@
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemPickerPresenter.cs" />
+    <Compile Include="src\presentation\LoginView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\LoginView.Designer.cs">
+      <DependentUpon>LoginView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\LoginPresenter.cs" />
     <Compile Include="src\presentation\PacketManagerPresenter.cs" />
     <Compile Include="src\presentation\PacketManagerView.cs">
       <SubType>Form</SubType>
@@ -390,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\LoginView.resx">
+      <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
       <DependentUpon>PacketManagerView.cs</DependentUpon>

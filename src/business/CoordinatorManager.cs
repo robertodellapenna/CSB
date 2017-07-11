@@ -35,6 +35,7 @@ namespace CSB_Project.src.business
             _coordinator = new ServiceCoordinator(_coordinator);
             _coordinator = new BookingCoordinator(_coordinator);
             _coordinator = new PrenotationCoordinator(_coordinator);
+            _coordinator = new UserCoordinator(_coordinator);
         }
 
         public ICoordinator Coordinator => _coordinator;

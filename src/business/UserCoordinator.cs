@@ -45,8 +45,10 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Campi
-        private readonly ISet<ILoginUser> _registeredUsers;
-        private readonly ISet<ICustomer> _customersUser;
+        private readonly ISet<ILoginUser> _registeredUsers
+            = new HashSet<ILoginUser>();
+        private readonly ISet<ICustomer> _customersUser
+            = new HashSet<ICustomer>();
         #endregion
 
         #region Proprieta
@@ -59,8 +61,6 @@ namespace CSB_Project.src.business
 
         #region Costruttori
         public UserCoordinator(ICoordinator next) : base(next) {
-            _registeredUsers = new HashSet<ILoginUser>();
-            _customersUser = new HashSet<ICustomer>();
         }
         #endregion
 
@@ -136,8 +136,8 @@ namespace CSB_Project.src.business
              (from u in _customersUser where rule(u) select u).ToList()
             );
 
-        public bool CheckLoginData(string username, string passwordHash)
-         => Filter(u => u.Username == username && u.PasswordHash == passwordHash).Any();
+        public bool CheckLoginData(string username, string password)
+         => Filter(u => u.Username == username && u.PasswordHash == password.ToSHA512()).Any();
         #endregion
 
         #region Handler

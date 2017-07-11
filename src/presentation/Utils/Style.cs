@@ -10,10 +10,18 @@ namespace CSB_Project.src.presentation.Utils
     public sealed class Style : IDisposable
     {
         private Font _font;
+        private HorizontalAlignment _textAlign;
+
         public Font Font
         {
             get => _font;
             set => _font = value;
+        }
+
+        public HorizontalAlignment TextAlign
+        {
+            get => _textAlign;
+            set => _textAlign = value;
         }
 
         public static Style DefaultStyle
