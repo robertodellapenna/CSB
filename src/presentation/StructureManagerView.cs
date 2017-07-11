@@ -14,6 +14,8 @@ namespace CSB_Project.src.presentation
     {
         public Button AddButton => _addButton;
         public TreeView TreeView => _treeView;
+        public DateTimePicker Da => _dateTimePickerDa;
+        public DateTimePicker A => _dateTimePickerA;
 
         public StructureManagerView(Style style = null)
         {
@@ -26,5 +28,9 @@ namespace CSB_Project.src.presentation
 
         }
 
+        private void _treeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
     }
 }

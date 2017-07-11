@@ -21,6 +21,8 @@ namespace CSB_Project.src.model.Services
             #region Precondizioni 
             if (range == null)
                 throw new ArgumentException("range null");
+            if(range.StartDate > descriptor.Range.EndDate)
+                throw new ArgumentException("range out of bound");
             #endregion
             _range = range;
         }

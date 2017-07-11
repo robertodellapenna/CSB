@@ -14,6 +14,7 @@ namespace CSB_Project.src.presentation
     {
         public Button AddButton => _addButton;
         public TreeView TreeView => _treeView;
+        
 
         public CategoryManagerView(Style style = null)
         {

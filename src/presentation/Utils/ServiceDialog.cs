@@ -15,8 +15,8 @@ namespace CSB_Project.src.presentation.Utils
         public string NameText => _name.Text;
         public string Description => _description.Text;
         public string Price => _price.Text;
-        public string Start => _start.Text;
-        public string End => _end.Text;
+        public DateTime Start => _start.Value.Date;
+        public DateTime End => _end.Value.Date;
 
 
 
@@ -41,7 +41,7 @@ namespace CSB_Project.src.presentation.Utils
         public void OkButtonHandler(Object obj, EventArgs e)
         {
             _errorProvider.Clear();
-            if (!_emptyResponse && String.IsNullOrWhiteSpace(NameText))
+            /*if (!_emptyResponse && String.IsNullOrWhiteSpace(NameText))
             {
                 _errorProvider.SetError(_name, "Il nome non può essere vuota");
                 return;
@@ -69,7 +69,7 @@ namespace CSB_Project.src.presentation.Utils
             {
                 _errorProvider.SetError(_end, "Il periodo non può essere vuota");
                 return;
-            }
+            }*/
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -101,6 +101,11 @@ namespace CSB_Project.src.presentation.Utils
         }
 
         private void _description_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void _start_ValueChanged(object sender, EventArgs e)
         {
 
         }
