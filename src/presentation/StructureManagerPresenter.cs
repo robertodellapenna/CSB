@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.presentation.Utils;
 using System;
@@ -14,17 +15,33 @@ namespace CSB_Project.src.presentation
     {
         private TreeView _structureTree;
         private IEnumerable<Structure> _structures;
+        private IEnumerable<IBookableItem> _bookedItems;
+        private IBookingCoordinator bCoordinator;
+        private IPrenotationCoordinator pCoordinator;
 
         public StructureManagerPresenter(StructureManagerView view)
         {
             view.AddButton.Click += AddHandler;
             _structureTree = view.TreeView;
-            IStructureCoordinator coordinator = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
-            if (coordinator == null)
+            IStructureCoordinator sCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
+            if (sCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle strutture non è disponibile");
 
-            _structures = coordinator.Structures;
-            coordinator.StructureChanged += StructureChangedHandler;
+
+            ICoordinator coordinator = new SimpleCoordinator();
+            coordinator = new BookingCoordinator(coordinator);
+            bCoordinator = (IBookingCoordinator)coordinator.GetCoordinatorOf(typeof(IBookingCoordinator));
+            if (bCoordinator == null)
+                throw new InvalidOperationException("Il coordinatore deli Bookable Items non è disponibile");
+
+            coordinator = new PrenotationCoordinator(coordinator);
+            pCoordinator = (IPrenotationCoordinator)coordinator.GetCoordinatorOf(typeof(IPrenotationCoordinator));
+            if (bCoordinator == null)
+                throw new InvalidOperationException("Il coordinatore delle prenotations non è disponibile");
+
+            _structures = sCoordinator.Structures;
+            sCoordinator.StructureChanged += StructureChangedHandler;
+
             // Popolo la tree view all'avvio
             StructureChangedHandler(this, EventArgs.Empty);
         }
@@ -39,37 +56,12 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
-            //MessageBox.Show(""+_categoryTree.SelectedNode);
-            //ICategory selectedNode = _categoryTree.SelectedNode.Tag as ICategory;
-            //if (selectedNode == null)
-            //{
-            //    MessageBox.Show("Devi selezionare una categoria radice");
-            //    return;
-            //}
-            // Genero una finestra di dialogo per inserire il nome della categoria
-            //string catName = "";
-            //using (StringDialog sd = new StringDialog("Inserisci il nome della categoria"))
-            //{
-            //    if (sd.ShowDialog() == DialogResult.OK)
-            //        catName = sd.Response;
-            //    else
-            //        return;
-            //}
-            // Se il nodo selezionato non è un contenitore lo elimino e lo faccio diventare 
-            // un contenitore
-            //if (!(selectedNode is IGroupCategory))
-            //{
-            //    IGroupCategory parent = selectedNode.Parent;
-            //    parent.RemoveChild(selectedNode);
-            //    selectedNode = CategoryFactory.CreateGroup(selectedNode.Name, parent);
-            //}
-            // Creo la categoria
-            //CategoryFactory.CreateCategory(catName, selectedNode as IGroupCategory);
+            
         }
 
         private void ModifyHandler(Object sender, EventArgs eventArgs)
         {
-            /* PROBABILMENTE NON VA FATTO */
+            
         }
 
         /// <summary>
@@ -79,7 +71,7 @@ namespace CSB_Project.src.presentation
         public void StructureChangedHandler(Object obj, EventArgs e)
         {
             _structureTree.Nodes.Clear();
-            _structureTree.Nodes.Populate(_structures);
+            _structureTree.Nodes.Populate(_structures, bCoordinator, pCoordinator);
             _structureTree.ExpandAll();
         }
         #endregion

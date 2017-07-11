@@ -45,7 +45,7 @@ namespace CSB_Project.src.model.Booking
         #endregion
 
         #region Metodi
-
+        public override string ToString() => _baseItem.FriendlyName + ", prezzo giornaliero: " + "€" + DailyPrice;
         #endregion
 
         #region Handler

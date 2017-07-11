@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.model.Booking;
+using CSB_Project.src.model.Category;
 using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.Utils;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace CSB_Project.src.business
 {
@@ -27,7 +29,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Campi
-        private readonly List<IBookableItem> _bookableItems;
+        private readonly List<IBookableItem> _bookableItems = new List<IBookableItem>();
         #endregion
 
         #region Proprietà
@@ -37,7 +39,6 @@ namespace CSB_Project.src.business
         #region Costruttori
         public BookingCoordinator(ICoordinator next) : base(next)
         {
-            _bookableItems = new List<IBookableItem>();
         }
 
         #endregion
@@ -51,26 +52,95 @@ namespace CSB_Project.src.business
              */
 
             /* Bookable Items HardCoded */
-            ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
-            IItem ombrelloneBase = itemCoord.baseItems.Where(item => item.Identifier.Equals("Ombrellone001")).FirstOrDefault();
-            IItem ombrellonePaglia = itemCoord.baseItems.Where(item => item.Identifier.Equals("Ombrellone101")).FirstOrDefault();
+            StringBuilder br = new StringBuilder();
+            br.AppendLine("<Items>");
+            br.AppendLine("  <Item>");
+            br.AppendLine("    <Class>CSB_Project.src.model.Item.ItemFactory+BasicParser</Class>");
+            br.AppendLine("    <Identifier>MyItem100</Identifier>");
+            br.AppendLine("    <Name>OmbrelloneSemplice</Name>");
+            br.AppendLine("    <Description>MyItemDesc</Description>");
+            br.AppendLine("    <Price>10</Price>");
+            br.AppendLine("  </Item>");
+            br.AppendLine("  <Item>");
+            br.AppendLine("    <Class>CSB_Project.src.model.Item.ItemFactory+CategorizableParser</Class>");
+            br.AppendLine("    <Identifier>MyItemCustomizable</Identifier>");
+            br.AppendLine("    <Name>OmberllonePaglia</Name>");
+            br.AppendLine("    <Description>MyItemDesc</Description>");
+            br.AppendLine("    <Price>10</Price>");
+            br.AppendLine("    <Category>");
+            br.AppendLine("      <Path>\\ROOT\\materiali\\testa</Path>");
+            br.AppendLine("      <Name>paglia</Name>");
+            br.AppendLine("      <Description>paglia molto buona</Description>");
+            br.AppendLine("      <Price>10</Price>");
+            br.AppendLine("    </Category>");
+            br.AppendLine("    <Category>");
+            br.AppendLine("      <Path>\\ROOT\\materiali\\staffa</Path>");
+            br.AppendLine("      <Name>legno</Name>");
+            br.AppendLine("      <Description>legno</Description>");
+            br.AppendLine("      <Price>0</Price>");
+            br.AppendLine("    </Category>");
+            br.AppendLine("  </Item>");
+            br.AppendLine("</Items>");
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(br.ToString());
+            XmlElement root = xml.DocumentElement;
+            Console.WriteLine("Root -> " + root.Name + ":" + root.Value);
+            XmlNodeList xnl = root.SelectNodes("/Items/Item");
+            Console.WriteLine("Item Count -> " + xnl.Count);
+            try
+            {
+                for (int i = 0; i < xnl.Count; i++)
+                {
+                    IItem it = ItemFactory.CreateItem(xnl.Item(i));
+                    Console.WriteLine("Name " + it.Identifier);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Errore \n " + e);
+            }
+
+            foreach (IItem ci in ItemFactory.Items.OfType<IItem>())
+            {
+                Console.WriteLine("name :" + ci.Identifier );
+               
+            }
+
+            foreach (ICategorizableItem ci in ItemFactory.Items.OfType<ICategorizableItem>())
+            {
+                Console.WriteLine("name :" + ci.Identifier + ", num prop :" + ci.Categories.Count());
+                foreach (KeyValuePair<ICategory, PriceDescriptor> cat in ci.Properties)
+                {
+                    Console.WriteLine("\tCat : " + cat.Key.Name + ", Value : " + cat.Value.Name);
+                }
+            }
+            IItem ombrelloneBase = ItemFactory.Items.Where(item => item.Identifier.Equals("MyItem100")).FirstOrDefault();
+            ICategorizableItem ombrellonePaglia = ItemFactory.Items.OfType<ICategorizableItem>().Where(item => item.Identifier.Equals("MyItemCustomizable")).FirstOrDefault();
 
             StructureCoordinator structCoord = CoordinatorManager.Instance.CoordinatorOfType<StructureCoordinator>();
             Sector settoreBase = structCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore base");
-            Sector settoreVip= structCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore vip");
+            Sector settoreVip = structCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore vip");
 
-            for(int row=0; row<settoreBase.Rows; row++)
-                for(int col=0; col<settoreBase.Columns; col++)
-                {
-                    IBookableItem item = new SectorBookableItem(ombrelloneBase, new Position(row, col), settoreBase);
-                    _bookableItems.Add(item);
-                }
-            for (int row = 0; row < settoreVip.Rows; row++)
-                for (int col = 0; col < settoreVip.Columns; col++)
-                {
-                    IBookableItem item = new SectorBookableItem(ombrellonePaglia, new Position(row, col), settoreVip);
-                    _bookableItems.Add(item);
-                }
+            if (ombrelloneBase == null)
+                Console.WriteLine("ombrellone base null");
+            else if (ombrelloneBase == null)
+                Console.WriteLine("ombrellone vip null");
+            else
+            {
+                for (int row = 0; row < settoreBase.Rows; row++)
+                    for (int col = 0; col < settoreBase.Columns; col++)
+                    {
+                        IBookableItem item = new SectorBookableItem(ombrelloneBase, new Position(row, col), settoreBase);
+                        _bookableItems.Add(item);
+                    }
+                for (int row = 0; row < settoreVip.Rows; row++)
+                    for (int col = 0; col < settoreVip.Columns; col++)
+                    {
+                        IBookableItem item = new SectorBookableItem(ombrellonePaglia, new Position(row, col), settoreVip);
+                        _bookableItems.Add(item);
+                    }
+            }
+            
         }
         public void AddBookableItem(IBookableItem bookableItem)
         {
@@ -106,7 +176,7 @@ namespace CSB_Project.src.business
             if (sector == null)
                 throw new ArgumentNullException("sector null");
             #endregion
-            return _bookableItems.Where(item => item.Sector == sector).ToArray();
+            return _bookableItems.Where(item => item.Sector.Equals(sector)).ToArray();
         }
         public IBookableItem GetBookableItem(Sector sector, Position position)
         {
@@ -120,9 +190,9 @@ namespace CSB_Project.src.business
                 throw new ArgumentException("position not valid in this sector");
             #endregion
             return (from item in Filter(sector)
-                   where (item.Position.Row == position.Row &&
-                   item.Position.Column == position.Column)
-                   select item).ElementAt(0);
+                    where (item.Position.Row == position.Row &&
+                    item.Position.Column == position.Column)
+                    select item).FirstOrDefault();
                   
         }
         #endregion

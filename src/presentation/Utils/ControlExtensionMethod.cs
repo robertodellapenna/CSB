@@ -1,5 +1,8 @@
-﻿using CSB_Project.src.model.Category;
+﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Booking;
+using CSB_Project.src.model.Category;
 using CSB_Project.src.model.Structure;
+using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +57,7 @@ namespace CSB_Project.src.presentation.Utils
         /// </summary>
         /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
         /// <param name="structures">Strutture con cui popolare i nodi</param>
-        public static void Populate(this TreeNodeCollection nodes, IEnumerable<Structure> structures)
+        public static void Populate(this TreeNodeCollection nodes, IEnumerable<Structure> structures, IBookingCoordinator bCoordinator, IPrenotationCoordinator pCoordinator)
         {
             foreach (Structure structure in structures)
             {
@@ -68,11 +71,40 @@ namespace CSB_Project.src.presentation.Utils
                     {
                         TreeNode tnSector = new TreeNode(sector.Name);
                         tnSector.Tag = sector;
+                        tnSector.Populate(bCoordinator, pCoordinator);
                         tnArea.Nodes.Add(tnSector);
                     }
                     tnStructure.Nodes.Add(tnArea);
                 }
                 nodes.Add(tnStructure);
+            }
+        }
+
+        public static void Populate(this TreeNode tnSector, IBookingCoordinator bCoordinator, IPrenotationCoordinator pCoordinator)
+        {
+            Sector sector = tnSector.Tag as Sector;
+            for (int i=0; i<sector.Rows; i++)
+            {
+                TreeNode tnRow = new TreeNode("Riga "+i);
+                tnRow.Tag = sector;
+                for (int j = 0; j < sector.Columns; j++)
+                {
+                    Position positionToAdd = new Position(i, j);
+                    IBookableItem item = bCoordinator.GetBookableItem(sector, positionToAdd);
+                    TreeNode tnBookableItem;
+                    if (item==null)
+                        tnBookableItem = new TreeNode(j+" - nessun elemento");
+                    else
+                    {
+                        string status = "Buisy";
+                        if (pCoordinator.IsAvailable(sector, positionToAdd, new DateRange(1)))
+                            status = "Free";
+                        tnBookableItem = new TreeNode(j + " - "+status + " - "+item.ToString());
+                        tnBookableItem.Tag = item;
+                    }
+                    tnRow.Nodes.Add(tnBookableItem);
+                }
+                tnSector.Nodes.Add(tnRow);
             }
         }
 

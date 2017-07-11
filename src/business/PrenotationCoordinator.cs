@@ -65,40 +65,40 @@ namespace CSB_Project.src.business
              */
 
             /* Prenotations HardCoded */
-            StructureCoordinator sectorCoord = CoordinatorManager.Instance.CoordinatorOfType<StructureCoordinator>();
-            Sector mySector = sectorCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore base");
+            //StructureCoordinator sectorCoord = CoordinatorManager.Instance.CoordinatorOfType<StructureCoordinator>();
+            //Sector mySector = sectorCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore base");
 
-            BookingCoordinator bookCoord = CoordinatorManager.Instance.CoordinatorOfType<BookingCoordinator>();
-            IBookableItem myBookableItem = bookCoord.GetBookableItem(mySector, new Position(1, 3));
+            //BookingCoordinator bookCoord = CoordinatorManager.Instance.CoordinatorOfType<BookingCoordinator>();
+            //IBookableItem myBookableItem = bookCoord.GetBookableItem(mySector, new Position(1, 3));
 
-            DateRange myRange1 = new DateRange(30);
+            //DateRange myRange1 = new DateRange(30);
 
-            ICustomizableItemPrenotation myIItemPrenotation1 = new CustomizableItemPrenotation(myRange1, myBookableItem);
+            //ICustomizableItemPrenotation myIItemPrenotation1 = new CustomizableItemPrenotation(myRange1, myBookableItem);
 
-            ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
-            IItem sdraio = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Sdraio1")).ElementAt(0);
-            myIItemPrenotation1.AddPlugin(sdraio, myRange1);
-            myIItemPrenotation1.AddPlugin(sdraio, myRange1);
-            IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
-            myIItemPrenotation1.AddPlugin(lettino, myRange1);
+            //ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
+            //IItem sdraio = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Sdraio1")).ElementAt(0);
+            //myIItemPrenotation1.AddPlugin(sdraio, myRange1);
+            //myIItemPrenotation1.AddPlugin(sdraio, myRange1);
+            //IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
+            //myIItemPrenotation1.AddPlugin(lettino, myRange1);
 
-            List<ICustomizableItemPrenotation> myItems = new List<ICustomizableItemPrenotation>();
-            myItems.Add(myIItemPrenotation1);
+            //List<ICustomizableItemPrenotation> myItems = new List<ICustomizableItemPrenotation>();
+            //myItems.Add(myIItemPrenotation1);
 
-            TrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
-            ITrackingDevice myCard = tdCoord.Next;
+            //TrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
+            //ITrackingDevice myCard = tdCoord.Next;
 
-            IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
-            Client client = new Client(1, "Roberto", "Della Penna", "RDP1295", "12/04/1995");
+            //IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
+            //Client client = new Client(1, "Roberto", "Della Penna", "RDP1295", "12/04/1995");
 
-            CustomizableServizablePrenotation myPrenotation = new CustomizableServizablePrenotation(1, client, myRange1, myItems, myCard, new AssociationDescriptor(myRange1, "CardBase"));
+            //CustomizableServizablePrenotation myPrenotation = new CustomizableServizablePrenotation(1, client, myRange1, myItems, myCard, new AssociationDescriptor(myRange1, "CardBase"));
 
-            ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
-            IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
+            //ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
+            //IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
 
-            myPrenotation.AddPacket(doccia);
+            //myPrenotation.AddPacket(doccia);
 
-            _prenotations.Add(myPrenotation);
+            //_prenotations.Add(myPrenotation);
 
         }
 
