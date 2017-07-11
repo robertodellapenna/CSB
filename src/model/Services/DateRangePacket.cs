@@ -25,7 +25,7 @@ namespace CSB_Project.src.model.Services
             _range = range;
         }
 
-        public override IEnumerable<IUsage> filter(IEnumerable<IUsage> usage)
+        public override IEnumerable<IUsage> Filter(IEnumerable<IUsage> usage)
         {
             IEnumerable<IUsage> validMatch = from i in usage
                          where i.Type == Usable && Range.Contains(i.When)

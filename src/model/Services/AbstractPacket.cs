@@ -42,7 +42,7 @@ namespace CSB_Project.src.model.Services
         #region Metodi
         public bool IsActiveIn(DateTime when) => Availability.Contains(when);
         public bool IsActiveIn(DateRange when) => Availability.Contains(when);
-        public abstract IEnumerable<IUsage> filter(IEnumerable<IUsage> usage);
+        public abstract IEnumerable<IUsage> Filter(IEnumerable<IUsage> usage);
         #endregion
     }
 }

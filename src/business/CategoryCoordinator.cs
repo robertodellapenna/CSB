@@ -34,9 +34,9 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Metodi
-        protected override void init()
+        protected override void Init()
         {
-            base.init();
+            base.Init();
             /* Cerco un file di configurazione delle categorie nel fileSystem,
              * se lo trovo carico le categorie contenute, altrimenti inizializzo
              * una nuova categoria 

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CSB_Project.src.presentation.Utils
 {
-    public class Style
+    public sealed class Style : IDisposable
     {
         private Font _font;
         public Font Font
@@ -29,6 +29,11 @@ namespace CSB_Project.src.presentation.Utils
         public Style()
         {
             _font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Regular);
+        }
+
+        public void Dispose()
+        {
+            _font.Dispose();
         }
     }
 }
