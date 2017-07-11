@@ -11,23 +11,15 @@ namespace CSB_Project.src.presentation.Utils
 {
     public partial class ServiceDialog : Form
     {
-        private string name;
-        private string price;
-        private string description;
-        private DateTime start;
-        private DateTime end;
         private bool _emptyResponse;
-        public string NameText => name;
-        public string Description => description;
-        public string Price => price;
-        public DateTime Start => start;
-        public DateTime End => end;
-
-
+        public string NameText => _nameBox.Text;
+        public string Description => _descriptionBox.Text;
+        public decimal Price => _priceBox.Value;
+        public DateTime Start => _startDateBox.Value;
+        public DateTime End => _endDateBox.Value;
 
         public ServiceDialog(string question = "", bool emptyResponse = false, Style style = null)
         {
-            InitializeComponent();
             #region Precondizioni
             if (question == null)
                 throw new ArgumentNullException("question null");
@@ -35,89 +27,47 @@ namespace CSB_Project.src.presentation.Utils
             InitializeComponent();
             _question.Text = question;
             _emptyResponse = emptyResponse;
-            ActiveControl = _name;
-            ActiveControl = _price;
-            ActiveControl = _description;
-            ActiveControl = _start;
-            ActiveControl = _end;
+            _startDateBox.MinDate = DateTime.Now;
+            _priceBox.Minimum = 0;
+            _startDateBox.ValueChanged += UpdateEndDateBoxHandler;
+            _nameBox.TextChanged += CheckNotNullHandler;
+            _descriptionBox.TextChanged += CheckNotNullHandler;
+            UpdateEndDateBoxHandler(this, EventArgs.Empty);
+            CheckNotNullHandler(_nameBox, EventArgs.Empty);
+            CheckNotNullHandler(_descriptionBox, EventArgs.Empty);
             this.ApplyStyle(style);
+        }
+
+        private void CheckNotNullHandler(object sender, EventArgs e)
+        {
+            if (!(sender is TextBox))
+                return;
+            _errorProvider.SetError((sender as TextBox), null);
+            if (!_emptyResponse && String.IsNullOrWhiteSpace((sender as TextBox).Text))
+                _errorProvider.SetError((sender as TextBox), "Il campo non può essere vuoto");
         }
 
         public void OkButtonHandler(Object obj, EventArgs e)
         {
-            _errorProvider.Clear();
-            /*if (!_emptyResponse && String.IsNullOrWhiteSpace(NameText))
-            {
-                _errorProvider.SetError(_name, "Il nome non può essere vuota");
-                return;
-            }
-
-            if (!_emptyResponse && String.IsNullOrWhiteSpace(Description))
-            {
-                _errorProvider.SetError(_description, "La descrizione non può essere vuota");
-                return;
-            }
-
-            if (!_emptyResponse && String.IsNullOrWhiteSpace(Price))
-            {
-                _errorProvider.SetError(_price, "Il prezzo non può essere vuota");
-                return;
-            }
-
-            if (!_emptyResponse && String.IsNullOrWhiteSpace(Start))
-            {
-                _errorProvider.SetError(_start, "Il periodo non può essere vuota");
-                return;
-            }
-
-            if (!_emptyResponse && String.IsNullOrWhiteSpace(End))
-            {
-                _errorProvider.SetError(_end, "Il periodo non può essere vuota");
-                return;
-            }*/
-            name = _name.Text;
-            description = _description.Text;
-            price = _price.Text;
-            start = _start.Value;
-            end = _end.Value;
+            if ((!_emptyResponse && String.IsNullOrWhiteSpace(NameText))
+                || (!_emptyResponse && String.IsNullOrWhiteSpace(Description))
+                )
+                    return;
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        public void CancelButtonHandler(Object obj, EventArgs e)
+        private void CancelButtonHandler(Object o, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
-        private void ServiceDialog_Load(object sender, EventArgs e)
+        private void UpdateEndDateBoxHandler(Object o, EventArgs e)
         {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void start_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _description_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _start_ValueChanged(object sender, EventArgs e)
-        {
-
+            if (End.Date < Start.Date)
+                _endDateBox.Value = Start;
+            _endDateBox.MinDate = Start.Date;
         }
     }
 }

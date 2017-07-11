@@ -53,7 +53,7 @@ namespace CSB_Project.src.presentation
                 {
                     serviceName = sd.NameText;
                     serviceDescription = sd.Description;
-                    servicePrice = sd.Price;
+                    servicePrice = sd.Price.ToString();
                     range = new DateRange(sd.Start, sd.End);
                 }
                 else

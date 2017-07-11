@@ -30,7 +30,7 @@ namespace CSB_Project.src.model.Utils
         public DateRange(DateTime start, DateTime end)
         {
             #region Precondizioni
-            if (end < start)
+            if (end.Date < start.Date)
                 throw new ArgumentException("end < start");
             #endregion
             _start = start.Date;

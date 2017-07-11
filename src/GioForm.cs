@@ -25,13 +25,13 @@ namespace CSB_Project.src
             //borderLabel1.Text = "Hello";
             //borderLabel1.Font = new Font(FontFamily.GenericSansSerif, 20);
             //borderLabel1.Click += handler;
-            ICategoryCoordinator coor = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
+            //ICategoryCoordinator coor = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
             //CategoryPicker cp = new CategoryPicker(coor.RootCategory, new Size(200, 100));
             //cp.Location = new Point(0, 0);
             //this.Controls.Add(cp);
 
-            cip = new CategorizableItemCreator();
-            Controls.Add(cip);
+            //cip = new CategorizableItemCreator();
+            //Controls.Add(cip);
 
             //PictureBox pb = new PictureBox();
             //pb.Image = new Bitmap(Image.FromFile("../../Icon/remove.png"), new Size(16, 32));
@@ -52,6 +52,32 @@ namespace CSB_Project.src
             //categoryPicker1.AutoSize = true;
             //categoryPicker1.Size = categoryPicker1.Controls[0].Size; 
             //MessageBox.Show("cp " + categoryPicker1.Height);
+
+            //using (ServiceDialog sd = new ServiceDialog("Inserire parametri servizio"))
+            //{
+            //    if (sd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        MessageBox.Show(sd.NameText);
+            //        //serviceDescription = sd.Description;
+            //        //servicePrice = sd.Price;
+            //        //range = new DateRange(sd.Start, sd.End);
+            //    }
+            //    else
+            //        return;
+            //}
+
+            //using (StringDialog sd = new StringDialog("Inserire parametri servizio"))
+            //{
+            //    if (sd.ShowDialog() == DialogResult.OK)
+            //    {
+            //        MessageBox.Show(sd.Response);
+            //        //serviceDescription = sd.Description;
+            //        //servicePrice = sd.Price;
+            //        //range = new DateRange(sd.Start, sd.End);
+            //    }
+            //    else
+            //        return;
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
