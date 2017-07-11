@@ -57,9 +57,9 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Metodi
-        protected override void init()
+        protected override void Init()
         {
-            base.init();
+            base.Init();
             /* Cerco un file di configurazione delle prenotation nel fileSystem,
              * se lo trovo carico le prenotation contenute
              */

@@ -415,6 +415,9 @@
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\RobertoForm.resx">
+      <DependentUpon>RobertoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>

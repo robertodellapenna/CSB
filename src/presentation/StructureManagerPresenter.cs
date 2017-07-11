@@ -1,6 +1,7 @@
 ﻿using CSB_Project.src.business;
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Structure;
+using CSB_Project.src.model.Utils;
 using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,10 @@ namespace CSB_Project.src.presentation
     {
         private TreeView _structureTree;
         private IEnumerable<Structure> _structures;
-        private IEnumerable<IBookableItem> _bookedItems;
-        private IBookingCoordinator bCoordinator;
-        private IPrenotationCoordinator pCoordinator;
+        private IBookingCoordinator _bCoordinator;
+        private IPrenotationCoordinator _pCoordinator;
+        private DateTimePicker _da;
+        private DateTimePicker _a;
 
         public StructureManagerPresenter(StructureManagerView view)
         {
@@ -30,20 +32,25 @@ namespace CSB_Project.src.presentation
 
             ICoordinator coordinator = new SimpleCoordinator();
             coordinator = new BookingCoordinator(coordinator);
-            bCoordinator = (IBookingCoordinator)coordinator.GetCoordinatorOf(typeof(IBookingCoordinator));
-            if (bCoordinator == null)
+            _bCoordinator = (IBookingCoordinator)coordinator.GetCoordinatorOf(typeof(IBookingCoordinator));
+            if (_bCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore deli Bookable Items non è disponibile");
 
             coordinator = new PrenotationCoordinator(coordinator);
-            pCoordinator = (IPrenotationCoordinator)coordinator.GetCoordinatorOf(typeof(IPrenotationCoordinator));
-            if (bCoordinator == null)
+            _pCoordinator = (IPrenotationCoordinator)coordinator.GetCoordinatorOf(typeof(IPrenotationCoordinator));
+            if (_bCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle prenotations non è disponibile");
 
             _structures = sCoordinator.Structures;
             sCoordinator.StructureChanged += StructureChangedHandler;
 
+            _da = view.Da;
+            _a = view.A;
+
+            _da.ValueChanged += DateChanged;
+
             // Popolo la tree view all'avvio
-            StructureChangedHandler(this, EventArgs.Empty);
+            DateChanged(this, EventArgs.Empty);
         }
 
         #region Metodi
@@ -71,7 +78,16 @@ namespace CSB_Project.src.presentation
         public void StructureChangedHandler(Object obj, EventArgs e)
         {
             _structureTree.Nodes.Clear();
-            _structureTree.Nodes.Populate(_structures, bCoordinator, pCoordinator);
+            DateRange dr = new DateRange(_da.Value, _a.Value);
+            _structureTree.Nodes.Populate(_structures, dr, _bCoordinator, _pCoordinator);
+            _structureTree.ExpandAll();
+        }
+        
+        public void DateChanged(Object obj, EventArgs e)
+        {
+            _structureTree.Nodes.Clear();
+            DateRange dr = new DateRange(_da.Value, _a.Value);
+            _structureTree.Nodes.Populate(_structures, dr, _bCoordinator, _pCoordinator);
             _structureTree.ExpandAll();
         }
         #endregion
