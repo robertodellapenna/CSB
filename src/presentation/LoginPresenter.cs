@@ -1,4 +1,5 @@
-﻿using CSB_Project.src.presentation.Utils;
+﻿using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ namespace CSB_Project.src.presentation
         private Form _postLoginForm;
         private Form _loginView;
         private Func<string, string, bool> _loginChecker;
-        private TextBox passwordBox, usernameBox;
+        private TextBox _passwordBox, _usernameBox;
 
         public LoginPresenter(LoginView view, Form postLoginForm, Func<string, string, bool> loginChecker, Style style = null)
         {
@@ -34,28 +35,28 @@ namespace CSB_Project.src.presentation
             view.ApplyStyle(style);
             
             // init textbox
-            usernameBox = view.UsernameBox;
-            passwordBox = view.PasswordBox;
+            _usernameBox = view.UsernameBox;
+            _passwordBox = view.PasswordBox;
 
-            usernameBox.ApplyStyle(style);
-            passwordBox.ApplyStyle(style);
+            _usernameBox.ApplyStyle(style);
+            _passwordBox.ApplyStyle(style);
 
-            usernameBox.Tag = (char)0;
-            passwordBox.Tag = '*';
+            _usernameBox.Tag = (char)0;
+            _passwordBox.Tag = '*';
 
-            usernameBox.GotFocus +=
-                (obj, e) => RemoveHint(usernameBox, usernameHint);
-            usernameBox.LostFocus += 
-                (obj, e) => SetHint(usernameBox, usernameHint);
-            passwordBox.GotFocus +=
-                (obj, e) => RemoveHint(passwordBox, passwordHint);
-            passwordBox.LostFocus +=
-                (obj, e) => SetHint(passwordBox, passwordHint);
+            _usernameBox.GotFocus +=
+                (obj, e) => RemoveHint(_usernameBox, usernameHint);
+            _usernameBox.LostFocus += 
+                (obj, e) => SetHint(_usernameBox, usernameHint);
+            _passwordBox.GotFocus +=
+                (obj, e) => RemoveHint(_passwordBox, passwordHint);
+            _passwordBox.LostFocus +=
+                (obj, e) => SetHint(_passwordBox, passwordHint);
 
-            if (!usernameBox.Focused)
-                SetHint(usernameBox, usernameHint);
-            if (!passwordBox.Focused)
-                SetHint(passwordBox, passwordHint);
+            if (!_usernameBox.Focused)
+                SetHint(_usernameBox, usernameHint);
+            if (!_passwordBox.Focused)
+                SetHint(_passwordBox, passwordHint);
 
             //init login button
             Button loginButton = view.LoginButton;
@@ -67,7 +68,7 @@ namespace CSB_Project.src.presentation
         private void LoginHandler(Object obj, EventArgs e)
         {
             // controlla login
-            if(!_loginChecker(usernameBox.Text, passwordBox.Text))
+            if(!_loginChecker(_usernameBox.Text, _passwordBox.Text.ToSHA512()))
             {
                 MessageBox.Show("Dati di login non validi");
                 return;
@@ -75,6 +76,19 @@ namespace CSB_Project.src.presentation
             //lancio la nuova view e attendo la chiusura
             _loginView.Hide();
             _postLoginForm.Show();
+            if (_postLoginForm.Tag == null)
+                _postLoginForm.Tag = new Dictionary<string, Object>();
+            else
+            {
+                if (!(_postLoginForm.Tag is Dictionary<string, Object>))
+                {
+                    Dictionary<string, Object> dict = new Dictionary<string, object>();
+                    dict.Add("previousTagValue", _postLoginForm.Tag);
+                    _postLoginForm.Tag = dict;
+                }
+            }
+            (_postLoginForm.Tag as Dictionary<string, Object>)["loginInformation"] 
+                = new LoginInformation(_usernameBox.Text, _passwordBox.Text.ToSHA512());
             _postLoginForm.FormClosed +=
                 (o, ev) => _loginView.Close();
         }
@@ -96,5 +110,26 @@ namespace CSB_Project.src.presentation
                 tb.RemoveHint(Color.Black);
             }
         }
+
+
+        public interface ILoginInformation
+        {
+            String Username { get; }
+            String PasswordHash { get; }
+        }
+
+        private struct LoginInformation : ILoginInformation
+        {
+            private string _username, _passwordHash;
+            public String Username => _username;
+            public String PasswordHash => _passwordHash;
+
+            public LoginInformation(string username, string passwordHash)
+            {
+                _username = username;
+                _passwordHash = passwordHash;
+            }
+        }
+
     }
 }

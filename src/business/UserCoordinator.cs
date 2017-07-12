@@ -136,8 +136,8 @@ namespace CSB_Project.src.business
              (from u in _customersUser where rule(u) select u).ToList()
             );
 
-        public bool CheckLoginData(string username, string password)
-         => Filter(u => u.Username == username && u.PasswordHash == password.ToSHA512()).Any();
+        public bool CheckLoginData(string username, string passwordHash)
+         => Filter(u => u.Username == username && u.PasswordHash == passwordHash).Any();
         #endregion
 
         #region Handler
