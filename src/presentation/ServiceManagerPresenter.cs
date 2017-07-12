@@ -20,6 +20,7 @@ namespace CSB_Project.src.presentation
         public ServiceManagerPresenter(ServiceManagerView view)
         {
             view.AddButton.Click += AddHandler;
+            view.DeleteButton.Click += DeleteHandeler;
             _serviceList = view.ListView;
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)
@@ -68,6 +69,20 @@ namespace CSB_Project.src.presentation
         private void ModifyHandler(Object sender, EventArgs eventArgs)
         {
             /* PROBABILMENTE NON VA FATTO */
+        }
+
+        private void DeleteHandeler(Object sendere, EventArgs eventArgs)
+        {
+            if(_serviceList.SelectedItems.Count > 0)
+            {
+                foreach(ListViewItem item in _serviceList.SelectedItems)
+                {
+                    IEnumerable<IUsable> service = coordinator.FilterServiceName(item.SubItems[0].Text);
+                    coordinator.RemoveService(service.ElementAt(0));
+                }
+            }
+            _services = coordinator.Services;
+            ServiceChangedHandler(this, EventArgs.Empty);
         }
 
         /// <summary>

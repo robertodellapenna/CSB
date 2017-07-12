@@ -17,11 +17,13 @@ namespace CSB_Project.src.business
         void AddPacket(IPacket packet);
         IEnumerable<IUsable> Services { get; }
         void AddService (IUsable service);
+        void RemoveService(IUsable service);
         IEnumerable<IUsage> Usages { get; }
         void AddUsage (IUsage usage);
         IEnumerable<IUsage> FilterCard(ITrackingDevice card);
         IEnumerable<IPacket> FilterPacketName(string name);
         IEnumerable<IBundle> FilterBundleName(string name);
+        IEnumerable<IUsable> FilterServiceName(string name);
         IEnumerable<IBundle> FilterBundleDate(DateRange data);
         IEnumerable<IPacket> FilterPacketDate(DateRange data);
         event EventHandler ServiceChanged;
@@ -117,6 +119,17 @@ namespace CSB_Project.src.business
                 _services.Add(service);
         }
 
+        public void RemoveService(IUsable service)
+        {
+            #region Precondizioni
+            if (service == null)
+                throw new ArgumentNullException("service null");
+            #endregion
+            if (_services.Contains(service))
+                _services.Remove(service);
+
+        }
+
         public void AddUsage(IUsage usage)
         {
             #region Precondizioni
@@ -152,6 +165,12 @@ namespace CSB_Project.src.business
         {
             return _bundles.Where(bundle => bundle.Name.Equals(name));
         }
+
+        public IEnumerable<IUsable> FilterServiceName(string name)
+        {
+            return _services.Where(service => service.Name.Equals(name));
+        }
+
 
         #endregion
         #region Handler
