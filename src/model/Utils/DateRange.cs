@@ -67,7 +67,7 @@ namespace CSB_Project.src.model.Utils
         /// </summary>
         /// <param name="range">altra data con cui verificare la sovrapposizione</param>
         /// <returns>True se c'è almeno un giorno in comune altrimenti false</returns>
-        public bool OverlapWith(DateRange range) => Contains(range) || ( StartDate <= range.EndDate && EndDate >= range.EndDate )
+        public bool OverlapWith(DateRange range) => Contains(range) || range.Contains(this) || ( StartDate <= range.EndDate && EndDate >= range.EndDate )
                                                      || ( StartDate <= range.StartDate && EndDate >= range.StartDate );
 
         public bool IsComplete(IEnumerable<DateRange> dateCollection)

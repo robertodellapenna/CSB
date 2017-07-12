@@ -91,11 +91,11 @@ namespace CSB_Project.src.presentation.Utils
         public static void Populate(this TreeNode tnSector, DateRange range, IBookingCoordinator bCoordinator, IPrenotationCoordinator pCoordinator)
         {
             Sector sector = tnSector.Tag as Sector;
-            for (int i=0; i<sector.Rows; i++)
+            for (int i=1; i<=sector.Rows; i++)
             {
                 TreeNode tnRow = new TreeNode("Riga "+i);
                 tnRow.Tag = sector;
-                for (int j = 0; j < sector.Columns; j++)
+                for (int j = 1; j <= sector.Columns; j++)
                 {
                     Position positionToAdd = new Position(i, j);
                     IBookableItem item = bCoordinator.GetBookableItem(sector, positionToAdd);

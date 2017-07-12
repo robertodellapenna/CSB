@@ -30,14 +30,11 @@ namespace CSB_Project.src.presentation
                 throw new InvalidOperationException("Il coordinatore delle strutture non è disponibile");
 
 
-            ICoordinator coordinator = new SimpleCoordinator();
-            coordinator = new BookingCoordinator(coordinator);
-            _bCoordinator = (IBookingCoordinator)coordinator.GetCoordinatorOf(typeof(IBookingCoordinator));
+            _bCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IBookingCoordinator>();
             if (_bCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore deli Bookable Items non è disponibile");
 
-            coordinator = new PrenotationCoordinator(coordinator);
-            _pCoordinator = (IPrenotationCoordinator)coordinator.GetCoordinatorOf(typeof(IPrenotationCoordinator));
+            _pCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
             if (_bCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle prenotations non è disponibile");
 
