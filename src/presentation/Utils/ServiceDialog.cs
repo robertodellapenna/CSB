@@ -69,5 +69,10 @@ namespace CSB_Project.src.presentation.Utils
                 _endDateBox.Value = Start;
             _endDateBox.MinDate = Start.Date;
         }
+
+        private void ServiceDialog_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
