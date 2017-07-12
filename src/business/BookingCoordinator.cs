@@ -127,14 +127,14 @@ namespace CSB_Project.src.business
                 Console.WriteLine("ombrellone vip null");
             else
             {
-                for (int row = 0; row < settoreBase.Rows; row++)
-                    for (int col = 0; col < settoreBase.Columns; col++)
+                for (int row = 1; row <= settoreBase.Rows; row++)
+                    for (int col = 1; col <= settoreBase.Columns; col++)
                     {
                         IBookableItem item = new SectorBookableItem(ombrelloneBase, new Position(row, col), settoreBase);
                         _bookableItems.Add(item);
                     }
-                for (int row = 0; row < settoreVip.Rows; row++)
-                    for (int col = 0; col < settoreVip.Columns; col++)
+                for (int row = 1; row <= settoreVip.Rows; row++)
+                    for (int col = 1; col <= settoreVip.Columns; col++)
                     {
                         IBookableItem item = new SectorBookableItem(ombrellonePaglia, new Position(row, col), settoreVip);
                         _bookableItems.Add(item);

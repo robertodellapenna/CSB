@@ -31,19 +31,19 @@ namespace CSB_Project.src.presentation
         private void InitializeComponent()
         {
             this._treePanel = new System.Windows.Forms.Panel();
-            this._labelA = new System.Windows.Forms.Label();
-            this._labelDa = new System.Windows.Forms.Label();
-            this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
             this._dateTimePickerDa = new System.Windows.Forms.DateTimePicker();
+            this._labelA = new System.Windows.Forms.Label();
+            this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
+            this._labelDa = new System.Windows.Forms.Label();
             this._treeView = new System.Windows.Forms.TreeView();
             this._actionPanel = new System.Windows.Forms.Panel();
             this._modifyButton = new System.Windows.Forms.Button();
             this._deleteButton = new System.Windows.Forms.Button();
             this._addButton = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this._treePanel.SuspendLayout();
-            this._actionPanel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this._actionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // _treePanel
@@ -59,6 +59,29 @@ namespace CSB_Project.src.presentation
             this._treePanel.Size = new System.Drawing.Size(292, 362);
             this._treePanel.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this.panel1.Controls.Add(this._dateTimePickerDa);
+            this.panel1.Controls.Add(this._labelA);
+            this.panel1.Controls.Add(this._dateTimePickerA);
+            this.panel1.Controls.Add(this._labelDa);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(292, 51);
+            this.panel1.TabIndex = 5;
+            // 
+            // _dateTimePickerDa
+            // 
+            this._dateTimePickerDa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._dateTimePickerDa.Location = new System.Drawing.Point(80, 3);
+            this._dateTimePickerDa.Name = "_dateTimePickerDa";
+            this._dateTimePickerDa.Size = new System.Drawing.Size(208, 20);
+            this._dateTimePickerDa.TabIndex = 1;
+            this._dateTimePickerDa.Value = new System.DateTime(2017, 7, 11, 14, 38, 4, 0);
+            // 
             // _labelA
             // 
             this._labelA.AutoSize = true;
@@ -68,16 +91,6 @@ namespace CSB_Project.src.presentation
             this._labelA.Size = new System.Drawing.Size(14, 13);
             this._labelA.TabIndex = 4;
             this._labelA.Text = "A";
-            // 
-            // _labelDa
-            // 
-            this._labelDa.AutoSize = true;
-            this._labelDa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
-            this._labelDa.Location = new System.Drawing.Point(22, 9);
-            this._labelDa.Name = "_labelDa";
-            this._labelDa.Size = new System.Drawing.Size(21, 13);
-            this._labelDa.TabIndex = 3;
-            this._labelDa.Text = "Da";
             // 
             // _dateTimePickerA
             // 
@@ -89,15 +102,15 @@ namespace CSB_Project.src.presentation
             this._dateTimePickerA.TabIndex = 2;
             this._dateTimePickerA.Value = new System.DateTime(2017, 9, 30, 0, 0, 0, 0);
             // 
-            // _dateTimePickerDa
+            // _labelDa
             // 
-            this._dateTimePickerDa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._dateTimePickerDa.Location = new System.Drawing.Point(80, 3);
-            this._dateTimePickerDa.Name = "_dateTimePickerDa";
-            this._dateTimePickerDa.Size = new System.Drawing.Size(208, 20);
-            this._dateTimePickerDa.TabIndex = 1;
-            this._dateTimePickerDa.Value = new System.DateTime(2017, 7, 11, 14, 38, 4, 0);
+            this._labelDa.AutoSize = true;
+            this._labelDa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._labelDa.Location = new System.Drawing.Point(22, 9);
+            this._labelDa.Name = "_labelDa";
+            this._labelDa.Size = new System.Drawing.Size(21, 13);
+            this._labelDa.TabIndex = 3;
+            this._labelDa.Text = "Da";
             // 
             // _treeView
             // 
@@ -149,19 +162,6 @@ namespace CSB_Project.src.presentation
             this._addButton.Text = "ADD";
             this._addButton.UseVisualStyleBackColor = true;
             // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
-            this.panel1.Controls.Add(this._dateTimePickerDa);
-            this.panel1.Controls.Add(this._labelA);
-            this.panel1.Controls.Add(this._dateTimePickerA);
-            this.panel1.Controls.Add(this._labelDa);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(292, 51);
-            this.panel1.TabIndex = 5;
-            // 
             // StructureManagerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,9 +174,9 @@ namespace CSB_Project.src.presentation
             this.Text = "StructureManagerView";
             this.Load += new System.EventHandler(this.StructureManagerView_Load);
             this._treePanel.ResumeLayout(false);
-            this._actionPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

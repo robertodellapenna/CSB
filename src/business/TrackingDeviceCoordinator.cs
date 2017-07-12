@@ -20,9 +20,9 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Campi
-        private ISet<ITrackingDevice> _notAvailables;
-        private Queue<ITrackingDevice> _availables;
-        private Dictionary<ITrackingDevice, IServizablePrenotation> _booked;
+        private ISet<ITrackingDevice> _notAvailables = new HashSet<ITrackingDevice>();
+        private Queue<ITrackingDevice> _availables = new Queue<ITrackingDevice>();
+        private Dictionary<ITrackingDevice, IServizablePrenotation> _booked = new Dictionary<ITrackingDevice, IServizablePrenotation>();
         #endregion
 
         #region Proprietà
@@ -32,9 +32,6 @@ namespace CSB_Project.src.business
         #region Costruttori
         public TrackingDeviceCoordinator(ICoordinator next) : base(next)
         {
-            _availables = new Queue<ITrackingDevice>();
-            _notAvailables = new HashSet<ITrackingDevice>();
-            _booked = new Dictionary<ITrackingDevice, IServizablePrenotation>();
         }
         #endregion
 
@@ -48,11 +45,11 @@ namespace CSB_Project.src.business
              
             /* Tracking Devices HardCoded */
             ITrackingDevice trackingDevice = new MagneticCard(101);
-            (_availables as Queue<ITrackingDevice>).Enqueue(trackingDevice);
+            _availables.Enqueue(trackingDevice);
             trackingDevice = new MagneticCard(102);
-            (_availables as Queue<ITrackingDevice>).Enqueue(trackingDevice);
+            _availables.Enqueue(trackingDevice);
             trackingDevice = new SimpleCard(101);
-            (_availables as Queue<ITrackingDevice>).Enqueue(trackingDevice);
+            _availables.Enqueue(trackingDevice);
         }
 
         public void ReleaseTrackingDevice(ITrackingDevice td)

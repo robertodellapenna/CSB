@@ -98,7 +98,7 @@ namespace CSB_Project.src.model.Prenotation
 
         #region Costruttori
         public CustomizableServizablePrenotation(int id, ICustomer client, DateRange prenotationDate,
-            IEnumerable<IItemPrenotation> items, ITrackingDevice baseTrackingDevice, 
+            IEnumerable<IItemPrenotation> items, ITrackingDevice baseTrackingDevice,
             AssociationDescriptor tdDesc, IEnumerable<IPacket> packets = null,
             IEnumerable<IBundle> bundles = null)
         {
@@ -107,7 +107,7 @@ namespace CSB_Project.src.model.Prenotation
                 throw new ArgumentException("id is not valid");
             if (prenotationDate == null)
                 throw new ArgumentNullException("range data null");
-            if(client == null)
+            if (client == null)
                 throw new ArgumentNullException("client null");
             if (items == null)
                 throw new ArgumentNullException("items null");
@@ -118,20 +118,9 @@ namespace CSB_Project.src.model.Prenotation
             if (!tdDesc.DateRange.Equals(prenotationDate))
                 throw new InvalidOperationException("Il tracking device base deve essere +" +
                     "associato per tutta la prenotazione");
-            foreach (IPacket packet in packets)
-                if (!CanAdd(packet))
-                    throw new InvalidOperationException("packet not valid");
-            foreach (IBundle bundle in bundles)
-                if (!CanAdd(bundle))
-                    throw new InvalidOperationException("bundle not valid");
-            foreach (IItemPrenotation ip in items)
-                if (!CanAdd(ip))
-                    throw new InvalidOperationException("item prenotation not valid");
-            // Verifico che gli item comprano interamente la prenotazione
-            // per ogni giorno ci deve essere almeno un item
-            if (!IsIstantiable(items))
-                throw new InvalidOperationException("gli item non comprono interamente la prenotazione");
+
             #endregion
+
 
             _id = id;
             _client = client;
@@ -141,6 +130,23 @@ namespace CSB_Project.src.model.Prenotation
             _bundles = bundles != null ? new HashSet<IBundle>(bundles) : new HashSet<IBundle>();
             _tdAssociations = new Dictionary<ITrackingDevice, AssociationDescriptor>();
             AddTrackingDevice(baseTrackingDevice, tdDesc);
+
+            foreach (IPacket packet in _packets)
+                if (!CanAdd(packet))
+                    throw new InvalidOperationException("packet not valid");
+
+            foreach (IBundle bundle in _bundles)
+                if (!CanAdd(bundle))
+                    throw new InvalidOperationException("bundle not valid");
+
+            foreach (IItemPrenotation ip in _bookedItems)
+                if (!CanAdd(ip))
+                    throw new InvalidOperationException("item prenotation not valid");
+
+            // Verifico che gli item comprano interamente la prenotazione
+            // per ogni giorno ci deve essere almeno un item
+            if (!IsIstantiable(_bookedItems))
+                throw new InvalidOperationException("gli item non comprono interamente la prenotazione");
         }
 
         public CustomizableServizablePrenotation(int id, ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items, 
