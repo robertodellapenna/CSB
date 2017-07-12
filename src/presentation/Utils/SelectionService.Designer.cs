@@ -1,12 +1,15 @@
 ﻿namespace CSB_Project.src.presentation.Utils
 {
-    partial class StringDialog
+    partial class SelectionService
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -32,15 +35,15 @@
             this._okButton = new System.Windows.Forms.Button();
             this._cancelButton = new System.Windows.Forms.Button();
             this._question = new System.Windows.Forms.Label();
-            this._answer = new System.Windows.Forms.TextBox();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this._view = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // _okButton
             // 
             this._okButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(221)))));
-            this._okButton.Location = new System.Drawing.Point(12, 105);
+            this._okButton.Location = new System.Drawing.Point(13, 206);
             this._okButton.Margin = new System.Windows.Forms.Padding(4);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(76, 26);
@@ -53,7 +56,7 @@
             // 
             this._cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(223)))), ((int)(((byte)(223)))));
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(187, 105);
+            this._cancelButton.Location = new System.Drawing.Point(173, 206);
             this._cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(76, 26);
@@ -68,32 +71,39 @@
             this._question.Location = new System.Drawing.Point(12, 11);
             this._question.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this._question.Name = "_question";
-            this._question.Size = new System.Drawing.Size(54, 17);
+            this._question.Size = new System.Drawing.Size(99, 17);
             this._question.TabIndex = 2;
-            this._question.Text = "Rispondi";
-            // 
-            // _answer
-            // 
-            this._answer.Location = new System.Drawing.Point(12, 51);
-            this._answer.Margin = new System.Windows.Forms.Padding(4);
-            this._answer.MaxLength = 100;
-            this._answer.Name = "_answer";
-            this._answer.Size = new System.Drawing.Size(228, 24);
-            this._answer.TabIndex = 3;
+            this._question.Text = "Seleziona servizi";
             // 
             // _errorProvider
             // 
             this._errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this._errorProvider.ContainerControl = this;
             // 
-            // StringDialog
+            // _view
+            // 
+            this._view.Location = new System.Drawing.Point(15, 31);
+            this._view.Name = "_view";
+            this._view.Size = new System.Drawing.Size(350, 168);
+            this._view.TabIndex = 4;
+            this._view.UseCompatibleStateImageBehavior = false;
+            this._view.View = System.Windows.Forms.View.Details;
+            this._view.Columns.Add("Nome");
+            this._view.Columns.Add("Descrizione");
+            this._view.Columns.Add("Prezzo");
+            this._view.Columns.Add("Validita");
+            ResizeListView.autoResizeColumns(_view);
+            this._view.AutoResizeColumns(System.Windows.Forms.ColumnHeaderAutoResizeStyle.HeaderSize);
+            // 
+            // SelectionService
             // 
             this.AcceptButton = this._okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(284, 161);
-            this.Controls.Add(this._answer);
+            this.ClientSize = new System.Drawing.Size(384, 245);
+            this.Controls.Add(this._view);
             this.Controls.Add(this._question);
             this.Controls.Add(this._cancelButton);
             this.Controls.Add(this._okButton);
@@ -102,10 +112,10 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "StringDialog";
+            this.Name = "SelectionService";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.StringDialog_Load);
+            this.Load += new System.EventHandler(this.SelectionService_Load);
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -117,7 +127,7 @@
         private System.Windows.Forms.Button _okButton;
         private System.Windows.Forms.Button _cancelButton;
         private System.Windows.Forms.Label _question;
-        private System.Windows.Forms.TextBox _answer;
         private System.Windows.Forms.ErrorProvider _errorProvider;
+        private System.Windows.Forms.ListView _view;
     }
 }

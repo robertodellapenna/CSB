@@ -339,6 +339,12 @@
     </Compile>
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
+    <Compile Include="src\presentation\Utils\SelectionService.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\SelectionService.Designer.cs">
+      <DependentUpon>SelectionService.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\Utils\ServiceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -418,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\SelectionService.resx">
+      <DependentUpon>SelectionService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\ServiceDialog.resx">
       <DependentUpon>ServiceDialog.cs</DependentUpon>
