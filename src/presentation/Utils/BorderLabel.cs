@@ -44,9 +44,8 @@ namespace CSB_Project.src.presentation.Utils
             set
             {
                 if (value < 0)
-                {
                     throw new ArgumentException("border < 0");
-                }
+                
                 _borderSize = value;
                 _innerLabel.Size = new Size(Width - 2 * value, Height - 2 * value);
                 _innerLabel.Location = new Point(value, value);
@@ -128,7 +127,7 @@ namespace CSB_Project.src.presentation.Utils
         {
             InitializeComponent();
             _borderLabel.Size = new Size(Width, Height);
-            _borderSize = borderSize;
+            BorderSize = borderSize;
             _borderLabel.MouseEnter += HoverHandler;
             _backColor = backColor;
             _foreColor = foreColor;
@@ -142,7 +141,6 @@ namespace CSB_Project.src.presentation.Utils
             // Ridirezione dei click sugli handler registrati presso il controllo
             _borderLabel.Click += (obj, e) => InvokeOnClick(this, e);
             _innerLabel.Click += (obj, e) => InvokeOnClick(this, e);
-
             _borderLabel.DoubleClick += (obj, e) => OnDoubleClick(e);
             _innerLabel.DoubleClick += (obj, e) => OnDoubleClick(e);
             Style = s;

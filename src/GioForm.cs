@@ -19,6 +19,10 @@ namespace CSB_Project.src
         public GioForm()
         {
             InitializeComponent();
+            BorderLabel vl = new BorderLabel("Hello", Color.Green, Color.Black, Color.White, 1);
+            vl.Click += (obj, e) => vl.Size = new Size(Convert.ToInt32(vl.Width * 1.1), Convert.ToInt32((int)vl.Height * 1.1));
+            //vl.BorderSize = 1;
+            Controls.Add(vl);
             //borderLabel1.BorderSize = 3;
             //borderLabel1.BackColor = Color.Green;
             //borderLabel1.TextColorHover = Color.Red;

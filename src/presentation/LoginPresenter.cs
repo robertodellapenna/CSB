@@ -76,19 +76,7 @@ namespace CSB_Project.src.presentation
             //lancio la nuova view e attendo la chiusura
             _loginView.Hide();
             _postLoginForm.Show();
-            if (_postLoginForm.Tag == null)
-                _postLoginForm.Tag = new Dictionary<string, Object>();
-            else
-            {
-                if (!(_postLoginForm.Tag is Dictionary<string, Object>))
-                {
-                    Dictionary<string, Object> dict = new Dictionary<string, object>();
-                    dict.Add("previousTagValue", _postLoginForm.Tag);
-                    _postLoginForm.Tag = dict;
-                }
-            }
-            (_postLoginForm.Tag as Dictionary<string, Object>)["loginInformation"] 
-                = new LoginInformation(_usernameBox.Text, _passwordBox.Text.ToSHA512());
+            _postLoginForm.AddLoginInformation(new LoginInformation(_usernameBox.Text, _passwordBox.Text.ToSHA512()));
             _postLoginForm.FormClosed +=
                 (o, ev) => _loginView.Close();
         }
