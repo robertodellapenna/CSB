@@ -34,8 +34,8 @@ namespace CSB_Project.src
             //cp.Location = new Point(0, 0);
             //this.Controls.Add(cp);
 
-            //cip = new CategorizableItemCreator();
-            //Controls.Add(cip);
+            cip = new CategorizableItemCreator();
+            Controls.Add(cip);
 
             //PictureBox pb = new PictureBox();
             //pb.Image = new Bitmap(Image.FromFile("../../Icon/remove.png"), new Size(16, 32));

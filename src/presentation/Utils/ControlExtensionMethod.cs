@@ -182,11 +182,11 @@ namespace CSB_Project.src.presentation.Utils
         }
 
         public static T RetrieveTagInformation<T>(this Control c, string key)
-        {
+       {
             if (c.Tag == null ||
                 !(c.Tag is Dictionary<string, Object>))
                 throw new InvalidOperationException("Il campo tag non è un dizionario");
-            if ((c.Tag as Dictionary<string, Object>).ContainsKey(key))
+            if (!(c.Tag as Dictionary<string, Object>).ContainsKey(key))
                 throw new InvalidOperationException("non è presente nessuna chiave '" + key + "'");
             Object obj = (c.Tag as Dictionary<string, Object>)[key];
 
