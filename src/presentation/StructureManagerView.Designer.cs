@@ -31,7 +31,7 @@ namespace CSB_Project.src.presentation
         private void InitializeComponent()
         {
             this._treePanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this._datePanel = new System.Windows.Forms.Panel();
             this._dateTimePickerDa = new System.Windows.Forms.DateTimePicker();
             this._labelA = new System.Windows.Forms.Label();
             this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
@@ -42,7 +42,7 @@ namespace CSB_Project.src.presentation
             this._deleteButton = new System.Windows.Forms.Button();
             this._addButton = new System.Windows.Forms.Button();
             this._treePanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this._datePanel.SuspendLayout();
             this._actionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@ namespace CSB_Project.src.presentation
             // 
             this._treePanel.AutoScroll = true;
             this._treePanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this._treePanel.Controls.Add(this.panel1);
+            this._treePanel.Controls.Add(this._datePanel);
             this._treePanel.Controls.Add(this._treeView);
             this._treePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this._treePanel.Location = new System.Drawing.Point(0, 0);
@@ -59,18 +59,18 @@ namespace CSB_Project.src.presentation
             this._treePanel.Size = new System.Drawing.Size(292, 362);
             this._treePanel.TabIndex = 0;
             // 
-            // panel1
+            // _datePanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
-            this.panel1.Controls.Add(this._dateTimePickerDa);
-            this.panel1.Controls.Add(this._labelA);
-            this.panel1.Controls.Add(this._dateTimePickerA);
-            this.panel1.Controls.Add(this._labelDa);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(292, 51);
-            this.panel1.TabIndex = 5;
+            this._datePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._datePanel.Controls.Add(this._dateTimePickerDa);
+            this._datePanel.Controls.Add(this._labelA);
+            this._datePanel.Controls.Add(this._dateTimePickerA);
+            this._datePanel.Controls.Add(this._labelDa);
+            this._datePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this._datePanel.Location = new System.Drawing.Point(0, 0);
+            this._datePanel.Name = "_datePanel";
+            this._datePanel.Size = new System.Drawing.Size(292, 51);
+            this._datePanel.TabIndex = 5;
             // 
             // _dateTimePickerDa
             // 
@@ -96,7 +96,7 @@ namespace CSB_Project.src.presentation
             // 
             this._dateTimePickerA.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this._dateTimePickerA.Location = new System.Drawing.Point(80, 27);
+            this._dateTimePickerA.Location = new System.Drawing.Point(80, 28);
             this._dateTimePickerA.Name = "_dateTimePickerA";
             this._dateTimePickerA.Size = new System.Drawing.Size(208, 20);
             this._dateTimePickerA.TabIndex = 2;
@@ -174,8 +174,8 @@ namespace CSB_Project.src.presentation
             this.Text = "StructureManagerView";
             this.Load += new System.EventHandler(this.StructureManagerView_Load);
             this._treePanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this._datePanel.ResumeLayout(false);
+            this._datePanel.PerformLayout();
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -193,6 +193,6 @@ namespace CSB_Project.src.presentation
         private System.Windows.Forms.DateTimePicker _dateTimePickerA;
         private System.Windows.Forms.DateTimePicker _dateTimePickerDa;
         private System.Windows.Forms.Label _labelA;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel _datePanel;
     }
 }
