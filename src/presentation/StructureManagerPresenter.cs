@@ -105,7 +105,7 @@ namespace CSB_Project.src.presentation
             for (int i = 1; i <= sector.Rows; i++)
             {
                 TreeNode tnRow = new TreeNode("Riga " + i);
-                tnRow.Tag = sector;
+                tnRow.Tag = i;
                 for (int j = 1; j <= sector.Columns; j++)
                 {
                     Position positionToAdd = new Position(i, j);
@@ -157,18 +157,24 @@ namespace CSB_Project.src.presentation
             string text = _structureTree.SelectedNode.Text;
             if (selectedItem==null && text.Contains("nessun elemento"))
             {
-                //using (SelectItemDialog sd = new ServiceDialog("Inserire parametri servizio"))
-                //{
-                //    if (sd.ShowDialog() == DialogResult.OK)
-                //    {
-                //        serviceName = sd.NameText;
-                //        serviceDescription = sd.Description;
-                //        servicePrice = sd.Price.ToString();
-                //        range = new DateRange(sd.Start, sd.End);
-                //    }
-                //    else
-                //        return;
-                //}
+                IItem baseItem = null;
+                Position position = new Position((int)_structureTree.SelectedNode.Parent.Tag, _structureTree.SelectedNode.Index + 1);
+                Sector sector = _structureTree.SelectedNode.Parent.Parent.Tag as Sector;
+                using (SelectItemDialog sd = new SelectItemDialog())
+                {
+                    if (sd.ShowDialog() == DialogResult.OK)
+                    {
+                        baseItem = sd.SelectedItem;
+                    }
+                    else
+                        return;
+                }
+                if (baseItem != null)
+                {
+                    IBookableItem bookItem = new SectorBookableItem(baseItem, position, sector);
+                    _bCoordinator.AddBookableItem(bookItem);
+                    StructureChangedHandler(this, EventArgs.Empty);
+                }
             }
             else
             {

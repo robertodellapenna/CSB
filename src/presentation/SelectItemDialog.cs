@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using CSB_Project.src.model.Item;
 
 namespace CSB_Project.src.presentation
 {
@@ -14,7 +15,7 @@ namespace CSB_Project.src.presentation
             InitializeComponent();
         }
 
-        public object SelectedItem =>  _comboBox.SelectedItem;
+        public IItem SelectedItem =>  _comboBox.SelectedItem as IItem;
 
         public void LoadItems(IEnumerable items)
         {
