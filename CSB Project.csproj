@@ -312,6 +312,12 @@
     </Compile>
     <Compile Include="src\presentation\PersistenceManagerPresenter.cs" />
     <Compile Include="src\presentation\SectorCreatorPresenter.cs" />
+    <Compile Include="src\presentation\SelectBookableItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\SelectBookableItemDialog.designer.cs">
+      <DependentUpon>SelectBookableItemDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\ServiceManagerPresenter.cs" />
     <Compile Include="src\presentation\ServiceManagerView.cs">
       <SubType>Form</SubType>
@@ -435,6 +441,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\SectorCreator.resx">
       <DependentUpon>SectorCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\SelectBookableItemDialog.resx">
+      <DependentUpon>SelectBookableItemDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ServiceManagerView.resx">
       <DependentUpon>ServiceManagerView.cs</DependentUpon>

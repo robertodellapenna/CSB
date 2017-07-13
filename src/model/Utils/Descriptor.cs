@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSB_Project.src.model.Structure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,18 @@ namespace CSB_Project.src.model.Utils
             #endregion
             _row = row;
             _col = col;
+        }
+        #endregion
+
+        #region Metodi
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Position))
+                return false;
+            Position other = obj as Position;
+
+            return (Row == other.Row && Column == other.Column);
+            
         }
         #endregion
     }
