@@ -115,6 +115,7 @@ namespace CSB_Project.src.presentation
                     if (item == null)
                     {
                         tnBookableItem = new TreeNode(j + " - nessun elemento");
+                        tnBookableItem.Tag = null;
                     }
                     else
                     {
@@ -152,7 +153,27 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
-            
+            Object selectedItem = _structureTree.SelectedNode.Tag;
+            string text = _structureTree.SelectedNode.Text;
+            if (selectedItem==null && text.Contains("nessun elemento"))
+            {
+                //using (SelectItemDialog sd = new ServiceDialog("Inserire parametri servizio"))
+                //{
+                //    if (sd.ShowDialog() == DialogResult.OK)
+                //    {
+                //        serviceName = sd.NameText;
+                //        serviceDescription = sd.Description;
+                //        servicePrice = sd.Price.ToString();
+                //        range = new DateRange(sd.Start, sd.End);
+                //    }
+                //    else
+                //        return;
+                //}
+            }
+            else
+            {
+                //non si può aggiungere
+            }
         }
 
         private void ModifyHandler(Object sender, EventArgs eventArgs)

@@ -121,18 +121,27 @@ namespace Lab3.Presentation
         public void SelectedColumnHandler(Object obj, EventArgs e)
         {
             Position position = new Position(SelectedRow, SelectedColumn);
-            bool available = pCoord.IsAvailable(SelectedSector,position, Range);
-            if (available)
+            IBookableItem item = bCoord.GetBookableItem(SelectedSector, position);
+            if (item == null)
             {
-                _labelItemValue.Text = bCoord.GetBookableItem(SelectedSector, position).ToString();
-                _labelItemValue.ForeColor = Color.Green;
-                _labelItemValue.Tag = bCoord.GetBookableItem(SelectedSector, position);
+                _labelItemValue.Text = "";
+                _labelItemValue.Tag = null;
             }
             else
             {
-                _labelItemValue.Text = bCoord.GetBookableItem(SelectedSector, position).ToString();
-                _labelItemValue.ForeColor = Color.Red;
-                _labelItemValue.Tag = null;
+                bool available = pCoord.IsAvailable(SelectedSector, position, Range);
+                if (available)
+                {
+                    _labelItemValue.Text = item.ToString();
+                    _labelItemValue.ForeColor = Color.Green;
+                    _labelItemValue.Tag = item;
+                }
+                else
+                {
+                    _labelItemValue.Text = item.ToString();
+                    _labelItemValue.ForeColor = Color.Red;
+                    _labelItemValue.Tag = null;
+                }
             }
         }
         public void OkButtonHandler(Object obj, EventArgs e)
