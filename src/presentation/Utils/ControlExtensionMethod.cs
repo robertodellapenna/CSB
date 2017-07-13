@@ -60,69 +60,6 @@ namespace CSB_Project.src.presentation.Utils
             tnc.Add(tn);
         }
 
-        /// <summary>
-        /// Popola la tree view partendo dalle strutture esistenti
-        /// </summary>
-        /// <param name="nodes">Nodo a cui aggiungere i nuovi nodi</param>
-        /// <param name="structures">Strutture con cui popolare i nodi</param>
-        public static void Populate(this TreeNodeCollection nodes, IEnumerable<Structure> structures, DateRange range, IBookingCoordinator bCoordinator, IPrenotationCoordinator pCoordinator)
-        {
-            foreach (Structure structure in structures)
-            {
-                TreeNode tnStructure = new TreeNode(structure.Name);
-                tnStructure.Tag = structure;
-                foreach (StructureArea area in structure.Areas)
-                {
-                    TreeNode tnArea = new TreeNode(area.Name);
-                    tnArea.Tag = area;
-                    foreach (Sector sector in area.Sectors)
-                    {
-                        TreeNode tnSector = new TreeNode(sector.Name);
-                        tnSector.Tag = sector;
-                        tnSector.Populate(range, bCoordinator, pCoordinator);
-                        tnArea.Nodes.Add(tnSector);
-                    }
-                    tnStructure.Nodes.Add(tnArea);
-                }
-                nodes.Add(tnStructure);
-            }
-        }
-
-        public static void Populate(this TreeNode tnSector, DateRange range, IBookingCoordinator bCoordinator, IPrenotationCoordinator pCoordinator)
-        {
-            Sector sector = tnSector.Tag as Sector;
-            for (int i=1; i<=sector.Rows; i++)
-            {
-                TreeNode tnRow = new TreeNode("Riga "+i);
-                tnRow.Tag = sector;
-                for (int j = 1; j <= sector.Columns; j++)
-                {
-                    Position positionToAdd = new Position(i, j);
-                    IBookableItem item = bCoordinator.GetBookableItem(sector, positionToAdd);
-                    TreeNode tnBookableItem;
-                    if (item == null)
-                    {
-                        tnBookableItem = new TreeNode(j + " - nessun elemento");
-                    }
-                    else
-                    {
-                        string status = "Buisy";
-                        Color color = Color.Red;
-                        bool available = pCoordinator.IsAvailable(sector, positionToAdd, range);
-                        if (available)
-                        {
-                            status = "Free";
-                            color = Color.Green;
-                        }
-                        tnBookableItem = new TreeNode(j + " - " + status + " - " + item.ToString());
-                        tnBookableItem.ForeColor = color;
-                        tnBookableItem.Tag = item;
-                    }
-                    tnRow.Nodes.Add(tnBookableItem);
-                }
-                tnSector.Nodes.Add(tnRow);
-            }
-        }
 
         public static void SetHint(this TextBox tb, string msg, Color color)
         {

@@ -8,6 +8,7 @@ using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Utils;
+using System.Drawing;
 
 namespace Lab3.Presentation
 {
@@ -24,7 +25,17 @@ namespace Lab3.Presentation
         public StructureArea SelectedArea => _comboBoxArea.SelectedItem as StructureArea;
         public Sector SelectedSector => _comboBoxSector.SelectedItem as Sector;
         public int SelectedRow => (int)_comboBoxRow.SelectedItem;
-        public IBookableItem SelectedItem => _comboBoxItem.SelectedItem as IBookableItem;
+        public int SelectedColumn => (int)_comboBoxColumn.SelectedItem;
+        public IBookableItem SelectedItem
+        {
+            get
+            {
+                Object result = _labelItemValue.Tag;
+                if (result == null)
+                    return null;
+                return result as SectorBookableItem;
+            }
+        }
         public DateTime From => _dateTimePickerDa.Value;
         public DateTime To => _dateTimePickerA.Value;
         public DateRange Range => new DateRange(From, To);
@@ -61,10 +72,14 @@ namespace Lab3.Presentation
             _comboBoxRow.DataSource = rowsString;
         }
 
-        private void LoadItems(IEnumerable<SectorBookableItem> items)
+        private void LoadColumns(int cols)
         {
-            _comboBoxItem.DataSource = items;
+            List<int> colsString = new List<int>();
+            for (int i = 1; i <= cols; i++)
+                colsString.Add(i);
+            _comboBoxColumn.DataSource = colsString;
         }
+     
 
         #endregion
 
@@ -101,12 +116,24 @@ namespace Lab3.Presentation
         }
         public void SelectedRowHandler(Object obj, EventArgs e)
         {
-            IEnumerable<Position> busyPositions = pCoord.BusyPositions(SelectedSector, Range);
-            List<SectorBookableItem> items = new List<SectorBookableItem>();
-            foreach (IBookableItem i in bCoord.Filter(SelectedSector))
-                if (!busyPositions.Contains(i.Position))
-                    items.Add(i as SectorBookableItem);
-            LoadItems(items);
+            LoadColumns(SelectedSector.Rows);
+        }
+        public void SelectedColumnHandler(Object obj, EventArgs e)
+        {
+            Position position = new Position(SelectedRow, SelectedColumn);
+            bool available = pCoord.IsAvailable(SelectedSector,position, Range);
+            if (available)
+            {
+                _labelItemValue.Text = bCoord.GetBookableItem(SelectedSector, position).ToString();
+                _labelItemValue.ForeColor = Color.Green;
+                _labelItemValue.Tag = bCoord.GetBookableItem(SelectedSector, position);
+            }
+            else
+            {
+                _labelItemValue.Text = bCoord.GetBookableItem(SelectedSector, position).ToString();
+                _labelItemValue.ForeColor = Color.Red;
+                _labelItemValue.Tag = null;
+            }
         }
         public void OkButtonHandler(Object obj, EventArgs e)
         {
