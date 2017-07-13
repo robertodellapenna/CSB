@@ -38,7 +38,6 @@
             this._comboBoxArea = new System.Windows.Forms.ComboBox();
             this._labelSector = new System.Windows.Forms.Label();
             this._comboBoxSector = new System.Windows.Forms.ComboBox();
-            this._comboBoxRow = new System.Windows.Forms.ComboBox();
             this._comboBoxItem = new System.Windows.Forms.ComboBox();
             this._labelRow = new System.Windows.Forms.Label();
             this._labeItem = new System.Windows.Forms.Label();
@@ -49,6 +48,9 @@
             this._labelA = new System.Windows.Forms.Label();
             this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
             this._labelDa = new System.Windows.Forms.Label();
+            this._labelPriceString = new System.Windows.Forms.Label();
+            this._comboBoxRow = new System.Windows.Forms.ComboBox();
+            this._labelPriceValue = new System.Windows.Forms.Label();
             this._bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.panel1.SuspendLayout();
@@ -80,7 +82,7 @@
             this._bottomPanel.Controls.Add(this._cancelButton);
             this._bottomPanel.Controls.Add(this._okButton);
             this._bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._bottomPanel.Location = new System.Drawing.Point(0, 297);
+            this._bottomPanel.Location = new System.Drawing.Point(0, 350);
             this._bottomPanel.Name = "_bottomPanel";
             this._bottomPanel.Size = new System.Drawing.Size(493, 54);
             this._bottomPanel.TabIndex = 8;
@@ -143,15 +145,6 @@
             this._comboBoxSector.TabIndex = 12;
             this._comboBoxSector.SelectedIndexChanged += new System.EventHandler(this.SelectedSectorHandler);
             // 
-            // _comboBoxRow
-            // 
-            this._comboBoxRow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxRow.Location = new System.Drawing.Point(167, 207);
-            this._comboBoxRow.Name = "_comboBoxRow";
-            this._comboBoxRow.Size = new System.Drawing.Size(280, 21);
-            this._comboBoxRow.TabIndex = 13;
-            this._comboBoxRow.SelectedIndexChanged += new System.EventHandler(this.SelectedRowHandler);
-            // 
             // _comboBoxItem
             // 
             this._comboBoxItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -159,6 +152,7 @@
             this._comboBoxItem.Name = "_comboBoxItem";
             this._comboBoxItem.Size = new System.Drawing.Size(280, 21);
             this._comboBoxItem.TabIndex = 14;
+            this._comboBoxItem.SelectedIndexChanged += new System.EventHandler(this.SelectedItemHandler);
             // 
             // _labelRow
             // 
@@ -186,6 +180,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this._labelPriceValue);
+            this.panel1.Controls.Add(this._labelPriceString);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this._labelStructure);
             this.panel1.Controls.Add(this._comboBoxItem);
@@ -200,7 +196,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(493, 297);
+            this.panel1.Size = new System.Drawing.Size(493, 350);
             this.panel1.TabIndex = 17;
             // 
             // panel2
@@ -258,13 +254,39 @@
             this._labelDa.TabIndex = 3;
             this._labelDa.Text = "Da";
             // 
+            // _labelPriceString
+            // 
+            this._labelPriceString.AutoSize = true;
+            this._labelPriceString.Location = new System.Drawing.Point(71, 305);
+            this._labelPriceString.Name = "_labelPriceString";
+            this._labelPriceString.Size = new System.Drawing.Size(90, 13);
+            this._labelPriceString.TabIndex = 19;
+            this._labelPriceString.Text = "Prezzo giornaliero";
+            // 
+            // _comboBoxRow
+            // 
+            this._comboBoxRow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._comboBoxRow.Location = new System.Drawing.Point(167, 207);
+            this._comboBoxRow.Name = "_comboBoxRow";
+            this._comboBoxRow.Size = new System.Drawing.Size(280, 21);
+            this._comboBoxRow.TabIndex = 13;
+            this._comboBoxRow.SelectedIndexChanged += new System.EventHandler(this.SelectedRowHandler);
+            // 
+            // _labelPriceValue
+            // 
+            this._labelPriceValue.AutoSize = true;
+            this._labelPriceValue.Location = new System.Drawing.Point(421, 305);
+            this._labelPriceValue.Name = "_labelPriceValue";
+            this._labelPriceValue.Size = new System.Drawing.Size(0, 13);
+            this._labelPriceValue.TabIndex = 20;
+            // 
             // SelectBookableItemDialog
             // 
             this.AcceptButton = this._okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._cancelButton;
-            this.ClientSize = new System.Drawing.Size(493, 351);
+            this.ClientSize = new System.Drawing.Size(493, 404);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this._bottomPanel);
             this.Name = "SelectBookableItemDialog";
@@ -272,6 +294,7 @@
             this._bottomPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -289,7 +312,6 @@
         private System.Windows.Forms.ComboBox _comboBoxArea;
         private System.Windows.Forms.Label _labelSector;
         private System.Windows.Forms.ComboBox _comboBoxSector;
-        private System.Windows.Forms.ComboBox _comboBoxRow;
         private System.Windows.Forms.ComboBox _comboBoxItem;
         private System.Windows.Forms.Label _labelRow;
         private System.Windows.Forms.Label _labeItem;
@@ -300,5 +322,8 @@
         private System.Windows.Forms.Label _labelA;
         private System.Windows.Forms.DateTimePicker _dateTimePickerA;
         private System.Windows.Forms.Label _labelDa;
+        private System.Windows.Forms.Label _labelPriceValue;
+        private System.Windows.Forms.Label _labelPriceString;
+        private System.Windows.Forms.ComboBox _comboBoxRow;
     }
 }

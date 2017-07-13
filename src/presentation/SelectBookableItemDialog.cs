@@ -28,6 +28,7 @@ namespace Lab3.Presentation
         public DateTime From => _dateTimePickerDa.Value;
         public DateTime To => _dateTimePickerA.Value;
         public DateRange Range => new DateRange(From, To);
+        public Label Price => _labelPriceValue;
         #endregion
 
         #region Costruttori
@@ -65,6 +66,7 @@ namespace Lab3.Presentation
         {
             _comboBoxItem.DataSource = items;
         }
+     
 
         #endregion
 
@@ -107,6 +109,10 @@ namespace Lab3.Presentation
                 if (!busyPositions.Contains(i.Position))
                     items.Add(i as SectorBookableItem);
             LoadItems(items);
+        }
+        public void SelectedItemHandler(Object obj, EventArgs e)
+        {
+            Price.Text = "€" + SelectedItem.DailyPrice;
         }
         public void OkButtonHandler(Object obj, EventArgs e)
         {
