@@ -16,8 +16,14 @@ namespace CSB_Project.src.presentation
 
         public BundleManagerPresenter(BundleManagerView view)
         {
+            #region Precondizioni
+            if (view == null)
+                throw new ArgumentNullException("view null");
+            #endregion
             view.AddButton.Click += AddHandler;
             _bundleList = view.ListView;
+            _bundleList.MultiSelect = false;
+            _bundleList.DoubleClick += ShowBundleHandler;
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)
                 throw new InvalidOperationException("Il coordinatore dei bundle non è disponibile");
@@ -32,6 +38,25 @@ namespace CSB_Project.src.presentation
         #endregion 
 
         #region Handler
+        private void ShowBundleHandler(Object sender, EventArgs e)
+        {
+            if(_bundleList.SelectedItems.Count > 0)
+            {
+                ListViewItem lvi = _bundleList.SelectedItems[0];
+                IBundle b = lvi.Tag as IBundle;
+                StringBuilder sb = new StringBuilder();
+                foreach(IPacket p in b.Packets)
+                {
+                    sb.AppendLine("Name :" + p.Name);
+                    sb.AppendLine("Descrizione :" + p.Description);
+                    sb.AppendLine("Informazioni aggiuntive :" + p.InformationString); 
+                    sb.AppendLine("Servizio :" + p.Usable.Name);
+                    sb.AppendLine("");
+                }
+                MessageBox.Show(sb.ToString());
+            }
+        }
+        
         /// <summary>
         /// Gestisce l'azione dell'add button permettendo l'inserimento di una
         /// nuova categoria
@@ -69,6 +94,7 @@ namespace CSB_Project.src.presentation
                 pacchetti = pacchetti + bundle.Packets.ElementAt(bundle.Packets.Count - 1).Name;
                 array[3] = pacchetti;
                 items = new ListViewItem(array);
+                items.Tag = bundle;
                 _bundleList.Items.Add(items);
             }
             _bundleList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);

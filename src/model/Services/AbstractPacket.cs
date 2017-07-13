@@ -18,6 +18,7 @@ namespace CSB_Project.src.model.Services
         public string Name => _descriptor.Name;
         public string Description => _descriptor.Description;
         public double Price => _descriptor.Price;
+        public abstract string InformationString { get; }
         /// <summary>
         /// Periodo in cui il pacchetto risulta disponibile.
         /// </summary>

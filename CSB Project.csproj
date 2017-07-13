@@ -62,7 +62,9 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="icon\add.png" />
+    <Content Include="icon\closed.png" />
     <Content Include="icon\goUp.png" />
+    <Content Include="icon\open.png" />
     <Content Include="icon\remove.png" />
   </ItemGroup>
   <ItemGroup>
@@ -358,6 +360,12 @@
     </Compile>
     <Compile Include="src\presentation\Utils\ActionType.cs" />
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
+    <Compile Include="src\presentation\Utils\ExpandableNode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\ExpandableNode.Designer.cs">
+      <DependentUpon>ExpandableNode.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
     <Compile Include="src\presentation\Utils\SelectionBundle.cs">
       <SubType>Form</SubType>
@@ -465,6 +473,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\ExpandableNode.resx">
+      <DependentUpon>ExpandableNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\SelectionBundle.resx">
       <DependentUpon>SelectionBundle.cs</DependentUpon>
