@@ -1,8 +1,10 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,6 +26,7 @@ namespace CSB_Project.src.presentation
         private int _row, _column, _width, _height;
         private string _loginName;
         private ILoginInformation _loginInformation;
+        private Func<string, ILoginUser> _userRetriever;
 
         public MainPresenter(MainView view, Func<string, ILoginUser> userRetriever, int row = DEFAULT_ROW, int column = DEFAULT_COLUMN,
             int width = DEFAULT_WIDTH, int height = DEFAULT_HEIGHT)
@@ -42,25 +45,30 @@ namespace CSB_Project.src.presentation
             if (userRetriever == null)
                 throw new ArgumentNullException("userRetriever null");
             #endregion
+            view.Shown += InitHandler;
             _view = view;
             _row = row;
             _column = column;
             _width = width;
             _height = height;
+            _userRetriever = userRetriever;
+        }
 
+        private void InitHandler(Object o, EventArgs e)
+        {
             // Recupero il tag
-            //_loginInformation = view.RetrieveTagInformation<ILoginInformation>("loginInformation");
-            //string username = _loginInformation.Username;
+            _loginInformation = _view.RetrieveTagInformation<ILoginInformation>("loginInformation");
+            string username = _loginInformation.Username;
 
             // DA ELIMINARE
             //string username = RetrieveUsername();  
             //string username = "giovanni.admin"; // STAFF
             //string username = ""; // GUEST
-            string username = "lorenzo.antonini"; // CUSTOMER 
+            //string username = "lorenzo.antonini"; // CUSTOMER 
             // FINE DA ELIMINARE
 
             // Recupero la tipologia di utente
-            ILoginUser user = userRetriever(username);
+            ILoginUser user = _userRetriever(username);
             _authLevel = user == null ? AuthorizationLevel.GUEST : user.AuthorizationLevel;
             _loginName = user?.FirstName ?? " opsite";
 
@@ -154,7 +162,7 @@ namespace CSB_Project.src.presentation
 
         private void CustomerInit()
         {
-            CreateButton("Visualizza prenotazioni effettuate", () => MessageBox.Show("Hello"));
+            CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
             CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Hello"));
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Hello"));
 
@@ -166,10 +174,23 @@ namespace CSB_Project.src.presentation
 
         private void StaffInit()
         {
-
+            CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
         }
 
         #region SpawnMethod
+        private void SpawnPrenotationView()
+        {
+            IPrenotationCoordinator coord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+
+            PrenotationView prenotationView = new PrenotationView();
+            AddInformation(prenotationView);
+            new PrenotationPresenter(prenotationView,
+                (str) => new ReadOnlyCollection<IPrenotation>((from p in coord.Prenotations
+                                                               where p.Client.FiscalCode == str
+                                                               select p).ToList()));
+            prenotationView.Show();
+        }
+
         private void SpawnPacketView()
         {
             PacketManagerView packetView = new PacketManagerView();
@@ -203,13 +224,22 @@ namespace CSB_Project.src.presentation
 
         private void AddInformation(Form v)
         {
+            IUserCoordinator uCoor;
             #region Precondizioni
             if (v == null)
                 throw new ArgumentNullException("v null");
+            uCoor = CoordinatorManager.Instance.CoordinatorOfType<IUserCoordinator>();
+            if (uCoor == null)
+                throw new InvalidOperationException("coordinatore utenti non disponibile");
             #endregion
+
             v.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
             v.AddTagInformation("mode", ActionType.VIEW);
             v.AddLoginInformation(_loginInformation);
+            v.AddTagInformation("fiscalCode", (from regUser in uCoor.RegisteredUsers
+                                              where regUser is ICustomer
+                                              && regUser.Username == _loginInformation.Username
+                                              select (regUser as ICustomer).FiscalCode).FirstOrDefault());
         }
         #endregion
 

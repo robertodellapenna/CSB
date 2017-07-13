@@ -99,7 +99,7 @@ namespace CSB_Project.src.business
             {
                 Console.WriteLine("Errore \n " + e);
             }
-
+            /*
             foreach (IItem ci in ItemFactory.Items.OfType<IItem>())
             {
                 Console.WriteLine("name :" + ci.Identifier );
@@ -114,6 +114,7 @@ namespace CSB_Project.src.business
                     Console.WriteLine("\tCat : " + cat.Key.Name + ", Value : " + cat.Value.Name);
                 }
             }
+            */
             IItem ombrelloneBase = ItemFactory.Items.Where(item => item.Identifier.Equals("MyItem100")).FirstOrDefault();
             ICategorizableItem ombrellonePaglia = ItemFactory.Items.OfType<ICategorizableItem>().Where(item => item.Identifier.Equals("MyItemCustomizable")).FirstOrDefault();
 

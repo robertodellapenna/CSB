@@ -94,6 +94,33 @@ namespace CSB_Project.src.model.Prenotation
                 return price;
             }
         }
+
+        public string InformationString
+        {
+            get{
+                StringBuilder sb = new StringBuilder();
+                foreach (IItemPrenotation ip in BookedItems)
+                {
+                    sb.AppendLine(ip.InformationString);
+                    sb.AppendLine("");
+                }
+
+                sb.AppendLine(Environment.NewLine + "PACCHETTI COMPRATI:");
+                foreach(IPacket p in Packets)
+                {
+                    sb.AppendLine(p.InformationString);
+                    sb.AppendLine("");
+                }
+
+                sb.AppendLine(Environment.NewLine + "BUNDLE COMPRATI:");
+                foreach (IBundle b in Bundles)
+                {
+                    sb.AppendLine(b.InformationString);
+                    sb.AppendLine("");
+                }
+                return sb.ToString();
+            }
+        }
         #endregion
 
         #region Costruttori

@@ -31,6 +31,8 @@ namespace CSB_Project.src.presentation.Utils
         public static void ApplyStyle(this TextBox tb, Style style)
         {
             ApplyStyle(tb as Control, style);
+            if (style == null)
+                return;
             tb.TextAlign = style.TextAlign;
         }
 
@@ -65,7 +67,23 @@ namespace CSB_Project.src.presentation.Utils
         {
             foreach(IPrenotation p in prenotations)
             {
-                tc.TabPages.Add("Dal " + p.PrenotationDate.StartDate.ToShortDateString() + " al " + p.PrenotationDate.EndDate.Date.ToShortDateString());
+                TabPage tp = new TabPage("Dal " + p.PrenotationDate.StartDate.ToShortDateString() + " al " + p.PrenotationDate.EndDate.Date.ToShortDateString());
+                Panel mainPanel = new Panel();
+                mainPanel.Dock = DockStyle.Fill;
+                mainPanel.BackColor = Color.White;
+                mainPanel.AutoScroll = true;
+                mainPanel.Margin = new Padding(0);
+
+                TextBox output = new TextBox();
+                output.Multiline = true;
+                output.Enabled = false;
+                output.BackColor = Color.White;
+                output.Dock = DockStyle.Fill;
+                output.Text = p.InformationString;
+
+                mainPanel.Controls.Add(output);
+                tp.Controls.Add(mainPanel);
+                tc.TabPages.Add(tp);
             }
         }
 
@@ -135,7 +153,6 @@ namespace CSB_Project.src.presentation.Utils
             if (!(c.Tag as Dictionary<string, Object>).ContainsKey(key))
                 throw new InvalidOperationException("non è presente nessuna chiave '" + key + "'");
             Object obj = (c.Tag as Dictionary<string, Object>)[key];
-
             if (!(obj is T))
                 throw new InvalidOperationException("il valore di '" + key + "' non è di tipo " + typeof(T));
             return (T)obj;

@@ -2,6 +2,7 @@
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -30,12 +31,14 @@ namespace CSB_Project.src.model.Item
         /// Prezzo comprensivo di caratteristiche aggiuntive
         /// </summary>
         double DailyPrice { get; }
+
+        string InformationString { get; }
     }
 
     public interface ICategorizableItem : IItem
     {
         IEnumerable<ICategory> Categories { get; }
-        IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties { get; }
+        ReadOnlyCollection<KeyValuePair<ICategory, PriceDescriptor>> Properties { get; }
 
         bool ContainsSubCateogryOf(IGroupCategory category);
         bool ContainsCategory(ICategory category);

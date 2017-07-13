@@ -33,7 +33,8 @@
             this._backPanel = new System.Windows.Forms.Panel();
             this._searchPanel = new System.Windows.Forms.Panel();
             this._usernameLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this._searchBox = new System.Windows.Forms.TextBox();
+            this._customerBox = new System.Windows.Forms.ComboBox();
             this._mainPanel.SuspendLayout();
             this._backPanel.SuspendLayout();
             this._searchPanel.SuspendLayout();
@@ -43,10 +44,10 @@
             // 
             this._mainPanel.Controls.Add(this._tabControl);
             this._mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._mainPanel.Location = new System.Drawing.Point(0, 45);
+            this._mainPanel.Location = new System.Drawing.Point(0, 69);
             this._mainPanel.Margin = new System.Windows.Forms.Padding(0);
             this._mainPanel.Name = "_mainPanel";
-            this._mainPanel.Size = new System.Drawing.Size(698, 483);
+            this._mainPanel.Size = new System.Drawing.Size(698, 459);
             this._mainPanel.TabIndex = 1;
             // 
             // _tabControl
@@ -55,7 +56,7 @@
             this._tabControl.Location = new System.Drawing.Point(0, 0);
             this._tabControl.Name = "_tabControl";
             this._tabControl.SelectedIndex = 0;
-            this._tabControl.Size = new System.Drawing.Size(698, 483);
+            this._tabControl.Size = new System.Drawing.Size(698, 459);
             this._tabControl.TabIndex = 0;
             // 
             // _backPanel
@@ -72,12 +73,13 @@
             // _searchPanel
             // 
             this._searchPanel.BackColor = System.Drawing.Color.White;
+            this._searchPanel.Controls.Add(this._customerBox);
             this._searchPanel.Controls.Add(this._usernameLabel);
-            this._searchPanel.Controls.Add(this.textBox1);
+            this._searchPanel.Controls.Add(this._searchBox);
             this._searchPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this._searchPanel.Location = new System.Drawing.Point(0, 0);
             this._searchPanel.Name = "_searchPanel";
-            this._searchPanel.Size = new System.Drawing.Size(698, 45);
+            this._searchPanel.Size = new System.Drawing.Size(698, 69);
             this._searchPanel.TabIndex = 2;
             // 
             // _usernameLabel
@@ -89,13 +91,21 @@
             this._usernameLabel.TabIndex = 1;
             this._usernameLabel.Text = "Inserisci username o cognome cliente";
             // 
-            // textBox1
+            // _searchBox
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(454, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 20);
-            this.textBox1.TabIndex = 0;
+            this._searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._searchBox.Location = new System.Drawing.Point(454, 12);
+            this._searchBox.Name = "_searchBox";
+            this._searchBox.Size = new System.Drawing.Size(232, 20);
+            this._searchBox.TabIndex = 0;
+            // 
+            // _customerBox
+            // 
+            this._customerBox.FormattingEnabled = true;
+            this._customerBox.Location = new System.Drawing.Point(16, 42);
+            this._customerBox.Name = "_customerBox";
+            this._customerBox.Size = new System.Drawing.Size(670, 21);
+            this._customerBox.TabIndex = 2;
             // 
             // PrenotationView
             // 
@@ -120,6 +130,7 @@
         private System.Windows.Forms.Panel _backPanel;
         private System.Windows.Forms.Panel _searchPanel;
         private System.Windows.Forms.Label _usernameLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox _searchBox;
+        private System.Windows.Forms.ComboBox _customerBox;
     }
 }

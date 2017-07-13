@@ -11,6 +11,7 @@ namespace CSB_Project.src.model.Prenotation
         DateRange RangeData { get; }
         IBookableItem BaseItem { get; }
         double Price { get; }
+        string InformationString { get; }
     }
 
     public interface ICustomizableItemPrenotation : IItemPrenotation

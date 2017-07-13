@@ -32,12 +32,15 @@ namespace CSB_Project.src.presentation
             {
                 view.SearchPanel.Enabled = false;
                 view.SearchPanel.Visible = false;
-                ReadOnlyCollection<IPrenotation> prenotations = RetrievePrenotation("CC4");
+                string fiscalCode = view.RetrieveTagInformation<string>("fiscalCode");
+                MessageBox.Show("FC " + fiscalCode);
+                if (fiscalCode == null)
+                    throw new InvalidOperationException("Il cliente che ha aperto la view non ha un codice fiscale");
+                ReadOnlyCollection<IPrenotation> prenotations = RetrievePrenotation(fiscalCode);
                 if (prenotations.Count <= 0)
                     MessageBox.Show("Non risultano attive prenotazioni a tuo nome");
                 else
                     view.TabControl.Populate(prenotations);
-
             }
             else
             {

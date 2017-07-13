@@ -17,6 +17,7 @@ namespace CSB_Project.src.model.Prenotation
         double Price { get; }
         ReadOnlyCollection<IItemPrenotation> BookedItems { get; }
         void AddItem(IItemPrenotation item);
+        string InformationString { get; }
     }
 
     public interface ICustomizablePrenotation : IPrenotation

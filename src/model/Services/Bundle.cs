@@ -8,8 +8,6 @@ namespace CSB_Project.src.model.Services
 {
     class Bundle : IBundle
     {
-        #region Eventi
-        #endregion
         #region Campi
         private readonly ISet<IPacket> _packets;
         private readonly DatePriceDescriptor _descriptor;
@@ -24,7 +22,20 @@ namespace CSB_Project.src.model.Services
         public string Name => _descriptor.Name;
 
         public string Description => _descriptor.Description;
+
+        public string InformationString
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(Name + " " + Description + " " + Price);
+                foreach (IPacket p in Packets)
+                    sb.AppendLine("\t" + p.InformationString);
+                return sb.ToString();
+            }
+        }
         #endregion
+
         #region Costruttori
         
         public Bundle(ISet<IPacket> packets, DatePriceDescriptor descriptor)
@@ -50,8 +61,6 @@ namespace CSB_Project.src.model.Services
         {
             return Availability.Contains(when);
         }
-        #endregion
-        #region Handler
         #endregion
     }
 }

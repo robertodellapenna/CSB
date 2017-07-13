@@ -3,7 +3,9 @@ using CSB_Project.src.model.Category;
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Xml;
 
 namespace CSB_Project.src.model.Item
@@ -13,6 +15,7 @@ namespace CSB_Project.src.model.Item
         #region BasicItem e Parser
         private class BasicItem : AbstractItem
         {
+            public override string InformationString => FriendlyName + " " + BaseDailyPrice;
             public BasicItem(string id, PriceDescriptor priceDescriptor) : base(id, priceDescriptor) { }
         }
 
@@ -71,12 +74,21 @@ namespace CSB_Project.src.model.Item
             public override double DailyPrice => BaseDailyPrice +
                             _properties.Values.Sum(priceDesc => priceDesc.Price);
             public IEnumerable<ICategory> Categories => _properties.Keys.ToArray();
-            public IEnumerable<KeyValuePair<ICategory, PriceDescriptor>> Properties
+            public ReadOnlyCollection<KeyValuePair<ICategory, PriceDescriptor>> Properties
+                => new ReadOnlyCollection<KeyValuePair<ICategory, PriceDescriptor>>(_properties.ToList());
+
+            public override string InformationString
             {
-                get {
-                    KeyValuePair<ICategory, PriceDescriptor>[] copy = new KeyValuePair<ICategory, PriceDescriptor>[_properties.Count];
-                    _properties.CopyTo(copy, 0);
-                    return copy;
+                get
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine(FriendlyName + " Prezzo Base -> " +BaseDailyPrice + " Totale -> "+ DailyPrice);
+                    sb.AppendLine("\tPERSONALIZZAZIONI:");
+                    foreach(ICategory c in Categories)
+                    {
+                        sb.AppendLine("\t"+c.Name + ":" + _properties[c].Name + " " + _properties[c].Price);
+                    }
+                    return sb.ToString();
                 }
             }
             #endregion

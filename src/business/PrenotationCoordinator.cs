@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSB_Project.src.model.Prenotation;
+using System.Windows.Forms;
 
 namespace CSB_Project.src.business
 {
@@ -67,38 +68,56 @@ namespace CSB_Project.src.business
             /* Prenotations HardCoded */
             StructureCoordinator sectorCoord = CoordinatorManager.Instance.CoordinatorOfType<StructureCoordinator>();
             Sector mySector = sectorCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore base");
+            Sector mySectorVip = sectorCoord.GetSectorIn("Stabilimento Bologna Via Mario Longhena", "Spiaggia", "Settore vip");
 
             BookingCoordinator bookCoord = CoordinatorManager.Instance.CoordinatorOfType<BookingCoordinator>();
             IBookableItem myBookableItem = bookCoord.GetBookableItem(mySector, new Position(1, 3));
+            IBookableItem myBookableItemVip = bookCoord.GetBookableItem(mySectorVip, new Position(1, 1));
 
             DateRange myRange1 = new DateRange(30);
+            DateRange myRange2 = new DateRange(new DateTime(2017,08,10), new DateTime(2017,08,15));
 
             ICustomizableItemPrenotation myIItemPrenotation1 = new CustomizableItemPrenotation(myRange1, myBookableItem);
+            ICustomizableItemPrenotation myIItemPrenotation2 = new CustomizableItemPrenotation(myRange2, myBookableItemVip);
 
-            //ItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<ItemCoordinator>();
-            //IItem sdraio = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Sdraio1")).ElementAt(0);
-            //myIItemPrenotation1.AddPlugin(sdraio, myRange1);
-            //myIItemPrenotation1.AddPlugin(sdraio, myRange1);
-            //IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).Where(plugin => plugin.Identifier.Equals("Lettino1")).ElementAt(0);
-            //myIItemPrenotation1.AddPlugin(lettino, myRange1);
+            IItemCoordinator itemCoord = CoordinatorManager.Instance.CoordinatorOfType<IItemCoordinator>();
+            IItem lettino = itemCoord.GetAssociableItemOf(myBookableItem.BaseItem).First();
+            myIItemPrenotation1.AddPlugin(lettino, myRange1);
+            myIItemPrenotation1.AddPlugin(lettino, new DateRange(myRange1.StartDate, myRange1.EndDate.AddDays(-2)));
+
+            IItem lettinoVip = itemCoord.GetAssociableItemOf(myBookableItemVip.BaseItem).First();
+            IItem lettinoBase = itemCoord.GetAssociableItemOf(myBookableItemVip.BaseItem).ElementAt(1);
+            myIItemPrenotation2.AddPlugin(lettinoVip, myRange2);
+            myIItemPrenotation2.AddPlugin(lettinoBase, myRange2);
+            myIItemPrenotation2.AddPlugin(lettinoBase, myRange2);
+            myIItemPrenotation2.AddPlugin(lettinoBase, myRange2);
+            myIItemPrenotation2.AddPlugin(lettinoBase, myRange2);
 
             List<ICustomizableItemPrenotation> myItems = new List<ICustomizableItemPrenotation>();
             myItems.Add(myIItemPrenotation1);
+
+            List<ICustomizableItemPrenotation> myItems2 = new List<ICustomizableItemPrenotation>();
+            myItems2.Add(myIItemPrenotation2);
 
             ITrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<TrackingDeviceCoordinator>();
             ITrackingDevice myCard = tdCoord.Next;
 
             IUserCoordinator userCoord = CoordinatorManager.Instance.CoordinatorOfType<UserCoordinator>();
-            ICustomer client=userCoord.Customers.Where(c => c.FiscalCode.Equals("CC4")).First();
+            ICustomer client=userCoord.Customers.Where(c => c.FiscalCode.Equals("CC3")).First();
 
             CustomizableServizablePrenotation myPrenotation = new CustomizableServizablePrenotation(1, client, myRange1, myItems, myCard, new AssociationDescriptor(myRange1, "CardBase"));
+            tdCoord.LockTrackingDevice(myPrenotation);
 
+            ITrackingDevice myCard2 = tdCoord.Next;
+            CustomizableServizablePrenotation myPrenotation2 = new CustomizableServizablePrenotation(2, client, myRange2, myItems2, myCard2, new AssociationDescriptor(myRange2, "CardBase"));
+            tdCoord.LockTrackingDevice(myPrenotation2);
+            
             //ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
             //IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
-
             //myPrenotation.AddPacket(doccia);
 
             _prenotations.Add(myPrenotation);
+            _prenotations.Add(myPrenotation2);
 
         }
 

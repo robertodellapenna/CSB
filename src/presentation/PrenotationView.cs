@@ -13,11 +13,12 @@ namespace CSB_Project.src.presentation
     {
         public Panel SearchPanel => _searchPanel;
         public TabControl TabControl => _tabControl;
+        public TextBox SearchBox => _searchBox;
+        public ComboBox CustomerBox => _customerBox;
 
         public PrenotationView()
         {
             InitializeComponent();
-            
         }
     }
 }

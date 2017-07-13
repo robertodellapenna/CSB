@@ -19,6 +19,7 @@ namespace CSB_Project.src.model.Item
         public double BaseDailyPrice => _descriptor.Price;
         public string FriendlyName => _descriptor.Name;
         public virtual double DailyPrice => BaseDailyPrice;
+        public abstract string InformationString { get; }
         #endregion
 
         #region Costruttori
