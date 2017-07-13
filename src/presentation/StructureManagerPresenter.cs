@@ -88,7 +88,7 @@ namespace CSB_Project.src.presentation
                     tnArea.Tag = area;
                     foreach (Sector sector in area.Sectors)
                     {
-                        TreeNode tnSector = new TreeNode(sector.ToString() + "(+€" + sector.ItemPriceIncrease + ")");
+                        TreeNode tnSector = new TreeNode(sector.ToString());
                         tnSector.Tag = sector;
                         Populate(tnSector,range);
                         tnArea.Nodes.Add(tnSector);
