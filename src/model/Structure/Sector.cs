@@ -41,6 +41,10 @@ namespace CSB_Project.src.model.Structure
         #endregion
 
         #region Metodi
+        public override string ToString()
+        {
+            return Name+ "(+€"+ItemPriceIncrease+")";
+        }
         #endregion
 
         #region Handler

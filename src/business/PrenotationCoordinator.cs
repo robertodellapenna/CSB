@@ -146,9 +146,28 @@ namespace CSB_Project.src.business
             if (rangeData == null)
                 throw new ArgumentNullException("rangeData null");
             #endregion
-            return (from item in BookedItems(rangeData)
-                    where item.Sector == sector
-                    select item.Position);
+            //debug
+            //List<Sector> sectors = new List<Sector>();
+            //bool ok = false;
+            //foreach (IBookableItem i in BookedItems(rangeData))
+            //    sectors.Add(i.Sector);
+            //foreach (Sector s in sectors)
+            //    if (s == sector)
+            //        ok = true;
+            //IEnumerable<Position> positions=(from item in BookedItems(rangeData)
+            //                                 select item.Position);
+
+            IEnumerable<IBookableItem> items;
+
+           items= (from item in BookedItems(rangeData)
+                    where item.Sector.Equals(sector)
+                    select item);
+
+            IEnumerable<Position> positions = new List<Position>();
+            foreach (IBookableItem i in items)
+                (positions as List<Position>).Add(i.Position);
+
+            return positions;
         }
         public bool IsAvailable(Sector sector, Position position, DateRange rangeData)
         {
