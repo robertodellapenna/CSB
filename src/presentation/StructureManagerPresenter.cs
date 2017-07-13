@@ -105,7 +105,7 @@ namespace CSB_Project.src.presentation
             for (int i = 1; i <= sector.Rows; i++)
             {
                 TreeNode tnRow = new TreeNode("Riga " + i);
-                tnRow.Tag = sector;
+                tnRow.Tag = i;
                 for (int j = 1; j <= sector.Columns; j++)
                 {
                     Position positionToAdd = new Position(i, j);
@@ -115,6 +115,7 @@ namespace CSB_Project.src.presentation
                     if (item == null)
                     {
                         tnBookableItem = new TreeNode(j + " - nessun elemento");
+                        tnBookableItem.Tag = null;
                     }
                     else
                     {
@@ -152,7 +153,33 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
-            
+            Object selectedItem = _structureTree.SelectedNode.Tag;
+            string text = _structureTree.SelectedNode.Text;
+            if (selectedItem==null && text.Contains("nessun elemento"))
+            {
+                IItem baseItem = null;
+                Position position = new Position((int)_structureTree.SelectedNode.Parent.Tag, _structureTree.SelectedNode.Index + 1);
+                Sector sector = _structureTree.SelectedNode.Parent.Parent.Tag as Sector;
+                using (SelectItemDialog sd = new SelectItemDialog())
+                {
+                    if (sd.ShowDialog() == DialogResult.OK)
+                    {
+                        baseItem = sd.SelectedItem;
+                    }
+                    else
+                        return;
+                }
+                if (baseItem != null)
+                {
+                    IBookableItem bookItem = new SectorBookableItem(baseItem, position, sector);
+                    _bCoordinator.AddBookableItem(bookItem);
+                    StructureChangedHandler(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                //non si può aggiungere
+            }
         }
 
         private void ModifyHandler(Object sender, EventArgs eventArgs)

@@ -42,15 +42,15 @@
             this._labeItem = new System.Windows.Forms.Label();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this._labelItemValue = new System.Windows.Forms.Label();
+            this._comboBoxColumn = new System.Windows.Forms.ComboBox();
+            this._labelColumn = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this._dateTimePickerDa = new System.Windows.Forms.DateTimePicker();
             this._labelA = new System.Windows.Forms.Label();
             this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
             this._labelDa = new System.Windows.Forms.Label();
             this._comboBoxRow = new System.Windows.Forms.ComboBox();
-            this._labelColumn = new System.Windows.Forms.Label();
-            this._comboBoxColumn = new System.Windows.Forms.ComboBox();
-            this._labelItemValue = new System.Windows.Forms.Label();
             this._bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.panel1.SuspendLayout();
@@ -190,6 +190,32 @@
             this.panel1.Size = new System.Drawing.Size(493, 350);
             this.panel1.TabIndex = 17;
             // 
+            // _labelItemValue
+            // 
+            this._labelItemValue.AutoSize = true;
+            this._labelItemValue.Location = new System.Drawing.Point(166, 291);
+            this._labelItemValue.Name = "_labelItemValue";
+            this._labelItemValue.Size = new System.Drawing.Size(0, 13);
+            this._labelItemValue.TabIndex = 24;
+            // 
+            // _comboBoxColumn
+            // 
+            this._comboBoxColumn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._comboBoxColumn.Location = new System.Drawing.Point(163, 239);
+            this._comboBoxColumn.Name = "_comboBoxColumn";
+            this._comboBoxColumn.Size = new System.Drawing.Size(280, 21);
+            this._comboBoxColumn.TabIndex = 23;
+            this._comboBoxColumn.SelectedIndexChanged += new System.EventHandler(this.SelectedColumnHandler);
+            // 
+            // _labelColumn
+            // 
+            this._labelColumn.AutoSize = true;
+            this._labelColumn.Location = new System.Drawing.Point(38, 242);
+            this._labelColumn.Name = "_labelColumn";
+            this._labelColumn.Size = new System.Drawing.Size(114, 13);
+            this._labelColumn.TabIndex = 21;
+            this._labelColumn.Text = "Selezionare la colonna";
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
@@ -253,32 +279,6 @@
             this._comboBoxRow.Size = new System.Drawing.Size(280, 21);
             this._comboBoxRow.TabIndex = 13;
             this._comboBoxRow.SelectedIndexChanged += new System.EventHandler(this.SelectedRowHandler);
-            // 
-            // _labelColumn
-            // 
-            this._labelColumn.AutoSize = true;
-            this._labelColumn.Location = new System.Drawing.Point(38, 242);
-            this._labelColumn.Name = "_labelColumn";
-            this._labelColumn.Size = new System.Drawing.Size(114, 13);
-            this._labelColumn.TabIndex = 21;
-            this._labelColumn.Text = "Selezionare la colonna";
-            // 
-            // _comboBoxColumn
-            // 
-            this._comboBoxColumn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxColumn.Location = new System.Drawing.Point(163, 239);
-            this._comboBoxColumn.Name = "_comboBoxColumn";
-            this._comboBoxColumn.Size = new System.Drawing.Size(280, 21);
-            this._comboBoxColumn.TabIndex = 23;
-            this._comboBoxColumn.SelectedIndexChanged += new System.EventHandler(this.SelectedColumnHandler);
-            // 
-            // _labelItemValue
-            // 
-            this._labelItemValue.AutoSize = true;
-            this._labelItemValue.Location = new System.Drawing.Point(206, 291);
-            this._labelItemValue.Name = "_labelItemValue";
-            this._labelItemValue.Size = new System.Drawing.Size(0, 13);
-            this._labelItemValue.TabIndex = 24;
             // 
             // SelectBookableItemDialog
             // 
