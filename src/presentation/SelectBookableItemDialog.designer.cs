@@ -38,7 +38,6 @@
             this._comboBoxArea = new System.Windows.Forms.ComboBox();
             this._labelSector = new System.Windows.Forms.Label();
             this._comboBoxSector = new System.Windows.Forms.ComboBox();
-            this._comboBoxItem = new System.Windows.Forms.ComboBox();
             this._labelRow = new System.Windows.Forms.Label();
             this._labeItem = new System.Windows.Forms.Label();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -48,9 +47,10 @@
             this._labelA = new System.Windows.Forms.Label();
             this._dateTimePickerA = new System.Windows.Forms.DateTimePicker();
             this._labelDa = new System.Windows.Forms.Label();
-            this._labelPriceString = new System.Windows.Forms.Label();
             this._comboBoxRow = new System.Windows.Forms.ComboBox();
-            this._labelPriceValue = new System.Windows.Forms.Label();
+            this._labelColumn = new System.Windows.Forms.Label();
+            this._comboBoxColumn = new System.Windows.Forms.ComboBox();
+            this._labelItemValue = new System.Windows.Forms.Label();
             this._bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.panel1.SuspendLayout();
@@ -60,7 +60,7 @@
             // _comboBoxStructure
             // 
             this._comboBoxStructure.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxStructure.Location = new System.Drawing.Point(167, 71);
+            this._comboBoxStructure.Location = new System.Drawing.Point(163, 57);
             this._comboBoxStructure.Name = "_comboBoxStructure";
             this._comboBoxStructure.Size = new System.Drawing.Size(280, 21);
             this._comboBoxStructure.TabIndex = 5;
@@ -68,7 +68,7 @@
             // 
             // _labelStructure
             // 
-            this._labelStructure.Location = new System.Drawing.Point(24, 71);
+            this._labelStructure.Location = new System.Drawing.Point(29, 57);
             this._labelStructure.Name = "_labelStructure";
             this._labelStructure.Size = new System.Drawing.Size(128, 23);
             this._labelStructure.TabIndex = 4;
@@ -111,7 +111,7 @@
             // 
             // _labelArea
             // 
-            this._labelArea.Location = new System.Drawing.Point(33, 114);
+            this._labelArea.Location = new System.Drawing.Point(38, 102);
             this._labelArea.Name = "_labelArea";
             this._labelArea.Size = new System.Drawing.Size(128, 23);
             this._labelArea.TabIndex = 9;
@@ -121,7 +121,7 @@
             // _comboBoxArea
             // 
             this._comboBoxArea.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxArea.Location = new System.Drawing.Point(167, 116);
+            this._comboBoxArea.Location = new System.Drawing.Point(163, 104);
             this._comboBoxArea.Name = "_comboBoxArea";
             this._comboBoxArea.Size = new System.Drawing.Size(280, 21);
             this._comboBoxArea.TabIndex = 10;
@@ -129,7 +129,7 @@
             // 
             // _labelSector
             // 
-            this._labelSector.Location = new System.Drawing.Point(24, 162);
+            this._labelSector.Location = new System.Drawing.Point(22, 144);
             this._labelSector.Name = "_labelSector";
             this._labelSector.Size = new System.Drawing.Size(128, 23);
             this._labelSector.TabIndex = 11;
@@ -139,24 +139,15 @@
             // _comboBoxSector
             // 
             this._comboBoxSector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxSector.Location = new System.Drawing.Point(167, 164);
+            this._comboBoxSector.Location = new System.Drawing.Point(163, 146);
             this._comboBoxSector.Name = "_comboBoxSector";
             this._comboBoxSector.Size = new System.Drawing.Size(280, 21);
             this._comboBoxSector.TabIndex = 12;
             this._comboBoxSector.SelectedIndexChanged += new System.EventHandler(this.SelectedSectorHandler);
             // 
-            // _comboBoxItem
-            // 
-            this._comboBoxItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxItem.Location = new System.Drawing.Point(167, 256);
-            this._comboBoxItem.Name = "_comboBoxItem";
-            this._comboBoxItem.Size = new System.Drawing.Size(280, 21);
-            this._comboBoxItem.TabIndex = 14;
-            this._comboBoxItem.SelectedIndexChanged += new System.EventHandler(this.SelectedItemHandler);
-            // 
             // _labelRow
             // 
-            this._labelRow.Location = new System.Drawing.Point(24, 207);
+            this._labelRow.Location = new System.Drawing.Point(22, 192);
             this._labelRow.Name = "_labelRow";
             this._labelRow.Size = new System.Drawing.Size(128, 23);
             this._labelRow.TabIndex = 15;
@@ -165,11 +156,11 @@
             // 
             // _labeItem
             // 
-            this._labeItem.Location = new System.Drawing.Point(33, 256);
+            this._labeItem.Location = new System.Drawing.Point(24, 286);
             this._labeItem.Name = "_labeItem";
             this._labeItem.Size = new System.Drawing.Size(128, 23);
             this._labeItem.TabIndex = 16;
-            this._labeItem.Text = "Selezionare l\'elemento prenotabile";
+            this._labeItem.Text = "Elemento";
             this._labeItem.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // _errorProvider
@@ -180,11 +171,11 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this._labelPriceValue);
-            this.panel1.Controls.Add(this._labelPriceString);
+            this.panel1.Controls.Add(this._labelItemValue);
+            this.panel1.Controls.Add(this._comboBoxColumn);
+            this.panel1.Controls.Add(this._labelColumn);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this._labelStructure);
-            this.panel1.Controls.Add(this._comboBoxItem);
             this.panel1.Controls.Add(this._labeItem);
             this.panel1.Controls.Add(this._comboBoxRow);
             this.panel1.Controls.Add(this._comboBoxStructure);
@@ -254,31 +245,40 @@
             this._labelDa.TabIndex = 3;
             this._labelDa.Text = "Da";
             // 
-            // _labelPriceString
-            // 
-            this._labelPriceString.AutoSize = true;
-            this._labelPriceString.Location = new System.Drawing.Point(71, 305);
-            this._labelPriceString.Name = "_labelPriceString";
-            this._labelPriceString.Size = new System.Drawing.Size(90, 13);
-            this._labelPriceString.TabIndex = 19;
-            this._labelPriceString.Text = "Prezzo giornaliero";
-            // 
             // _comboBoxRow
             // 
             this._comboBoxRow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._comboBoxRow.Location = new System.Drawing.Point(167, 207);
+            this._comboBoxRow.Location = new System.Drawing.Point(163, 194);
             this._comboBoxRow.Name = "_comboBoxRow";
             this._comboBoxRow.Size = new System.Drawing.Size(280, 21);
             this._comboBoxRow.TabIndex = 13;
             this._comboBoxRow.SelectedIndexChanged += new System.EventHandler(this.SelectedRowHandler);
             // 
-            // _labelPriceValue
+            // _labelColumn
             // 
-            this._labelPriceValue.AutoSize = true;
-            this._labelPriceValue.Location = new System.Drawing.Point(421, 305);
-            this._labelPriceValue.Name = "_labelPriceValue";
-            this._labelPriceValue.Size = new System.Drawing.Size(0, 13);
-            this._labelPriceValue.TabIndex = 20;
+            this._labelColumn.AutoSize = true;
+            this._labelColumn.Location = new System.Drawing.Point(38, 242);
+            this._labelColumn.Name = "_labelColumn";
+            this._labelColumn.Size = new System.Drawing.Size(114, 13);
+            this._labelColumn.TabIndex = 21;
+            this._labelColumn.Text = "Selezionare la colonna";
+            // 
+            // _comboBoxColumn
+            // 
+            this._comboBoxColumn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._comboBoxColumn.Location = new System.Drawing.Point(163, 239);
+            this._comboBoxColumn.Name = "_comboBoxColumn";
+            this._comboBoxColumn.Size = new System.Drawing.Size(280, 21);
+            this._comboBoxColumn.TabIndex = 23;
+            this._comboBoxColumn.SelectedIndexChanged += new System.EventHandler(this.SelectedColumnHandler);
+            // 
+            // _labelItemValue
+            // 
+            this._labelItemValue.AutoSize = true;
+            this._labelItemValue.Location = new System.Drawing.Point(206, 291);
+            this._labelItemValue.Name = "_labelItemValue";
+            this._labelItemValue.Size = new System.Drawing.Size(0, 13);
+            this._labelItemValue.TabIndex = 24;
             // 
             // SelectBookableItemDialog
             // 
@@ -312,7 +312,6 @@
         private System.Windows.Forms.ComboBox _comboBoxArea;
         private System.Windows.Forms.Label _labelSector;
         private System.Windows.Forms.ComboBox _comboBoxSector;
-        private System.Windows.Forms.ComboBox _comboBoxItem;
         private System.Windows.Forms.Label _labelRow;
         private System.Windows.Forms.Label _labeItem;
         private System.Windows.Forms.ErrorProvider _errorProvider;
@@ -322,8 +321,9 @@
         private System.Windows.Forms.Label _labelA;
         private System.Windows.Forms.DateTimePicker _dateTimePickerA;
         private System.Windows.Forms.Label _labelDa;
-        private System.Windows.Forms.Label _labelPriceValue;
-        private System.Windows.Forms.Label _labelPriceString;
         private System.Windows.Forms.ComboBox _comboBoxRow;
+        private System.Windows.Forms.ComboBox _comboBoxColumn;
+        private System.Windows.Forms.Label _labelColumn;
+        private System.Windows.Forms.Label _labelItemValue;
     }
 }
