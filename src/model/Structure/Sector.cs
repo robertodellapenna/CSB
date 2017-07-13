@@ -1,6 +1,7 @@
 ﻿using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -43,7 +44,8 @@ namespace CSB_Project.src.model.Structure
         #region Metodi
         public override string ToString()
         {
-            return Name+ "(+€"+ItemPriceIncrease+")";
+            var cultureInfo = CultureInfo.GetCultureInfo("it-IT");
+            return Name+ "(+"+ String.Format(cultureInfo, "{0:C} Euro", ItemPriceIncrease) + ")";
         }
         #endregion
 

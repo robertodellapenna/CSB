@@ -3,6 +3,7 @@ using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.Utils;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -45,7 +46,7 @@ namespace CSB_Project.src.model.Booking
         #endregion
 
         #region Metodi
-        public override string ToString() => _baseItem.FriendlyName + ", prezzo giornaliero: " + "€" + DailyPrice;
+        public override string ToString() => _baseItem.FriendlyName + ", prezzo giornaliero: " + String.Format(CultureInfo.GetCultureInfo("it-IT"), "{0:C} Euro", DailyPrice);
         #endregion
 
         #region Handler
