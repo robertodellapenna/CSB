@@ -78,8 +78,9 @@ namespace CSB_Project.src.presentation
             int topPanelHeight = 100;
             int offset = SystemInformation.CaptionHeight;
 
-            Size newViewSize = new Size(_column * _width,
-                _row * _height + topPanelHeight + offset);
+            Size newViewSize = new Size(_column * _width, topPanelHeight + offset);
+            _view.BackColor= Color.White; ;
+            _view.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             Panel topPanel = new Panel();
             topPanel.Size = new Size(newViewSize.Width, topPanelHeight);
@@ -93,38 +94,50 @@ namespace CSB_Project.src.presentation
                 msg, Color.DeepSkyBlue, Color.White, Color.White, 0, style);
             loginInfoLabel.Dock = DockStyle.Fill;
             topPanel.Controls.Add(loginInfoLabel);
-            
+
+            Panel tableContainer = new Panel();
+            tableContainer.AutoScroll = true;
+            tableContainer.AutoSize = false;
+            tableContainer.Margin = new Padding(0);
+            tableContainer.Location = new Point(0, topPanelHeight);
+            tableContainer.BackColor = Color.White;
+
             TableLayoutPanel tablePanel = new TableLayoutPanel();
             tablePanel = new TableLayoutPanel();
             tablePanel.AutoSize = false;
-            tablePanel.AutoScroll = true;
-            tablePanel.Location = new Point(0, topPanelHeight);
-            //tablePanel.Size = new Size(newViewSize.Width-SystemInformation.VerticalScrollBarWidth, _row * _height);
             tablePanel.BackColor = Color.White;
             tablePanel.Margin = new Padding(0);
             tablePanel.Padding = new Padding(0);
+            tablePanel.BackColor = Color.White;
 
             tablePanel.RowCount = 0;
             tablePanel.RowStyles.Clear();
             tablePanel.ControlAdded += delegate (Object o, ControlEventArgs e)
             {
-                tablePanel.RowCount = (tablePanel.Controls.Count / _column) + 1;
+                tablePanel.RowCount = (int) Math.Ceiling((double)tablePanel.Controls.Count / _column);
                 if (tablePanel.RowCount > tablePanel.RowStyles.Count)
                 {
+                    int tableRow = tablePanel.RowCount > _row ? _row : tablePanel.RowCount;
+                    tableContainer.Size = new Size(newViewSize.Width, tableRow * _height);
                     tablePanel.Size = new Size(newViewSize.Width - SystemInformation.VerticalScrollBarWidth, tablePanel.RowCount * _height);
                     tablePanel.RowStyles.Add(new RowStyle(SizeType.Absolute, _height));
                 }
+                _view.Size = new Size(_column * _width, topPanelHeight + offset + tableContainer.Height);
             };
+
+            loginInfoLabel.Click += (obj, e) => _view.Size += new Size(0, 1);
 
             tablePanel.ColumnStyles.Clear();
             tablePanel.ColumnCount = _column;
+
             for (int i=0; i<_column; i++)
                 tablePanel.ColumnStyles.Add(
-                    new ColumnStyle(SizeType.Absolute, (tablePanel.Width - SystemInformation.VerticalScrollBarWidth) /tablePanel.ColumnCount));
+                    new ColumnStyle(SizeType.Absolute, (newViewSize.Width - SystemInformation.VerticalScrollBarWidth) /_column));
 
             _view.Size = newViewSize;
             _view.Controls.Add(topPanel);
-            _view.Controls.Add(tablePanel);
+            tableContainer.Controls.Add(tablePanel);
+            _view.Controls.Add(tableContainer);
             _panel = tablePanel;            
         }
 
@@ -132,9 +145,31 @@ namespace CSB_Project.src.presentation
         {
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
             CreateButton("Visualizza servizi disponibili", SpawnServiceView);
+            CreateButton("Visualizza Bundle", SpawnBundleView);
+            CreateButton("Visualizza Pacchetti", SpawnPacketView);
+            CreateButton("Registrati per prenotare", () => MessageBox.Show("Non implementato"));
+
         }
 
         #region SpawnMethod
+        private void SpawnPacketView()
+        {
+            PacketManagerView packetView = new PacketManagerView();
+            packetView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
+            packetView.AddTagInformation("mode", ActionType.VIEW);
+            new PacketManagerPresenter(packetView);
+            packetView.Show();
+        }
+
+        private void SpawnBundleView()
+        {
+            BundleManagerView bundleView = new BundleManagerView();
+            bundleView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
+            bundleView.AddTagInformation("mode", ActionType.VIEW);
+            new BundleManagerPresenter(bundleView);
+            bundleView.Show();
+        }
+
         private void SpawnServiceView()
         {
             SelectionService serviceView = new SelectionService();
@@ -173,6 +208,7 @@ namespace CSB_Project.src.presentation
             style.Font = new Font(FontFamily.GenericSansSerif, 18, FontStyle.Bold);
             BorderLabel showItemStatusButton = new BorderLabel(text, Color.BlueViolet, Color.Black, Color.White, 1, style);
             showItemStatusButton.Margin = new Padding(0);
+            showItemStatusButton.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             showItemStatusButton.Dock = DockStyle.Fill;
             showItemStatusButton.Click += (obj, e) => action();
             _panel.Controls.Add(showItemStatusButton);
