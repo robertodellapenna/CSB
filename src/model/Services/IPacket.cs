@@ -15,7 +15,7 @@ namespace CSB_Project.src.model.Services
         bool IsActiveIn(DateRange when);
         string Name { get; }
         string Description { get; }
-
+        string InformationString { get; }
         /// <summary>
         /// Servizio a cui fa riferimento il pacchetto
         /// </summary>
