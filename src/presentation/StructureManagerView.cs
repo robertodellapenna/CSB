@@ -13,24 +13,18 @@ namespace CSB_Project.src.presentation
     public partial class StructureManagerView : Form
     {
         public Button AddButton => _addButton;
+        public Button ModifyButton => _modifyButton;
+        public Button DeleteButton => _deleteButton;
+
         public TreeView TreeView => _treeView;
-        public DateTimePicker Da => _dateTimePickerDa;
-        public DateTimePicker A => _dateTimePickerA;
+        public DateTimePicker FromDate => _dateTimePickerDa;
+        public DateTimePicker ToDate => _dateTimePickerA;
+        public Panel BottomPanel => _actionPanel;
 
         public StructureManagerView(Style style = null)
         {
             InitializeComponent();
             this.ApplyStyle(style);
-        }
-
-        private void StructureManagerView_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _treeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
         }
     }
 }

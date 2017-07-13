@@ -44,7 +44,7 @@ namespace CSB_Project.src.presentation.Utils
         {
             _errorProvider.Clear();
             if (servizi.Count <= 0)
-                return;
+                Close();
             DialogResult = DialogResult.OK;
             Close();
         }

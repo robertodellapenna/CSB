@@ -145,5 +145,54 @@ namespace CSB_Project.src.presentation.Utils
             tb.Text = msg;
             tb.ForeColor = color;
         }
+
+        public static void AddTagInformation(this Control c, string key, Object value)
+        {
+            if (c.Tag == null)
+                c.Tag = new Dictionary<string, Object>();
+            else
+            {
+                if (!(c.Tag is Dictionary<string, Object>))
+                {
+                    Dictionary<string, Object> dict = new Dictionary<string, object>();
+                    dict.Add("previousTagValue", c.Tag);
+                    c.Tag = dict;
+                }
+            }
+            (c.Tag as Dictionary<string, Object>)[key] = value;
+        }
+
+        public static void AddLoginInformation(this Control c, LoginPresenter.ILoginInformation li)
+        {
+            #region Precondizioni
+            if (li == null)
+                throw new ArgumentNullException("li null");
+            #endregion
+            AddTagInformation(c, "loginInformation", li);
+        }
+
+        public static Object RetrieveTagInformation(this Control c, string key)
+        {
+            if (c.Tag == null ||
+                !(c.Tag is Dictionary<string, Object>))
+                throw new InvalidOperationException("Il campo tag non è un dizionario");
+            if((c.Tag as Dictionary<string, Object>).ContainsKey(key))
+                throw new InvalidOperationException("non è presente nessuna chiave '" + key +"'");
+            return (c.Tag as Dictionary<string, Object>)[key];
+        }
+
+        public static T RetrieveTagInformation<T>(this Control c, string key)
+       {
+            if (c.Tag == null ||
+                !(c.Tag is Dictionary<string, Object>))
+                throw new InvalidOperationException("Il campo tag non è un dizionario");
+            if (!(c.Tag as Dictionary<string, Object>).ContainsKey(key))
+                throw new InvalidOperationException("non è presente nessuna chiave '" + key + "'");
+            Object obj = (c.Tag as Dictionary<string, Object>)[key];
+
+            if (!(obj is T))
+                throw new InvalidOperationException("il valore di '" + key + "' non è di tipo " + typeof(T));
+            return (T)obj;
+        }
     }
 }

@@ -296,6 +296,13 @@
       <DependentUpon>LoginView.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\LoginPresenter.cs" />
+    <Compile Include="src\presentation\MainPresenter.cs" />
+    <Compile Include="src\presentation\MainView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\PacketManagerPresenter.cs" />
     <Compile Include="src\presentation\PacketManagerView.cs">
       <SubType>Form</SubType>
@@ -337,8 +344,21 @@
     <Compile Include="src\presentation\Utils\CategoryPicker.Designer.cs">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\Utils\ActionType.cs" />
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
+    <Compile Include="src\presentation\Utils\SelectionBundle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\SelectionBundle.Designer.cs">
+      <DependentUpon>SelectionBundle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\Utils\SelectionPacket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\SelectionPacket.Designer.cs">
+      <DependentUpon>SelectionPacket.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\Utils\SelectionService.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,6 +427,9 @@
     <EmbeddedResource Include="src\presentation\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
     </EmbeddedResource>
@@ -424,6 +447,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\SelectionBundle.resx">
+      <DependentUpon>SelectionBundle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\SelectionPacket.resx">
+      <DependentUpon>SelectionPacket.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\SelectionService.resx">
       <DependentUpon>SelectionService.cs</DependentUpon>

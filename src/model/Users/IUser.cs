@@ -26,6 +26,7 @@ namespace CSB_Project.src.model.Users
 
     public enum AuthorizationLevel
     {
+        GUEST,
         CUSTOMER,
         BASIC_STAFF,
         ADVANCED_STAFF
