@@ -1,6 +1,7 @@
 ﻿using CSB_Project.src.business;
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Category;
+using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.Utils;
 using System;
@@ -60,6 +61,14 @@ namespace CSB_Project.src.presentation.Utils
             tnc.Add(tn);
         }
 
+        public static void Populate(this TabControl tc, IEnumerable<IPrenotation> prenotations)
+        {
+            foreach(IPrenotation p in prenotations)
+            {
+                tc.TabPages.Add("Dal " + p.PrenotationDate.StartDate.ToShortDateString() + " al " + p.PrenotationDate.EndDate.Date.ToShortDateString());
+            }
+        }
+
 
         public static void SetHint(this TextBox tb, string msg, Color color)
         {
@@ -99,7 +108,7 @@ namespace CSB_Project.src.presentation.Utils
             (c.Tag as Dictionary<string, Object>)[key] = value;
         }
 
-        public static void AddLoginInformation(this Control c, LoginPresenter.ILoginInformation li)
+        public static void AddLoginInformation(this Control c, ILoginInformation li)
         {
             #region Precondizioni
             if (li == null)

@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows.Forms;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Services;
+using CSB_Project.src.presentation.Utils;
+using CSB_Project.src.model.Users;
 
 namespace CSB_Project.src.presentation
 {
@@ -12,11 +14,22 @@ namespace CSB_Project.src.presentation
     {
         private ListView _packetList;
         private IEnumerable<IPacket> _packets;
-        IServiceCoordinator coordinator;
+        private IServiceCoordinator coordinator;
 
         public PacketManagerPresenter(PacketManagerView view)
         {
+            #region Precondizioni
+            if (view == null)
+                throw new ArgumentNullException("view null");
+            #endregion
             view.AddButton.Click += AddHandler;
+            
+            if (view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") == AuthorizationLevel.GUEST)
+            {
+                view.ActionPanel.Enabled = false;
+                view.ActionPanel.Visible = false;
+            }
+            
             _packetList = view.ListView;
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)

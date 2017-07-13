@@ -2,6 +2,7 @@
 using CSB_Project.src.presentation;
 using CSB_Project.src.presentation.ItemCreatorPresenter;
 using CSB_Project.src.presentation.Utils;
+using Lab3.Presentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,10 +20,20 @@ namespace CSB_Project.src
         public GioForm()
         {
             InitializeComponent();
-            ExpandableNode ex = new ExpandableNode();
-            ex.Size = new Size(200, 300);
-            ex.Children.Add(new ExpandableNode());
-            Controls.Add(ex);
+            //ExpandableNode ex = new ExpandableNode();
+            //ex.Size = new Size(200, 300);
+            //ex.Children.Add(new ExpandableNode());
+            //Controls.Add(ex);
+
+
+            //IStructureCoordinator c = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
+            
+
+            //using (SelectBookableItemDialog s = new SelectBookableItemDialog())
+            //{
+            //    s.LoadStructures(c.Structures);
+            //    s.ShowDialog();
+            //}
             
         }
     }

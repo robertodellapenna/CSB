@@ -312,7 +312,13 @@
     <Compile Include="src\presentation\PacketManagerView.Designer.cs">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\presentation\PersistenceManagerPresenter.cs" />
+    <Compile Include="src\presentation\PrenotationPresenter.cs" />
+    <Compile Include="src\presentation\PrenotationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\PrenotationView.Designer.cs">
+      <DependentUpon>PrenotationView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\SectorCreatorPresenter.cs" />
     <Compile Include="src\presentation\SelectBookableItemDialog.cs">
       <SubType>Form</SubType>
@@ -360,6 +366,7 @@
     <Compile Include="src\presentation\Utils\ExpandableNode.Designer.cs">
       <DependentUpon>ExpandableNode.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\Utils\ILoginInformation.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
     <Compile Include="src\presentation\Utils\SelectionBundle.cs">
       <SubType>Form</SubType>
@@ -446,6 +453,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\PrenotationView.resx">
+      <DependentUpon>PrenotationView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\SectorCreator.resx">
       <DependentUpon>SectorCreator.cs</DependentUpon>

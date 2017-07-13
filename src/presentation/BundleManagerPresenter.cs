@@ -5,6 +5,8 @@ using System.Text;
 using System.Windows.Forms;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Services;
+using CSB_Project.src.presentation.Utils;
+using CSB_Project.src.model.Users;
 
 namespace CSB_Project.src.presentation
 {
@@ -24,6 +26,13 @@ namespace CSB_Project.src.presentation
             _bundleList = view.ListView;
             _bundleList.MultiSelect = false;
             _bundleList.DoubleClick += ShowBundleHandler;
+
+            if(view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") == AuthorizationLevel.GUEST)
+            {
+                view.ActionPanel.Enabled = false;
+                view.ActionPanel.Visible = false;
+            }
+
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)
                 throw new InvalidOperationException("Il coordinatore dei bundle non è disponibile");

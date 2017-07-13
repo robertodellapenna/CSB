@@ -23,8 +23,9 @@ namespace CSB_Project.src.presentation
         private Panel _panel;
         private int _row, _column, _width, _height;
         private string _loginName;
+        private ILoginInformation _loginInformation;
 
-        public MainPresenter(MainView view,Func<string, ILoginUser> userRetriever, int row = DEFAULT_ROW, int column = DEFAULT_COLUMN,
+        public MainPresenter(MainView view, Func<string, ILoginUser> userRetriever, int row = DEFAULT_ROW, int column = DEFAULT_COLUMN,
             int width = DEFAULT_WIDTH, int height = DEFAULT_HEIGHT)
         {
             #region Precondizioni
@@ -38,7 +39,7 @@ namespace CSB_Project.src.presentation
                 throw new ArgumentException("width <= 0");
             if (height <= 0)
                 throw new ArgumentException("height <= 0");
-            if(userRetriever == null)
+            if (userRetriever == null)
                 throw new ArgumentNullException("userRetriever null");
             #endregion
             _view = view;
@@ -48,13 +49,14 @@ namespace CSB_Project.src.presentation
             _height = height;
 
             // Recupero il tag
-            //string username = view.RetrieveTagInformation<LoginPresenter.ILoginInformation>("loginInformation").Username;
-            
+            //_loginInformation = view.RetrieveTagInformation<ILoginInformation>("loginInformation");
+            //string username = _loginInformation.Username;
+
             // DA ELIMINARE
             //string username = RetrieveUsername();  
             //string username = "giovanni.admin"; // STAFF
-            string username = ""; // GUEST
-            //string username = "lorenzo.antonini"; // CUSTOMER 
+            //string username = ""; // GUEST
+            string username = "lorenzo.antonini"; // CUSTOMER 
             // FINE DA ELIMINARE
 
             // Recupero la tipologia di utente
@@ -65,11 +67,11 @@ namespace CSB_Project.src.presentation
             SharedInit();
 
             // Inizializzo in base alla tipologia di utente
-            if(user == null || user.AuthorizationLevel == AuthorizationLevel.GUEST)
+            if (user == null || user.AuthorizationLevel == AuthorizationLevel.GUEST)
                 GuestInit();
             else if (user.AuthorizationLevel == AuthorizationLevel.CUSTOMER)
                 CustomerInit();
-            else if (user.AuthorizationLevel >= AuthorizationLevel.CUSTOMER)
+            else if (user.AuthorizationLevel > AuthorizationLevel.CUSTOMER)
                 StaffInit();
         }
 
@@ -79,7 +81,7 @@ namespace CSB_Project.src.presentation
             int offset = SystemInformation.CaptionHeight;
 
             Size newViewSize = new Size(_column * _width, topPanelHeight + offset);
-            _view.BackColor= Color.White; ;
+            _view.BackColor = Color.White; ;
             _view.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             Panel topPanel = new Panel();
@@ -114,7 +116,7 @@ namespace CSB_Project.src.presentation
             tablePanel.RowStyles.Clear();
             tablePanel.ControlAdded += delegate (Object o, ControlEventArgs e)
             {
-                tablePanel.RowCount = (int) Math.Ceiling((double)tablePanel.Controls.Count / _column);
+                tablePanel.RowCount = (int)Math.Ceiling((double)tablePanel.Controls.Count / _column);
                 if (tablePanel.RowCount > tablePanel.RowStyles.Count)
                 {
                     int tableRow = tablePanel.RowCount > _row ? _row : tablePanel.RowCount;
@@ -130,15 +132,15 @@ namespace CSB_Project.src.presentation
             tablePanel.ColumnStyles.Clear();
             tablePanel.ColumnCount = _column;
 
-            for (int i=0; i<_column; i++)
+            for (int i = 0; i < _column; i++)
                 tablePanel.ColumnStyles.Add(
-                    new ColumnStyle(SizeType.Absolute, (newViewSize.Width - SystemInformation.VerticalScrollBarWidth) /_column));
+                    new ColumnStyle(SizeType.Absolute, (newViewSize.Width - SystemInformation.VerticalScrollBarWidth) / _column));
 
             _view.Size = newViewSize;
             _view.Controls.Add(topPanel);
             tableContainer.Controls.Add(tablePanel);
             _view.Controls.Add(tableContainer);
-            _panel = tablePanel;            
+            _panel = tablePanel;
         }
 
         private void GuestInit()
@@ -148,6 +150,22 @@ namespace CSB_Project.src.presentation
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
             CreateButton("Registrati per prenotare", () => MessageBox.Show("Non implementato"));
+        }
+
+        private void CustomerInit()
+        {
+            CreateButton("Visualizza prenotazioni effettuate", () => MessageBox.Show("Hello"));
+            CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Hello"));
+            CreateButton("Modifica prenotazione", () => MessageBox.Show("Hello"));
+
+            CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
+            CreateButton("Visualizza servizi disponibili", SpawnServiceView);
+            CreateButton("Visualizza Bundle", SpawnBundleView);
+            CreateButton("Visualizza Pacchetti", SpawnPacketView);
+        }
+
+        private void StaffInit()
+        {
 
         }
 
@@ -155,8 +173,7 @@ namespace CSB_Project.src.presentation
         private void SpawnPacketView()
         {
             PacketManagerView packetView = new PacketManagerView();
-            packetView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
-            packetView.AddTagInformation("mode", ActionType.VIEW);
+            AddInformation(packetView);
             new PacketManagerPresenter(packetView);
             packetView.Show();
         }
@@ -164,8 +181,7 @@ namespace CSB_Project.src.presentation
         private void SpawnBundleView()
         {
             BundleManagerView bundleView = new BundleManagerView();
-            bundleView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
-            bundleView.AddTagInformation("mode", ActionType.VIEW);
+            AddInformation(bundleView);
             new BundleManagerPresenter(bundleView);
             bundleView.Show();
         }
@@ -173,34 +189,29 @@ namespace CSB_Project.src.presentation
         private void SpawnServiceView()
         {
             SelectionService serviceView = new SelectionService();
-            serviceView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
-            serviceView.AddTagInformation("mode", ActionType.VIEW);
+            AddInformation(serviceView);
             serviceView.Show();
         }
-
 
         private void SpawnBookableView()
         {
             StructureManagerView structureView = new StructureManagerView();
-            structureView.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
-            structureView.AddTagInformation("mode", ActionType.VIEW);
+            AddInformation(structureView);
             new StructureManagerPresenter(structureView);
             structureView.Show();
         }
+
+        private void AddInformation(Form v)
+        {
+            #region Precondizioni
+            if (v == null)
+                throw new ArgumentNullException("v null");
+            #endregion
+            v.AddTagInformation(AUTHORIZATION_KEY, _authLevel);
+            v.AddTagInformation("mode", ActionType.VIEW);
+            v.AddLoginInformation(_loginInformation);
+        }
         #endregion
-
-
-        private void CustomerInit()
-        {
-            CreateButton("Visualizza prenotazioni effettuate", () => MessageBox.Show("Hello"));
-            CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Hello"));
-            CreateButton("Modifica prenotazione", () => MessageBox.Show("Hello"));
-        }
-
-        private void StaffInit()
-        {
-
-        }
 
         private void CreateButton(string text, Action action)
         {

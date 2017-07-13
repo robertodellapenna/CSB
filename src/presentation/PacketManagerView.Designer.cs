@@ -61,7 +61,6 @@ namespace CSB_Project.src.presentation
             this._listView.Name = "_listView";
             this._listView.Size = new System.Drawing.Size(424, 362);
             this._listView.TabIndex = 0;
-            this._listView.UseCompatibleStateImageBehavior = false;
             this._listView.Columns.Add("Nome");
             this._listView.Columns.Add("Descrizione");
             this._listView.Columns.Add("Prezzo");
@@ -70,8 +69,8 @@ namespace CSB_Project.src.presentation
             this._listView.Columns.Add("Ticket");
             this._listView.Columns.Add("Validita");
             ResizeListView.autoResizeColumns(_listView);
+            this._listView.UseCompatibleStateImageBehavior = false;
             this._listView.View = System.Windows.Forms.View.Details;
-            this._listView.SelectedIndexChanged += new System.EventHandler(this._listView_SelectedIndexChanged);
             // 
             // _actionPanel
             // 
@@ -113,7 +112,6 @@ namespace CSB_Project.src.presentation
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "PacketManagerView";
             this.Text = "PacketManagerView";
-            this.Load += new System.EventHandler(this.PacketManagerView_Load);
             this._listPanel.ResumeLayout(false);
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);

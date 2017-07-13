@@ -99,13 +99,6 @@ namespace CSB_Project.src.presentation
             }
         }
 
-
-        public interface ILoginInformation
-        {
-            String Username { get; }
-            String PasswordHash { get; }
-        }
-
         private struct LoginInformation : ILoginInformation
         {
             private string _username, _passwordHash;

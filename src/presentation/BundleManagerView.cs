@@ -14,6 +14,7 @@ namespace CSB_Project.src.presentation
     {
         public Button AddButton => _addButton;
         public ListView ListView => _listView;
+        public Panel ActionPanel => _actionPanel;
 
         public BundleManagerView(Style style = null)
         {

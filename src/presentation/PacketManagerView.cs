@@ -14,21 +14,12 @@ namespace CSB_Project.src.presentation
     {
         public Button AddButton => _addButton;
         public ListView ListView => _listView;
+        public Panel ActionPanel => _actionPanel;
 
         public PacketManagerView(Style style = null)
         {
             InitializeComponent();
             this.ApplyStyle(style);
-        }
-
-        private void PacketManagerView_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _listView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

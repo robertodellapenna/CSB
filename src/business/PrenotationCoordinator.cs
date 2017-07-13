@@ -14,7 +14,7 @@ namespace CSB_Project.src.business
 {
     public interface IPrenotationCoordinator : ICoordinator
     {
-        IEnumerable<CustomizableServizablePrenotation> Prenotations { get; }
+        IEnumerable<IPrenotation> Prenotations { get; }
         void AddPrenotation(CustomizableServizablePrenotation prenotation);
         void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation);
         void AddPacket(int idPrenotation, IPacket packet);
@@ -36,7 +36,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Proprietà
-        public IEnumerable<CustomizableServizablePrenotation> Prenotations
+        public IEnumerable<IPrenotation> Prenotations
         {
 
             get
