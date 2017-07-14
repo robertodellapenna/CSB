@@ -30,8 +30,9 @@ namespace CSB_Project.src.model.Users
         }
         #endregion
         #region Proprieta
-        public string FirstName { get => _firstName; }
-        public string LastName { get => _lastName; }
+        public string FirstName => _firstName;
+        public string LastName => _lastName;
+        public virtual string DisplayInfo => _firstName + " " + _lastName;
         #endregion
         #region Metodi
         public override string ToString()
@@ -50,9 +51,9 @@ namespace CSB_Project.src.model.Users
         private static string pattern = "dd/MM/yy";
         #endregion
         #region Proprieta
-        public string FiscalCode { get => _fiscalCode; }
-
-        public DateTime BirthDate { get => _birthDate; }
+        public string FiscalCode => _fiscalCode;
+        public override string DisplayInfo => base.DisplayInfo + " " + FiscalCode;
+        public DateTime BirthDate => _birthDate;
         #endregion
         #region Costruttori
         /// <summary>

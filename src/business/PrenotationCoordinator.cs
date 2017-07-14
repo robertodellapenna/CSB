@@ -16,7 +16,7 @@ namespace CSB_Project.src.business
 {
     public interface IPrenotationCoordinator : ICoordinator
     {
-        public ReadOnlyCollection<IPrenotation> Prenotations { get; }
+        ReadOnlyCollection<IPrenotation> Prenotations { get; }
         void AddPrenotation(CustomizableServizablePrenotation prenotation);
         void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation);
         void AddPacket(int idPrenotation, IPacket packet);

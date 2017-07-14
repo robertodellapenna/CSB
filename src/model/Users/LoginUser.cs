@@ -20,6 +20,7 @@ namespace CSB_Project.src.model.Users
         public string PasswordHash => _passwordHash;
         public string FirstName => _baseUser.FirstName;
         public string LastName => _baseUser.LastName;
+        public virtual string DisplayInfo => _baseUser.DisplayInfo + " " + Username;
         #endregion
 
         #region Costruttori
@@ -61,6 +62,7 @@ namespace CSB_Project.src.model.Users
         #region Proprieta
         public string FiscalCode => _fiscalCode;
         public DateTime BirthDate => _birthDate;
+        public override string DisplayInfo => base.DisplayInfo + " " + FiscalCode;
         #endregion
 
         #region Costruttori

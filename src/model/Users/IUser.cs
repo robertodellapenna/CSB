@@ -9,6 +9,7 @@ namespace CSB_Project.src.model.Users
     {
         string FirstName { get; }
         string LastName { get; }
+        string DisplayInfo { get; }
     }
 
     public interface ILoginUser : IUser

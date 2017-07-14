@@ -59,14 +59,7 @@ namespace CSB_Project.src.presentation
             // Recupero il tag
             _loginInformation = _view.RetrieveTagInformation<ILoginInformation>("loginInformation");
             string username = _loginInformation.Username;
-
-            // DA ELIMINARE
-            //string username = RetrieveUsername();  
-            //string username = "giovanni.admin"; // STAFF
-            //string username = ""; // GUEST
-            //string username = "lorenzo.antonini"; // CUSTOMER 
-            // FINE DA ELIMINARE
-
+            
             // Recupero la tipologia di utente
             ILoginUser user = _userRetriever(username);
             _authLevel = user == null ? AuthorizationLevel.GUEST : user.AuthorizationLevel;
@@ -180,14 +173,32 @@ namespace CSB_Project.src.presentation
         #region SpawnMethod
         private void SpawnPrenotationView()
         {
-            IPrenotationCoordinator coord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
-            coord.PrenotationChanged
+            IPrenotationCoordinator pCoord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+            IUserCoordinator uCoord = CoordinatorManager.Instance.CoordinatorOfType<IUserCoordinator>();
+
             PrenotationView prenotationView = new PrenotationView();
             AddInformation(prenotationView);
-            new PrenotationPresenter(prenotationView,
-                (str) => new ReadOnlyCollection<IPrenotation>((from p in coord.Prenotations
+
+            Func<string, ReadOnlyCollection<IPrenotation>> prenotationRetriever =
+                (str) => new ReadOnlyCollection<IPrenotation>((from p in pCoord.Prenotations
                                                                where p.Client.FiscalCode == str
-                                                               select p).ToList()));
+                                                               select p).ToList());
+
+            Func<string, ICustomer> customerRetrieverByUsername =
+                (str) => (from u in uCoord.RegisteredUsers
+                          where u is ICustomer
+                          && u.Username == str
+                          select u as ICustomer).FirstOrDefault();
+
+
+            Func<string, IEnumerable<ICustomer>> customerRetrieverByLastName =
+                (str) => (from c in uCoord.Customers
+                          where c.LastName.Contains(str)
+                          select c);
+
+            new PrenotationPresenter(prenotationView, prenotationRetriever,
+                customerRetrieverByUsername, customerRetrieverByLastName);
+
             prenotationView.Show();
         }
 
