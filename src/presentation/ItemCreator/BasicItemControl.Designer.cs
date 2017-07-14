@@ -1,6 +1,6 @@
-﻿namespace CSB_Project.src.presentation.ItemCreatorPresenter
+﻿namespace CSB_Project.src.presentation.ItemCreator
 {
-    partial class BasicItemCreator
+    partial class BasicItemControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -122,7 +122,7 @@
             this.Controls.Add(this._identifierTextBox);
             this.Controls.Add(this._identifierLabel);
             this.Name = "BasicItemCreator";
-            this.Size = new System.Drawing.Size(314, 158);
+            this.Size = new System.Drawing.Size(300, 161);
             ((System.ComponentModel.ISupportInitialize)(this._priceBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,6 +37,11 @@ namespace CSB_Project.src.model.Utils
             return (Row.GetHashCode() + Column.GetHashCode() ) * 31;
         }
 
+        public override string ToString()
+        {
+            return "Riga: " + Row + ",Colonna: " + Column;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Position))

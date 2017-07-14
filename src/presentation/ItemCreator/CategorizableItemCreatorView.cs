@@ -10,9 +10,9 @@ using CSB_Project.src.presentation.Utils;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Category;
 
-namespace CSB_Project.src.presentation.ItemCreatorPresenter
+namespace CSB_Project.src.presentation.ItemCreator
 {
-    public partial class CategorizableItemCreator : UserControl
+    public partial class CategorizableItemCreatorView : Form
     {
         private const int PICTURE_INDEX = 0;
         private const int CATPICKER_INDEX = 1;
@@ -23,7 +23,7 @@ namespace CSB_Project.src.presentation.ItemCreatorPresenter
         private int _width;
         private ICategory _root;
 
-        public CategorizableItemCreator()
+        public CategorizableItemCreatorView()
         {
             #region Precondizioni
             ICategoryCoordinator coord = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();

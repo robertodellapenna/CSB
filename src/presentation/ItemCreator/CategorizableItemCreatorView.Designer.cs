@@ -1,6 +1,6 @@
-﻿namespace CSB_Project.src.presentation.ItemCreatorPresenter
+﻿namespace CSB_Project.src.presentation.ItemCreator
 {
-    partial class CategorizableItemCreator
+    partial class CategorizableItemCreatorView
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this._topPanel = new System.Windows.Forms.Panel();
-            this._basicItem = new CSB_Project.src.presentation.ItemCreatorPresenter.BasicItemCreator();
+            this._basicItem = new CSB_Project.src.presentation.ItemCreator.BasicItemControl();
             this._tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this._bottomPanel = new System.Windows.Forms.Panel();
             this._topPanel.SuspendLayout();
@@ -44,19 +44,16 @@
             this._topPanel.Location = new System.Drawing.Point(0, 0);
             this._topPanel.MinimumSize = new System.Drawing.Size(0, 50);
             this._topPanel.Name = "_topPanel";
-            this._topPanel.Size = new System.Drawing.Size(453, 222);
+            this._topPanel.Size = new System.Drawing.Size(467, 253);
             this._topPanel.TabIndex = 0;
             // 
             // _basicItem
             // 
-            this._basicItem.AutoSize = true;
-            this._basicItem.BackColor = System.Drawing.Color.White;
-            this._basicItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this._basicItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this._basicItem.Location = new System.Drawing.Point(0, 0);
             this._basicItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._basicItem.Name = "_basicItem";
-            this._basicItem.Size = new System.Drawing.Size(453, 222);
+            this._basicItem.Size = new System.Drawing.Size(450, 248);
             this._basicItem.TabIndex = 0;
             // 
             // _tableLayout
@@ -76,7 +73,7 @@
             this._tableLayout.Name = "_tableLayout";
             this._tableLayout.RowCount = 1;
             this._tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._tableLayout.Size = new System.Drawing.Size(453, 50);
+            this._tableLayout.Size = new System.Drawing.Size(467, 50);
             this._tableLayout.TabIndex = 1;
             // 
             // _bottomPanel
@@ -85,10 +82,10 @@
             this._bottomPanel.AutoSize = true;
             this._bottomPanel.Controls.Add(this._tableLayout);
             this._bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._bottomPanel.Location = new System.Drawing.Point(0, 222);
+            this._bottomPanel.Location = new System.Drawing.Point(0, 253);
             this._bottomPanel.Margin = new System.Windows.Forms.Padding(0);
             this._bottomPanel.Name = "_bottomPanel";
-            this._bottomPanel.Size = new System.Drawing.Size(453, 152);
+            this._bottomPanel.Size = new System.Drawing.Size(467, 172);
             this._bottomPanel.TabIndex = 2;
             // 
             // CategorizableItemCreator
@@ -96,13 +93,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(467, 425);
             this.Controls.Add(this._bottomPanel);
             this.Controls.Add(this._topPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "CategorizableItemCreator";
-            this.Size = new System.Drawing.Size(453, 374);
             this._topPanel.ResumeLayout(false);
-            this._topPanel.PerformLayout();
             this._bottomPanel.ResumeLayout(false);
             this._bottomPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -113,8 +110,8 @@
         #endregion
 
         private System.Windows.Forms.Panel _topPanel;
-        private BasicItemCreator _basicItem;
         private System.Windows.Forms.TableLayoutPanel _tableLayout;
         private System.Windows.Forms.Panel _bottomPanel;
+        private BasicItemControl _basicItem;
     }
 }
