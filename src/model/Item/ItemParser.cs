@@ -1,6 +1,9 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Category;
+using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +20,9 @@ namespace CSB_Project.src.model.Item
         {
             public override string InformationString => FriendlyName + " " + BaseDailyPrice;
             public BasicItem(string id, PriceDescriptor priceDescriptor) : base(id, priceDescriptor) { }
+
+            public override void Accept(IPrenotationVisitor visitor)
+                => visitor.Visit(this);
         }
 
         private static class BasicParser
@@ -164,6 +170,9 @@ namespace CSB_Project.src.model.Item
                 #endregion
                 return _properties[category].Price;
             }
+
+            public override void Accept(IPrenotationVisitor visitor) 
+                => visitor.Visit(this);
             #endregion
         }
 

@@ -32,6 +32,11 @@ namespace CSB_Project.src.model.Utils
         #endregion
 
         #region Metodi
+        public override int GetHashCode()
+        {
+            return (Row.GetHashCode() + Column.GetHashCode() ) * 31;
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Position))
@@ -39,7 +44,6 @@ namespace CSB_Project.src.model.Utils
             Position other = obj as Position;
 
             return (Row == other.Row && Column == other.Column);
-            
         }
         #endregion
     }

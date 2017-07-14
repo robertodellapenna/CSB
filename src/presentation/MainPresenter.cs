@@ -167,7 +167,7 @@ namespace CSB_Project.src.presentation
 
         private void StaffInit()
         {
-            CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
+            CreateButton("Visualizza prenotazioni clienti", SpawnPrenotationView);
         }
 
         #region SpawnMethod

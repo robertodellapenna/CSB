@@ -103,9 +103,9 @@ namespace CSB_Project.src.business
             CustomizableServizablePrenotation myPrenotation2 = new CustomizableServizablePrenotation(2, client, myRange2, myItems2, myCard2, new AssociationDescriptor(myRange2, "CardBase"));
             tdCoord.LockTrackingDevice(myPrenotation2);
             
-            //ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
-            //IPacket doccia=serviceCoord.FilterPacketDate(myRange1).Where(packet => packet.Name.Equals("Doccia calda")).ElementAt(0);
-            //myPrenotation.AddPacket(doccia);
+            ServiceCoordinator serviceCoord = CoordinatorManager.Instance.CoordinatorOfType<ServiceCoordinator>();
+            myPrenotation.AddPacket(serviceCoord.Packets.ElementAt(0));
+            myPrenotation.AddBundle(serviceCoord.Bundles.ElementAt(0));
 
             _prenotations.Add(myPrenotation);
             _prenotations.Add(myPrenotation2);
