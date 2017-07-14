@@ -252,6 +252,12 @@
     <Compile Include="src\model\Utils\HashUtils.cs" />
     <Compile Include="src\model\Utils\ParserUtils.cs" />
     <Compile Include="src\model\Utils\Preconditions.cs" />
+    <Compile Include="src\presentation\AddItemPrenotationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\AddItemPrenotationDialog.Designer.cs">
+      <DependentUpon>AddItemPrenotationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\BundleManagerPresenter.cs" />
     <Compile Include="src\presentation\BundleManagerView.cs">
       <SubType>Form</SubType>
@@ -438,6 +444,9 @@
   <ItemGroup>
     <EmbeddedResource Include="src\GioForm.resx">
       <DependentUpon>GioForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\AddItemPrenotationDialog.resx">
+      <DependentUpon>AddItemPrenotationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\BundleManagerView.resx">
       <DependentUpon>BundleManagerView.cs</DependentUpon>
