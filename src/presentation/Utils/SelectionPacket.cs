@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Services;
+using CSB_Project.src.model.Utils;
 using static System.Windows.Forms.ListView;
 
 namespace CSB_Project.src.presentation.Utils
@@ -18,10 +19,12 @@ namespace CSB_Project.src.presentation.Utils
         private IServiceCoordinator coordinator;
         public SelectedListViewItemCollection pacchetti => _view.SelectedItems;
         private ListView _packetList;
+        private DateRange _range;
+        public DateRange Range => _range;
         private IEnumerable<IPacket> _packets;
 
 
-        public SelectionPacket(string question = "", bool emptyResponse = false, Style style = null)
+        public SelectionPacket(DateRange range = null, string question = "", bool emptyResponse = false, Style style = null)
         {
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             #region Precondizioni
@@ -31,6 +34,7 @@ namespace CSB_Project.src.presentation.Utils
                 throw new InvalidOperationException("Il coordinatore dei pacchetti non è disponibile");
             #endregion
             InitializeComponent();
+            _range = range;
             _question.Text = question;
             _emptyResponse = emptyResponse;
             _packetList = _view;
@@ -61,7 +65,7 @@ namespace CSB_Project.src.presentation.Utils
             {
                 string[] array = new string[7];
                 ListViewItem items = null;
-                if (packet is DateRangePacket)
+                if (packet is DateRangePacket && Range != null && Range.Contains(packet.Availability))
                 {
                     array[0] = packet.Name;
                     array[1] = packet.Description;
@@ -72,7 +76,7 @@ namespace CSB_Project.src.presentation.Utils
                     array[6] = (packet as DateRangePacket).Range.DateStart() + " - " + (packet as DateRangePacket).Range.DateEnd();
                     items = new ListViewItem(array);
                 }
-                if (packet is TicketPacket)
+                if (packet is TicketPacket && Range != null && Range.Contains(packet.Availability))
                 {
                     array[0] = packet.Name;
                     array[1] = packet.Description;
@@ -89,6 +93,18 @@ namespace CSB_Project.src.presentation.Utils
             _packetList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _packetList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
+        }
+
+        public IEnumerable<IPacket> SelectedPackets()
+        {
+            List<IPacket> selectedPackets = new List<IPacket>();
+            foreach (ListViewItem item in pacchetti)
+            {
+                String nome = item.SubItems[0].Text;
+                selectedPackets.Add(coordinator.FilterPacketName(nome).ElementAt(0));
+            }
+
+            return selectedPackets.ToArray();
         }
     }
 }

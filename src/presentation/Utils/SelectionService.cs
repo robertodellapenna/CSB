@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using CSB_Project.src.business;
 using CSB_Project.src.model.Services;
+using CSB_Project.src.model.Utils;
 using static System.Windows.Forms.ListView;
 
 namespace CSB_Project.src.presentation.Utils
@@ -19,10 +20,12 @@ namespace CSB_Project.src.presentation.Utils
         private IServiceCoordinator coordinator;
         public SelectedListViewItemCollection servizi => _view.SelectedItems;
         private ListView _serviceList;
+        private DateRange _range;
+        public DateRange Range => _range;
         private IEnumerable<IUsable> _services;
 
 
-        public SelectionService(string question = "", bool emptyResponse = false, Style style = null)
+        public SelectionService(DateRange range = null, string question = "", bool emptyResponse = false, Style style = null)
         {
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             #region Precondizioni
@@ -35,6 +38,7 @@ namespace CSB_Project.src.presentation.Utils
             _question.Text = question;
             _emptyResponse = emptyResponse;
             _serviceList = _view;
+            _range = range;
             _services = coordinator.Services;
             ActiveControl = _view;
             this.ApplyStyle(style);
@@ -60,18 +64,33 @@ namespace CSB_Project.src.presentation.Utils
             _serviceList.Items.Clear();
             foreach (IUsable service in _services)
             {
-                string[] array = new string[4];
-                ListViewItem items;
-                array[0] = service.Name;
-                array[1] = service.Description;
-                array[2] = service.Price + "";
-                array[3] = service.Availability.DateStart() + " - " + service.Availability.DateEnd();
-                items = new ListViewItem(array);
-                _serviceList.Items.Add(items);
+                if (Range != null && Range.Contains(service.Availability))
+                {
+                    string[] array = new string[4];
+                    ListViewItem items;
+                    array[0] = service.Name;
+                    array[1] = service.Description;
+                    array[2] = service.Price + "";
+                    array[3] = service.Availability.DateStart() + " - " + service.Availability.DateEnd();
+                    items = new ListViewItem(array);
+                    _serviceList.Items.Add(items);
+                }
             }
             _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
+        }
+
+        public IEnumerable<IUsable> SelectedServices()
+        {
+            List<IUsable> selectedServices = new List<IUsable>();
+            foreach (ListViewItem item in servizi)
+            {
+                String nome = item.SubItems[0].Text;
+                selectedServices.Add(coordinator.FilterServiceName(nome).ElementAt(0));
+            }
+
+            return selectedServices.ToArray();
         }
     }
 }
