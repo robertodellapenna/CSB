@@ -50,6 +50,7 @@
     <RootNamespace>CSB_Project</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -211,13 +212,13 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\model\Booking\SectorBookableItem.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />
     <Compile Include="src\model\Item\IItem.cs" />
     <Compile Include="src\model\Item\ItemParser.cs" />
-    <Compile Include="src\model\Booking\SectorBookableItem.cs" />
     <Compile Include="src\model\Prenotation\IItemPrenotation.cs" />
     <Compile Include="src\model\Services\Bundle.cs" />
     <Compile Include="src\model\Services\UsageService.cs" />
@@ -379,6 +380,7 @@
       <DependentUpon>ExpandableNode.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\ILoginInformation.cs" />
+    <Compile Include="src\presentation\Utils\IPrenotationVisitor.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
     <Compile Include="src\presentation\Utils\SelectionBundle.cs">
       <SubType>Form</SubType>
@@ -411,6 +413,7 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
+    <Compile Include="src\presentation\Utils\TreeBuilderVisitor.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>

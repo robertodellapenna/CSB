@@ -2,6 +2,7 @@
 using CSB_Project.src.model.TrackingDevice;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ namespace CSB_Project.src.model.Prenotation
         void AddItem(IItemPrenotation item);
         string InformationString { get; }
         event EventHandler<PrenotationEventArgs> PrenotationChanged;
+        void Accept(IPrenotationVisitor visitor);
     }
 
     public interface ICustomizablePrenotation : IPrenotation

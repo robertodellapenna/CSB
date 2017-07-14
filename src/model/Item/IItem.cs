@@ -1,5 +1,8 @@
-﻿using CSB_Project.src.model.Category;
+﻿using CSB_Project.src.model.Booking;
+using CSB_Project.src.model.Category;
+using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,6 +36,8 @@ namespace CSB_Project.src.model.Item
         double DailyPrice { get; }
 
         string InformationString { get; }
+
+        void Accept(IPrenotationVisitor visitor);
     }
 
     public interface ICategorizableItem : IItem

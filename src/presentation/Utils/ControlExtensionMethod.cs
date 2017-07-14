@@ -16,7 +16,8 @@ namespace CSB_Project.src.presentation.Utils
     public static class ControlExtensionMethod
     {
         /// <summary>
-        /// Applica lo stile ad un controllo
+        /// Applica lo stile ad un controllo, se lo stile è nullo
+        /// applica quello di default
         /// </summary>
         /// <param name="c"></param>
         /// <param name="style"></param>
@@ -34,6 +35,20 @@ namespace CSB_Project.src.presentation.Utils
             if (style == null)
                 return;
             tb.TextAlign = style.TextAlign;
+        }
+
+        #region Metodi per popolare i controlli customizatti in base al tipo di input
+        public static void Add(this TreeNode tn, TreeNode[] nodes)
+        {
+            #region Precondizioni
+            if (nodes == null)
+                throw new ArgumentNullException("nodes null");
+            foreach (TreeNode n in nodes)
+                if (n == null)
+                    throw new ArgumentNullException("node in nodes null");
+            #endregion
+            foreach (TreeNode n in nodes)
+                tn.Nodes.Add(n);
         }
 
         public static void Populate<T>(this ListView lv, IEnumerable<T> items, Func<T, String> extractor)
@@ -75,19 +90,21 @@ namespace CSB_Project.src.presentation.Utils
                 mainPanel.AutoScroll = true;
                 mainPanel.Margin = new Padding(0);
 
-                TextBox output = new TextBox();
-                output.Multiline = true;
-                output.Enabled = false;
+                TreeView output = new TreeView();
                 output.BackColor = Color.White;
                 output.Dock = DockStyle.Fill;
-                output.Text = p.InformationString;
+                TreeBuilderVisitor visitor = new TreeBuilderVisitor();
+                // Vistiro la prenotazione e ottengo un treeNode che ne 
+                // rappresenta la struttura con tutti i dettagli
+                p.Accept(visitor);
+                output.Nodes.Add(visitor.TreeStructure);
 
                 mainPanel.Controls.Add(output);
                 tp.Controls.Add(mainPanel);
                 tc.TabPages.Add(tp);
             }
         }
-
+        #endregion
 
         public static void SetHint(this TextBox tb, string msg, Color color)
         {
@@ -111,6 +128,7 @@ namespace CSB_Project.src.presentation.Utils
             tb.ForeColor = color;
         }
 
+        #region Metodi per lo scambio di informazioni tra Form e controlli
         public static void AddTagInformation(this Control c, string key, Object value)
         {
             if (c.Tag == null)
@@ -158,5 +176,6 @@ namespace CSB_Project.src.presentation.Utils
                 throw new InvalidOperationException("il valore di '" + key + "' non è di tipo " + typeof(T));
             return (T)obj;
         }
+        #endregion
     }
 }

@@ -7,6 +7,7 @@ using CSB_Project.src.model.Utils;
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Item;
 using System.Collections.ObjectModel;
+using CSB_Project.src.presentation.Utils;
 
 namespace CSB_Project.src.model.Prenotation
 {
@@ -109,6 +110,14 @@ namespace CSB_Project.src.model.Prenotation
             }
             (_pluginsAssociation[item] as List<DateRange>).Add(dateRange);
             OnPrenotatitionChangedHandler(this, new ItemPrenotationEventArgs(this));
+        }
+
+        public void Accept(IPrenotationVisitor visitor)
+        {
+            visitor.Visit(this);
+            BaseItem.Accept(visitor);
+            foreach (IItem item in Plugins)
+                item.Accept(visitor);
         }
         #endregion
 

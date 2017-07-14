@@ -7,6 +7,7 @@ using CSB_Project.src.model.Utils;
 using CSB_Project.src.model.TrackingDevice;
 using CSB_Project.src.model.Services;
 using System.Collections.ObjectModel;
+using CSB_Project.src.presentation.Utils;
 
 namespace CSB_Project.src.model.Prenotation
 {
@@ -253,6 +254,13 @@ namespace CSB_Project.src.model.Prenotation
         private bool CanAdd(IItemPrenotation IItemPrenotation)
         {
             return PrenotationDate.Contains(IItemPrenotation.RangeData);
+        }
+
+        public void Accept(IPrenotationVisitor visitor)
+        {
+            visitor.Visit(this);
+            foreach (IItemPrenotation p in _bookedItems)
+                p.Accept(visitor);
         }
         #endregion
 
