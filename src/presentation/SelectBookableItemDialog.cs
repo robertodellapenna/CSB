@@ -10,7 +10,7 @@ using CSB_Project.src.business;
 using CSB_Project.src.model.Utils;
 using System.Drawing;
 
-namespace Lab3.Presentation
+namespace CSB_Project.src.presentation
 {
     public partial class SelectBookableItemDialog : Form
     {

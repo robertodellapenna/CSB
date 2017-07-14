@@ -32,6 +32,10 @@ namespace CSB_Project.src.model.Utils
         #endregion
 
         #region Metodi
+        public override string ToString()
+        {
+            return "Riga: " + Row + ",Colonna: " + Column;
+        }
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Position))

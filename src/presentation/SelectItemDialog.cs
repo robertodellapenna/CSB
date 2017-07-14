@@ -10,18 +10,26 @@ namespace CSB_Project.src.presentation
 {
     public partial class SelectItemDialog : Form
     {
+
+        #region Proprietà
+        public IItem SelectedItem => _comboBox.SelectedItem as IItem;
+        #endregion
+
+        #region Costruttori
         public SelectItemDialog()
         {
             InitializeComponent();
         }
+        #endregion
 
-        public IItem SelectedItem =>  _comboBox.SelectedItem as IItem;
-
+        #region Metodi
         public void LoadItems(IEnumerable items)
         {
             _comboBox.DataSource = items;
         }
+        #endregion
 
+        #region Handlers
         public void OkButtonHandler(Object obj, EventArgs e)
         {
             _errorProvider.Clear();
@@ -36,5 +44,6 @@ namespace CSB_Project.src.presentation
             DialogResult = DialogResult.Cancel;
             Close();
         }
+        #endregion
     }
 }

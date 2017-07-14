@@ -1,4 +1,4 @@
-﻿namespace Lab3.Presentation
+﻿namespace CSB_Project.src.presentation
 {
     partial class SelectBookableItemDialog
     {
@@ -90,23 +90,27 @@
             // _cancelButton
             // 
             this._cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._cancelButton.BackColor = System.Drawing.SystemColors.Control;
             this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._cancelButton.Location = new System.Drawing.Point(401, 12);
             this._cancelButton.Name = "_cancelButton";
             this._cancelButton.Size = new System.Drawing.Size(75, 23);
             this._cancelButton.TabIndex = 9;
             this._cancelButton.Text = "Annulla";
+            this._cancelButton.UseVisualStyleBackColor = false;
             this._cancelButton.Click += new System.EventHandler(this.CancelButtonHandler);
             // 
             // _okButton
             // 
             this._okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._okButton.BackColor = System.Drawing.SystemColors.Control;
             this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._okButton.Location = new System.Drawing.Point(313, 12);
             this._okButton.Name = "_okButton";
             this._okButton.Size = new System.Drawing.Size(75, 23);
             this._okButton.TabIndex = 8;
             this._okButton.Text = "OK";
+            this._okButton.UseVisualStyleBackColor = false;
             this._okButton.Click += new System.EventHandler(this.OkButtonHandler);
             // 
             // _labelArea
