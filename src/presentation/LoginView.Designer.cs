@@ -39,6 +39,7 @@
             this._usernameBox.Name = "_usernameBox";
             this._usernameBox.Size = new System.Drawing.Size(180, 20);
             this._usernameBox.TabIndex = 0;
+            this._usernameBox.Text = "giovanni.admin";
             // 
             // _passwordBox
             // 
@@ -47,6 +48,7 @@
             this._passwordBox.PasswordChar = '*';
             this._passwordBox.Size = new System.Drawing.Size(180, 20);
             this._passwordBox.TabIndex = 1;
+            this._passwordBox.Text = "admin";
             // 
             // _loginButton
             // 

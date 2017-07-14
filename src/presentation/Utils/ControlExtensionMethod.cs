@@ -65,6 +65,7 @@ namespace CSB_Project.src.presentation.Utils
 
         public static void Populate(this TabControl tc, IEnumerable<IPrenotation> prenotations)
         {
+            tc.TabPages.Clear();
             foreach(IPrenotation p in prenotations)
             {
                 TabPage tp = new TabPage("Dal " + p.PrenotationDate.StartDate.ToShortDateString() + " al " + p.PrenotationDate.EndDate.Date.ToShortDateString());
