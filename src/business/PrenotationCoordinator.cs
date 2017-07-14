@@ -10,12 +10,13 @@ using System.Collections.Generic;
 using System.Linq;
 using CSB_Project.src.model.Prenotation;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace CSB_Project.src.business
 {
     public interface IPrenotationCoordinator : ICoordinator
     {
-        IEnumerable<IPrenotation> Prenotations { get; }
+        public ReadOnlyCollection<IPrenotation> Prenotations { get; }
         void AddPrenotation(CustomizableServizablePrenotation prenotation);
         void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation);
         void AddPacket(int idPrenotation, IPacket packet);
@@ -23,37 +24,27 @@ namespace CSB_Project.src.business
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
         bool CanAdd(ICustomizableItemPrenotation ICustomizableItemPrenotation);
         bool CanAdd(CustomizableServizablePrenotation prenotation);
-        event EventHandler PrenotationChanged;
+        event EventHandler<PrenotationEventArgs> PrenotationChanged;
     }
 
     class PrenotationCoordinator : AbstractCoordinatorDecorator, IPrenotationCoordinator
     {
         #region Eventi
-        public event EventHandler PrenotationChanged;
+        public event EventHandler<PrenotationEventArgs> PrenotationChanged;
         #endregion
 
         #region Campi
-        private readonly List<CustomizableServizablePrenotation> _prenotations = new List<CustomizableServizablePrenotation>();
+        private readonly IList<CustomizableServizablePrenotation> _prenotations = new List<CustomizableServizablePrenotation>();
         #endregion
 
         #region Proprietà
-        public IEnumerable<IPrenotation> Prenotations
-        {
-
-            get
-            {
-                CustomizableServizablePrenotation[] copy = new CustomizableServizablePrenotation[_prenotations.Count];
-                _prenotations.CopyTo(copy);
-                return copy;
-            }
-        }
+        public ReadOnlyCollection<IPrenotation> Prenotations => 
+            new ReadOnlyCollection<IPrenotation>(new List<IPrenotation>(_prenotations));
         
         #endregion
 
         #region Costruttori
-        public PrenotationCoordinator(ICoordinator next) : base(next)
-        {
-        }
+        public PrenotationCoordinator(ICoordinator next) : base(next) { }
 
         #endregion
 
@@ -118,7 +109,6 @@ namespace CSB_Project.src.business
 
             _prenotations.Add(myPrenotation);
             _prenotations.Add(myPrenotation2);
-
         }
 
         public void AddPrenotation(CustomizableServizablePrenotation prenotation)
@@ -130,6 +120,8 @@ namespace CSB_Project.src.business
                 throw new Exception("prenotation not valid");
             #endregion
             _prenotations.Add(prenotation);
+            prenotation.PrenotationChanged += (sender, pea) => OnPrenotationChanged(this, pea);
+            OnPrenotationChanged(this, new PrenotationEventArgs(prenotation));
         }
         public void AddIItemPrenotation(int idPrenotation, ICustomizableItemPrenotation ICustomizableItemPrenotation)
         {
@@ -165,20 +157,9 @@ namespace CSB_Project.src.business
             if (rangeData == null)
                 throw new ArgumentNullException("rangeData null");
             #endregion
-            //debug
-            //List<Sector> sectors = new List<Sector>();
-            //bool ok = false;
-            //foreach (IBookableItem i in BookedItems(rangeData))
-            //    sectors.Add(i.Sector);
-            //foreach (Sector s in sectors)
-            //    if (s == sector)
-            //        ok = true;
-            //IEnumerable<Position> positions=(from item in BookedItems(rangeData)
-            //                                 select item.Position);
-
             IEnumerable<IBookableItem> items;
 
-           items= (from item in BookedItems(rangeData)
+            items= (from item in BookedItems(rangeData)
                     where item.Sector.Equals(sector)
                     select item);
 
@@ -254,10 +235,12 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Handler
-        private void OnStructureChanged(Object sender, EventArgs args)
+        private void OnPrenotationChanged(Object sender, PrenotationEventArgs args)
         {
             PrenotationChanged?.Invoke(sender, args);
         }
         #endregion
     }
+
+    
 }

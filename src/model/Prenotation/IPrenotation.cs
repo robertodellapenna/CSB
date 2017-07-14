@@ -18,6 +18,7 @@ namespace CSB_Project.src.model.Prenotation
         ReadOnlyCollection<IItemPrenotation> BookedItems { get; }
         void AddItem(IItemPrenotation item);
         string InformationString { get; }
+        event EventHandler<PrenotationEventArgs> PrenotationChanged;
     }
 
     public interface ICustomizablePrenotation : IPrenotation
@@ -33,5 +34,15 @@ namespace CSB_Project.src.model.Prenotation
         ReadOnlyCollection<KeyValuePair<ITrackingDevice, AssociationDescriptor>> TrackingDeviceAssociations { get; }
         ReadOnlyCollection<ITrackingDevice> TrackingDevices { get; }
         void AddTrackingDevice(ITrackingDevice trackingDevice, AssociationDescriptor associationDescriptor);
+    }
+
+    public class PrenotationEventArgs : EventArgs
+    {
+        private readonly IPrenotation _prenotation;
+        public IPrenotation Prenotation => _prenotation;
+        public PrenotationEventArgs(IPrenotation prenotation)
+        {
+            _prenotation = prenotation;
+        }
     }
 }

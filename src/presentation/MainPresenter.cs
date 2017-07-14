@@ -181,7 +181,7 @@ namespace CSB_Project.src.presentation
         private void SpawnPrenotationView()
         {
             IPrenotationCoordinator coord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
-
+            coord.PrenotationChanged
             PrenotationView prenotationView = new PrenotationView();
             AddInformation(prenotationView);
             new PrenotationPresenter(prenotationView,

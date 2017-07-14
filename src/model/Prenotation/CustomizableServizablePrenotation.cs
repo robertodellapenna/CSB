@@ -12,6 +12,10 @@ namespace CSB_Project.src.model.Prenotation
 {
     public class CustomizableServizablePrenotation : ICustomizablePrenotation, IServizablePrenotation
     {
+        #region Eventi
+        public event EventHandler<PrenotationEventArgs> PrenotationChanged;
+        #endregion
+
         #region Campi
         /// <summary>
         /// Id della prenotazione
@@ -56,7 +60,7 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Items prenotati
         /// </summary>
-        public ReadOnlyCollection<IItemPrenotation> BookedItems  => new ReadOnlyCollection<IItemPrenotation>(_bookedItems);
+        public ReadOnlyCollection<IItemPrenotation> BookedItems => new ReadOnlyCollection<IItemPrenotation>(_bookedItems);
         /// <summary>
         /// Pacchetti comprati
         /// </summary>
@@ -83,21 +87,22 @@ namespace CSB_Project.src.model.Prenotation
         {
             get
             {
-                double price=0;
+                double price = 0;
                 foreach (IItemPrenotation ip in _bookedItems)
                     price += ip.Price;
                 foreach (IPacket p in _packets)
                     price += p.Price;
-                foreach (IBundle b  in _bundles)
+                foreach (IBundle b in _bundles)
                     price += b.Price;
-                
+
                 return price;
             }
         }
 
         public string InformationString
         {
-            get{
+            get
+            {
                 StringBuilder sb = new StringBuilder();
                 foreach (IItemPrenotation ip in BookedItems)
                 {
@@ -106,7 +111,7 @@ namespace CSB_Project.src.model.Prenotation
                 }
 
                 sb.AppendLine(Environment.NewLine + "PACCHETTI COMPRATI:");
-                foreach(IPacket p in Packets)
+                foreach (IPacket p in Packets)
                 {
                     sb.AppendLine(p.InformationString);
                     sb.AppendLine("");
@@ -176,11 +181,11 @@ namespace CSB_Project.src.model.Prenotation
                 throw new InvalidOperationException("gli item non comprono interamente la prenotazione");
         }
 
-        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items, 
-            ITrackingDevice baseTrackingDevice, AssociationDescriptor tdDesc, IEnumerable<IBundle> bundles) 
+        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items,
+            ITrackingDevice baseTrackingDevice, AssociationDescriptor tdDesc, IEnumerable<IBundle> bundles)
             : this(id, client, rangeData, items, baseTrackingDevice, tdDesc, null, bundles) { }
         #endregion
-        
+
         #region Metodi
         public void AddItem(IItemPrenotation item)
         {
@@ -191,6 +196,8 @@ namespace CSB_Project.src.model.Prenotation
                 throw new Exception("item prenotation not valid");
             #endregion
             _bookedItems.Add(item);
+            item.PrenotationChanged += (sender, ipea) => OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
+            OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
         }
         public void AddTrackingDevice(ITrackingDevice trackingDevice, AssociationDescriptor associationDescriptor)
         {
@@ -203,6 +210,7 @@ namespace CSB_Project.src.model.Prenotation
                 throw new Exception("date range not valid");
             #endregion
             _tdAssociations.Add(trackingDevice, associationDescriptor);
+            OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
         }
         public void AddPacket(IPacket packet)
         {
@@ -213,6 +221,7 @@ namespace CSB_Project.src.model.Prenotation
                 new Exception("packet not valid");
             #endregion
             _packets.Add(packet);
+            OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
         }
         public void AddBundle(IBundle bundle)
         {
@@ -223,12 +232,13 @@ namespace CSB_Project.src.model.Prenotation
                 new Exception("bundle not valid");
             #endregion
             _bundles.Add(bundle);
+            OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
         }
 
         private bool IsIstantiable(IEnumerable<IItemPrenotation> items)
         {
             return PrenotationDate.IsComplete((from i in items
-                              select i.RangeData));
+                                               select i.RangeData));
         }
 
         private bool CanAdd(IPacket packet)
@@ -240,9 +250,16 @@ namespace CSB_Project.src.model.Prenotation
             return bundle.IsActiveIn(PrenotationDate)
                 && _bundles.Contains(bundle);
         }
-        private bool CanAdd(IItemPrenotation IItemPrenotation) 
+        private bool CanAdd(IItemPrenotation IItemPrenotation)
         {
             return PrenotationDate.Contains(IItemPrenotation.RangeData);
+        }
+        #endregion
+
+        #region EventHandler
+        private void OnPrenotatitionChangedHandler(Object sender, PrenotationEventArgs args)
+        {
+            PrenotationChanged?.Invoke(sender, args);
         }
         #endregion
     }

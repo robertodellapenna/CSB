@@ -12,11 +12,16 @@ namespace CSB_Project.src.model.Prenotation
 {
     public class CustomizableItemPrenotation : ICustomizableItemPrenotation
     {
+        #region Eventi
+        public event EventHandler<ItemPrenotationEventArgs> PrenotationChanged;
+        #endregion
+
         #region Campi
         private readonly DateRange _rangeData;
         private readonly IBookableItem _baseItem;
         private readonly IDictionary<IItem, IEnumerable<DateRange>> _pluginsAssociation;
         #endregion
+        
         #region Proprieta
         public DateRange RangeData => _rangeData;
         public IBookableItem BaseItem => _baseItem;
@@ -103,7 +108,14 @@ namespace CSB_Project.src.model.Prenotation
                 _pluginsAssociation.Add(item, new List<DateRange>());
             }
             (_pluginsAssociation[item] as List<DateRange>).Add(dateRange);
+            OnPrenotatitionChangedHandler(this, new ItemPrenotationEventArgs(this));
+        }
+        #endregion
 
+        #region EventHandler
+        private void OnPrenotatitionChangedHandler(Object sender, ItemPrenotationEventArgs args)
+        {
+            PrenotationChanged?.Invoke(sender, args);
         }
         #endregion
     }
