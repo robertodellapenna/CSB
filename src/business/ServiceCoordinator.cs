@@ -6,6 +6,7 @@ using System.Text;
 using CSB_Project.src.model.Services;
 using CSB_Project.src.model.Utils;
 using CSB_Project.src.model.TrackingDevice;
+using CSB_Project.src.model.Prenotation;
 
 namespace CSB_Project.src.business
 {
@@ -73,6 +74,11 @@ namespace CSB_Project.src.business
             bundleSet.Add(packet2);
             IBundle bundle1 = new Bundle(bundleSet, new DatePriceDescriptor("bundle1", "bundle1", date1, 23.0));
             _bundles.Add(bundle1);
+            IUsage usage1 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(1), service1);
+            IPrenotationCoordinator prenotationCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+            //IUsage usage2 = new UsageService(new DateTime(2017, 7, 18), (prenotationCoordinator.Prenotations.ElementAt(0) as CustomizableServizablePrenotation).TrackingDevices.ElementAt(0), service1);
+            _usages.Add(usage1);
+            //_usages.Add(usage2);
         }
         public void AddBundle(IBundle bundle)
         {
