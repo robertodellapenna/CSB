@@ -65,7 +65,7 @@ namespace CSB_Project.src.presentation.Utils
             {
                 string[] array = new string[7];
                 ListViewItem items = null;
-                if (packet is DateRangePacket && Range != null && Range.Contains(packet.Availability))
+                if (packet is DateRangePacket && Range != null && Range.OverlapWith(packet.Availability))
                 {
                     array[0] = packet.Name;
                     array[1] = packet.Description;
@@ -76,7 +76,7 @@ namespace CSB_Project.src.presentation.Utils
                     array[6] = (packet as DateRangePacket).Range.DateStart() + " - " + (packet as DateRangePacket).Range.DateEnd();
                     items = new ListViewItem(array);
                 }
-                if (packet is TicketPacket && Range != null && Range.Contains(packet.Availability))
+                if (packet is TicketPacket && Range != null && Range.OverlapWith(packet.Availability))
                 {
                     array[0] = packet.Name;
                     array[1] = packet.Description;
@@ -87,8 +87,9 @@ namespace CSB_Project.src.presentation.Utils
                     array[6] = "";
                     items = new ListViewItem(array);
                 }
-
-                _packetList.Items.Add(items);
+                
+                if(items != null)
+                    _packetList.Items.Add(items);
             }
             _packetList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _packetList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

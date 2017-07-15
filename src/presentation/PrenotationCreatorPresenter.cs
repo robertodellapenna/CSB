@@ -202,7 +202,15 @@ namespace CSB_Project.src.presentation
             }
             if (_desc == null)
                 _desc = new AssociationDescriptor(range, "Base");
-            _baseTrackingDevice = _tdCoord.Next;
+            try
+            {
+                _baseTrackingDevice = _tdCoord.Next;
+            }catch(Exception exception)
+            {
+                MessageBox.Show("Non è possibile recuperare un tracking device. Chiedi allo staff");
+                _view.Close();
+            }
+
             _trackingDeviceLabel.Text = _desc.InformationString + " -> " + _baseTrackingDevice.Id;
             _associateTrackingDeviceButton.Enabled = false;
             if (CanCreate())
@@ -255,8 +263,9 @@ namespace CSB_Project.src.presentation
             try
             {
                 DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
-                ICustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc);
+                ICustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc, _packets, _bundles);
                 _pCoord.AddPrenotation(prenotation);
+                _tdCoord.LockTrackingDevice(prenotation as IServizablePrenotation);
                 MessageBox.Show("Prenotazione creata corretamente");
                 _view.Close();
             }

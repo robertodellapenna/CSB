@@ -149,22 +149,28 @@ namespace CSB_Project.src.model.Prenotation
             _prenotationDate = prenotationDate;
             _bookedItems = items.ToList();
             _packetsPurchases = new List<IPacketPurchase>();
-            List<IPacket> packetList = packets?.ToList() ?? new List<IPacket>();
+            List<IPacket> packetList = new List<IPacket>();
 
-            foreach (IPacket packet in packetList)
+            foreach (IPacket packet in packets ?? new IPacket[0])
+            {
                 if (!CanAdd(packet))
                     throw new InvalidOperationException("packet not valid");
+                DateTime start = prenotationDate.StartDate > packet.Availability.StartDate ? 
+                    prenotationDate.StartDate : packet.Availability.StartDate;
 
-            foreach (IPacket p in packetList)
-                _packetsPurchases.Add(new PacketPurchase(prenotationDate.StartDate, p));
+                _packetsPurchases.Add(new PacketPurchase(start, packet));
+            }
 
-            _bundles = bundles != null ? new HashSet<IBundle>(bundles) : new HashSet<IBundle>();
+            _bundles = new HashSet<IBundle>();
             _tdAssociations = new Dictionary<ITrackingDevice, AssociationDescriptor>();
             AddTrackingDevice(baseTrackingDevice, tdDesc);
 
-            foreach (IBundle bundle in _bundles)
+            foreach (IBundle bundle in bundles ?? new IBundle[0])
+            {
                 if (!CanAdd(bundle))
                     throw new InvalidOperationException("bundle not valid");
+                _bundles.Add(bundle);
+            }
 
             foreach (IItemPrenotation ip in _bookedItems)
                 if (!CanAdd(ip))
@@ -245,12 +251,13 @@ namespace CSB_Project.src.model.Prenotation
 
         private bool CanAdd(IPacket packet)
         {
-            return packet.IsActiveIn(PrenotationDate);
+            return packet.Availability.OverlapWith(_prenotationDate);
         }
+
         private bool CanAdd(IBundle bundle)
         {
-            return bundle.IsActiveIn(PrenotationDate)
-                && _bundles.Contains(bundle);
+            return bundle.Availability.OverlapWith(PrenotationDate)
+                && !_bundles.Contains(bundle);
         }
         private bool CanAdd(IItemPrenotation IItemPrenotation)
         {
