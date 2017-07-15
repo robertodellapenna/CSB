@@ -24,7 +24,7 @@ namespace CSB_Project.src.presentation
             #endregion
             view.AddButton.Click += AddHandler;
             
-            if (view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") == AuthorizationLevel.GUEST)
+            if (view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") < AuthorizationLevel.BASIC_STAFF)
             {
                 view.ActionPanel.Enabled = false;
                 view.ActionPanel.Visible = false;

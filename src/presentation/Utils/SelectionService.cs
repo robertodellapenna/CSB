@@ -64,21 +64,33 @@ namespace CSB_Project.src.presentation.Utils
             _serviceList.Items.Clear();
             foreach (IUsable service in _services)
             {
-                if (Range != null && Range.Contains(service.Availability))
+                if (Range != null )
                 {
-                    string[] array = new string[4];
-                    ListViewItem items;
-                    array[0] = service.Name;
-                    array[1] = service.Description;
-                    array[2] = service.Price + "";
-                    array[3] = service.Availability.DateStart() + " - " + service.Availability.DateEnd();
-                    items = new ListViewItem(array);
-                    _serviceList.Items.Add(items);
+                    // elenco solo quelli che rispettano la condizione scelta
+                    if (Range.Contains(service.Availability))
+                        AddService(service);
+                }
+                else
+                {
+                    // elenco tutti i servizi
+                    AddService(service);
                 }
             }
             _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _serviceList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
+        }
+
+        private void AddService(IUsable usable)
+        {
+            string[] array = new string[4];
+            ListViewItem items;
+            array[0] = usable.Name;
+            array[1] = usable.Description;
+            array[2] = usable.Price + "";
+            array[3] = usable.Availability.DateStart() + " - " + usable.Availability.DateEnd();
+            items = new ListViewItem(array);
+            _serviceList.Items.Add(items);
         }
 
         public IEnumerable<IUsable> SelectedServices()

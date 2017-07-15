@@ -36,6 +36,7 @@
             this._fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this._toDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this._panel = new System.Windows.Forms.Panel();
+            this._customerLabel = new System.Windows.Forms.Label();
             this._tdLabelValue = new System.Windows.Forms.Label();
             this._clientComboBox = new System.Windows.Forms.ComboBox();
             this._packetListView = new System.Windows.Forms.ListView();
@@ -48,7 +49,6 @@
             this._addBundleButton = new System.Windows.Forms.Button();
             this._addItemPrenotationButton = new System.Windows.Forms.Button();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this._customerLabel = new System.Windows.Forms.Label();
             this._bottomPanel.SuspendLayout();
             this._panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
@@ -139,6 +139,16 @@
             this._panel.Name = "_panel";
             this._panel.Size = new System.Drawing.Size(793, 651);
             this._panel.TabIndex = 13;
+            // 
+            // _customerLabel
+            // 
+            this._customerLabel.AutoSize = true;
+            this._customerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._customerLabel.Location = new System.Drawing.Point(75, 611);
+            this._customerLabel.Name = "_customerLabel";
+            this._customerLabel.Size = new System.Drawing.Size(119, 18);
+            this._customerLabel.TabIndex = 26;
+            this._customerLabel.Text = "Seleziona cliente";
             // 
             // _tdLabelValue
             // 
@@ -249,16 +259,6 @@
             this._errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this._errorProvider.ContainerControl = this;
             // 
-            // _customerLabel
-            // 
-            this._customerLabel.AutoSize = true;
-            this._customerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._customerLabel.Location = new System.Drawing.Point(75, 611);
-            this._customerLabel.Name = "_customerLabel";
-            this._customerLabel.Size = new System.Drawing.Size(119, 18);
-            this._customerLabel.TabIndex = 26;
-            this._customerLabel.Text = "Seleziona cliente";
-            // 
             // PrenotationCreatorView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,7 +268,7 @@
             this.Controls.Add(this._panel);
             this.Controls.Add(this._bottomPanel);
             this.Name = "PrenotationCreatorView";
-            this.Text = "AddPrenotationDialog";
+            this.Text = "PrenotationCreatorView";
             this._bottomPanel.ResumeLayout(false);
             this._panel.ResumeLayout(false);
             this._panel.PerformLayout();

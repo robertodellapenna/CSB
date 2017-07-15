@@ -21,15 +21,5 @@ namespace CSB_Project.src.presentation
             InitializeComponent();
             this.ApplyStyle(style);
         }
-
-        private void BundleManagerView_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void _listView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

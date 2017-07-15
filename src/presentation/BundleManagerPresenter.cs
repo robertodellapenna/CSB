@@ -27,7 +27,7 @@ namespace CSB_Project.src.presentation
             _bundleList.MultiSelect = false;
             _bundleList.DoubleClick += ShowBundleHandler;
 
-            if(view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") == AuthorizationLevel.GUEST)
+            if(view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") < AuthorizationLevel.BASIC_STAFF)
             {
                 view.ActionPanel.Enabled = false;
                 view.ActionPanel.Visible = false;

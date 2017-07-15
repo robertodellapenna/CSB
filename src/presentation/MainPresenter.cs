@@ -174,6 +174,11 @@ namespace CSB_Project.src.presentation
             CreateButton("Aggiunti un nuovo item al sistema", SpawnItemCreator);
             CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
             CreateButton("Compatibilità", () => MessageBox.Show("Non implementato"));
+
+            CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
+            CreateButton("Visualizza servizi disponibili", SpawnStaffServiceView);
+            CreateButton("Visualizza Bundle", SpawnBundleView);
+            CreateButton("Visualizza Pacchetti", SpawnPacketView);
         }
 
         #region SpawnMethod
@@ -257,6 +262,14 @@ namespace CSB_Project.src.presentation
         {
             SelectionService serviceView = new SelectionService();
             AddInformation(serviceView);
+            serviceView.Show();
+        }
+
+        private void SpawnStaffServiceView()
+        {
+            ServiceManagerView serviceView = new ServiceManagerView();
+            AddInformation(serviceView);
+            new ServiceManagerPresenter(serviceView);
             serviceView.Show();
         }
 

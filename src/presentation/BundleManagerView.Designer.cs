@@ -48,7 +48,7 @@ namespace CSB_Project.src.presentation
             this._listPanel.Location = new System.Drawing.Point(0, 0);
             this._listPanel.Margin = new System.Windows.Forms.Padding(0);
             this._listPanel.Name = "_listPanel";
-            this._listPanel.Size = new System.Drawing.Size(249, 362);
+            this._listPanel.Size = new System.Drawing.Size(354, 362);
             this._listPanel.TabIndex = 0;
             // 
             // _listView
@@ -59,7 +59,7 @@ namespace CSB_Project.src.presentation
             this._listView.GridLines = true;
             this._listView.Location = new System.Drawing.Point(0, 0);
             this._listView.Name = "_listView";
-            this._listView.Size = new System.Drawing.Size(249, 362);
+            this._listView.Size = new System.Drawing.Size(354, 362);
             this._listView.TabIndex = 0;
             this._listView.UseCompatibleStateImageBehavior = false;
             this._listView.View = System.Windows.Forms.View.Details;
@@ -68,7 +68,6 @@ namespace CSB_Project.src.presentation
             this._listView.Columns.Add("Prezzo");
             this._listView.Columns.Add("Pacchetti");
             ResizeListView.autoResizeColumns(_listView);
-            this._listView.SelectedIndexChanged += new System.EventHandler(this._listView_SelectedIndexChanged);
             // 
             // _actionPanel
             // 
@@ -76,10 +75,10 @@ namespace CSB_Project.src.presentation
             this._actionPanel.Controls.Add(this._deleteButton);
             this._actionPanel.Controls.Add(this._addButton);
             this._actionPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._actionPanel.Location = new System.Drawing.Point(0, 196);
+            this._actionPanel.Location = new System.Drawing.Point(0, 253);
             this._actionPanel.Margin = new System.Windows.Forms.Padding(0);
             this._actionPanel.Name = "_actionPanel";
-            this._actionPanel.Size = new System.Drawing.Size(249, 65);
+            this._actionPanel.Size = new System.Drawing.Size(354, 65);
             this._actionPanel.TabIndex = 1;
             // 
             // _deleteButton
@@ -104,13 +103,12 @@ namespace CSB_Project.src.presentation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 261);
+            this.ClientSize = new System.Drawing.Size(354, 318);
             this.Controls.Add(this._actionPanel);
             this.Controls.Add(this._listPanel);
             this.MinimumSize = new System.Drawing.Size(200, 300);
             this.Name = "BundleManagerView";
-            this.Text = "PacketManagerView";
-            this.Load += new System.EventHandler(this.BundleManagerView_Load);
+            this.Text = "BundleManagerView";
             this._listPanel.ResumeLayout(false);
             this._actionPanel.ResumeLayout(false);
             this.ResumeLayout(false);
