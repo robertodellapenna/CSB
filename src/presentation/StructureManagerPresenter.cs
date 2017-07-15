@@ -24,11 +24,15 @@ namespace CSB_Project.src.presentation
         private IItemCoordinator _iCoordinator;
         private DateTimePicker _fromDateBox;
         private DateTimePicker _toDateBox;
+        private AuthorizationLevel _level;
+        private StructureManagerView _view;
 
         public StructureManagerPresenter(StructureManagerView view)
         {
+            _view = view;
             view.AddButton.Click += AddHandler;
             _structureTree = view.TreeView;
+            _structureTree.AfterSelect += ItemSelectedHandler;
             IStructureCoordinator sCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
             if (sCoordinator == null)
                 throw new InvalidOperationException("Il coordinatore delle strutture non è disponibile");
@@ -55,19 +59,15 @@ namespace CSB_Project.src.presentation
 
             try
             {
-                AuthorizationLevel level = view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel");
-                if (level != AuthorizationLevel.ADVANCED_STAFF)
-                {
-                    view.AddButton.Enabled = false;
-                    view.ModifyButton.Enabled = false;
-                    view.DeleteButton.Enabled = false;
-                }
+                _level = view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel");
             }
             catch ( Exception e)
             {
                 //Chiave non disponibile o cast non riuscito
             }
-
+            view.AddButton.Enabled = false;
+            view.ModifyButton.Enabled = false;
+            view.DeleteButton.Enabled = false;
             // Popolo la tree view all'avvio
             DateChanged(this, EventArgs.Empty);
         }
@@ -155,33 +155,38 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
-            Object selectedItem = _structureTree.SelectedNode.Tag;
-            string text = _structureTree.SelectedNode.Text;
-            if (selectedItem==null && text.Contains("nessun elemento"))
+            if (_structureTree.SelectedNode != null)
             {
-                IItem baseItem = null;
-                Position position = new Position((int)_structureTree.SelectedNode.Parent.Tag, _structureTree.SelectedNode.Index + 1);
-                Sector sector = _structureTree.SelectedNode.Parent.Parent.Tag as Sector;
-                using (SelectItemDialog sd = new SelectItemDialog())
+                Object selectedItem = _structureTree.SelectedNode.Tag;
+                string text = _structureTree.SelectedNode.Text;
+                if (selectedItem == null && text.Contains("nessun elemento"))
                 {
-                    if (sd.ShowDialog() == DialogResult.OK)
+                    IItem baseItem = null;
+                    Position position = new Position((int)_structureTree.SelectedNode.Parent.Tag, _structureTree.SelectedNode.Index + 1);
+                    Sector sector = _structureTree.SelectedNode.Parent.Parent.Tag as Sector;
+                    using (SelectItemDialog sd = new SelectItemDialog())
                     {
-                        baseItem = sd.SelectedItem;
+                        sd.LoadItems(_iCoordinator.BaseItems);
+                        if (sd.ShowDialog() == DialogResult.OK)
+                        {
+                            baseItem = sd.SelectedItem;
+                        }
+                        else
+                            return;
                     }
-                    else
-                        return;
+                    if (baseItem != null)
+                    {
+                        IBookableItem bookItem = new SectorBookableItem(baseItem, position, sector);
+                        _bCoordinator.AddBookableItem(bookItem);
+                        StructureChangedHandler(this, EventArgs.Empty);
+                    }
                 }
-                if (baseItem != null)
+                else
                 {
-                    IBookableItem bookItem = new SectorBookableItem(baseItem, position, sector);
-                    _bCoordinator.AddBookableItem(bookItem);
-                    StructureChangedHandler(this, EventArgs.Empty);
+                    //non si può aggiungere
                 }
             }
-            else
-            {
-                //non si può aggiungere
-            }
+            
         }
 
         private void ModifyHandler(Object sender, EventArgs eventArgs)
@@ -189,6 +194,20 @@ namespace CSB_Project.src.presentation
             
         }
 
+        public void ItemSelectedHandler(Object sender, EventArgs eventArgs)
+        {
+            Object selectedItem = _structureTree.SelectedNode.Tag;
+            string text = _structureTree.SelectedNode.Text;
+            if (selectedItem == null && text.Contains("nessun elemento"))
+            {
+                if (_level == AuthorizationLevel.ADVANCED_STAFF)
+                {
+                    _view.AddButton.Enabled = true;
+                    _view.ModifyButton.Enabled = true;
+                    _view.DeleteButton.Enabled = true;
+                }
+            }
+        }
         /// <summary>
         /// Gestisce l'evento aggiornamento delle categorie ripopolando 
         /// la tree view
