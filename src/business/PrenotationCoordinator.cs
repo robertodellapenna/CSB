@@ -17,12 +17,12 @@ namespace CSB_Project.src.business
     public interface IPrenotationCoordinator : ICoordinator
     {
         ReadOnlyCollection<IPrenotation> Prenotations { get; }
-        CustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date);
-        void AddPrenotation(CustomizableServizablePrenotation prenotation);
+        ICustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date);
+        void AddPrenotation(ICustomizableServizablePrenotation prenotation);
         IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData);
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
         bool CanAdd(ICustomizableItemPrenotation ICustomizableItemPrenotation);
-        bool CanAdd(CustomizableServizablePrenotation prenotation);
+        bool CanAdd(ICustomizableServizablePrenotation prenotation);
         event EventHandler<PrenotationEventArgs> PrenotationChanged;
     }
 
@@ -33,7 +33,7 @@ namespace CSB_Project.src.business
         #endregion
 
         #region Campi
-        private readonly IList<CustomizableServizablePrenotation> _prenotations = new List<CustomizableServizablePrenotation>();
+        private readonly IList<ICustomizableServizablePrenotation> _prenotations = new List<ICustomizableServizablePrenotation>();
         #endregion
 
         #region Proprietà
@@ -110,7 +110,7 @@ namespace CSB_Project.src.business
             _prenotations.Add(myPrenotation2);
         }
 
-        public CustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date)
+        public ICustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date)
         {
             CustomizableServizablePrenotation result = null;
             foreach (CustomizableServizablePrenotation prenotation in _prenotations)
@@ -125,7 +125,7 @@ namespace CSB_Project.src.business
             return result;
         }
 
-        public void AddPrenotation(CustomizableServizablePrenotation prenotation)
+        public void AddPrenotation(ICustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni
             if (prenotation == null)
@@ -187,7 +187,7 @@ namespace CSB_Project.src.business
                 ).Any()
             ).Any();
         }
-        public bool CanAdd(CustomizableServizablePrenotation prenotation)
+        public bool CanAdd(ICustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni
             if (prenotation == null)

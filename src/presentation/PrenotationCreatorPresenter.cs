@@ -255,7 +255,7 @@ namespace CSB_Project.src.presentation
             try
             {
                 DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
-                CustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc);
+                ICustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc);
                 _pCoord.AddPrenotation(prenotation);
                 MessageBox.Show("Prenotazione creata corretamente");
                 _view.Close();
