@@ -37,7 +37,7 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Pacchetti comprati
         /// </summary>
-        private readonly IList<IPacket> _packets;
+        private readonly IList<IPacketPurchase> _packetsPurchases;
         /// <summary>
         /// Bundle comprati
         /// </summary>
@@ -57,7 +57,8 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Pacchetti comprati
         /// </summary>
-        public ReadOnlyCollection<IPacket> Packets => new ReadOnlyCollection<IPacket>(_packets);
+        public ReadOnlyCollection<IPacket> Packets => new ReadOnlyCollection<IPacket>((from p in _packetsPurchases select p.Packet)as IList<IPacket>);
+        public ReadOnlyCollection<IPacketPurchase> PacketsPurchases => new ReadOnlyCollection<IPacketPurchase>(_packetsPurchases);
         /// <summary>
         /// Bundle comprati
         /// </summary>
@@ -83,9 +84,9 @@ namespace CSB_Project.src.model.Prenotation
                 double price = 0;
                 foreach (IItemPrenotation ip in _bookedItems)
                     price += ip.Price;
-                foreach (IPacket p in _packets)
+                foreach (IPacket p in Packets)
                     price += p.Price;
-                foreach (IBundle b in _bundles)
+                foreach (IBundle b in Bundles)
                     price += b.Price;
 
                 return price;
@@ -147,14 +148,18 @@ namespace CSB_Project.src.model.Prenotation
             _client = client;
             _prenotationDate = prenotationDate;
             _bookedItems = items.ToList();
-            _packets = packets?.ToList() ?? new List<IPacket>();
+            List<IPacket> packetList = packets?.ToList() ?? new List<IPacket>();
+
+            foreach (IPacket packet in packetList)
+                if (!CanAdd(packet))
+                    throw new InvalidOperationException("packet not valid");
+
+            foreach (IPacket p in packetList)
+                _packetsPurchases.Add(new PacketPurchase(prenotationDate.StartDate, p));
+
             _bundles = bundles != null ? new HashSet<IBundle>(bundles) : new HashSet<IBundle>();
             _tdAssociations = new Dictionary<ITrackingDevice, AssociationDescriptor>();
             AddTrackingDevice(baseTrackingDevice, tdDesc);
-
-            foreach (IPacket packet in _packets)
-                if (!CanAdd(packet))
-                    throw new InvalidOperationException("packet not valid");
 
             foreach (IBundle bundle in _bundles)
                 if (!CanAdd(bundle))
@@ -201,16 +206,23 @@ namespace CSB_Project.src.model.Prenotation
             _tdAssociations.Add(trackingDevice, associationDescriptor);
             OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
         }
-        public void AddPacket(IPacket packet)
+        
+        public void AddPacket(IPacket packet, DateTime date)
         {
             #region Precondizioni
             if (packet == null)
                 throw new ArgumentNullException("tracking device null");
             if (!CanAdd(packet))
                 new Exception("packet not valid");
+            if(!PrenotationDate.Contains(date))
+                new Exception("prenotation not available in this date");
             #endregion
-            _packets.Add(packet);
+            _packetsPurchases.Add(new PacketPurchase(date,packet));
             OnPrenotatitionChangedHandler(this, new PrenotationEventArgs(this));
+        }
+        public void AddPacket(IPacket packet)
+        {
+            AddPacket(packet, DateTime.Now);
         }
         public void AddBundle(IBundle bundle)
         {

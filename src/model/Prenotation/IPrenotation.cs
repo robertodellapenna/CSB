@@ -26,8 +26,10 @@ namespace CSB_Project.src.model.Prenotation
     public interface ICustomizablePrenotation : IPrenotation
     {
         ReadOnlyCollection<IPacket> Packets { get; }
+        ReadOnlyCollection<IPacketPurchase> PacketsPurchases { get; }
         ReadOnlyCollection<IBundle> Bundles { get; }
         void AddPacket(IPacket packet);
+        void AddPacket(IPacket packet, DateTime date);
         void AddBundle(IBundle bundle);
     }
 

@@ -2,6 +2,7 @@
 using CSB_Project.src.model.Booking;
 using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Structure;
+using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Utils;
 using CSB_Project.src.presentation.Utils;
 using System;
@@ -54,11 +55,12 @@ namespace CSB_Project.src.presentation
 
             try
             {
-                ActionType action = view.RetrieveTagInformation<ActionType>("mode");
-                if (action == ActionType.VIEW)
+                AuthorizationLevel level = view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel");
+                if (level != AuthorizationLevel.ADVANCED_STAFF)
                 {
-                    view.BottomPanel.Enabled = false;
-                    view.BottomPanel.Visible = false;
+                    view.AddButton.Enabled = false;
+                    view.ModifyButton.Enabled = false;
+                    view.DeleteButton.Enabled = false;
                 }
             }
             catch ( Exception e)
