@@ -173,7 +173,7 @@ namespace CSB_Project.src.presentation.Utils
         /// Visita specifica ad un nodo di tipo ICustomizablePrenotation
         /// </summary>
         /// <param name="prenotation"></param>
-        public void Visit(ICustomizablePrenotation prenotation)
+        public void Visit(ICustomizableServizablePrenotation prenotation)
         {
             _prenotationNode.Text = "Prenotazione dal " + prenotation.PrenotationDate.StartDate.ToShortDateString()
                 + " al " + prenotation.PrenotationDate.EndDate.ToShortDateString() + ", prezzo corrente : " + prenotation.Price;

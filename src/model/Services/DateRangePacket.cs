@@ -14,7 +14,7 @@ namespace CSB_Project.src.model.Services
 
         #region Proprietà
         public DateRange Range => _range;
-        public override string InformationString => "Utilizzi illimitati compresi dal " + Range.StartDate + " al " + Range.EndDate;
+        public override string InformationString => Name + "." + "Servizio : " + Usable.Name + ". Utilizzi illimitati compresi dal " + Range.StartDate + " al " + Range.EndDate;
         #endregion 
 
         public DateRangePacket(DatePriceDescriptor descriptor, IUsable usable, DateRange range) : base(descriptor, usable)

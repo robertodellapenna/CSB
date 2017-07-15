@@ -1,28 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using CSB_Project.src.model.Utils;
+using System;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using CSB_Project.src.presentation.Utils;
 using CSB_Project.src.business;
-using CSB_Project.src.model.Users;
 using CSB_Project.src.model.Prenotation;
-using CSB_Project.src.model.Utils;
 using CSB_Project.src.model.Services;
 using CSB_Project.src.model.TrackingDevice;
+using CSB_Project.src.model.Users;
+using CSB_Project.src.presentation.Utils;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace CSB_Project.src.presentation
 {
-    public partial class AddPrenotationDialog : Form
+    public class PrenotationCreatorPresenter
     {
+
         #region Campi
+        private DateTimePicker _fromDateTimePicker, _toDateTimePicker;
+        private ListView _itemPrenotationListView, _bundleListView, _packetListView;
+        private Button _createButton, _clearButton, _associateTrackingDeviceButton;
+        private ComboBox _customerComboBox;
+        private Label _trackingDeviceLabel;
+        private ErrorProvider _errorProvider;
+        private PrenotationCreatorView _view;
+        private AuthorizationLevel _authLevel;
+
+
         private IUserCoordinator _uCoord = CoordinatorManager.Instance.CoordinatorOfType<IUserCoordinator>();
         private IPrenotationCoordinator _pCoord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
         private ITrackingDeviceCoordinator _tdCoord = CoordinatorManager.Instance.CoordinatorOfType<ITrackingDeviceCoordinator>();
-        private AuthorizationLevel _level;
+        
         private ILoginInformation _loginInfo;
         private ICustomer _customer;
         private List<ICustomizableItemPrenotation> _itemsPrenotation;
@@ -32,41 +39,85 @@ namespace CSB_Project.src.presentation
         private AssociationDescriptor _desc;
         #endregion
 
-        #region Proprietà
-        #endregion
-
-        #region Costruttori
-        public AddPrenotationDialog()
-        {
-            InitializeComponent();
-            //_level = this.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel");
-            //if (_level == AuthorizationLevel.CUSTOMER)
-            //{
-            //    _loginInfo = this.RetrieveTagInformation<ILoginInformation>("loginInformation");
-            //    _customer = (from u in _uCoord.RegisteredUsers
-            //                 where (u is ICustomer && u.Username.Equals(_loginInfo.Username))
-            //                 select u as ICustomer).First();
-            //    _clientComboBox.Items.Add(_customer);
-            //    _clientComboBox.Enabled = false;
-            //}
-            //else
-            //{
-                _clientComboBox.DataSource = _uCoord.Customers;
-            //}
+        public PrenotationCreatorPresenter(PrenotationCreatorView view){
+            #region Precondizioni
+            if (view == null)
+                throw new ArgumentNullException("view null");
+            #endregion
             _itemsPrenotation = new List<ICustomizableItemPrenotation>();
             _bundles = new List<IBundle>();
             _packets = new List<IPacket>();
-            _okButton.Enabled = false;
+
+            _fromDateTimePicker = view.FromDateTimePicker;
+            _toDateTimePicker = view.ToDateTimePicker;
+            _itemPrenotationListView = view.ItemPrenotationListView;
+            _bundleListView = view.BundleListView;
+            _createButton = view.CreateButton;
+            _clearButton = view.ClearButton;
+            _packetListView = view.PacketListView;
+            _trackingDeviceLabel = view.TrackingDeviceLabel;
+            _customerComboBox = view.CustomerComboBox;
+            _associateTrackingDeviceButton = view.AssociateTrackingDeviceButton;
+            _errorProvider = view.ErrorProvider;
+            _view = view;
+
+            // init handler 
+            _clearButton.Click += ClearHandler;
+            _view.AbortButton.Click += CancelButtonHandler;
+            _createButton.Click += CreateButtonHandler;
+            _fromDateTimePicker.ValueChanged += FromDateChangedHandler;
+            _toDateTimePicker.ValueChanged += ToDateChangedHandler;
+            _customerComboBox.SelectedIndexChanged += CustomerChangedHandler;
+            _associateTrackingDeviceButton.Click += AddTrackingDeviceButtonHandler;
+            _view.AddBundleButton.Click += AddBundlesButtonHandler;
+            _view.AddPacketButton.Click += AddPacketsButtonHandler;
+            _view.AddItemPrenotationButton.Click += AddItemPrenotationButtonHandler;
+
+            // init componenti
+            _customerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            _customerComboBox.DisplayMember = "DisplayInfo";
+            _fromDateTimePicker.MinDate = DateTime.Now.Date;
+            _authLevel = view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel");
+
+            if (_authLevel == AuthorizationLevel.GUEST)
+                throw new InvalidOperationException("Gli utenti GUEST non posso effettuare prenotazioni");
+
+            if (_authLevel == AuthorizationLevel.CUSTOMER)
+            {
+                _view.CustomerLabel.Visible = false;
+                _view.CustomerLabel.Enabled = false;
+                _loginInfo = view.RetrieveTagInformation<ILoginInformation>("loginInformation");
+                _customer = (from u in _uCoord.RegisteredUsers
+                             where (u is ICustomer && u.Username.Equals(_loginInfo.Username))
+                             select u as ICustomer).FirstOrDefault();
+                if (_customer == null)
+                {
+                    MessageBox.Show("Non risultato registrato come cliente nel sistema. Chiama lo staff");
+                    _view.Close();
+                }
+                _customerComboBox.Items.Add(_customer);
+                _customerComboBox.SelectedIndex = 0;
+                _customerComboBox.Enabled = false;
+            }
+            
+            if(_authLevel >= AuthorizationLevel.BASIC_STAFF)
+            {
+                _customerComboBox.Items.Clear();
+                foreach (ICustomer c in _uCoord.Customers)
+                    _customerComboBox.Items.Add(c);
+                if (_customerComboBox.Items.Count > 0)
+                    _customerComboBox.SelectedIndex = 0;
+            }
+
+            _createButton.Enabled = false;
             _clearButton.Enabled = false;
         }
-
-        #endregion
 
         #region metodi
         private bool CanCreate()
         {
             DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
-            if (_baseTrackingDevice == null || _customer==null)
+            if (_baseTrackingDevice == null || _customer == null)
                 return false;
             return range.IsComplete(from i in _itemsPrenotation
                                     select i.RangeData);
@@ -87,7 +138,7 @@ namespace CSB_Project.src.presentation
                         _itemsPrenotation.Add(itemPrenotation);
                         _itemPrenotationListView.Items.Add(itemPrenotation.InformationString);
                         if (CanCreate())
-                            _okButton.Enabled = true;
+                            _createButton.Enabled = true;
                     }
                     _clearButton.Enabled = true;
                 }
@@ -102,7 +153,7 @@ namespace CSB_Project.src.presentation
             {
                 if (sb.ShowDialog() == DialogResult.OK)
                 {
-                    foreach(IBundle b in sb.SelectedBundles())
+                    foreach (IBundle b in sb.SelectedBundles())
                     {
                         _bundles.Add(b);
                         _bundleListView.Items.Add(b.InformationString);
@@ -137,10 +188,10 @@ namespace CSB_Project.src.presentation
             DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
             using (StringDialog sd = new StringDialog("Nome da associare a prenotazione base: "))
             {
-                if(sd.ShowDialog()== DialogResult.OK)
+                if (sd.ShowDialog() == DialogResult.OK)
                 {
                     string name = sd.Response;
-                   
+
                     if (name != null)
                     {
                         _desc = new AssociationDescriptor(range, name);
@@ -149,18 +200,18 @@ namespace CSB_Project.src.presentation
                 else
                     return;
             }
-            if(_desc==null)
-                _desc= new AssociationDescriptor(range, "Base");
+            if (_desc == null)
+                _desc = new AssociationDescriptor(range, "Base");
             _baseTrackingDevice = _tdCoord.Next;
-            _tdLabelValue.Text =_desc.InformationString + " -> " + _baseTrackingDevice.Id;
+            _trackingDeviceLabel.Text = _desc.InformationString + " -> " + _baseTrackingDevice.Id;
             _associateTrackingDeviceButton.Enabled = false;
             if (CanCreate())
-                _okButton.Enabled = true;
+                _createButton.Enabled = true;
             _clearButton.Enabled = true;
         }
         public void CustomerChangedHandler(Object obj, EventArgs e)
         {
-            _customer = _clientComboBox.SelectedItem as ICustomer;
+            _customer = _customerComboBox.SelectedItem as ICustomer;
         }
         public void FromDateChangedHandler(Object obj, EventArgs e)
         {
@@ -185,39 +236,39 @@ namespace CSB_Project.src.presentation
         {
             _baseTrackingDevice = null;
             _associateTrackingDeviceButton.Enabled = true;
-            _tdLabelValue.Text= "";
+            _trackingDeviceLabel.Text = "";
             _itemsPrenotation.Clear();
             _itemPrenotationListView.Clear();
             _packets.Clear();
             _packetListView.Clear();
             _bundles.Clear();
             _bundleListView.Clear();
-            _okButton.Enabled = false;
+            _createButton.Enabled = false;
             _clearButton.Enabled = false;
             _desc = null;
         }
-        public void OkButtonHandler(Object obj, EventArgs e)
+
+        public void CreateButtonHandler(Object obj, EventArgs e)
         {
             _errorProvider.Clear();
 
             try
             {
                 DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
-                ICustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc );
-                DialogResult = DialogResult.OK;
-                Close();
-            }catch(Exception exception)
+                ICustomizableServizablePrenotation prenotation = new CustomizableServizablePrenotation(_customer, range, _itemsPrenotation, _baseTrackingDevice, _desc);
+                _pCoord.AddPrenotation(prenotation);
+                MessageBox.Show("Prenotazione creata corretamente");
+                _view.Close();
+            }
+            catch (Exception exception)
             {
                 MessageBox.Show("Impossibile creare la prenotazione per il seguente motivo: " + exception.Message);
-                DialogResult = DialogResult.Cancel;
-                Close();
             }
         }
 
         public void CancelButtonHandler(Object obj, EventArgs e)
         {
-            DialogResult = DialogResult.Cancel;
-            Close();
+            _view.Close();
         }
         #endregion
     }

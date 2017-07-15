@@ -15,7 +15,7 @@ namespace CSB_Project.src.model.Services
 
         #region Proprietà
         public int Ticket => _ticket;
-        public override string InformationString => "Ticket utilizzabili " + _ticket;
+        public override string InformationString => Name + "." + "Servizio : " + Usable.Name + ". Ticket utilizzabili " + _ticket;
         #endregion 
 
         public TicketPacket(DatePriceDescriptor descriptor, IUsable usable, int ticket) : base(descriptor, usable)

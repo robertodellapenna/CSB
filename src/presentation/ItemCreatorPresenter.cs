@@ -7,22 +7,28 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Xml;
+using CSB_Project.src.model.Item;
+using System.Collections.ObjectModel;
 
 namespace CSB_Project.src.presentation
 {
     public class ItemCreatorPresenter
     {
         private Func<XmlNode, bool> _addItemDelegate;
+        private Func<IEnumerable<IItem>> _items;
 
-        public ItemCreatorPresenter(ItemCreatorView view, Func<XmlNode, bool> addItemDelegate){
+        public ItemCreatorPresenter(ItemCreatorView view, Func<XmlNode, bool> addItemDelegate, Func<IEnumerable<IItem>> items){
 
             #region Precondizioni
             if (view == null)
                 throw new ArgumentNullException("view null");
             if (addItemDelegate == null)
                 throw new ArgumentNullException("addItemDelegate null");
+            if (items == null)
+                throw new ArgumentNullException("items null");
             #endregion
             _addItemDelegate = addItemDelegate;
+            _items = items;
             //Recupero tutte le classi dall'assembly che contengono il nome 
             Assembly assembly = Assembly.GetExecutingAssembly();
             IEnumerable<Type> types = from type in assembly.GetTypes()
@@ -38,7 +44,7 @@ namespace CSB_Project.src.presentation
                 IEnumerable<Type> presenterType = from type in assembly.GetTypes()
                                           where type.Namespace == "CSB_Project.src.presentation.ItemCreator"
                                           && Regex.IsMatch(type.Name, @"^" + viewType.Name.Replace("CreatorView","") + @"CreatorPresenter$")
-                                          && type.GetConstructor(new Type[] { viewType, _addItemDelegate.GetType() }) != null
+                                          && type.GetConstructor(new Type[] { viewType, _addItemDelegate.GetType(), _items.GetType() }) != null
                                           select type;
 
                 if (presenterType.Count() != 1)
@@ -60,8 +66,8 @@ namespace CSB_Project.src.presentation
             // creo la view
             Object view = viewType.GetConstructor(Type.EmptyTypes).Invoke(new object[] { });
             // creo il presenter passandogli la view
-            presenterType.GetConstructor(new Type[] { viewType, _addItemDelegate.GetType() })
-                .Invoke(new object[] { view, _addItemDelegate });
+            presenterType.GetConstructor(new Type[] { viewType, _addItemDelegate.GetType(), _items.GetType() })
+                .Invoke(new object[] { view, _addItemDelegate, _items });
             // mostro la view
             (view as Form).Show();
         }

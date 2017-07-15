@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.presentation.Utils;
@@ -156,7 +157,7 @@ namespace CSB_Project.src.presentation
         private void CustomerInit()
         {
             CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
-            CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Non implementato"));
+            CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
@@ -169,17 +170,26 @@ namespace CSB_Project.src.presentation
         {
             CreateButton("Visualizza prenotazioni clienti", SpawnPrenotationView);
             CreateButton("Aggiunti un nuovo item al sistema", SpawnItemCreator);
+            CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
             CreateButton("Compatibilità", () => MessageBox.Show("Non implementato"));
         }
 
         #region SpawnMethod
+        private void SpawnPrenotationCreator()
+        {
+            PrenotationCreatorView prenotationCreatorView = new PrenotationCreatorView();
+            AddInformation(prenotationCreatorView);
+            new PrenotationCreatorPresenter(prenotationCreatorView);
+            prenotationCreatorView.Show();
+        }
+
         private void SpawnItemCreator()
         {
             IItemCoordinator iCoord = CoordinatorManager.Instance.CoordinatorOfType<IItemCoordinator>();
 
             ItemCreatorView itemCreatoreView = new ItemCreatorView();
             AddInformation(itemCreatoreView);
-            new ItemCreatorPresenter(itemCreatoreView, (xmlNode) => iCoord.AddItem(xmlNode));
+            new ItemCreatorPresenter(itemCreatoreView, iCoord.AddItem, () => iCoord.Items as IEnumerable<IItem>);
             itemCreatoreView.Show();
         }
 

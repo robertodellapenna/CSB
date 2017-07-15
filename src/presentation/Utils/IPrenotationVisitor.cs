@@ -11,7 +11,7 @@ namespace CSB_Project.src.presentation.Utils
     public interface IPrenotationVisitor
     {
         void Visit(IPrenotation prenotation);
-        void Visit(ICustomizablePrenotation prenotation);
+        void Visit(ICustomizableServizablePrenotation prenotation);
         void Visit(IItemPrenotation itemPrenotation);
         void Visit(ICategorizableItem item);
         void Visit(IItem item);

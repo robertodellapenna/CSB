@@ -280,6 +280,7 @@
     <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\ItemCreator\BasicControlPresentercs.cs" />
     <Compile Include="src\presentation\ItemCreator\BasicItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -334,6 +335,13 @@
     </Compile>
     <Compile Include="src\presentation\PacketManagerView.Designer.cs">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\PrenotationCreatorPresenter.cs" />
+    <Compile Include="src\presentation\PrenotationCreatorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\PrenotationCreatorView.Designer.cs">
+      <DependentUpon>PrenotationCreatorView.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\PrenotationPresenter.cs" />
     <Compile Include="src\presentation\PrenotationView.cs">
@@ -430,6 +438,12 @@
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
     <Compile Include="src\presentation\Utils\TreeBuilderVisitor.cs" />
+    <Compile Include="src\presentation\Utils\UsageView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\Utils\UsageView.Designer.cs">
+      <DependentUpon>UsageView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
@@ -473,6 +487,9 @@
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\ItemCreator\BasicItemControl.resx">
+      <DependentUpon>BasicItemControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemCreator\BasicItemCreatorView.resx">
       <DependentUpon>BasicItemCreatorView.cs</DependentUpon>
     </EmbeddedResource>
@@ -493,6 +510,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\PrenotationCreatorView.resx">
+      <DependentUpon>PrenotationCreatorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PrenotationView.resx">
       <DependentUpon>PrenotationView.cs</DependentUpon>
@@ -535,6 +555,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\StringDialog.resx">
       <DependentUpon>StringDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\Utils\UsageView.resx">
+      <DependentUpon>UsageView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\RobertoForm.resx">
       <DependentUpon>RobertoForm.cs</DependentUpon>

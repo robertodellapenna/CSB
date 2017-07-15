@@ -13,13 +13,24 @@ namespace CSB_Project.src.presentation.Utils
 {
     public partial class CategoryPicker : UserControl
     {
+        public event EventHandler SelectionChanged;
+
         private const int DEFAULT_WIDTH = 220, DEFAULT_HEIGHT = 150; 
         private const int DEFAULT_ITEM_HEIGHT = 40, DEFAULT_ITEM_TO_SHOW = 2;
         private int _itemToShow, _itemHeight, _width;
         private Style _style;
 
-        private BorderLabel _selected;
-        public ICategory SelectedCategory => _selected?.Tag as ICategory;
+        private BorderLabel _selectedLabel;
+        private ICategory _selectedCategory;
+
+        public ICategory SelectedCategory {
+            get => _selectedCategory;
+            private set
+            {
+                _selectedCategory = value;
+                OnSelectionChanged(this, EventArgs.Empty);
+            }
+        }
 
         private ICategory _rootCategory;
         private ICategory _currentCategory;
@@ -133,21 +144,28 @@ namespace CSB_Project.src.presentation.Utils
 
         private void Deselect()
         {
-            if (_selected == null)
+            if (_selectedLabel == null)
                 return;
-            _selected.BackColor = Color.Black;
-            _selected.BackColorHover = Color.Black;
-            _selected = null;
+            _selectedLabel.BackColor = Color.Black;
+            _selectedLabel.BackColorHover = Color.Black;
+            _selectedLabel = null;
+            SelectedCategory = null;
         }
 
         private void Select(BorderLabel bl)
         {
             bl.BackColor = Color.Blue;
             bl.BackColorHover = Color.Blue;
-            _selected = bl;
+            _selectedLabel = bl;
+            SelectedCategory = bl.Tag as ICategory;
         }
 
+
+
         #region Handler
+        private void OnSelectionChanged(Object sender, EventArgs args)
+            => SelectionChanged?.Invoke(sender, args);
+
         private void SelecectHandler(Object obj, EventArgs e)
         {
             if (!(obj is BorderLabel))
