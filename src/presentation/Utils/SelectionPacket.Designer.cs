@@ -73,7 +73,7 @@
             this._question.Name = "_question";
             this._question.Size = new System.Drawing.Size(99, 17);
             this._question.TabIndex = 2;
-            this._question.Text = "Seleziona servizi";
+            this._question.Text = "Seleziona pacchetti";
             // 
             // _errorProvider
             // 
