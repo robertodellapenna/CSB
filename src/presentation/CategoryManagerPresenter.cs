@@ -35,7 +35,6 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void AddHandler(Object sender, EventArgs eventArgs)
         {
-            //MessageBox.Show(""+_categoryTree.SelectedNode);
             ICategory selectedNode = _categoryTree.SelectedNode?.Tag as ICategory ?? null;
             if (selectedNode == null)
             {
@@ -61,11 +60,6 @@ namespace CSB_Project.src.presentation
             }
             // Creo la categoria
             CategoryFactory.CreateCategory(catName, selectedNode as IGroupCategory);
-        }
-
-        private void ModifyHandler(Object sender, EventArgs eventArgs)
-        {
-            /* PROBABILMENTE NON VA FATTO */
         }
 
         /// <summary>

@@ -179,6 +179,7 @@ namespace CSB_Project.src.presentation
             CreateButton("Visualizza servizi disponibili", SpawnStaffServiceView);
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
+            CreateButton("Gestisci categorie sistema", SpawnCategoryView);
         }
 
         #region SpawnMethod
@@ -200,6 +201,14 @@ namespace CSB_Project.src.presentation
             AddInformation(itemCreatoreView);
             new ItemCreatorPresenter(itemCreatoreView, iCoord.AddItem, () => iCoord.Items as IEnumerable<IItem>);
             itemCreatoreView.Show();
+        }
+
+        private void SpawnCategoryView()
+        {
+            ICategoryCoordinator cCoor = CoordinatorManager.Instance.CoordinatorOfType<ICategoryCoordinator>();
+            CategoryManagerView catView = new CategoryManagerView();
+            new CategoryManagerPresenter(catView, cCoor.RootCategory);
+            catView.Show();
         }
 
         private void SpawnPrenotationView()
