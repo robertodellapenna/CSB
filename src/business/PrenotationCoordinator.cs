@@ -17,6 +17,7 @@ namespace CSB_Project.src.business
     public interface IPrenotationCoordinator : ICoordinator
     {
         ReadOnlyCollection<IPrenotation> Prenotations { get; }
+        CustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date);
         void AddPrenotation(CustomizableServizablePrenotation prenotation);
         IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData);
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
@@ -107,6 +108,21 @@ namespace CSB_Project.src.business
 
             _prenotations.Add(myPrenotation);
             _prenotations.Add(myPrenotation2);
+        }
+
+        public CustomizableServizablePrenotation GetPrenotationByCard(ITrackingDevice card, DateTime date)
+        {
+            CustomizableServizablePrenotation result = null;
+            foreach (CustomizableServizablePrenotation prenotation in _prenotations)
+            {
+                foreach(ITrackingDevice device in prenotation.TrackingDevices)
+                {
+                    if (device.Id == card.Id && prenotation.PrenotationDate.Contains(date))
+                        result = prenotation;
+                }
+            }
+
+            return result;
         }
 
         public void AddPrenotation(CustomizableServizablePrenotation prenotation)
