@@ -63,6 +63,29 @@ namespace CSB_Project.src.presentation
             loginButton.BackColor = Color.Blue;
             loginButton.ForeColor = Color.White;
             loginButton.Click += LoginHandler;
+
+            Button guestButton = view.GuestButton;
+            guestButton.BackColor = SystemColors.Control;
+            guestButton.Click += (obj, a) => HackLogin(null, "");
+
+            Button customerButton = view.CustomerButton;
+            customerButton.BackColor = SystemColors.Control;
+            customerButton.Click += (obj, a) => HackLogin("lorenzo.antonini", "admin");
+
+            Button staffButton = view.StaffButton;
+            staffButton.BackColor = SystemColors.Control;
+            staffButton.Click += (obj, a) => HackLogin("giovanni.admin", "admin");
+        }
+
+        private void HackLogin(string username, string password)
+        {
+            
+            //lancio la nuova view e attendo la chiusura
+            _loginView.Hide();
+            _postLoginForm.Show();
+            _postLoginForm.AddLoginInformation(new LoginInformation(username, password.ToSHA512()));
+            _postLoginForm.FormClosed +=
+                (o, ev) => _loginView.Close();
         }
 
         private void LoginHandler(Object obj, EventArgs e)

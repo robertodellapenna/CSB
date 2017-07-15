@@ -334,6 +334,13 @@
     <Compile Include="src\presentation\PacketManagerView.Designer.cs">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\PrenotationCreatorPresenter.cs" />
+    <Compile Include="src\presentation\PrenotationCreatorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\PrenotationCreatorView.Designer.cs">
+      <DependentUpon>PrenotationCreatorView.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\presentation\PrenotationPresenter.cs" />
     <Compile Include="src\presentation\PrenotationView.cs">
       <SubType>Form</SubType>
@@ -495,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PacketManagerView.resx">
       <DependentUpon>PacketManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\PrenotationCreatorView.resx">
+      <DependentUpon>PrenotationCreatorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\PrenotationView.resx">
       <DependentUpon>PrenotationView.cs</DependentUpon>

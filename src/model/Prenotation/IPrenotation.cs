@@ -23,7 +23,7 @@ namespace CSB_Project.src.model.Prenotation
         void Accept(IPrenotationVisitor visitor);
     }
 
-    public interface ICustomizablePrenotation : IPrenotation
+    public interface ICustomizableServizablePrenotation : IPrenotation
     {
         ReadOnlyCollection<IPacket> Packets { get; }
         ReadOnlyCollection<IBundle> Bundles { get; }

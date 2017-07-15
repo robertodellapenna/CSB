@@ -11,7 +11,7 @@ using CSB_Project.src.presentation.Utils;
 
 namespace CSB_Project.src.model.Prenotation
 {
-    public class CustomizableServizablePrenotation : ICustomizablePrenotation, IServizablePrenotation
+    public class CustomizableServizablePrenotation : ICustomizableServizablePrenotation, IServizablePrenotation
     {
         #region Eventi
         public event EventHandler<PrenotationEventArgs> PrenotationChanged;

@@ -14,6 +14,9 @@ namespace CSB_Project.src.presentation
         public TextBox UsernameBox => _usernameBox;
         public TextBox PasswordBox => _passwordBox;
         public Button LoginButton => _loginButton;
+        public Button CustomerButton => _customerButton;
+        public Button StaffButton => _staffButton;
+        public Button GuestButton => _guestButton;
 
         public LoginView()
         {
