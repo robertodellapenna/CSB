@@ -16,8 +16,10 @@ namespace CSB_Project.src.presentation
     {
 
         #region Campi
-        IBookingCoordinator bCoord = CoordinatorManager.Instance.CoordinatorOfType<IBookingCoordinator>();
-        IPrenotationCoordinator pCoord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+        private IBookingCoordinator _bCoord = CoordinatorManager.Instance.CoordinatorOfType<IBookingCoordinator>();
+        private IPrenotationCoordinator _pCoord = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+        private DateRange _range;
+        private bool init = false;
         #endregion
 
         #region Proprietà
@@ -42,15 +44,20 @@ namespace CSB_Project.src.presentation
         #endregion
 
         #region Costruttori
-        public SelectBookableItemDialog()
+        public SelectBookableItemDialog(DateRange range)
         {
             InitializeComponent();
+            _range = range;
+            _dateTimePickerDa.Value = _range.StartDate;
+            _dateTimePickerA.Value = _range.EndDate;
         }
         #endregion
 
         #region metodi
         public void LoadStructures(IEnumerable<Structure> structures)
         {
+            if (!init)
+                init = true;
             _comboBoxStructure.DataSource = structures;
         }
 
@@ -86,21 +93,33 @@ namespace CSB_Project.src.presentation
         #region Handlers
         public void DateFromChangedHandler(Object obj, EventArgs e)
         {
+            if(_dateTimePickerDa.Value < _range.StartDate)
+            {
+                //MessageBox.Show("Data oltre il range della tua prenotazione");
+                _dateTimePickerDa.Value = _range.StartDate;
+            }
             if ( _dateTimePickerDa.Value > _dateTimePickerA.Value)
             {
-                //genero un avviso di errore
-                _dateTimePickerA.Value = _dateTimePickerDa.Value.AddDays(1);
+                //MessageBox.Show("Range inconsistente");
+                _dateTimePickerDa.Value = _range.StartDate;
             }
-            SelectedStructureHandler(this, EventArgs.Empty);
+            if(init)
+                SelectedStructureHandler(this, EventArgs.Empty);
         }
         public void DateToChangedHandler(Object obj, EventArgs e)
         {
+            if (_dateTimePickerA.Value >  _range.EndDate)
+            {
+                //MessageBox.Show("Data oltre il range della tua prenotazione");
+                _dateTimePickerA.Value = _range.EndDate;
+            }
             if (_dateTimePickerA.Value < _dateTimePickerDa.Value)
             {
-                //genero un avviso di errore
-                _dateTimePickerA.Value=_dateTimePickerDa.Value.AddDays(1);
+                //MessageBox.Show("Range inconsistente");
+                _dateTimePickerA.Value = _range.EndDate;
             }
-            SelectedStructureHandler(this, EventArgs.Empty);
+            if(init)
+                SelectedStructureHandler(this, EventArgs.Empty);
         }
         public void SelectedStructureHandler(Object obj, EventArgs e)
         {
@@ -121,7 +140,7 @@ namespace CSB_Project.src.presentation
         public void SelectedColumnHandler(Object obj, EventArgs e)
         {
             Position position = new Position(SelectedRow, SelectedColumn);
-            IBookableItem item = bCoord.GetBookableItem(SelectedSector, position);
+            IBookableItem item = _bCoord.GetBookableItem(SelectedSector, position);
             if (item == null)
             {
                 _labelItemValue.Text = "";
@@ -129,7 +148,7 @@ namespace CSB_Project.src.presentation
             }
             else
             {
-                bool available = pCoord.IsAvailable(SelectedSector, position, Range);
+                bool available = _pCoord.IsAvailable(SelectedSector, position, Range);
                 if (available)
                 {
                     _labelItemValue.Text = item.ToString();
@@ -147,8 +166,11 @@ namespace CSB_Project.src.presentation
         public void OkButtonHandler(Object obj, EventArgs e)
         {
             _errorProvider.Clear();
-            if (SelectedItem==null)
+            if (SelectedItem == null)
+            {
+                DialogResult = DialogResult.Cancel;
                 Close();
+            }
             DialogResult = DialogResult.OK;
             Close();
         }
