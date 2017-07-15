@@ -157,7 +157,7 @@ namespace CSB_Project.src.presentation
         private void CustomerInit()
         {
             CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
-            CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Non implementato"));
+            CreateButton("Effettua nuova prenotazione", SpawnPrenotationDialog);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
@@ -174,6 +174,12 @@ namespace CSB_Project.src.presentation
         }
 
         #region SpawnMethod
+        private void SpawnPrenotationDialog()
+        {
+            AddPrenotationDialog dialog = new AddPrenotationDialog();
+            dialog.Show();
+        }
+
         private void SpawnItemCreator()
         {
             IItemCoordinator iCoord = CoordinatorManager.Instance.CoordinatorOfType<IItemCoordinator>();
