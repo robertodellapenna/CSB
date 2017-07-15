@@ -57,7 +57,7 @@ namespace CSB_Project.src.model.Prenotation
         /// <summary>
         /// Pacchetti comprati
         /// </summary>
-        public ReadOnlyCollection<IPacket> Packets => new ReadOnlyCollection<IPacket>((from p in _packetsPurchases select p.Packet)as IList<IPacket>);
+        public ReadOnlyCollection<IPacket> Packets => new ReadOnlyCollection<IPacket>((from p in _packetsPurchases select p.Packet).ToList());
         public ReadOnlyCollection<IPacketPurchase> PacketsPurchases => new ReadOnlyCollection<IPacketPurchase>(_packetsPurchases);
         /// <summary>
         /// Bundle comprati
