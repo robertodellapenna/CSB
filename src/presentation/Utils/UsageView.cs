@@ -81,7 +81,8 @@ namespace CSB_Project.src.presentation.Utils
                         }
                     }
                 }
-                _usageList.Items.Add(items);
+                if(items != null)
+                    _usageList.Items.Add(items);
             }
             _usageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _usageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

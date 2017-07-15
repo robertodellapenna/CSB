@@ -75,9 +75,13 @@ namespace CSB_Project.src.business
             IBundle bundle1 = new Bundle(bundleSet, new DatePriceDescriptor("bundle1", "bundle1", date1, 23.0));
             _bundles.Add(bundle1);
             IUsage usage1 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(101), service1);
+            IUsage usage2 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(101), service2);
+            IUsage usage3 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(115), service3);
             IPrenotationCoordinator prenotationCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
             //IUsage usage2 = new UsageService(new DateTime(2017, 7, 18), (prenotationCoordinator.Prenotations.ElementAt(0) as CustomizableServizablePrenotation).TrackingDevices.ElementAt(0), service1);
             _usages.Add(usage1);
+            _usages.Add(usage2);
+            _usages.Add(usage3);
             //_usages.Add(usage2);
         }
         public void AddBundle(IBundle bundle)
