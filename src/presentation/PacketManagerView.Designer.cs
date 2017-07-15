@@ -53,7 +53,7 @@ namespace CSB_Project.src.presentation
             // 
             // _listView
             // 
-            this._listView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._listView.BackColor = System.Drawing.Color.White;
             this._listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listView.FullRowSelect = true;
             this._listView.GridLines = true;
@@ -61,20 +61,12 @@ namespace CSB_Project.src.presentation
             this._listView.Name = "_listView";
             this._listView.Size = new System.Drawing.Size(424, 362);
             this._listView.TabIndex = 0;
-            this._listView.Columns.Add("Nome");
-            this._listView.Columns.Add("Descrizione");
-            this._listView.Columns.Add("Prezzo");
-            this._listView.Columns.Add("Acquistabile");
-            this._listView.Columns.Add("Servizio");
-            this._listView.Columns.Add("Ticket");
-            this._listView.Columns.Add("Validita");
-            ResizeListView.autoResizeColumns(_listView);
             this._listView.UseCompatibleStateImageBehavior = false;
             this._listView.View = System.Windows.Forms.View.Details;
             // 
             // _actionPanel
             // 
-            this._actionPanel.BackColor = System.Drawing.SystemColors.Highlight;
+            this._actionPanel.BackColor = System.Drawing.Color.White;
             this._actionPanel.Controls.Add(this._deleteButton);
             this._actionPanel.Controls.Add(this._addButton);
             this._actionPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -86,21 +78,23 @@ namespace CSB_Project.src.presentation
             // 
             // _deleteButton
             // 
+            this._deleteButton.BackColor = System.Drawing.SystemColors.Control;
             this._deleteButton.Location = new System.Drawing.Point(174, 21);
             this._deleteButton.Name = "_deleteButton";
             this._deleteButton.Size = new System.Drawing.Size(75, 23);
             this._deleteButton.TabIndex = 2;
             this._deleteButton.Text = "DELETE";
-            this._deleteButton.UseVisualStyleBackColor = true;
+            this._deleteButton.UseVisualStyleBackColor = false;
             // 
             // _addButton
             // 
+            this._addButton.BackColor = System.Drawing.SystemColors.Control;
             this._addButton.Location = new System.Drawing.Point(12, 21);
             this._addButton.Name = "_addButton";
             this._addButton.Size = new System.Drawing.Size(75, 23);
             this._addButton.TabIndex = 1;
             this._addButton.Text = "ADD";
-            this._addButton.UseVisualStyleBackColor = true;
+            this._addButton.UseVisualStyleBackColor = false;
             // 
             // PacketManagerView
             // 

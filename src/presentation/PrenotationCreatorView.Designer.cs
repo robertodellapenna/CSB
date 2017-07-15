@@ -144,7 +144,7 @@
             // 
             this._customerLabel.AutoSize = true;
             this._customerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._customerLabel.Location = new System.Drawing.Point(75, 378);
+            this._customerLabel.Location = new System.Drawing.Point(75, 385);
             this._customerLabel.Name = "_customerLabel";
             this._customerLabel.Size = new System.Drawing.Size(119, 18);
             this._customerLabel.TabIndex = 26;
@@ -162,7 +162,7 @@
             // _clientComboBox
             // 
             this._clientComboBox.FormattingEnabled = true;
-            this._clientComboBox.Location = new System.Drawing.Point(346, 378);
+            this._clientComboBox.Location = new System.Drawing.Point(346, 385);
             this._clientComboBox.Name = "_clientComboBox";
             this._clientComboBox.Size = new System.Drawing.Size(219, 21);
             this._clientComboBox.TabIndex = 24;
