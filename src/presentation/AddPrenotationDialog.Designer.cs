@@ -34,8 +34,9 @@
             this._okButton = new System.Windows.Forms.Button();
             this._fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this._toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this._trackingDeviceListView = new System.Windows.Forms.ListView();
+            this._panel = new System.Windows.Forms.Panel();
+            this._clientComboBox = new System.Windows.Forms.ComboBox();
+            this._clientButton = new System.Windows.Forms.Button();
             this._packetListView = new System.Windows.Forms.ListView();
             this._bundleListView = new System.Windows.Forms.ListView();
             this._itemPrenotationListView = new System.Windows.Forms.ListView();
@@ -46,10 +47,10 @@
             this._addBundleButton = new System.Windows.Forms.Button();
             this._addItemPrenotationButton = new System.Windows.Forms.Button();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this._clientButton = new System.Windows.Forms.Button();
-            this._clientComboBox = new System.Windows.Forms.ComboBox();
+            this._tdLabelValue = new System.Windows.Forms.Label();
+            this._clearButton = new System.Windows.Forms.Button();
             this._bottomPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this._panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,10 +58,11 @@
             // 
             this._bottomPanel.BackColor = System.Drawing.Color.White;
             this._bottomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this._bottomPanel.Controls.Add(this._clearButton);
             this._bottomPanel.Controls.Add(this._cancelButton);
             this._bottomPanel.Controls.Add(this._okButton);
             this._bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._bottomPanel.Location = new System.Drawing.Point(0, 687);
+            this._bottomPanel.Location = new System.Drawing.Point(0, 651);
             this._bottomPanel.Name = "_bottomPanel";
             this._bottomPanel.Size = new System.Drawing.Size(793, 54);
             this._bottomPanel.TabIndex = 10;
@@ -96,6 +98,7 @@
             this._fromDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this._fromDateTimePicker.TabIndex = 11;
             this._fromDateTimePicker.Value = new System.DateTime(2017, 6, 1, 0, 0, 0, 0);
+            this._fromDateTimePicker.ValueChanged += new System.EventHandler(this.FromDateChangedHandler);
             // 
             // _toDateTimePicker
             // 
@@ -104,50 +107,62 @@
             this._toDateTimePicker.Size = new System.Drawing.Size(200, 20);
             this._toDateTimePicker.TabIndex = 12;
             this._toDateTimePicker.Value = new System.DateTime(2017, 9, 30, 0, 0, 0, 0);
+            this._toDateTimePicker.ValueChanged += new System.EventHandler(this.ToDateChangedHandler);
             // 
-            // panel1
+            // _panel
             // 
-            this.panel1.Controls.Add(this._clientComboBox);
-            this.panel1.Controls.Add(this._clientButton);
-            this.panel1.Controls.Add(this._trackingDeviceListView);
-            this.panel1.Controls.Add(this._packetListView);
-            this.panel1.Controls.Add(this._bundleListView);
-            this.panel1.Controls.Add(this._itemPrenotationListView);
-            this.panel1.Controls.Add(this._aLabel);
-            this.panel1.Controls.Add(this._fromLabel);
-            this.panel1.Controls.Add(this._associateTrackingDeviceButton);
-            this.panel1.Controls.Add(this._addPacketButton);
-            this.panel1.Controls.Add(this._addBundleButton);
-            this.panel1.Controls.Add(this._addItemPrenotationButton);
-            this.panel1.Controls.Add(this._fromDateTimePicker);
-            this.panel1.Controls.Add(this._toDateTimePicker);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(793, 687);
-            this.panel1.TabIndex = 13;
+            this._panel.Controls.Add(this._tdLabelValue);
+            this._panel.Controls.Add(this._clientComboBox);
+            this._panel.Controls.Add(this._clientButton);
+            this._panel.Controls.Add(this._packetListView);
+            this._panel.Controls.Add(this._bundleListView);
+            this._panel.Controls.Add(this._itemPrenotationListView);
+            this._panel.Controls.Add(this._aLabel);
+            this._panel.Controls.Add(this._fromLabel);
+            this._panel.Controls.Add(this._associateTrackingDeviceButton);
+            this._panel.Controls.Add(this._addPacketButton);
+            this._panel.Controls.Add(this._addBundleButton);
+            this._panel.Controls.Add(this._addItemPrenotationButton);
+            this._panel.Controls.Add(this._fromDateTimePicker);
+            this._panel.Controls.Add(this._toDateTimePicker);
+            this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._panel.Location = new System.Drawing.Point(0, 0);
+            this._panel.Name = "_panel";
+            this._panel.Size = new System.Drawing.Size(793, 651);
+            this._panel.TabIndex = 13;
             // 
-            // _trackingDeviceListView
+            // _clientComboBox
             // 
-            this._trackingDeviceListView.Location = new System.Drawing.Point(221, 556);
-            this._trackingDeviceListView.Name = "_trackingDeviceListView";
-            this._trackingDeviceListView.Size = new System.Drawing.Size(556, 96);
-            this._trackingDeviceListView.TabIndex = 22;
-            this._trackingDeviceListView.UseCompatibleStateImageBehavior = false;
+            this._clientComboBox.FormattingEnabled = true;
+            this._clientComboBox.Location = new System.Drawing.Point(558, 612);
+            this._clientComboBox.Name = "_clientComboBox";
+            this._clientComboBox.Size = new System.Drawing.Size(219, 21);
+            this._clientComboBox.TabIndex = 24;
+            this._clientComboBox.SelectedIndexChanged += new System.EventHandler(this.CustomerChangedHandler);
+            // 
+            // _clientButton
+            // 
+            this._clientButton.BackColor = System.Drawing.SystemColors.Control;
+            this._clientButton.Location = new System.Drawing.Point(21, 612);
+            this._clientButton.Name = "_clientButton";
+            this._clientButton.Size = new System.Drawing.Size(173, 23);
+            this._clientButton.TabIndex = 23;
+            this._clientButton.Text = "Seleziona Cliente";
+            this._clientButton.UseVisualStyleBackColor = false;
             // 
             // _packetListView
             // 
-            this._packetListView.Location = new System.Drawing.Point(221, 448);
+            this._packetListView.Location = new System.Drawing.Point(221, 493);
             this._packetListView.Name = "_packetListView";
-            this._packetListView.Size = new System.Drawing.Size(556, 102);
+            this._packetListView.Size = new System.Drawing.Size(556, 57);
             this._packetListView.TabIndex = 21;
             this._packetListView.UseCompatibleStateImageBehavior = false;
             // 
             // _bundleListView
             // 
-            this._bundleListView.Location = new System.Drawing.Point(221, 328);
+            this._bundleListView.Location = new System.Drawing.Point(221, 422);
             this._bundleListView.Name = "_bundleListView";
-            this._bundleListView.Size = new System.Drawing.Size(556, 114);
+            this._bundleListView.Size = new System.Drawing.Size(556, 65);
             this._bundleListView.TabIndex = 20;
             this._bundleListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -155,7 +170,7 @@
             // 
             this._itemPrenotationListView.Location = new System.Drawing.Point(221, 104);
             this._itemPrenotationListView.Name = "_itemPrenotationListView";
-            this._itemPrenotationListView.Size = new System.Drawing.Size(556, 218);
+            this._itemPrenotationListView.Size = new System.Drawing.Size(556, 312);
             this._itemPrenotationListView.TabIndex = 19;
             this._itemPrenotationListView.UseCompatibleStateImageBehavior = false;
             // 
@@ -180,32 +195,35 @@
             // _associateTrackingDeviceButton
             // 
             this._associateTrackingDeviceButton.BackColor = System.Drawing.SystemColors.Control;
-            this._associateTrackingDeviceButton.Location = new System.Drawing.Point(21, 556);
+            this._associateTrackingDeviceButton.Location = new System.Drawing.Point(21, 570);
             this._associateTrackingDeviceButton.Name = "_associateTrackingDeviceButton";
             this._associateTrackingDeviceButton.Size = new System.Drawing.Size(173, 23);
             this._associateTrackingDeviceButton.TabIndex = 16;
-            this._associateTrackingDeviceButton.Text = "Associa Tracking Device";
+            this._associateTrackingDeviceButton.Text = "Recupera Tracking Device";
             this._associateTrackingDeviceButton.UseVisualStyleBackColor = false;
+            this._associateTrackingDeviceButton.Click += new System.EventHandler(this.AddTrackingDeviceButtonHandler);
             // 
             // _addPacketButton
             // 
             this._addPacketButton.BackColor = System.Drawing.SystemColors.Control;
-            this._addPacketButton.Location = new System.Drawing.Point(21, 448);
+            this._addPacketButton.Location = new System.Drawing.Point(21, 493);
             this._addPacketButton.Name = "_addPacketButton";
             this._addPacketButton.Size = new System.Drawing.Size(173, 23);
             this._addPacketButton.TabIndex = 15;
-            this._addPacketButton.Text = "Aggiungi Pacchetto";
+            this._addPacketButton.Text = "Aggiungi Pacchetti";
             this._addPacketButton.UseVisualStyleBackColor = false;
+            this._addPacketButton.Click += new System.EventHandler(this.AddPacketsButtonHandler);
             // 
             // _addBundleButton
             // 
             this._addBundleButton.BackColor = System.Drawing.SystemColors.Control;
-            this._addBundleButton.Location = new System.Drawing.Point(21, 328);
+            this._addBundleButton.Location = new System.Drawing.Point(21, 422);
             this._addBundleButton.Name = "_addBundleButton";
             this._addBundleButton.Size = new System.Drawing.Size(173, 23);
             this._addBundleButton.TabIndex = 14;
-            this._addBundleButton.Text = "Aggiungi Bundle";
+            this._addBundleButton.Text = "Aggiungi Bundles";
             this._addBundleButton.UseVisualStyleBackColor = false;
+            this._addBundleButton.Click += new System.EventHandler(this.AddBundlesButtonHandler);
             // 
             // _addItemPrenotationButton
             // 
@@ -213,7 +231,7 @@
             this._addItemPrenotationButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this._addItemPrenotationButton.Location = new System.Drawing.Point(12, 104);
             this._addItemPrenotationButton.Name = "_addItemPrenotationButton";
-            this._addItemPrenotationButton.Size = new System.Drawing.Size(173, 23);
+            this._addItemPrenotationButton.Size = new System.Drawing.Size(182, 23);
             this._addItemPrenotationButton.TabIndex = 13;
             this._addItemPrenotationButton.Text = "Aggiungi Elemento Prenotazione";
             this._addItemPrenotationButton.UseVisualStyleBackColor = false;
@@ -224,37 +242,40 @@
             this._errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this._errorProvider.ContainerControl = this;
             // 
-            // _clientButton
+            // _tdLabelValue
             // 
-            this._clientButton.BackColor = System.Drawing.SystemColors.Control;
-            this._clientButton.Location = new System.Drawing.Point(21, 658);
-            this._clientButton.Name = "_clientButton";
-            this._clientButton.Size = new System.Drawing.Size(173, 23);
-            this._clientButton.TabIndex = 23;
-            this._clientButton.Text = "Seleziona Cliente";
-            this._clientButton.UseVisualStyleBackColor = false;
+            this._tdLabelValue.AutoSize = true;
+            this._tdLabelValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._tdLabelValue.Location = new System.Drawing.Point(555, 570);
+            this._tdLabelValue.Name = "_tdLabelValue";
+            this._tdLabelValue.Size = new System.Drawing.Size(0, 13);
+            this._tdLabelValue.TabIndex = 25;
             // 
-            // _clientComboBox
+            // _clearButton
             // 
-            this._clientComboBox.FormattingEnabled = true;
-            this._clientComboBox.Location = new System.Drawing.Point(558, 658);
-            this._clientComboBox.Name = "_clientComboBox";
-            this._clientComboBox.Size = new System.Drawing.Size(219, 21);
-            this._clientComboBox.TabIndex = 24;
+            this._clearButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._clearButton.BackColor = System.Drawing.SystemColors.Control;
+            this._clearButton.Location = new System.Drawing.Point(539, 18);
+            this._clearButton.Name = "_clearButton";
+            this._clearButton.Size = new System.Drawing.Size(75, 23);
+            this._clearButton.TabIndex = 10;
+            this._clearButton.Text = "Pulisci";
+            this._clearButton.UseVisualStyleBackColor = false;
+            this._clearButton.Click += new System.EventHandler(this.ClearHandler);
             // 
             // AddPrenotationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(793, 741);
-            this.Controls.Add(this.panel1);
+            this.ClientSize = new System.Drawing.Size(793, 705);
+            this.Controls.Add(this._panel);
             this.Controls.Add(this._bottomPanel);
             this.Name = "AddPrenotationDialog";
             this.Text = "AddPrenotationDialog";
             this._bottomPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this._panel.ResumeLayout(false);
+            this._panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.ResumeLayout(false);
 
@@ -267,8 +288,7 @@
         private System.Windows.Forms.Button _okButton;
         private System.Windows.Forms.DateTimePicker _fromDateTimePicker;
         private System.Windows.Forms.DateTimePicker _toDateTimePicker;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView _trackingDeviceListView;
+        private System.Windows.Forms.Panel _panel;
         private System.Windows.Forms.ListView _packetListView;
         private System.Windows.Forms.ListView _bundleListView;
         private System.Windows.Forms.ListView _itemPrenotationListView;
@@ -281,5 +301,7 @@
         private System.Windows.Forms.ErrorProvider _errorProvider;
         private System.Windows.Forms.ComboBox _clientComboBox;
         private System.Windows.Forms.Button _clientButton;
+        private System.Windows.Forms.Label _tdLabelValue;
+        private System.Windows.Forms.Button _clearButton;
     }
 }

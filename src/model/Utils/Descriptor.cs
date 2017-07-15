@@ -63,6 +63,7 @@ namespace CSB_Project.src.model.Utils
         #region Proprietà
         public DateRange DateRange => _dateRange;
         public string Name => _name;
+        public string InformationString => Name + " (" + DateRange.StartDate.ToShortDateString() + " - " + DateRange.EndDate.ToShortDateString() +")";
         #endregion
 
         #region Costruttori
