@@ -278,6 +278,7 @@
     <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\ItemCreator\BasicControlPresentercs.cs" />
     <Compile Include="src\presentation\ItemCreator\BasicItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -476,6 +477,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\ItemCreator\BasicItemControl.resx">
+      <DependentUpon>BasicItemControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemCreator\BasicItemCreatorView.resx">
       <DependentUpon>BasicItemCreatorView.cs</DependentUpon>

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this._identifierLabel = new System.Windows.Forms.Label();
             this._identifierTextBox = new System.Windows.Forms.TextBox();
             this._nameTextBox = new System.Windows.Forms.TextBox();
@@ -36,7 +37,9 @@
             this._descriptionLabel = new System.Windows.Forms.Label();
             this._priceLabel = new System.Windows.Forms.Label();
             this._priceBox = new System.Windows.Forms.NumericUpDown();
+            this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._priceBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // _identifierLabel
@@ -109,7 +112,11 @@
             this._priceBox.TabIndex = 8;
             this._priceBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // BasicItemCreator
+            // _errorProvider
+            // 
+            this._errorProvider.ContainerControl = this;
+            // 
+            // BasicItemControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,9 +128,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this._identifierTextBox);
             this.Controls.Add(this._identifierLabel);
-            this.Name = "BasicItemCreator";
-            this.Size = new System.Drawing.Size(300, 161);
+            this.Name = "BasicItemControl";
+            this.Size = new System.Drawing.Size(323, 161);
             ((System.ComponentModel.ISupportInitialize)(this._priceBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,5 +147,6 @@
         private System.Windows.Forms.Label _descriptionLabel;
         private System.Windows.Forms.Label _priceLabel;
         private System.Windows.Forms.NumericUpDown _priceBox;
+        private System.Windows.Forms.ErrorProvider _errorProvider;
     }
 }

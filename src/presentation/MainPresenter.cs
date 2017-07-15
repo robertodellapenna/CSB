@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.presentation.Utils;
@@ -156,7 +157,7 @@ namespace CSB_Project.src.presentation
         private void CustomerInit()
         {
             CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
-            CreateButton("Effettua nuova prenotazione", () => MessageBox.Show("Non implementato"));
+            CreateButton("Effettua nuova prenotazione", SpawnPrenotationDialog);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
@@ -173,13 +174,19 @@ namespace CSB_Project.src.presentation
         }
 
         #region SpawnMethod
+        private void SpawnPrenotationDialog()
+        {
+            AddPrenotationDialog dialog = new AddPrenotationDialog();
+            dialog.Show();
+        }
+
         private void SpawnItemCreator()
         {
             IItemCoordinator iCoord = CoordinatorManager.Instance.CoordinatorOfType<IItemCoordinator>();
 
             ItemCreatorView itemCreatoreView = new ItemCreatorView();
             AddInformation(itemCreatoreView);
-            new ItemCreatorPresenter(itemCreatoreView, (xmlNode) => iCoord.AddItem(xmlNode));
+            new ItemCreatorPresenter(itemCreatoreView, iCoord.AddItem, () => iCoord.Items as IEnumerable<IItem>);
             itemCreatoreView.Show();
         }
 

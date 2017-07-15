@@ -16,13 +16,11 @@ namespace CSB_Project.src.presentation.ItemCreator
         public TextBox FriendlyNameBox => _basicItemControl.FriendlyNameBox;
         public TextBox IdentifierBox => _basicItemControl.IdentifierBox;
         public TextBox DescriptionBox => _basicItemControl.DescriptionBox;
+        public BasicItemControl Control => _basicItemControl;
+        public Button AddButton => _addButton;
 
-        public BasicItemCreatorView() : this(null) { }
-
-        public BasicItemCreatorView(Style style = null)
-        {
+        public BasicItemCreatorView(){
             InitializeComponent();
-            this.ApplyStyle(style);
         }
     }
 }
