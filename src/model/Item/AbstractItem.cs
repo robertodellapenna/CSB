@@ -1,4 +1,7 @@
-﻿using CSB_Project.src.model.Utils;
+﻿using CSB_Project.src.model.Booking;
+using CSB_Project.src.model.Prenotation;
+using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +44,8 @@ namespace CSB_Project.src.model.Item
         {
             return _identifier.GetHashCode();
         }
+
+        public abstract void Accept(IPrenotationVisitor visitor);
 
         public override bool Equals(object obj)
         {

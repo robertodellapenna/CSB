@@ -11,6 +11,7 @@ namespace CSB_Project.src.business
     {
         IEnumerable<IItem> BaseItems { get; }
         IEnumerable<IItem> GetAssociableItemOf(IItem baseItem);
+        bool AddItem(XmlNode itemDescriptor);
     }
 
     class ItemCoordinator : AbstractCoordinatorDecorator, IItemCoordinator
@@ -80,5 +81,17 @@ namespace CSB_Project.src.business
 
         public IEnumerable<IItem> GetAssociableItemOf(IItem baseItem)
             => _compatibilites.GetAllAssociableItems(baseItem);
+
+        public bool AddItem(XmlNode itemDescriptor)
+        {
+            try
+            {
+                ItemFactory.CreateItem(itemDescriptor);
+            } catch (Exception e)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

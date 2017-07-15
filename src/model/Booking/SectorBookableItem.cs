@@ -1,6 +1,8 @@
 ﻿using CSB_Project.src.model.Item;
+using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Structure;
 using CSB_Project.src.model.Utils;
+using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -47,6 +49,11 @@ namespace CSB_Project.src.model.Booking
 
         #region Metodi
         public override string ToString() => _baseItem.FriendlyName + ", prezzo giornaliero: " + String.Format(CultureInfo.GetCultureInfo("it-IT"), "{0:C} Euro", DailyPrice);
+        public void Accept(IPrenotationVisitor visitor)
+        {
+            visitor.Visit(this);
+            _baseItem.Accept(visitor);
+        }
         #endregion
 
         #region Handler

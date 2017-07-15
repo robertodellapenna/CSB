@@ -1,6 +1,5 @@
 ﻿using CSB_Project.src.business;
 using CSB_Project.src.presentation;
-using CSB_Project.src.presentation.ItemCreatorPresenter;
 using CSB_Project.src.presentation.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,6 @@ namespace CSB_Project.src
 {
     public partial class GioForm : Form
     {
-        private CategorizableItemCreator cip;
         public GioForm()
         {
             InitializeComponent();

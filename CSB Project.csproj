@@ -50,6 +50,7 @@
     <RootNamespace>CSB_Project</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -211,13 +212,13 @@
     <Compile Include="src\LorenzoForm.Designer.cs">
       <DependentUpon>LorenzoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\model\Booking\SectorBookableItem.cs" />
     <Compile Include="src\model\Item\AbstractItem.cs" />
     <Compile Include="src\model\Item\Compatibilities.cs" />
     <Compile Include="src\model\Item\ItemFactory.cs" />
     <Compile Include="src\model\Booking\IBookableItem.cs" />
     <Compile Include="src\model\Item\IItem.cs" />
     <Compile Include="src\model\Item\ItemParser.cs" />
-    <Compile Include="src\model\Booking\SectorBookableItem.cs" />
     <Compile Include="src\model\Prenotation\IItemPrenotation.cs" />
     <Compile Include="src\model\Services\Bundle.cs" />
     <Compile Include="src\model\Services\UsageService.cs" />
@@ -277,25 +278,33 @@
     <Compile Include="src\presentation\CategoryManagerView.Designer.cs">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.cs">
+    <Compile Include="src\presentation\ItemCreator\BasicItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.Designer.cs">
-      <DependentUpon>CategorizableItemCreator.cs</DependentUpon>
+    <Compile Include="src\presentation\ItemCreator\BasicItemControl.Designer.cs">
+      <DependentUpon>BasicItemControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\ItemCreator.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="src\presentation\ItemCreator\BasicItemCreatorPresenter.cs" />
+    <Compile Include="src\presentation\ItemCreator\CategorizableItemCreatorView.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\ItemCreator.Designer.cs">
-      <DependentUpon>ItemCreator.cs</DependentUpon>
+    <Compile Include="src\presentation\ItemCreator\CategorizableItemCreatorView.Designer.cs">
+      <DependentUpon>CategorizableItemCreatorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\ItemCreatorPresenter.cs" />
-    <Compile Include="src\presentation\ItemCreatorPresenter\BasicItemCreator.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="src\presentation\ItemCreatorView.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\presentation\ItemCreatorPresenter\BasicItemCreator.Designer.cs">
-      <DependentUpon>BasicItemCreator.cs</DependentUpon>
+    <Compile Include="src\presentation\ItemCreatorView.Designer.cs">
+      <DependentUpon>ItemCreatorView.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\presentation\ItemCreatorPresenter.cs" />
+    <Compile Include="src\presentation\ItemCreator\BasicItemCreatorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\presentation\ItemCreator\BasicItemCreatorView.Designer.cs">
+      <DependentUpon>BasicItemCreatorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="src\presentation\ItemCreator\CategorizableItemCreatorPresenter.cs" />
     <Compile Include="src\presentation\ItemPickerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -385,6 +394,7 @@
       <DependentUpon>ExpandableNode.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\ILoginInformation.cs" />
+    <Compile Include="src\presentation\Utils\IPrenotationVisitor.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
     <Compile Include="src\presentation\Utils\SelectionBundle.cs">
       <SubType>Form</SubType>
@@ -417,6 +427,7 @@
       <DependentUpon>StringDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\Utils\Style.cs" />
+    <Compile Include="src\presentation\Utils\TreeBuilderVisitor.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\RobertoForm.cs">
       <SubType>Form</SubType>
@@ -460,11 +471,14 @@
     <EmbeddedResource Include="src\presentation\CategoryManagerView.resx">
       <DependentUpon>CategoryManagerView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\presentation\ItemCreatorPresenter\BasicItemCreator.resx">
-      <DependentUpon>BasicItemCreator.cs</DependentUpon>
+    <EmbeddedResource Include="src\presentation\ItemCreator\BasicItemCreatorView.resx">
+      <DependentUpon>BasicItemCreatorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\presentation\ItemCreatorPresenter\CategorizableItemCreator.resx">
-      <DependentUpon>CategorizableItemCreator.cs</DependentUpon>
+    <EmbeddedResource Include="src\presentation\ItemCreator\CategorizableItemCreatorView.resx">
+      <DependentUpon>CategorizableItemCreatorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\presentation\ItemCreatorView.resx">
+      <DependentUpon>ItemCreatorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
       <DependentUpon>ItemPickerControl.cs</DependentUpon>
