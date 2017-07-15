@@ -159,7 +159,7 @@ namespace CSB_Project.src.presentation
         {
             CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
             CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
-            //CreateButton("Effettua nuova prenotazione", SpawnUsageView);
+            CreateButton("Visualizza servizi utilizzati", SpawnUsageView);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
@@ -228,26 +228,13 @@ namespace CSB_Project.src.presentation
             prenotationView.Show();
         }
 
-        private void UsageView()
+        private void SpawnUsageView()
         {
-            //IPrenotationCoordinator pCoor = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
             IUserCoordinator uCoord = CoordinatorManager.Instance.CoordinatorOfType<IUserCoordinator>();
-            //ITrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<ITrackingDeviceCoordinator>();
-
-            //IEnumerable<ITrackingDevice> tdDevices = from c in uCoord.RegisteredUsers
-            //                                         join p in pCoor.Prenotations.OfType<IServizablePrenotation>()
-            //                                         on c equals p.Client 
-            //                                         where c is ICustomer && c.Username == _loginInformation.Username
-            //                                         && p.PrenotationDate.Contains(DateTime.Now)
-            //                                         select p.TrackingDevices;
-
-            //foreach(ITrackingDevice td in tdDevices)
-            //{
-
-            //}
-
+            
             ICustomer c = (from u in uCoord.RegisteredUsers where u is ICustomer && u.Username == _loginInformation.Username select u as ICustomer).FirstOrDefault();
-            //UsageView usageView = new UsageView(c);
+            UsageView usageView = new UsageView(c);
+            usageView.Show();
         }
 
         private void SpawnPacketView()
