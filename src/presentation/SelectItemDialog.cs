@@ -23,9 +23,12 @@ namespace CSB_Project.src.presentation
         #endregion
 
         #region Metodi
-        public void LoadItems(IEnumerable items)
+        public void LoadItems(IEnumerable<IItem> items)
         {
-            _comboBox.DataSource = items;
+            _comboBox.DisplayMember = "InformationString";
+            _comboBox.Items.Clear();
+            foreach (IItem i in items)
+                _comboBox.Items.Add(i);
         }
         #endregion
 

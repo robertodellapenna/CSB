@@ -1,6 +1,7 @@
 ﻿using CSB_Project.src.business;
 using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Prenotation;
+using CSB_Project.src.model.TrackingDevice;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.presentation.Utils;
 using System;
@@ -158,6 +159,7 @@ namespace CSB_Project.src.presentation
         {
             CreateButton("Visualizza prenotazioni effettuate", SpawnPrenotationView);
             CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
+            //CreateButton("Effettua nuova prenotazione", SpawnUsageView);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
@@ -175,6 +177,8 @@ namespace CSB_Project.src.presentation
         }
 
         #region SpawnMethod
+        
+
         private void SpawnPrenotationCreator()
         {
             PrenotationCreatorView prenotationCreatorView = new PrenotationCreatorView();
@@ -222,6 +226,28 @@ namespace CSB_Project.src.presentation
                 customerRetrieverByUsername, customerRetrieverByLastName);
 
             prenotationView.Show();
+        }
+
+        private void UsageView()
+        {
+            //IPrenotationCoordinator pCoor = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
+            IUserCoordinator uCoord = CoordinatorManager.Instance.CoordinatorOfType<IUserCoordinator>();
+            //ITrackingDeviceCoordinator tdCoord = CoordinatorManager.Instance.CoordinatorOfType<ITrackingDeviceCoordinator>();
+
+            //IEnumerable<ITrackingDevice> tdDevices = from c in uCoord.RegisteredUsers
+            //                                         join p in pCoor.Prenotations.OfType<IServizablePrenotation>()
+            //                                         on c equals p.Client 
+            //                                         where c is ICustomer && c.Username == _loginInformation.Username
+            //                                         && p.PrenotationDate.Contains(DateTime.Now)
+            //                                         select p.TrackingDevices;
+
+            //foreach(ITrackingDevice td in tdDevices)
+            //{
+
+            //}
+
+            ICustomer c = (from u in uCoord.RegisteredUsers where u is ICustomer && u.Username == _loginInformation.Username select u as ICustomer).FirstOrDefault();
+            //UsageView usageView = new UsageView(c);
         }
 
         private void SpawnPacketView()

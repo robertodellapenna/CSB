@@ -148,6 +148,7 @@ namespace CSB_Project.src.model.Prenotation
             _client = client;
             _prenotationDate = prenotationDate;
             _bookedItems = items.ToList();
+            _packetsPurchases = new List<IPacketPurchase>();
             List<IPacket> packetList = packets?.ToList() ?? new List<IPacket>();
 
             foreach (IPacket packet in packetList)

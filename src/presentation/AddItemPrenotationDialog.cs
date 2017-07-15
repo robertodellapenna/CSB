@@ -83,7 +83,7 @@ namespace CSB_Project.src.presentation
             DateRange range = new DateRange(_fromDateTimePicker.Value, _toDateTimePicker.Value);
             using (SelectItemDialog sd = new SelectItemDialog())
             {
-                sd.LoadItems(_iCoord.GetAssociableItemOf(SelectedItem.BaseItem.BaseItem) as IEnumerable<AbstractItem>);
+                sd.LoadItems(_iCoord.GetAssociableItemOf(SelectedItem.BaseItem.BaseItem));
                 if (sd.ShowDialog() == DialogResult.OK)
                 {
                     IItem plugin= sd.SelectedItem;
