@@ -62,7 +62,7 @@
             this._bottomPanel.Controls.Add(this._cancelButton);
             this._bottomPanel.Controls.Add(this._createButton);
             this._bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this._bottomPanel.Location = new System.Drawing.Point(0, 651);
+            this._bottomPanel.Location = new System.Drawing.Point(0, 453);
             this._bottomPanel.Name = "_bottomPanel";
             this._bottomPanel.Size = new System.Drawing.Size(793, 54);
             this._bottomPanel.TabIndex = 10;
@@ -137,14 +137,14 @@
             this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._panel.Location = new System.Drawing.Point(0, 0);
             this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(793, 651);
+            this._panel.Size = new System.Drawing.Size(793, 453);
             this._panel.TabIndex = 13;
             // 
             // _customerLabel
             // 
             this._customerLabel.AutoSize = true;
             this._customerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._customerLabel.Location = new System.Drawing.Point(75, 611);
+            this._customerLabel.Location = new System.Drawing.Point(75, 378);
             this._customerLabel.Name = "_customerLabel";
             this._customerLabel.Size = new System.Drawing.Size(119, 18);
             this._customerLabel.TabIndex = 26;
@@ -154,7 +154,7 @@
             // 
             this._tdLabelValue.AutoSize = true;
             this._tdLabelValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this._tdLabelValue.Location = new System.Drawing.Point(555, 570);
+            this._tdLabelValue.Location = new System.Drawing.Point(555, 337);
             this._tdLabelValue.Name = "_tdLabelValue";
             this._tdLabelValue.Size = new System.Drawing.Size(0, 13);
             this._tdLabelValue.TabIndex = 25;
@@ -162,7 +162,7 @@
             // _clientComboBox
             // 
             this._clientComboBox.FormattingEnabled = true;
-            this._clientComboBox.Location = new System.Drawing.Point(346, 611);
+            this._clientComboBox.Location = new System.Drawing.Point(346, 378);
             this._clientComboBox.Name = "_clientComboBox";
             this._clientComboBox.Size = new System.Drawing.Size(219, 21);
             this._clientComboBox.TabIndex = 24;
@@ -170,16 +170,16 @@
             // _packetListView
             // 
             this._packetListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this._packetListView.Location = new System.Drawing.Point(221, 493);
+            this._packetListView.Location = new System.Drawing.Point(221, 260);
             this._packetListView.Name = "_packetListView";
-            this._packetListView.Size = new System.Drawing.Size(556, 57);
+            this._packetListView.Size = new System.Drawing.Size(556, 74);
             this._packetListView.TabIndex = 21;
             this._packetListView.UseCompatibleStateImageBehavior = false;
             this._packetListView.View = System.Windows.Forms.View.List;
             // 
             // _bundleListView
             // 
-            this._bundleListView.Location = new System.Drawing.Point(221, 422);
+            this._bundleListView.Location = new System.Drawing.Point(221, 189);
             this._bundleListView.Name = "_bundleListView";
             this._bundleListView.Size = new System.Drawing.Size(556, 65);
             this._bundleListView.TabIndex = 20;
@@ -190,7 +190,7 @@
             // 
             this._itemPrenotationListView.Location = new System.Drawing.Point(221, 104);
             this._itemPrenotationListView.Name = "_itemPrenotationListView";
-            this._itemPrenotationListView.Size = new System.Drawing.Size(556, 312);
+            this._itemPrenotationListView.Size = new System.Drawing.Size(556, 79);
             this._itemPrenotationListView.TabIndex = 19;
             this._itemPrenotationListView.UseCompatibleStateImageBehavior = false;
             this._itemPrenotationListView.View = System.Windows.Forms.View.List;
@@ -216,7 +216,7 @@
             // _associateTrackingDeviceButton
             // 
             this._associateTrackingDeviceButton.BackColor = System.Drawing.SystemColors.Control;
-            this._associateTrackingDeviceButton.Location = new System.Drawing.Point(21, 570);
+            this._associateTrackingDeviceButton.Location = new System.Drawing.Point(21, 337);
             this._associateTrackingDeviceButton.Name = "_associateTrackingDeviceButton";
             this._associateTrackingDeviceButton.Size = new System.Drawing.Size(173, 23);
             this._associateTrackingDeviceButton.TabIndex = 16;
@@ -226,7 +226,7 @@
             // _addPacketButton
             // 
             this._addPacketButton.BackColor = System.Drawing.SystemColors.Control;
-            this._addPacketButton.Location = new System.Drawing.Point(21, 493);
+            this._addPacketButton.Location = new System.Drawing.Point(21, 260);
             this._addPacketButton.Name = "_addPacketButton";
             this._addPacketButton.Size = new System.Drawing.Size(173, 23);
             this._addPacketButton.TabIndex = 15;
@@ -236,7 +236,7 @@
             // _addBundleButton
             // 
             this._addBundleButton.BackColor = System.Drawing.SystemColors.Control;
-            this._addBundleButton.Location = new System.Drawing.Point(21, 422);
+            this._addBundleButton.Location = new System.Drawing.Point(21, 189);
             this._addBundleButton.Name = "_addBundleButton";
             this._addBundleButton.Size = new System.Drawing.Size(173, 23);
             this._addBundleButton.TabIndex = 14;
@@ -264,7 +264,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(793, 705);
+            this.ClientSize = new System.Drawing.Size(793, 507);
             this.Controls.Add(this._panel);
             this.Controls.Add(this._bottomPanel);
             this.Name = "PrenotationCreatorView";
