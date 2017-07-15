@@ -1,6 +1,7 @@
 ﻿using CSB_Project.src.model.Item;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -9,6 +10,7 @@ namespace CSB_Project.src.business
 {
     public interface IItemCoordinator : ICoordinator
     {
+        ReadOnlyCollection<IItem> Items { get; }
         IEnumerable<IItem> BaseItems { get; }
         IEnumerable<IItem> GetAssociableItemOf(IItem baseItem);
         bool AddItem(XmlNode itemDescriptor);
@@ -16,6 +18,10 @@ namespace CSB_Project.src.business
 
     class ItemCoordinator : AbstractCoordinatorDecorator, IItemCoordinator
     {
+
+        public ReadOnlyCollection<IItem> Items 
+            => new ReadOnlyCollection<IItem>(ItemFactory.Items.ToList());
+
         private Compatibilities _compatibilites = Compatibilities.Instance;
 
         public ItemCoordinator(ICoordinator next) : base(next)

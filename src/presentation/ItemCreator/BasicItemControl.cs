@@ -16,13 +16,10 @@ namespace CSB_Project.src.presentation.ItemCreator
         public TextBox FriendlyNameBox => _nameTextBox;
         public TextBox IdentifierBox => _identifierTextBox;
         public TextBox DescriptionBox => _descriptioonTextBox;
+        public ErrorProvider ErrorProvider => _errorProvider;
 
-        public BasicItemControl() : this(null) { }
-
-        public BasicItemControl(Style style = null)
-        {
+        public BasicItemControl() {
             InitializeComponent();
-            this.ApplyStyle(style);
         }
     }
 }

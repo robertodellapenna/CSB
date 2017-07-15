@@ -1,4 +1,5 @@
 ﻿using CSB_Project.src.business;
+using CSB_Project.src.model.Item;
 using CSB_Project.src.model.Prenotation;
 using CSB_Project.src.model.Users;
 using CSB_Project.src.presentation.Utils;
@@ -179,7 +180,7 @@ namespace CSB_Project.src.presentation
 
             ItemCreatorView itemCreatoreView = new ItemCreatorView();
             AddInformation(itemCreatoreView);
-            new ItemCreatorPresenter(itemCreatoreView, (xmlNode) => iCoord.AddItem(xmlNode));
+            new ItemCreatorPresenter(itemCreatoreView, iCoord.AddItem, () => iCoord.Items as IEnumerable<IItem>);
             itemCreatoreView.Show();
         }
 

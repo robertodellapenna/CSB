@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSB_Project.src.model.Item;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,17 @@ namespace CSB_Project.src.presentation.ItemCreator
     {
         private Func<XmlNode, bool> _addItemDelegate;
 
-        public CategorizableItemCreatorPresenter(CategorizableItemCreatorView view, Func<XmlNode, bool> addItemDelegate)
+        public CategorizableItemCreatorPresenter(CategorizableItemCreatorView view, Func<XmlNode, bool> addItemDelegate, Func<IEnumerable<IItem>> items)
         {
-            MessageBox.Show((addItemDelegate == null) + " ");
+            #region Precondizioni
+            if (view == null)
+                throw new ArgumentNullException("view null");
+            if (addItemDelegate == null)
+                throw new ArgumentNullException("addItemDelegate null");
+            if (items == null)
+                throw new ArgumentNullException("items null");
+            #endregion
+            _addItemDelegate = addItemDelegate;
         }
     }
 }
