@@ -21,17 +21,19 @@ namespace CSB_Project.src.presentation
         private ICustomizableItemPrenotation _itemPrenotation;
         private IStructureCoordinator _sCoord = CoordinatorManager.Instance.CoordinatorOfType<IStructureCoordinator>();
         private IItemCoordinator _iCoord = CoordinatorManager.Instance.CoordinatorOfType<IItemCoordinator>();
+        private DateRange _range;
         #endregion
 
         #region Proprietà
         public ICustomizableItemPrenotation SelectedItem => _itemPrenotation;
         #endregion
 
-        public AddItemPrenotationDialog()
+        public AddItemPrenotationDialog(DateRange range)
         {
             InitializeComponent();
             _addBookableItemButton.Enabled = true;
             _addPluginItemButton.Enabled = false;
+            _range = range;
             _fromDateTimePicker.Enabled = false;
             _toDateTimePicker.Enabled = false;
         }
@@ -39,7 +41,7 @@ namespace CSB_Project.src.presentation
         #region Handlers
         public void AddBookableItemButtonHandler(Object obj, EventArgs e)
         {
-            using (SelectBookableItemDialog sd = new SelectBookableItemDialog())
+            using (SelectBookableItemDialog sd = new SelectBookableItemDialog(_range))
             {
                 sd.LoadStructures(_sCoord.Structures);
                 if (sd.ShowDialog() == DialogResult.OK)
@@ -99,20 +101,28 @@ namespace CSB_Project.src.presentation
         public void FromDateChangedHandler(Object obj, EventArgs e)
         {
             if (_fromDateTimePicker.Value < _itemPrenotation.RangeData.StartDate)
+            {
+                //MessageBox.Show("Data oltre il range della tua prenotazione");
                 _fromDateTimePicker.Value = _itemPrenotation.RangeData.StartDate;
+            }
             if (_fromDateTimePicker.Value > _toDateTimePicker.Value)
             {
-                _fromDateTimePicker.Value = _toDateTimePicker.Value.Subtract(new TimeSpan(1,0,0,0));
+                //MessageBox.Show("Range inconsistente");
+                _fromDateTimePicker.Value = _itemPrenotation.RangeData.StartDate;
             }
 
         }
         public void ToDateChangedHandler(Object obj, EventArgs e)
         {
             if (_toDateTimePicker.Value > _itemPrenotation.RangeData.EndDate)
-                _toDateTimePicker.Value = _itemPrenotation.RangeData.EndDate;
-            if (_fromDateTimePicker.Value > _toDateTimePicker.Value)
             {
-                _toDateTimePicker.Value = _fromDateTimePicker.Value.AddDays(1);
+                //MessageBox.Show("Data oltre il range della tua prenotazione");
+                _toDateTimePicker.Value = _itemPrenotation.RangeData.EndDate;
+            }
+            if (_toDateTimePicker.Value < _fromDateTimePicker.Value)
+            {
+                //MessageBox.Show("Range inconsistente");
+                _toDateTimePicker.Value = _itemPrenotation.RangeData.EndDate;
             }
 
         }
@@ -120,7 +130,10 @@ namespace CSB_Project.src.presentation
         {
             _errorProvider.Clear();
             if (SelectedItem == null)
+            {
+                DialogResult = DialogResult.Cancel;
                 Close();
+            }
             DialogResult = DialogResult.OK;
             Close();
         }

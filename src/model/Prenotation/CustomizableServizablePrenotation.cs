@@ -19,10 +19,6 @@ namespace CSB_Project.src.model.Prenotation
 
         #region Campi
         /// <summary>
-        /// Id della prenotazione
-        /// </summary>
-        private readonly int _id;
-        /// <summary>
         /// Cliente a cui è associata la prenotazione
         /// </summary>
         private readonly ICustomer _client;
@@ -54,10 +50,6 @@ namespace CSB_Project.src.model.Prenotation
         /// </summary>
         public ICustomer Client => _client;
         public DateRange PrenotationDate => _prenotationDate;
-        /// <summary>
-        /// Id della prenotazione
-        /// </summary>
-        public int Id => _id;
         /// <summary>
         /// Items prenotati
         /// </summary>
@@ -130,14 +122,12 @@ namespace CSB_Project.src.model.Prenotation
         #endregion
 
         #region Costruttori
-        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange prenotationDate,
+        public CustomizableServizablePrenotation(ICustomer client, DateRange prenotationDate,
             IEnumerable<IItemPrenotation> items, ITrackingDevice baseTrackingDevice,
             AssociationDescriptor tdDesc, IEnumerable<IPacket> packets = null,
             IEnumerable<IBundle> bundles = null)
         {
             #region Precondizioni
-            if (id < 0)
-                throw new ArgumentException("id is not valid");
             if (prenotationDate == null)
                 throw new ArgumentNullException("range data null");
             if (client == null)
@@ -154,8 +144,6 @@ namespace CSB_Project.src.model.Prenotation
 
             #endregion
 
-
-            _id = id;
             _client = client;
             _prenotationDate = prenotationDate;
             _bookedItems = items.ToList();
@@ -182,9 +170,9 @@ namespace CSB_Project.src.model.Prenotation
                 throw new InvalidOperationException("gli item non comprono interamente la prenotazione");
         }
 
-        public CustomizableServizablePrenotation(int id, ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items,
+        public CustomizableServizablePrenotation(ICustomer client, DateRange rangeData, IEnumerable<IItemPrenotation> items,
             ITrackingDevice baseTrackingDevice, AssociationDescriptor tdDesc, IEnumerable<IBundle> bundles)
-            : this(id, client, rangeData, items, baseTrackingDevice, tdDesc, null, bundles) { }
+            : this( client, rangeData, items, baseTrackingDevice, tdDesc, null, bundles) { }
         #endregion
 
         #region Metodi
