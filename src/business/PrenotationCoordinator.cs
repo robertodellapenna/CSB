@@ -170,21 +170,22 @@ namespace CSB_Project.src.business
             return !BusyPositions(sector, rangeData).Where(pos => pos.Row == position.Row &&
                                                                  pos.Column == position.Column).Any();
         }
-        public bool CanAdd(ICustomizableItemPrenotation ICustomizableItemPrenotation)
+        public bool CanAdd(ICustomizableItemPrenotation customizableItemPrenotation)
         {
             #region Precondizioni
-            if (ICustomizableItemPrenotation == null)
+            if (customizableItemPrenotation == null)
                 throw new ArgumentNullException("item prenotation null");
             #endregion
-            return _prenotations.Where(
+            return !_prenotations.Where(
                 prenotation => prenotation.BookedItems.Where(
-                    item => item.BaseItem.Sector == ICustomizableItemPrenotation.BaseItem.Sector &&
-                            item.BaseItem.Position.Row == ICustomizableItemPrenotation.BaseItem.Position.Row &&
-                            item.BaseItem.Position.Column == ICustomizableItemPrenotation.BaseItem.Position.Column &&
-                            item.RangeData.OverlapWith(ICustomizableItemPrenotation.RangeData)
-                ).Any()
-            ).Any();
+                                item => item.BaseItem.Sector == customizableItemPrenotation.BaseItem.Sector &&
+                                        item.BaseItem.Position.Row == customizableItemPrenotation.BaseItem.Position.Row &&
+                                        item.BaseItem.Position.Column == customizableItemPrenotation.BaseItem.Position.Column &&
+                                        item.RangeData.OverlapWith(customizableItemPrenotation.RangeData)
+                                 ).Any()
+                    ).Any();
         }
+
         public bool CanAdd(ICustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni

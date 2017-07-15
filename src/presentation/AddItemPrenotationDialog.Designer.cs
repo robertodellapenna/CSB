@@ -33,6 +33,10 @@
             this._cancelButton = new System.Windows.Forms.Button();
             this._okButton = new System.Windows.Forms.Button();
             this._centralPanel = new System.Windows.Forms.Panel();
+            this._toLabel = new System.Windows.Forms.Label();
+            this._fromLabel = new System.Windows.Forms.Label();
+            this._toDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this._fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this._pluginListView = new System.Windows.Forms.ListView();
             this._rangeLabelValue = new System.Windows.Forms.Label();
             this._positionLabelValue = new System.Windows.Forms.Label();
@@ -46,10 +50,6 @@
             this._addPluginItemButton = new System.Windows.Forms.Button();
             this._addBookableItemButton = new System.Windows.Forms.Button();
             this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this._fromDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this._toDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this._fromLabel = new System.Windows.Forms.Label();
-            this._toLabel = new System.Windows.Forms.Label();
             this._bottomPanel.SuspendLayout();
             this._centralPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
@@ -116,6 +116,40 @@
             this._centralPanel.Size = new System.Drawing.Size(586, 421);
             this._centralPanel.TabIndex = 10;
             // 
+            // _toLabel
+            // 
+            this._toLabel.AutoSize = true;
+            this._toLabel.Location = new System.Drawing.Point(199, 265);
+            this._toLabel.Name = "_toLabel";
+            this._toLabel.Size = new System.Drawing.Size(14, 13);
+            this._toLabel.TabIndex = 15;
+            this._toLabel.Text = "A";
+            // 
+            // _fromLabel
+            // 
+            this._fromLabel.AutoSize = true;
+            this._fromLabel.Location = new System.Drawing.Point(199, 239);
+            this._fromLabel.Name = "_fromLabel";
+            this._fromLabel.Size = new System.Drawing.Size(21, 13);
+            this._fromLabel.TabIndex = 14;
+            this._fromLabel.Text = "Da";
+            // 
+            // _toDateTimePicker
+            // 
+            this._toDateTimePicker.Location = new System.Drawing.Point(253, 259);
+            this._toDateTimePicker.Name = "_toDateTimePicker";
+            this._toDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this._toDateTimePicker.TabIndex = 13;
+            this._toDateTimePicker.ValueChanged += new System.EventHandler(this.ToDateChangedHandler);
+            // 
+            // _fromDateTimePicker
+            // 
+            this._fromDateTimePicker.Location = new System.Drawing.Point(252, 233);
+            this._fromDateTimePicker.Name = "_fromDateTimePicker";
+            this._fromDateTimePicker.Size = new System.Drawing.Size(201, 20);
+            this._fromDateTimePicker.TabIndex = 12;
+            this._fromDateTimePicker.ValueChanged += new System.EventHandler(this.FromDateChangedHandler);
+            // 
             // _pluginListView
             // 
             this._pluginListView.BackColor = System.Drawing.Color.White;
@@ -124,6 +158,7 @@
             this._pluginListView.Size = new System.Drawing.Size(387, 97);
             this._pluginListView.TabIndex = 11;
             this._pluginListView.UseCompatibleStateImageBehavior = false;
+            this._pluginListView.View = System.Windows.Forms.View.List;
             // 
             // _rangeLabelValue
             // 
@@ -232,40 +267,6 @@
             // 
             this._errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.AlwaysBlink;
             this._errorProvider.ContainerControl = this;
-            // 
-            // _fromDateTimePicker
-            // 
-            this._fromDateTimePicker.Location = new System.Drawing.Point(252, 233);
-            this._fromDateTimePicker.Name = "_fromDateTimePicker";
-            this._fromDateTimePicker.Size = new System.Drawing.Size(201, 20);
-            this._fromDateTimePicker.TabIndex = 12;
-            this._fromDateTimePicker.ValueChanged += new System.EventHandler(this.FromDateChangedHandler);
-            // 
-            // _toDateTimePicker
-            // 
-            this._toDateTimePicker.Location = new System.Drawing.Point(253, 259);
-            this._toDateTimePicker.Name = "_toDateTimePicker";
-            this._toDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this._toDateTimePicker.TabIndex = 13;
-            this._toDateTimePicker.ValueChanged += new System.EventHandler(this.ToDateChangedHandler);
-            // 
-            // _fromLabel
-            // 
-            this._fromLabel.AutoSize = true;
-            this._fromLabel.Location = new System.Drawing.Point(199, 239);
-            this._fromLabel.Name = "_fromLabel";
-            this._fromLabel.Size = new System.Drawing.Size(21, 13);
-            this._fromLabel.TabIndex = 14;
-            this._fromLabel.Text = "Da";
-            // 
-            // _toLabel
-            // 
-            this._toLabel.AutoSize = true;
-            this._toLabel.Location = new System.Drawing.Point(199, 265);
-            this._toLabel.Name = "_toLabel";
-            this._toLabel.Size = new System.Drawing.Size(14, 13);
-            this._toLabel.TabIndex = 15;
-            this._toLabel.Text = "A";
             // 
             // AddItemPrenotationDialog
             // 
