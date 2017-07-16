@@ -53,7 +53,7 @@ namespace CSB_Project.src.presentation
             // 
             // _listView
             // 
-            this._listView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._listView.BackColor = System.Drawing.Color.White;
             this._listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listView.FullRowSelect = true;
             this._listView.GridLines = true;
@@ -71,7 +71,7 @@ namespace CSB_Project.src.presentation
             // 
             // _actionPanel
             // 
-            this._actionPanel.BackColor = System.Drawing.SystemColors.Highlight;
+            this._actionPanel.BackColor = System.Drawing.Color.White;
             this._actionPanel.Controls.Add(this._deleteButton);
             this._actionPanel.Controls.Add(this._addButton);
             this._actionPanel.Dock = System.Windows.Forms.DockStyle.Bottom;

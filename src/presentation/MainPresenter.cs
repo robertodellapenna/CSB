@@ -166,6 +166,7 @@ namespace CSB_Project.src.presentation
             CreateButton("Visualizza servizi disponibili", SpawnServiceView);
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
+            CreateButton("Stampa resoconto", () => MessageBox.Show("Non implementato"));
         }
 
         private void StaffInit()
@@ -175,11 +176,12 @@ namespace CSB_Project.src.presentation
             CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
             CreateButton("Compatibilità", () => MessageBox.Show("Non implementato"));
 
-            CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
-            CreateButton("Visualizza servizi disponibili", SpawnStaffServiceView);
-            CreateButton("Visualizza Bundle", SpawnBundleView);
-            CreateButton("Visualizza Pacchetti", SpawnPacketView);
+            CreateButton("Gestisci ombrelloni", SpawnBookableView);
+            CreateButton("Gestisci servizi disponibili", SpawnStaffServiceView);
+            CreateButton("Gestisci Bundle", SpawnBundleView);
+            CreateButton("Gestisci Pacchetti", SpawnPacketView);
             CreateButton("Gestisci categorie sistema", SpawnCategoryView);
+            CreateButton("Gestisci personale", () => MessageBox.Show("Non implementato") );
         }
 
         #region SpawnMethod
