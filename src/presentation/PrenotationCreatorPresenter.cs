@@ -209,6 +209,7 @@ namespace CSB_Project.src.presentation
             {
                 MessageBox.Show("Non è possibile recuperare un tracking device. Chiedi allo staff");
                 _view.Close();
+                return;
             }
 
             _trackingDeviceLabel.Text = _desc.InformationString + " -> " + _baseTrackingDevice.Id;

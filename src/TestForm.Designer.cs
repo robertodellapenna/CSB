@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.itemPickerControl1 = new CSB_Project.src.presentation.ItemPickerControl();
+            this.itemPickerControl1 = new CSB_Project.src.presentation.ItemPickerView();
             this.SuspendLayout();
             // 
             // itemPickerControl1
@@ -52,6 +52,6 @@
 
         #endregion
 
-        private presentation.ItemPickerControl itemPickerControl1;
+        private presentation.ItemPickerView itemPickerControl1;
     }
 }

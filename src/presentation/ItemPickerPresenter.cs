@@ -17,7 +17,7 @@ namespace CSB_Project.src.presentation
         private Compatibilities _compatibilites;
         private IItem _baseItem;
         private IDictionary<IItem, int> _associatedItem;
-        private ItemPickerControl _ip;
+        private ItemPickerView _ip;
 
         public IItem BaseItem
         {
@@ -30,7 +30,7 @@ namespace CSB_Project.src.presentation
             }
         }
 
-        public ItemPickerPresenter( ItemPickerControl ip)
+        public ItemPickerPresenter( ItemPickerView ip)
         {
             #region Precondizioni
             if (ip == null)
@@ -171,6 +171,7 @@ namespace CSB_Project.src.presentation
                 {
                     //Non puoi associare altri componenti
                     MessageBox.Show("Hai raggiunto il numero massimo di associazioni");
+                    return;
                 }
                 AssociateItem(itemToAssociate);
             }

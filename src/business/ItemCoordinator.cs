@@ -92,7 +92,8 @@ namespace CSB_Project.src.business
         {
             try
             {
-                ItemFactory.CreateItem(itemDescriptor);
+                IItem item = ItemFactory.CreateItem(itemDescriptor);
+                _compatibilites.AddBaseItem(item);
             } catch (Exception e)
             {
                 return false;

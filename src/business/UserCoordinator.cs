@@ -82,8 +82,11 @@ namespace CSB_Project.src.business
 
             LoginUser staff1 = new LoginUser("giovanni", "Admin", "giovanni.admin", rootHash, AuthorizationLevel.ADVANCED_STAFF);
             LoginUser staff2 = new LoginUser("admin", "admin", "admin.admin", rootHash, AuthorizationLevel.ADVANCED_STAFF);
+            LoginUser staff3 = new LoginUser("basicStaff", "admin", "basic", rootHash, AuthorizationLevel.BASIC_STAFF);
+
             RegisterUser(staff1);
             RegisterUser(staff2);
+            RegisterUser(staff3);
         }
 
         public void RegisterUser(ILoginUser user)

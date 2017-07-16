@@ -48,6 +48,11 @@ namespace CSB_Project.src.business
             IGroupCategory materiali = CategoryFactory.CreateGroup("materiali", _root);
             CategoryFactory.CreateCategory("testa", materiali);
             CategoryFactory.CreateCategory("staffa", materiali);
+            IGroupCategory tessuto = CategoryFactory.CreateGroup("tessuto", materiali);
+            CategoryFactory.CreateCategory("decorazioni", tessuto);
+
+            IGroupCategory proprieta = CategoryFactory.CreateGroup("proprietà", _root);
+            CategoryFactory.CreateCategory("impermeabilità", proprieta);
         }
 
         public ICategory getCategoryByPath(string path)

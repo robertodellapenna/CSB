@@ -244,7 +244,6 @@
     <Compile Include="src\model\Services\TicketPacket.cs" />
     <Compile Include="src\model\TrackingDevice\Card.cs" />
     <Compile Include="src\model\TrackingDevice\ITrackingDevice.cs" />
-    <Compile Include="src\model\TrackingDevice\MagneticCard.cs" />
     <Compile Include="src\model\TrackingDevice\SimpleCard.cs" />
     <Compile Include="src\model\Users\IUser.cs" />
     <Compile Include="src\model\Utils\Descriptor.cs" />
@@ -302,11 +301,11 @@
       <DependentUpon>BasicItemCreatorView.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemCreator\CategorizableItemCreatorPresenter.cs" />
-    <Compile Include="src\presentation\ItemPickerControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="src\presentation\ItemPickerView.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\presentation\ItemPickerControl.Designer.cs">
-      <DependentUpon>ItemPickerControl.cs</DependentUpon>
+    <Compile Include="src\presentation\ItemPickerView.Designer.cs">
+      <DependentUpon>ItemPickerView.cs</DependentUpon>
     </Compile>
     <Compile Include="src\presentation\ItemPickerPresenter.cs" />
     <Compile Include="src\presentation\LoginView.cs">
@@ -391,12 +390,6 @@
     </Compile>
     <Compile Include="src\presentation\Utils\ActionType.cs" />
     <Compile Include="src\presentation\Utils\ControlExtensionMethod.cs" />
-    <Compile Include="src\presentation\Utils\ExpandableNode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="src\presentation\Utils\ExpandableNode.Designer.cs">
-      <DependentUpon>ExpandableNode.cs</DependentUpon>
-    </Compile>
     <Compile Include="src\presentation\Utils\ILoginInformation.cs" />
     <Compile Include="src\presentation\Utils\IPrenotationVisitor.cs" />
     <Compile Include="src\presentation\Utils\ResizeListView.cs" />
@@ -484,8 +477,8 @@
     <EmbeddedResource Include="src\presentation\ItemCreatorView.resx">
       <DependentUpon>ItemCreatorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\presentation\ItemPickerControl.resx">
-      <DependentUpon>ItemPickerControl.cs</DependentUpon>
+    <EmbeddedResource Include="src\presentation\ItemPickerView.resx">
+      <DependentUpon>ItemPickerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\LoginView.resx">
       <DependentUpon>LoginView.cs</DependentUpon>
@@ -522,9 +515,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\CategoryPicker.resx">
       <DependentUpon>CategoryPicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="src\presentation\Utils\ExpandableNode.resx">
-      <DependentUpon>ExpandableNode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\presentation\Utils\SelectionBundle.resx">
       <DependentUpon>SelectionBundle.cs</DependentUpon>

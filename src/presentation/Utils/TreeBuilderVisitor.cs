@@ -127,9 +127,8 @@ namespace CSB_Project.src.presentation.Utils
         private TreeNode[] CustomPacket(DateRangePacket packet)
         {
             TreeNode node = new TreeNode();
-            node.Text = packet.Name + ", " + packet.Description + ", prezzo :" + packet.Price 
-                + ", usufruibile dal " +packet.Range.StartDate.ToShortDateString() 
-                + " al " + packet.Range.EndDate.ToShortDateString() ;
+            node.Text = packet.Name + ", " + packet.Description + ", prezzo :" + packet.Price
+                + ", usufruibile per " + packet.Duration + " giorni";
             return new TreeNode[] { node };
         }
 

@@ -12,6 +12,7 @@ namespace CSB_Project.src.business
         void ReleaseTrackingDevice(ITrackingDevice td);
         void LockTrackingDevice(IServizablePrenotation prenotation);
         void RemoveTrackingDevice(ITrackingDevice td);
+        void AddTrackingDevice(ITrackingDevice td);
     }
 
     public class TrackingDeviceCoordinator : AbstractCoordinatorDecorator, ITrackingDeviceCoordinator
@@ -42,14 +43,28 @@ namespace CSB_Project.src.business
             /* Cerco un file di configurazione dei tracking devices nel fileSystem,
              * se lo trovo carico i tracking devices contenuti 
              */
-             
+
             /* Tracking Devices HardCoded */
-            ITrackingDevice trackingDevice = new MagneticCard(101);
-            _availables.Enqueue(trackingDevice);
-            trackingDevice = new MagneticCard(102);
-            _availables.Enqueue(trackingDevice);
-            trackingDevice = new SimpleCard(101);
-            _availables.Enqueue(trackingDevice);
+            for(int i=0; i<4; i++)
+            {
+                ITrackingDevice trackingDevice = new SimpleCard(i);
+                AddTrackingDevice(trackingDevice);
+            }
+        }
+
+        public void AddTrackingDevice(ITrackingDevice td)
+        {
+            #region Precondizioni
+            if (td == null)
+                throw new ArgumentNullException("td null");
+            if (_availables.Contains(td))
+                throw new InvalidOperationException("td è già presente nel sistema");
+            if (_booked.Keys.Contains(td))
+                throw new InvalidOperationException("td è già presente nel sistema");
+            if (_notAvailables.Contains(td))
+                throw new InvalidOperationException("td è già presente nel sistema");
+            #endregion
+            _availables.Enqueue(td);
         }
 
         public void ReleaseTrackingDevice(ITrackingDevice td)
