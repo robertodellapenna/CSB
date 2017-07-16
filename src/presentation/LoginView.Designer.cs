@@ -55,34 +55,34 @@
             // 
             // _loginButton
             // 
-            this._loginButton.Location = new System.Drawing.Point(196, 226);
+            this._loginButton.Location = new System.Drawing.Point(196, 210);
             this._loginButton.Name = "_loginButton";
-            this._loginButton.Size = new System.Drawing.Size(75, 23);
+            this._loginButton.Size = new System.Drawing.Size(180, 23);
             this._loginButton.TabIndex = 2;
             this._loginButton.Text = "Login";
             this._loginButton.UseVisualStyleBackColor = true;
             // 
             // _guestButton
             // 
-            this._guestButton.Location = new System.Drawing.Point(301, 226);
+            this._guestButton.Location = new System.Drawing.Point(334, 297);
             this._guestButton.Name = "_guestButton";
-            this._guestButton.Size = new System.Drawing.Size(75, 23);
+            this._guestButton.Size = new System.Drawing.Size(75, 41);
             this._guestButton.TabIndex = 3;
             this._guestButton.Text = "Entra come ospite";
             this._guestButton.UseVisualStyleBackColor = true;
             // 
             // _customerButton
             // 
-            this._customerButton.Location = new System.Drawing.Point(196, 297);
+            this._customerButton.Location = new System.Drawing.Point(176, 297);
             this._customerButton.Name = "_customerButton";
-            this._customerButton.Size = new System.Drawing.Size(75, 41);
+            this._customerButton.Size = new System.Drawing.Size(71, 41);
             this._customerButton.TabIndex = 4;
             this._customerButton.Text = "Entra come cliente";
             this._customerButton.UseVisualStyleBackColor = true;
             // 
             // _staffButton
             // 
-            this._staffButton.Location = new System.Drawing.Point(301, 297);
+            this._staffButton.Location = new System.Drawing.Point(253, 297);
             this._staffButton.Name = "_staffButton";
             this._staffButton.Size = new System.Drawing.Size(75, 41);
             this._staffButton.TabIndex = 5;

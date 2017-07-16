@@ -166,7 +166,7 @@ namespace CSB_Project.src.presentation
             CreateButton("Visualizza servizi disponibili", SpawnServiceView);
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
-            CreateButton("Stampa resoconto", () => MessageBox.Show("Non implementato"));
+            CreateButton("Visualizza resoconto", () => MessageBox.Show("Non implementato"));
         }
 
         private void StaffInit()
@@ -177,11 +177,12 @@ namespace CSB_Project.src.presentation
             CreateButton("Compatibilità", () => MessageBox.Show("Non implementato"));
 
             CreateButton("Gestisci ombrelloni", SpawnBookableView);
-            CreateButton("Gestisci servizi disponibili", SpawnStaffServiceView);
+            CreateButton("Gestisci servizi disponibili", SpawnServiceView);
             CreateButton("Gestisci Bundle", SpawnBundleView);
             CreateButton("Gestisci Pacchetti", SpawnPacketView);
             CreateButton("Gestisci categorie sistema", SpawnCategoryView);
             CreateButton("Gestisci personale", () => MessageBox.Show("Non implementato") );
+            CreateButton("Stampa resoconto", () => MessageBox.Show("Non implementato"));
         }
 
         #region SpawnMethod
@@ -270,13 +271,6 @@ namespace CSB_Project.src.presentation
         }
 
         private void SpawnServiceView()
-        {
-            SelectionService serviceView = new SelectionService();
-            AddInformation(serviceView);
-            serviceView.Show();
-        }
-
-        private void SpawnStaffServiceView()
         {
             ServiceManagerView serviceView = new ServiceManagerView();
             AddInformation(serviceView);

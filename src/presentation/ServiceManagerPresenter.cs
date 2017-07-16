@@ -8,6 +8,7 @@ using CSB_Project.src.business;
 using CSB_Project.src.presentation.Utils;
 using CSB_Project.src.model.Utils;
 using System.Globalization;
+using CSB_Project.src.model.Users;
 
 namespace CSB_Project.src.presentation
 {
@@ -25,6 +26,12 @@ namespace CSB_Project.src.presentation
             coordinator = CoordinatorManager.Instance.CoordinatorOfType<IServiceCoordinator>();
             if (coordinator == null)
                 throw new InvalidOperationException("Il coordinatore dei servizi non è disponibile");
+
+            if (view.RetrieveTagInformation<AuthorizationLevel>("authorizationLevel") < AuthorizationLevel.BASIC_STAFF)
+            {
+                view.ActionPanel.Enabled = false;
+                view.ActionPanel.Visible = false;
+            }
 
             _services = coordinator.Services;
             coordinator.ServiceChanged += ServiceChangedHandler;

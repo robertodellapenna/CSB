@@ -33,8 +33,6 @@ namespace CSB_Project.src.presentation
         /// </summary>
         private void InitializeComponent()
         {
-            this.Width = 100;
-            this.Height = 50;
             this._listPanel = new System.Windows.Forms.Panel();
             this._listView = new System.Windows.Forms.ListView();
             this._actionPanel = new System.Windows.Forms.Panel();
@@ -58,7 +56,7 @@ namespace CSB_Project.src.presentation
             // 
             // _listView
             // 
-            this._listView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(255)))), ((int)(((byte)(249)))));
+            this._listView.BackColor = System.Drawing.Color.White;
             this._listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listView.FullRowSelect = true;
             this._listView.GridLines = true;
@@ -78,7 +76,7 @@ namespace CSB_Project.src.presentation
             // 
             // _actionPanel
             // 
-            this._actionPanel.BackColor = System.Drawing.SystemColors.Highlight;
+            this._actionPanel.BackColor = System.Drawing.Color.White;
             this._actionPanel.Controls.Add(this._deleteButton);
             this._actionPanel.Controls.Add(this._addButton);
             this._actionPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -87,9 +85,6 @@ namespace CSB_Project.src.presentation
             this._actionPanel.Name = "_actionPanel";
             this._actionPanel.Size = new System.Drawing.Size(303, 65);
             this._actionPanel.TabIndex = 1;
-            // 
-            // _modifyButton
-            // 
             // 
             // _deleteButton
             // 
