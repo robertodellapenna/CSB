@@ -136,6 +136,16 @@ namespace CSB_Project.src.model.Item
                 ? _compatibiltyMap[baseItem][associableItem] : 0;
         }
 
+        public void AddBaseItem(IItem baseItem)
+        {
+            #region Precondizioni
+            if (baseItem == null)
+                throw new ArgumentException("baseItem null");
+            #endregion
+            if (!_compatibiltyMap.ContainsKey(baseItem))
+                _compatibiltyMap.Add(baseItem, new Dictionary<IItem, int>());
+        }
+
         /// <summary>
         /// Aggiunge una comptabilità tra 'baseItem' e 'associableItem'
         /// </summary>

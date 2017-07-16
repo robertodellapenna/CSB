@@ -43,14 +43,13 @@ namespace CSB_Project.src.business
             /* Cerco un file di configurazione dei tracking devices nel fileSystem,
              * se lo trovo carico i tracking devices contenuti 
              */
-             
+
             /* Tracking Devices HardCoded */
-            ITrackingDevice trackingDevice = new MagneticCard(101);
-            AddTrackingDevice(trackingDevice);
-            trackingDevice = new MagneticCard(102);
-            AddTrackingDevice(trackingDevice);
-            trackingDevice = new SimpleCard(101);
-            AddTrackingDevice(trackingDevice);
+            for(int i=0; i<4; i++)
+            {
+                ITrackingDevice trackingDevice = new SimpleCard(i);
+                AddTrackingDevice(trackingDevice);
+            }
         }
 
         public void AddTrackingDevice(ITrackingDevice td)
