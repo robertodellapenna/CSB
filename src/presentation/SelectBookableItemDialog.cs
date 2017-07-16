@@ -135,7 +135,7 @@ namespace CSB_Project.src.presentation
         }
         public void SelectedRowHandler(Object obj, EventArgs e)
         {
-            LoadColumns(SelectedSector.Rows);
+            LoadColumns(SelectedSector.Columns);
         }
         public void SelectedColumnHandler(Object obj, EventArgs e)
         {
