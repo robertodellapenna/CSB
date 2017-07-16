@@ -65,25 +65,27 @@ namespace CSB_Project.src.presentation.Utils
         private void SelectionUsage_Load(object sender, EventArgs e)
         {
             _usageList.Items.Clear();
-            foreach (IUsage usage in _usages)
+            IEnumerable<IUsage> validUsage = new List<IUsage>();
+
+            // Da ogni prenotazione del cliente
+            foreach(IServizablePrenotation p in prenotationCoordinator.GetPrenotationByClient(Client))
+            // recupero tutte le card associate
+                foreach (ITrackingDevice td in p.TrackingDevices)
+                // per ogni servizio verifico se la carta corrisponde e se l'uso è stato durante la prenotazione
+                    validUsage = validUsage.Concat((from u in _usages where u.Who.Id == td.Id && p.PrenotationDate.Contains(u.When) select u).Distinct());
+
+            // inserisco tutti gli usi nella view
+            string[] array = new string[3];
+            ListViewItem items = null;
+            foreach (IUsage usage in validUsage)
             {
-                string[] array = new string[3];
-                ListViewItem items = null;
-                foreach (CustomizableServizablePrenotation prenotation in prenotationCoordinator.GetPrenotationByClient(Client, usage.When))
-                {
-                    foreach (ITrackingDevice device in prenotation.TrackingDevices) {
-                        if (usage.Who.Id == device.Id)
-                        {
-                            array[0] = usage.When.Day + "/" + usage.When.Month + "/" + usage.When.Year;
-                            array[1] = Client.FirstName + " " + Client.LastName;
-                            array[2] = usage.Type.Name;
-                            items = new ListViewItem(array);
-                        }
-                    }
-                }
-                if(items != null)
-                    _usageList.Items.Add(items);
+                array[0] = usage.When.Day + "/" + usage.When.Month + "/" + usage.When.Year;
+                array[1] = Client.FirstName + " " + Client.LastName;
+                array[2] = usage.Type.Name;
+                items = new ListViewItem(array);
+                _usageList.Items.Add(items);
             }
+
             _usageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             _usageList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 

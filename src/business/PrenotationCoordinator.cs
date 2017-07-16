@@ -17,7 +17,7 @@ namespace CSB_Project.src.business
     public interface IPrenotationCoordinator : ICoordinator
     {
         ReadOnlyCollection<IPrenotation> Prenotations { get; }
-        IEnumerable<CustomizableServizablePrenotation> GetPrenotationByClient(ICustomer client, DateTime date);
+        IEnumerable<ICustomizableServizablePrenotation> GetPrenotationByClient(ICustomer client);
         void AddPrenotation(ICustomizableServizablePrenotation prenotation);
         IEnumerable<Position> BusyPositions(Sector sector, DateRange rangeData);
         bool IsAvailable(Sector sector,Position position, DateRange rangeData);
@@ -110,19 +110,9 @@ namespace CSB_Project.src.business
             _prenotations.Add(myPrenotation2);
         }
 
-        public IEnumerable<CustomizableServizablePrenotation> GetPrenotationByClient(ICustomer client, DateTime date)
-        {
-            IList<CustomizableServizablePrenotation> result = new List<CustomizableServizablePrenotation>();
-            foreach (CustomizableServizablePrenotation prenotation in _prenotations)
-            {
-               
-                if (client.FiscalCode.Equals(prenotation.Client.FiscalCode) && prenotation.PrenotationDate.Contains(date))
-                    result.Add(prenotation);
-            }
-
-            return result;
-        }
-
+        public IEnumerable<ICustomizableServizablePrenotation> GetPrenotationByClient(ICustomer client)
+         => from p in _prenotations where p.Client.FiscalCode == client.FiscalCode select p;
+        
         public void AddPrenotation(ICustomizableServizablePrenotation prenotation)
         {
             #region Precondizioni
