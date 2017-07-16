@@ -148,7 +148,7 @@ namespace CSB_Project.src.presentation
 
         private void GuestInit()
         {
-            CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
+            CreateButton("Visualizza stato elementi prenotabili", SpawnBookableView);
             CreateButton("Visualizza servizi disponibili", SpawnServiceView);
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
@@ -162,7 +162,7 @@ namespace CSB_Project.src.presentation
             CreateButton("Visualizza servizi utilizzati", SpawnUsageView);
             CreateButton("Modifica prenotazione", () => MessageBox.Show("Non implementato"));
 
-            CreateButton("Visualizza stato ombrelloni", SpawnBookableView);
+            CreateButton("Visualizza stato elementi prenotabili", SpawnBookableView);
             CreateButton("Visualizza servizi disponibili", SpawnServiceView);
             CreateButton("Visualizza Bundle", SpawnBundleView);
             CreateButton("Visualizza Pacchetti", SpawnPacketView);
@@ -176,7 +176,7 @@ namespace CSB_Project.src.presentation
             CreateButton("Effettua nuova prenotazione", SpawnPrenotationCreator);
             CreateButton("Compatibilità", () => MessageBox.Show("Non implementato"));
 
-            CreateButton("Gestisci ombrelloni", SpawnBookableView);
+            CreateButton("Gestisci elementi prenotabili", SpawnBookableView);
             CreateButton("Gestisci servizi disponibili", SpawnServiceView);
             CreateButton("Gestisci Bundle", SpawnBundleView);
             CreateButton("Gestisci Pacchetti", SpawnPacketView);
@@ -186,8 +186,6 @@ namespace CSB_Project.src.presentation
         }
 
         #region SpawnMethod
-        
-
         private void SpawnPrenotationCreator()
         {
             PrenotationCreatorView prenotationCreatorView = new PrenotationCreatorView();

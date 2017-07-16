@@ -73,7 +73,7 @@ namespace CSB_Project.src.presentation.Utils
                     array[3] = packet.Availability.DateStart() + " - " + packet.Availability.DateEnd();
                     array[4] = packet.Usable.Name;
                     array[5] = "";
-                    array[6] = (packet as DateRangePacket).Range.DateStart() + " - " + (packet as DateRangePacket).Range.DateEnd();
+                    array[6] = (packet as DateRangePacket).Duration + "";
                     items = new ListViewItem(array);
                 }
                 if (packet is TicketPacket && Range != null && Range.OverlapWith(packet.Availability))

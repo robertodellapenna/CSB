@@ -10,7 +10,7 @@ using CSB_Project.src.presentation.Utils;
 
 namespace CSB_Project.src.presentation
 {
-    public partial class ItemPickerControl : UserControl
+    public partial class ItemPickerView : Form
     {
         public TextBox SearchBox => _searchBox;
         public ListView ItemListView => _itemsListView;
@@ -19,12 +19,12 @@ namespace CSB_Project.src.presentation
         public Button ResetButton => _resetButton;
         public Label Output => _generatedItem;
         
-        public ItemPickerControl() : this(null)
+        public ItemPickerView() : this(null)
         {
             
         }
 
-        public ItemPickerControl(Style style = null)
+        public ItemPickerView(Style style = null)
         {
             InitializeComponent();
             this.ApplyStyle(style);

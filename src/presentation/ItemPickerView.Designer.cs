@@ -1,6 +1,6 @@
 ﻿namespace CSB_Project.src.presentation
 {
-    partial class ItemPickerControl
+    partial class ItemPickerView
     {
         /// <summary> 
         /// Required designer variable.
@@ -102,10 +102,11 @@
             this._resetButton.Text = "RESET";
             this._resetButton.UseVisualStyleBackColor = false;
             // 
-            // ItemPickerControl
+            // ItemPickerView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(358, 325);
             this.Controls.Add(this._resetButton);
             this.Controls.Add(this._filterLabel);
             this.Controls.Add(this._associateItemButton);
@@ -113,8 +114,8 @@
             this.Controls.Add(this._baseItemButton);
             this.Controls.Add(this._itemsListView);
             this.Controls.Add(this._searchBox);
-            this.Name = "ItemPickerControl";
-            this.Size = new System.Drawing.Size(363, 319);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "ItemPickerView";
             this.Load += new System.EventHandler(this.ItemPickerControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

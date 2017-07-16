@@ -57,32 +57,35 @@ namespace CSB_Project.src.business
         {
             DateRange date1 = new DateRange(10);
             DateRange date2 = new DateRange(12);
-            IUsable service1 = new BasicService(new DatePriceDescriptor("servizio1", "servizio1", date1, 5.0));
-            IUsable service2 = new BasicService(new DatePriceDescriptor("servizio2", "servizio2", date2, 6.0));
-            IUsable service3 = new BasicService(new DatePriceDescriptor("servizio3", "servizio3", date2, 4.0));
+            IUsable service1 = new BasicService(new DatePriceDescriptor("Massaggio", "Massaggio sotto l'ombrellone", date1, 5.0));
+            IUsable service2 = new BasicService(new DatePriceDescriptor("Piscina termale 1h", "Accesso alla piscina termale per 1 ora", date2, 6.0));
+            IUsable service3 = new BasicService(new DatePriceDescriptor("Happy aperitivo", "Accesso alla zona happy aperitivo", date2, 4.0));
+            IUsable service4 = new BasicService(new DatePriceDescriptor("Doccia calda", "Accesso alla doccia calda", new DateRange(15), 0.5));
             _services.Add(service1);
             _services.Add(service2);
             _services.Add(service3);
-            IPacket packet1 = new TicketPacket((new DatePriceDescriptor("packet1", "packet1", date1, 12.0)), service2, 5);
-            IPacket packet2 = new TicketPacket((new DatePriceDescriptor("packet2", "packet2", date1, 15.0)), service3, 10);
-            IPacket packet3 = new DateRangePacket((new DatePriceDescriptor("packet2", "packet2", date1, 15.0)), service3, new DateRange(5));
+            _services.Add(service4);
+
+            IPacket packet1 = new TicketPacket((new DatePriceDescriptor("Piscina termale x10", "Ticket per l'accesso alla piscina termale", date1, 48.0)), service2, 10);
+            IPacket packet2 = new TicketPacket((new DatePriceDescriptor("Massaggio x3", "include 3 massaggi al prezzo di 2", date1, 10)), service1, 3);
+            IPacket packet3 = new DateRangePacket((new DatePriceDescriptor("Doccia calda", "accesso alla doccia calsa", date1, 5)), service4, 15);
             _packets.Add(packet1);
             _packets.Add(packet2);
             _packets.Add(packet3);
+
             ISet<IPacket> bundleSet = new HashSet<IPacket>();
-            bundleSet.Add(packet1);
             bundleSet.Add(packet2);
-            IBundle bundle1 = new Bundle(bundleSet, new DatePriceDescriptor("bundle1", "bundle1", date1, 23.0));
+            bundleSet.Add(packet3);
+
+            IBundle bundle1 = new Bundle(bundleSet, new DatePriceDescriptor("Welcome Pack", "Bundle di benvenuto ", date1, 12));
             _bundles.Add(bundle1);
             IUsage usage1 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(101), service1);
             IUsage usage2 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(101), service2);
             IUsage usage3 = new UsageService(new DateTime(2017, 7, 16), new MagneticCard(115), service3);
             IPrenotationCoordinator prenotationCoordinator = CoordinatorManager.Instance.CoordinatorOfType<IPrenotationCoordinator>();
-            //IUsage usage2 = new UsageService(new DateTime(2017, 7, 18), (prenotationCoordinator.Prenotations.ElementAt(0) as CustomizableServizablePrenotation).TrackingDevices.ElementAt(0), service1);
             _usages.Add(usage1);
             _usages.Add(usage2);
             _usages.Add(usage3);
-            //_usages.Add(usage2);
         }
         public void AddBundle(IBundle bundle)
         {
@@ -180,7 +183,6 @@ namespace CSB_Project.src.business
         {
             return _services.Where(service => service.Name.Equals(name));
         }
-
 
         #endregion
         #region Handler
